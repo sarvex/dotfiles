@@ -193,8 +193,13 @@ set autowriteall        " Automatically save before commands like :next and :mak
 set hidden              " enable multiple modified buffers
 set history=1000
 set autoread            " automatically read file that has been changed on disk and doesn't have changes in vim
+set guioptions-=m       " disable toolbar"
 set guioptions-=T       " disable toolbar"
 set completeopt=menuone,preview
+
+nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
+nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
+nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
 
 " search settings
 set incsearch           " Incremental search
@@ -205,7 +210,6 @@ set smartcase           " do not ignore if search pattern has CAPS
 set ofu=syntaxcomplete#Complete
 let g:rubycomplete_buffer_loading = 0
 let g:rubycomplete_classes_in_global = 1
-
 
 let g:Powerline_symbols = 'fancy'
 set t_Co=256
@@ -228,7 +232,6 @@ let g:syntastic_auto_loc_list=2
 let g:syntastic_check_on_wq=0
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
-
 
 " delimitMate
 let g:delimitMate_expand_space = 1 " Turns on/off the expansion of <Space>
@@ -372,3 +375,6 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 " vim-rspec
 map <Leader>r :call RunNearestSpec()<CR>
+
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p
