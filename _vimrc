@@ -378,3 +378,6 @@ map <Leader>r :call RunNearestSpec()<CR>
 
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
+
+set lines=40
+set columns=120
