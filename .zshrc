@@ -23,10 +23,10 @@ ZSH_THEME="random"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -53,6 +53,7 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin"
 export MANPATH="/usr/local/man:$MANPATH"
+fpath=(/usr/local/share/zsh-completions $fpath)
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -82,4 +83,5 @@ export HOMEBREW_GITHUB_API_TOKEN=ac53d9a40a814ec6cff19abddb964484a9c9ada5
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 alias iso="hdiutil makehybrid -iso -joliet -oew inf"
-fortune
+
+tput setaf 13;fortune;tput setaf default
