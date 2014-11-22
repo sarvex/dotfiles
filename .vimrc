@@ -163,30 +163,6 @@ Bundle 'jimenezrick/vimerl'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-set guifont=DejaVu_Sans_Mono_for_Powerline:h11
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set autoindent
-set smartindent
-set expandtab
-set laststatus=2
-set encoding=utf-8
-set number
-set nowritebackup
-set nobackup
-set noswapfile
-set numberwidth=3       " number of culumns for line numbers
-set textwidth=0         " Do not wrap words (insert)
-set nowrap              " Do not wrap words (view)
-set showcmd             " Show (partial) command in status line.
-set showmatch           " Show matching brackets.
-set ruler               " line and column number of the cursor position
-set wildmenu            " enhanced command completion
-set visualbell          " use visual bell instead of beeping
-set laststatus=2        " always show the status line
-set listchars=tab:▷⋅,trail:·
-set list
 hi SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
 set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
 set autowriteall        " Automatically save before commands like :next and :make
@@ -201,11 +177,9 @@ nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
 nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
 nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
 
-" search settings
-set incsearch           " Incremental search
-set hlsearch            " Highlight search match
-set ignorecase          " Do case insensitive matching
-set smartcase           " do not ignore if search pattern has CAPS
+let g:nerdtree_tabs_open_on_gui_startup = 0
+let g:nerdtree_tabs_open_on_console_startup = 0
+let g:nerdtree_tabs_no_startup_for_diff = 0
 
 set ofu=syntaxcomplete#Complete
 let g:rubycomplete_buffer_loading = 0
@@ -376,8 +350,36 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 " vim-rspec
 map <Leader>r :call RunNearestSpec()<CR>
 
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
+" autocmd VimEnter * NERDTree
+" autocmd VimEnter * wincmd p
 
 set lines=40
 set columns=120
+
+set guifont=DejaVu_Sans_Mono_for_Powerline:h11
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+set smartindent
+set expandtab
+set laststatus=2
+set encoding=utf-8
+set number
+set nowritebackup
+set nobackup
+set noswapfile
+set numberwidth=3       " number of culumns for line numbers
+set textwidth=0         " Do not wrap words (insert)
+set nowrap              " Do not wrap words (view)
+set showcmd             " Show (partial) command in status line.
+set showmatch           " Show matching brackets.
+set ruler               " line and column number of the cursor position
+set wildmenu            " enhanced command completion
+set visualbell          " use visual bell instead of beeping
+set laststatus=2        " always show the status line
+set listchars=tab:▷⋅,trail:·
+set list
+
+:NERDTreeTabsToggle
+
