@@ -14,16 +14,21 @@
 (global-whitespace-mode t)
 (setq ring-bell-function (lambda () (message "*beep*")))
 
+(custom-set-variables
+ '(custom-safe-themes
+   (quote
+    ("cdc7555f0b34ed32eb510be295b6b967526dd8060e5d04ff0dce719af789f8e5" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" default))))
+
+(sml/setup)
+(sml/apply-theme 'powerline)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:height 130 :family "Menlo"))))
  '(cursor ((t (:background "Red")))))
-
-(require 'smart-mode-line)
-(sml/setup)
-(sml/apply-theme 'powerline)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -32,9 +37,6 @@
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode t)
  '(cursor-type (quote bar))
- '(custom-safe-themes
-   (quote
-    ("cdc7555f0b34ed32eb510be295b6b967526dd8060e5d04ff0dce719af789f8e5" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" default)))
  '(elpy-rpc-backend "jedi")
  '(elpy-rpc-python-command "/usr/local/bin/python3")
  '(initial-frame-alist
@@ -110,9 +112,16 @@
      (:propertize " " face powerline-active1))))
  '(sml/pre-modes-separator (propertize " " (quote face) (quote sml/modes))))
 
+
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
 (setq py-python-command "/usr/local/bin/python3")
 (elpy-enable)
 
+(exec-path-from-shell-initialize)
+
+(setq load-path (cons "/usr/local/opt/erlang/lib/erlang/lib/tools-2.7/emacs" load-path))
+(setq erlang-root-dir "/usr/local/opt/erlang/lib/erlang/lib")
+(setq exec-path (cons "/usr/local/opt/erlang/lib/erlang/bin" exec-path))
+(require 'erlang-start)
