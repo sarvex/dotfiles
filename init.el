@@ -42,8 +42,8 @@
  '(initial-frame-alist
    (quote
     ((vertical-scroll-bars)
-     (width . 120)
-     (height . 40))))
+     (width . 80)
+     (height . 30))))
  '(make-backup-files nil)
  '(python-check-command "/usr/local/bin/pyflakes")
  '(python-shell-interpreter "/usr/local/bin/python3")

@@ -160,6 +160,15 @@ Bundle 'Shougo/unite-outline'
 Bundle 'ujihisa/unite-colorscheme'
 Bundle 'jimenezrick/vimerl'
 
+Bundle 'OmniCppComplete'
+Bundle 'c.vim'
+Bundle 'python.vim'
+Bundle 'SuperTab'
+Bundle 'a.vim'
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+Bundle 'pyflakes.vim'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -352,10 +361,19 @@ map <Leader>r :call RunNearestSpec()<CR>
 " Fast saving
 nmap <leader>w :w!<cr>
 
-set lines=40
-set columns=120
-
-set guifont=DejaVu_Sans_Mono_for_Powerline:h13
+set lines=30
+set columns=80
+set hlsearch
+set ignorecase
+set smartcase
+set autochdir
+set wrapscan
+set incsearch
+set magic
+set cursorline
+set splitright
+set foldmethod=syntax
+set guifont=Droid_Sans_Mono_for_Powerline:h11
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
