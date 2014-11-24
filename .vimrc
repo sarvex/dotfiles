@@ -364,6 +364,7 @@ nmap <leader>w :w!<cr>
 set lines=30
 set columns=80
 set hlsearch
+set incsearch
 set ignorecase
 set smartcase
 set autochdir
