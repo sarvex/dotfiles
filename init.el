@@ -14,21 +14,8 @@
 (global-whitespace-mode t)
 (setq ring-bell-function (lambda () (message "*beep*")))
 
-(custom-set-variables
- '(custom-safe-themes
-   (quote
-    ("cdc7555f0b34ed32eb510be295b6b967526dd8060e5d04ff0dce719af789f8e5" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" default))))
-
-(sml/setup)
-(sml/apply-theme 'powerline)
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:height 130 :family "Menlo"))))
- '(cursor ((t (:background "Red")))))
+(require 'powerline)
+(powerline-default-theme)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -39,79 +26,20 @@
  '(cursor-type (quote bar))
  '(elpy-rpc-backend "jedi")
  '(elpy-rpc-python-command "/usr/local/bin/python3")
- '(initial-frame-alist
-   (quote
-    ((vertical-scroll-bars)
-     (width . 80)
-     (height . 30))))
+ '(initial-frame-alist (quote ((vertical-scroll-bars) (width . 80) (height . 30))))
  '(make-backup-files nil)
  '(python-check-command "/usr/local/bin/pyflakes")
  '(python-shell-interpreter "/usr/local/bin/python3")
  '(require-final-newline t)
- '(sml/mode-width
-   (if
-       (eq powerline-default-separator
-           (quote arrow))
-       (quote right)
-     (quote full)))
- '(sml/pos-id-separator
-   (quote
-    (""
-     (:propertize " " face powerline-active1)
-     (:eval
-      (propertize " "
-                  (quote display)
-                  (funcall
-                   (intern
-                    (format "powerline-%s-%s" powerline-default-separator
-                            (car powerline-default-separator-dir)))
-                   (quote powerline-active1)
-                   (quote powerline-active2))))
-     (:propertize " " face powerline-active2))))
- '(sml/pos-minor-modes-separator
-   (quote
-    (""
-     (:propertize " " face powerline-active1)
-     (:eval
-      (propertize " "
-                  (quote display)
-                  (funcall
-                   (intern
-                    (format "powerline-%s-%s" powerline-default-separator
-                            (cdr powerline-default-separator-dir)))
-                   (quote powerline-active1)
-                   nil)))
-     (:propertize " " face sml/global))))
- '(sml/pre-id-separator
-   (quote
-    (""
-     (:propertize " " face sml/global)
-     (:eval
-      (propertize " "
-                  (quote display)
-                  (funcall
-                   (intern
-                    (format "powerline-%s-%s" powerline-default-separator
-                            (car powerline-default-separator-dir)))
-                   nil
-                   (quote powerline-active1))))
-     (:propertize " " face powerline-active1))))
- '(sml/pre-minor-modes-separator
-   (quote
-    (""
-     (:propertize " " face powerline-active2)
-     (:eval
-      (propertize " "
-                  (quote display)
-                  (funcall
-                   (intern
-                    (format "powerline-%s-%s" powerline-default-separator
-                            (cdr powerline-default-separator-dir)))
-                   (quote powerline-active2)
-                   (quote powerline-active1))))
-     (:propertize " " face powerline-active1))))
- '(sml/pre-modes-separator (propertize " " (quote face) (quote sml/modes))))
+ '(menu-bar-mode t)
+ '(delete-selection-mode t))
 
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
@@ -125,3 +53,6 @@
 (setq erlang-root-dir "/usr/local/opt/erlang/lib/erlang/lib")
 (setq exec-path (cons "/usr/local/opt/erlang/lib/erlang/bin" exec-path))
 (require 'erlang-start)
+
+(load-theme 'solarized-light t)
+
