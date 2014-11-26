@@ -24,15 +24,15 @@
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode t)
  '(cursor-type (quote bar))
+ '(delete-selection-mode t)
  '(elpy-rpc-backend "jedi")
  '(elpy-rpc-python-command "/usr/local/bin/python3")
  '(initial-frame-alist (quote ((vertical-scroll-bars) (width . 80) (height . 30))))
  '(make-backup-files nil)
+ '(menu-bar-mode t)
  '(python-check-command "/usr/local/bin/pyflakes")
  '(python-shell-interpreter "/usr/local/bin/python3")
- '(require-final-newline t)
- '(menu-bar-mode t)
- '(delete-selection-mode t))
+ '(require-final-newline t))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -54,5 +54,5 @@
 (setq exec-path (cons "/usr/local/opt/erlang/lib/erlang/bin" exec-path))
 (require 'erlang-start)
 
-(load-theme 'solarized-light t)
+(load-theme 'moe-light t)
 
