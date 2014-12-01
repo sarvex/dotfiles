@@ -41,21 +41,27 @@
  '(blink-cursor-mode t)
  '(cursor-type (quote bar))
  '(delete-selection-mode t)
+ '(ecb-options-version "2.40")
  '(elpy-rpc-backend "jedi")
  '(elpy-rpc-python-command "/usr/local/bin/python3")
- '(initial-frame-alist (quote ((vertical-scroll-bars) (width . 90) (height . 35))))
+ '(global-hl-line-mode t)
+ '(global-linum-mode t)
+ '(initial-frame-alist
+   (quote
+    ((vertical-scroll-bars)
+     (width . 90)
+     (height . 35)
+     m)))
  '(make-backup-files nil)
  '(menu-bar-mode t)
+ '(mouse-wheel-mode t)
+ '(put (quote narrow-to-region) t)
  '(python-check-command "/usr/local/bin/pyflakes")
  '(python-shell-interpreter "/usr/local/bin/python3")
  '(require-final-newline t)
- '(global-hl-line-mode t)
- '(speedbat t)
- '(global-linum-mode t)
  '(show-paren-mode t)
- '(windmove-default-keybindings)
- '(put 'narrow-to-region  'disabled nil)
- '(mouse-wheel-mode t))
+ '(speedbat t)
+ '(windmove-default-keybindings nil))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -77,5 +83,13 @@
 (setq exec-path (cons "/usr/local/opt/erlang/lib/erlang/bin" exec-path))
 (require 'erlang-start)
 
-(load-theme 'moe-light t)
+(load-theme 'moe-dark t)
+
+(require 'whitespace)
+(setq whitespace-line-column 120)
+(setq whitespace-style '(face lines-tail))
+(add-hook 'prog-mode-hook 'whitespace-mode)
+
+(setq inhibit-startup-screen t)
+(setq initial-scratch-message nil)
 
