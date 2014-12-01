@@ -60,5 +60,6 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="mate ~/.zshrc ~/.zshenv"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 alias iso="hdiutil makehybrid -iso -joliet -oew inf"
+alias homebrew="brew update && brew upgrade && brew cleanup && brew prune"
 
 tput setaf 13;fortune;tput setaf default
