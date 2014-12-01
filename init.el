@@ -1,6 +1,7 @@
 (require 'package)
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages") t)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 (package-initialize)
@@ -43,7 +44,7 @@
  '(delete-selection-mode t)
  '(elpy-rpc-backend "jedi")
  '(elpy-rpc-python-command "/usr/local/bin/python3")
- '(initial-frame-alist (quote ((vertical-scroll-bars) (width . 90) (height . 35))))
+ '(initial-frame-alist (quote ((vertical-scroll-bars) (width . 120) (height . 40))))
  '(make-backup-files nil)
  '(menu-bar-mode t)
  '(python-check-command "/usr/local/bin/pyflakes")
@@ -79,3 +80,13 @@
 
 (load-theme 'moe-light t)
 
+(define-key 'help-command (kbd "C-l") 'find-library)
+(define-key 'help-command (kbd "C-f") 'find-function)
+(define-key 'help-command (kbd "C-k") 'find-function-on-key)
+(define-key 'help-command (kbd "C-v") 'find-variable)
+
+;; Show the current function name in the header line
+(which-function-mode)
+(setq which-func-unknown "n/a")
+(setq-default header-line-format '((which-func-mode ("" which-func-format " "))))
+(setq mode-line-misc-info (assq-delete-all 'which-func-mode mode-line-misc-info))
