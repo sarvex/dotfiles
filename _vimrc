@@ -382,7 +382,7 @@ set cursorline
 set splitright
 set foldmethod=syntax
 set foldlevelstart=10
-set guifont=Droid_Sans_Mono_for_Powerline:h11
+set guifont=Dejavu_Sans_Mono_for_Powerline:h9
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
@@ -406,6 +406,4 @@ set visualbell          " use visual bell instead of beeping
 set laststatus=2        " always show the status line
 set listchars=tab:▷⋅,trail:·
 set list
-set magic 
-
-:NERDTreeToggle
+set magic
