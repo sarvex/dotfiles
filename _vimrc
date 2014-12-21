@@ -33,160 +33,152 @@ let path='~/vimfiles/bundle'
 call vundle#begin(path)
 
 " plugin management
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 " file tree
-Bundle 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'
 " file tree and tabs interaction
-Bundle 'jistr/vim-nerdtree-tabs'
+Plugin 'jistr/vim-nerdtree-tabs'
 " commenting
-Bundle 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdcommenter'
 " fuzzy file open
-Bundle 'kien/ctrlp.vim'
+Plugin 'kien/ctrlp.vim'
 " popup completion menu
-Bundle 'AutoComplPop'
+Plugin 'AutoComplPop'
 " tags list navigation
-Bundle 'taglist.vim'
+Plugin 'taglist.vim'
 " yank history
-Bundle 'YankRing.vim'
+Plugin 'YankRing.vim'
 " git integration
-Bundle 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 " syntax checking on save
-Bundle 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 " TextMate-style snippets
-Bundle 'msanders/snipmate.vim'
+Plugin 'msanders/snipmate.vim'
 " manipulation of surraunding parens, quotes, etc.
-Bundle 'tpope/vim-surround'
+Plugin 'tpope/vim-surround'
 " vertical alignment tool
-Bundle 'tsaleh/vim-align'
+Plugin 'tsaleh/vim-align'
 " 'ag' searching integration
-Bundle 'rking/ag.vim'
+Plugin 'rking/ag.vim'
 " text object based on indent level (ai, ii)
-Bundle 'austintaylor/vim-indentobject'
+Plugin 'austintaylor/vim-indentobject'
 " global search & replace
-Bundle 'greplace.vim'
+Plugin 'greplace.vim'
 " better looking statusline
-Bundle 'Lokaltog/powerline'
+Plugin 'Lokaltog/powerline'
 
 Plugin 'bling/vim-airline'
 " plugin for resolving three-way merge conflicts
-Bundle 'sjl/splice.vim'
+Plugin 'sjl/splice.vim'
 " plugin for visually displaying indent levels
-Bundle 'Indent-Guides'
+Plugin 'Indent-Guides'
 " end certain structures automatically, e.g. begin/end etc.
-Bundle 'tpope/vim-endwise'
+Plugin 'tpope/vim-endwise'
 " automatic closing of quotes, parenthesis, brackets, etc.
-Bundle 'Raimondi/delimitMate'
+Plugin 'Raimondi/delimitMate'
 " calendar, duh!
-Bundle 'calendar.vim--Matsumoto'
+Plugin 'calendar.vim--Matsumoto'
 " A Narrow Region Plugin (similar to Emacs)
-Bundle 'chrisbra/NrrwRgn'
+Plugin 'chrisbra/NrrwRgn'
 " url based hyperlinks for text files
-Bundle 'utl.vim'
+Plugin 'utl.vim'
 " A clone of Emacs' Org-mode for Vim
-Bundle 'hsitz/VimOrganizer'
+Plugin 'hsitz/VimOrganizer'
 " visual undo tree
-Bundle 'sjl/gundo.vim'
+Plugin 'sjl/gundo.vim'
 " switch segments of text with predefined replacements. e.g. '' -> ""
-Bundle 'AndrewRadev/switch.vim'
+Plugin 'AndrewRadev/switch.vim'
 " async external commands with output in vim
-Bundle 'tpope/vim-dispatch'
+Plugin 'tpope/vim-dispatch'
 " git diff in the gutter (sign column) and stages/reverts hunks
-Bundle 'airblade/vim-gitgutter'
+Plugin 'airblade/vim-gitgutter'
 
 " Ruby/Rails
 
 " rails support
-Bundle 'tpope/vim-rails'
+Plugin 'tpope/vim-rails'
 " bundler integration (e.g. :Bopen)
-Bundle 'tpope/vim-bundler'
+Plugin 'tpope/vim-bundler'
 " rake integration
-Bundle 'tpope/vim-rake'
+Plugin 'tpope/vim-rake'
 " A custom text object for selecting ruby blocks (ar/ir)
-Bundle 'nelstrom/vim-textobj-rubyblock'
+Plugin 'nelstrom/vim-textobj-rubyblock'
 " ruby refactoring
-Bundle 'ecomba/vim-ruby-refactoring'
+Plugin 'ecomba/vim-ruby-refactoring'
 " apidock.com docs integration
-Bundle 'apidock.vim'
+Plugin 'apidock.vim'
 " toggle ruby blocks style
-Bundle 'vim-scripts/blockle.vim'
+Plugin 'vim-scripts/blockle.vim'
 " lightweight Rspec runner for Vim
-Bundle 'josemarluedke/vim-rspec'
+Plugin 'josemarluedke/vim-rspec'
 
 " color themes
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'tpope/vim-vividchalk'
-Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tpope/vim-vividchalk'
+Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 
 " syntax support
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tsaleh/vim-tmux'
-Bundle 'Puppet-Syntax-Highlighting'
-Bundle 'JSON.vim'
-Bundle 'tpope/vim-cucumber'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-markdown'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'vitaly/vim-syntastic-coffee'
-Bundle 'vim-scripts/jade.vim'
-Bundle 'wavded/vim-stylus'
-Bundle 'VimClojure'
-Bundle 'slim-template/vim-slim'
-Bundle 'elixir-lang/vim-elixir'
-Bundle 'Blackrush/vim-gocode'
-Bundle 'ekalinin/Dockerfile.vim'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tsaleh/vim-tmux'
+Plugin 'Puppet-Syntax-Highlighting'
+Plugin 'JSON.vim'
+Plugin 'tpope/vim-cucumber'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-markdown'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'vitaly/vim-syntastic-coffee'
+Plugin 'vim-scripts/jade.vim'
+Plugin 'wavded/vim-stylus'
+Plugin 'VimClojure'
+Plugin 'slim-template/vim-slim'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'Blackrush/vim-gocode'
+Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'Buffergator'
 
 " Support and minor
 
 " Support for user-defined text objects
-Bundle 'kana/vim-textobj-user'
+Plugin 'kana/vim-textobj-user'
 " replacement for the repeat mapping (.) to support plugins
-Bundle 'tpope/vim-repeat'
+Plugin 'tpope/vim-repeat'
 " hide .gitignore-d files from vim
-Bundle 'vitaly/vim-gitignore'
+Plugin 'vitaly/vim-gitignore'
 " repeat motion with <Space>
-Bundle 'scrooloose/vim-space'
+Plugin 'scrooloose/vim-space'
 " Github's gist support
-Bundle 'mattn/gist-vim'
+Plugin 'mattn/gist-vim'
 " web APIs support
-Bundle 'mattn/webapi-vim'
+Plugin 'mattn/webapi-vim'
 
-"Bundle 'ShowMarks'
-"Bundle 'tpope/vim-unimpaired'
-"Bundle 'reinh/vim-makegreen'
+Plugin 'Shougo/vimproc'
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/unite-outline'
+Plugin 'ujihisa/unite-colorscheme'
+Plugin 'jimenezrick/vimerl'
 
-Bundle 'Shougo/vimproc'
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/unite-outline'
-Bundle 'ujihisa/unite-colorscheme'
+Plugin 'OmniCppComplete'
+Plugin 'c.vim'
+Plugin 'python.vim'
+Plugin 'SuperTab'
+Plugin 'a.vim'
+Plugin 'L9'
+Plugin 'FuzzyFinder'
+Plugin 'pyflakes.vim'
+Plugin 'airblade/vim-rooter'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'openssl.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'maksimr/vim-jsbeautify'
+Plugin 'majutsushi/tagbar'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'terryma/vim-multiple-cursors'
 
 call vundle#end()            " required
+
 filetype plugin indent on    " required
 
-set guifont=DejaVu_Sans_Mono_for_Powerline:h10
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set autoindent
-set smartindent
-set expandtab
-set laststatus=2
-set encoding=utf-8
-set number
-set nowritebackup
-set nobackup
-set noswapfile
-set numberwidth=3       " number of culumns for line numbers
-set textwidth=0         " Do not wrap words (insert)
-set nowrap              " Do not wrap words (view)
-set showcmd             " Show (partial) command in status line.
-set showmatch           " Show matching brackets.
-set ruler               " line and column number of the cursor position
-set wildmenu            " enhanced command completion
-set visualbell          " use visual bell instead of beeping
-set laststatus=2        " always show the status line
-set listchars=tab:▷⋅,trail:·
-set list
 hi SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
 set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
 set autowriteall        " Automatically save before commands like :next and :make
@@ -201,11 +193,9 @@ nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
 nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
 nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
 
-" search settings
-set incsearch           " Incremental search
-set hlsearch            " Highlight search match
-set ignorecase          " Do case insensitive matching
-set smartcase           " do not ignore if search pattern has CAPS
+let g:nerdtree_tabs_open_on_gui_startup = 0
+let g:nerdtree_tabs_open_on_console_startup = 0
+let g:nerdtree_tabs_no_startup_for_diff = 0
 
 set ofu=syntaxcomplete#Complete
 let g:rubycomplete_buffer_loading = 0
@@ -239,7 +229,7 @@ let g:delimitMate_expand_cr = 1    " Turns on/off the expansion of <CR>
 
 " nerdtree
 " Ctrl-P to Display the file browser tree
-nmap <C-P> :NERDTreeTabsToggle<CR>
+nmap <C-D> :NERDTreeTabsToggle<CR>
 " ,p to show current file in the tree
 nmap <leader>p :NERDTreeFind<CR>
 
@@ -375,9 +365,47 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 " vim-rspec
 map <Leader>r :call RunNearestSpec()<CR>
+" Fast saving
+nmap <leader>w :w!<cr>
 
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
+set lines=30
+set columns=80
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set autochdir
+set wrapscan
+set incsearch
+set magic
+set cursorline
+set splitright
+set foldmethod=syntax
+set foldlevelstart=10
+set guifont=Droid_Sans_Mono_for_Powerline:h11
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+set smartindent
+set expandtab
+set laststatus=2
+set encoding=utf-8
+set number
+set nowritebackup
+set nobackup
+set noswapfile
+set numberwidth=3       " number of culumns for line numbers
+set textwidth=0         " Do not wrap words (insert)
+set nowrap              " Do not wrap words (view)
+set showcmd             " Show (partial) command in status line.
+set showmatch           " Show matching brackets.
+set ruler               " line and column number of the cursor position
+set wildmenu            " enhanced command completion
+set visualbell          " use visual bell instead of beeping
+set laststatus=2        " always show the status line
+set listchars=tab:▷⋅,trail:·
+set list
+set magic 
 
-set lines=40
-set columns=120
+:NERDTreeToggle
