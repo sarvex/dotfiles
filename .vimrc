@@ -1,5 +1,7 @@
 set nocompatible
-set rtp+=~/.vim/bundle/Vundle.vim
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 
 " plugin management
@@ -87,6 +89,12 @@ Plugin 'josemarluedke/vim-rspec'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-vividchalk'
 Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+Plugin 'gaurdian.vim'
+Plugin 'Lokaltog/vim-distinguished'
+Plugin 'github.vim'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'twilight.vim'
+Plugin 'candy.vim'
 
 " syntax support
 Plugin 'vim-ruby/vim-ruby'
@@ -338,8 +346,6 @@ map <Leader>r :call RunNearestSpec()<CR>
 " Fast saving
 nmap <leader>w :w!<cr>
 
-set lines=30
-set columns=80
 set hlsearch
 set incsearch
 set ignorecase
@@ -352,7 +358,7 @@ set cursorline
 set splitright
 set foldmethod=syntax
 set foldlevelstart=10
-set guifont=Droid_Sans_Mono_for_Powerline:h11
+set guifont=Dejavu\ Sans\ Mono\ for\ Powerline\ 10
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
@@ -375,8 +381,8 @@ set wildmenu            " enhanced command completion
 set visualbell          " use visual bell instead of beeping
 set laststatus=2        " always show the status line
 set listchars=tab:▷⋅,trail:·
-set list
-set magic 
+set magic
+set clipboard=unnamedplus
 
-:NERDTreeToggle
-
+colors vividchalk
+filetype on
