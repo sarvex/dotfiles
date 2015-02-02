@@ -4,7 +4,7 @@
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
-(setq package-list '(starter-kit-bindings starter-kit starter-kit-eshell starter-kit-js starter-kit-lisp starter-kit-ruby golden-ratio elpy smart-mode-line moe-theme smart-mode-line-powerline-theme exec-path-from-shell ggtags edts))
+(setq package-list '(starter-kit-bindings starter-kit starter-kit-eshell starter-kit-js starter-kit-lisp starter-kit-ruby golden-ratio helm elpy smart-mode-line moe-theme smart-mode-line-powerline-theme exec-path-from-shell ggtags edts))
 
 ; fetch the list of packages available
 (unless package-archive-contents
@@ -22,7 +22,7 @@
 (setq default-buffer-file-coding-system 'utf-8-unix)
 (setq read-file-name-completion-ignore-case 't)
 
-(setq-default indent-tabs-mode nil)
+    (setq-default indent-tabs-mode nil)
 (setq-default indicate-empty-lines t)
 
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
@@ -42,32 +42,32 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode t)
- '(tab-width 4)
- '(sentence-end-double-space nil)
- '(truncate-partial-width-windows nil)
- '(next-line-add-newlines t)
- '(require-final-newline t)
  '(blink-matching-paren-distance nil)
- '(show-paren-style 'expression)
- '(disabled-command-hook nil)
- '(undo-limit 100000)
- '(default-major-mode 'text-mode)
- '(pop-up-frame t)
  '(cursor-type (quote bar))
+ '(default-major-mode (quote text-mode) t)
  '(delete-selection-mode t)
+ '(disabled-command-function nil t)
  '(ecb-options-version "2.40")
  '(elpy-rpc-backend "jedi")
  '(elpy-rpc-python-command "/usr/local/bin/python3")
  '(global-hl-line-mode t)
  '(global-linum-mode t)
+ '(jde-jdk-registry (quote (("1.8.0" . "/etc/alternatives/java_sdk"))))
  '(make-backup-files nil)
  '(mouse-wheel-mode t)
+ '(next-line-add-newlines t)
+ '(pop-up-frame t)
  '(put (quote narrow-to-region) t)
  '(python-check-command "/usr/local/bin/pyflakes")
  '(python-shell-interpreter "/usr/local/bin/python3")
  '(require-final-newline t)
+ '(sentence-end-double-space nil)
  '(show-paren-mode t)
+ '(show-paren-style (quote expression))
  '(speedbat t)
+ '(tab-width 4)
+ '(truncate-partial-width-windows nil)
+ '(undo-limit 100000)
  '(windmove-default-keybindings nil))
 
 (custom-set-faces
@@ -112,4 +112,31 @@
 (setq-default header-line-format '((which-func-mode ("" which-func-format " "))))
 (setq mode-line-misc-info (assq-delete-all 'which-func-mode mode-line-misc-info))
 
+(require 'helm)
+(require 'helm-config)
+
+;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+(global-set-key (kbd "C-c h") 'helm-command-prefix)
+(global-unset-key (kbd "C-x c"))
+
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+
+(when (executable-find "curl")
+  (setq helm-google-suggest-use-curl-p t))
+
+(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+      helm-ff-file-name-history-use-recentf t)
+
+(helm-mode 1)
+
+
+(add-to-list 'load-path "~/.emacs.d/jdee-2.4.1/lisp")
+(load "jde")
 
