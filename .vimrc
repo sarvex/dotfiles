@@ -89,11 +89,8 @@ Plugin 'josemarluedke/vim-rspec'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-vividchalk'
 Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
-Plugin 'gaurdian.vim'
 Plugin 'Lokaltog/vim-distinguished'
-Plugin 'github.vim'
 Plugin 'nanotech/jellybeans.vim'
-Plugin 'twilight.vim'
 Plugin 'candy.vim'
 
 " syntax support
@@ -114,7 +111,12 @@ Plugin 'elixir-lang/vim-elixir'
 Plugin 'Blackrush/vim-gocode'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'Buffergator'
-
+Plugin 'Vim-JDE'
+Plugin 'Guardian'
+Plugin 'github-theme'
+Plugin 'Solarized'
+Plugin 'UltiSnips'
+Plugin 'cscope.vim'
 " Support and minor
 
 " Support for user-defined text objects
@@ -378,11 +380,10 @@ set showcmd             " Show (partial) command in status line.
 set showmatch           " Show matching brackets.
 set ruler               " line and column number of the cursor position
 set wildmenu            " enhanced command completion
-set visualbell          " use visual bell instead of beeping
 set laststatus=2        " always show the status line
 set listchars=tab:▷⋅,trail:·
 set magic
 set clipboard=unnamedplus
 
-colors vividchalk
+colors Tomorrow-Night
 filetype on
