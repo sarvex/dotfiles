@@ -1,110 +1,131 @@
 (require 'package)
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages") t)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
-(setq package-list '(starter-kit-bindings starter-kit starter-kit-eshell starter-kit-js starter-kit-lisp starter-kit-ruby golden-ratio helm elpy smart-mode-line moe-theme smart-mode-line-powerline-theme exec-path-from-shell ggtags edts))
+(setq package-list '(starter-kit-bindings starter-kit starter-kit-eshell starter-kit-js starter-kit-lisp starter-kit-ruby ace-jump-mode golden-ratio smart-mode-line moe-theme flx-ido expand-region projectile rainbow-delimiters hackernews smart-mode-line-powerline-theme ggtags edts org))
 
-; fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
 
-; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
+
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;(byte-recompile-directory (expand-file-name "~/.emacs.d/elpa") 0)
+
+(require 'moe-theme)
+(require 'recentf)
+(require 'whitespace)
+(require 'powerline)
+(require 'golden-ratio)
+(require 'expand-region)
+(require 'ace-jump-mode)
+(require 'saveplace)
+(require 'rainbow-blocks)
+(require 'rainbow-delimiters)
+(require 'auto-complete)
+(require 'auto-complete-config)
+
+(when (window-system)
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1))
+
+(global-visual-line-mode t)
+(global-hl-line-mode t)
+;;(global-linum-mode t)
+(global-whitespace-mode t)
+(global-auto-complete-mode t)
+(delete-selection-mode t)
+(blink-cursor-mode t)
+(show-paren-mode t)
+(line-number-mode t)
+(column-number-mode t)
+(projectile-global-mode t)
+;(global-rainbow-delimiters-mode)
 
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-language-environment 'utf-8)
 (set-terminal-coding-system 'utf-8)
-(setq default-buffer-file-coding-system 'utf-8-unix)
-(setq read-file-name-completion-ignore-case 't)
 
-    (setq-default indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 (setq-default indicate-empty-lines t)
+(setq-default tab-width 4)
+(setq-default default-buffer-file-coding-system 'utf-8-unix)
+(setq-default cursor-type 'hollow)
+(setq-default save-place t)
+
+(setq projectile-require-project-root nil)
+(setq recentf-max-menu-items 25)
+(setq ac-auto-show-menu t)
+(setq ac-auto-start t)
+(setq ac-quick-help-delay 0.3)
+(setq ac-quick-help-height 30)
+(setq ac-show-menu-immediately-on-auto-complete t)
+
+(setq-default make-backup-file nil)
+(setq-default auto-save-default nil)
+(setq-default read-file-name-completion-ignore-case t)
+(setq-default ring-bell-function (lambda () (message "*beep*")))
+(setq-default blink-matching-paren-distance nil)
+(setq-default default-major-mode 'text-mode)
+(setq-default disabled-command-hook nil)
+(setq-default ecb-options-version "2.40")
+(setq-default mouse-wheel-mode t)
+(setq-default pop-up-frame t)
+(setq-default require-final-newline t)
+(setq-default sentence-end-double-space nil)
+(setq-default show-paren-style 'expression)
+(setq-default speedbat t)
+(setq-default truncate-partial-width-windows nil)
+(setq-default whitespace-line-column 120)
+(setq-default whitespace-style '(face lines-tail))
+(setq-default undo-limit 100000)
+(setq-default inhibit-startup-screen t)
+(setq-default initial-scratch-message nil)
+(setq-default windmove-default-keybindings nil)
+(setq-default ido-enable-flex-matching t)
+(setq-default ido-everywhere t)
+(setq-default ido-use-filename-at-point 'guess)
+(setq-default ido-create-new-buffer 'always)
+(setq-default ido-use-faces nil)
+
+;(setq langtool-language-tool-jar "~/langtool/languagetool-commandline.jar")
+
+(ac-config-default)
 
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'text-mode-hook 'org-mode)
+(add-hook 'prog-mode-hook 'whitespace-mode)
+;(add-hook 'prog-mode-hook 'rainbow-delimiter-mode)
+(add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'clojure-mode-hook 'rainbow-blocks-mode)
 
-(global-whitespace-mode t)
-(setq ring-bell-function (lambda () (message "*beep*")))
+(ido-mode t)
+(flx-ido-mode t)
+(recentf-mode t)
+(golden-ratio-mode t)
 
-(require 'powerline)
+(load-theme 'moe-dark t)
 (powerline-default-theme)
 
-(require 'golden-ratio)
-(golden-ratio-mode 1)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(blink-cursor-mode t)
- '(blink-matching-paren-distance nil)
- '(cursor-type (quote bar))
- '(default-major-mode (quote text-mode) t)
- '(delete-selection-mode t)
- '(disabled-command-function nil t)
- '(ecb-options-version "2.40")
- '(elpy-rpc-backend "jedi")
- '(elpy-rpc-python-command "/usr/local/bin/python3")
- '(global-hl-line-mode t)
- '(global-linum-mode t)
- '(jde-jdk-registry (quote (("1.8.0" . "/etc/alternatives/java_sdk"))))
- '(make-backup-files nil)
- '(mouse-wheel-mode t)
- '(next-line-add-newlines t)
- '(pop-up-frame t)
- '(put (quote narrow-to-region) t)
- '(python-check-command "/usr/local/bin/pyflakes")
- '(python-shell-interpreter "/usr/local/bin/python3")
- '(require-final-newline t)
- '(sentence-end-double-space nil)
- '(show-paren-mode t)
- '(show-paren-style (quote expression))
- '(speedbat t)
- '(tab-width 4)
- '(truncate-partial-width-windows nil)
- '(undo-limit 100000)
- '(windmove-default-keybindings nil))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-
-(setq py-python-command "/usr/local/bin/python3")
-(elpy-enable)
-
-(exec-path-from-shell-initialize)
-
-(setq load-path (cons "/usr/local/opt/erlang/lib/erlang/lib/tools-2.7/emacs" load-path))
-(setq erlang-root-dir "/usr/local/opt/erlang/lib/erlang/lib")
-(setq exec-path (cons "/usr/local/opt/erlang/lib/erlang/bin" exec-path))
-(require 'erlang-start)
-
-(require 'moe-theme)
-(load-theme 'moe-dark t)
-
-(require 'whitespace)
-(setq whitespace-line-column 120)
-(setq whitespace-style '(face lines-tail))
-(add-hook 'prog-mode-hook 'whitespace-mode)
-
-(setq inhibit-startup-screen t)
-(setq initial-scratch-message nil)
+(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+(global-set-key (kbd "RET") 'newline-and-indent)
+(global-set-key (kbd "C-=") 'er/expand-region)
+(global-set-key (kbd "C-c SPC") 'ace-jump-mode)
 
 (define-key 'help-command (kbd "C-l") 'find-library)
 (define-key 'help-command (kbd "C-f") 'find-function)
 (define-key 'help-command (kbd "C-k") 'find-function-on-key)
 (define-key 'help-command (kbd "C-v") 'find-variable)
+
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
 
 ;; Show the current function name in the header line
 (which-function-mode)
@@ -112,31 +133,13 @@
 (setq-default header-line-format '((which-func-mode ("" which-func-format " "))))
 (setq mode-line-misc-info (assq-delete-all 'which-func-mode mode-line-misc-info))
 
-(require 'helm)
-(require 'helm-config)
+;; (require 'ensime)
+;; (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
-;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-unset-key (kbd "C-x c"))
+;; (setq jde-help-remote-file-exists-function '("beanshell"))
+;; (add-to-list 'load-path "~/.emacs.d/jdee-2.4.1/lisp")
+;; (load "jde")
 
-(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
-(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
-
-(when (executable-find "curl")
-  (setq helm-google-suggest-use-curl-p t))
-
-(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-      helm-ff-file-name-history-use-recentf t)
-
-(helm-mode 1)
-
-
-(add-to-list 'load-path "~/.emacs.d/jdee-2.4.1/lisp")
-(load "jde")
-
+(if (eq system-type 'windows-nt) (set-frame-font "Consolas-10"))
+(if (eq system-type 'darwim) (set-frame-font "Consolas-10"))
+(if (eq system-type 'gnu/linux) (set-frame-font "Consolas-10"))
