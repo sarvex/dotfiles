@@ -1,9 +1,11 @@
 (require 'package)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+
 (package-initialize)
 
-(setq package-list '(starter-kit-bindings starter-kit starter-kit-eshell starter-kit-js starter-kit-lisp starter-kit-ruby ace-jump-mode golden-ratio smart-mode-line moe-theme flx-ido expand-region projectile rainbow-delimiters hackernews smart-mode-line-powerline-theme ggtags edts org))
+(setq package-list '(starter-kit-bindings starter-kit starter-kit-eshell starter-kit-js starter-kit-lisp starter-kit-ruby ace-jump-mode golden-ratio smart-mode-line moe-theme flx-ido expand-region projectile rainbow-blocks rainbow-delimiters rainbow-identifiers hackernews smart-mode-line-powerline-theme go-mode ggtags edts org))
 
 (unless package-archive-contents
   (package-refresh-contents))
@@ -28,6 +30,9 @@
 (require 'rainbow-delimiters)
 (require 'auto-complete)
 (require 'auto-complete-config)
+(require 'go-autocomplete)
+(require 'go-mode-autoloads)
+
 
 (when (window-system)
   (menu-bar-mode -1)
@@ -101,7 +106,7 @@
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'org-mode)
 (add-hook 'prog-mode-hook 'whitespace-mode)
-;(add-hook 'prog-mode-hook 'rainbow-delimiter-mode)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'clojure-mode-hook 'rainbow-blocks-mode)
@@ -143,3 +148,13 @@
 (if (eq system-type 'windows-nt) (set-frame-font "Consolas-10"))
 (if (eq system-type 'darwim) (set-frame-font "Consolas-10"))
 (if (eq system-type 'gnu/linux) (set-frame-font "Consolas-10"))
+
+
+;;; Go Programmming
+(defun go-mode-setup ()
+  (define-key (current-local-map) (kbd "C-c C-c") 'go-run)
+  (go-eldoc-setup)
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  (local-set-key (kbd "M-.") 'godef-jump))
+(add-hook 'go-mode-hook 'go-mode-setup)
