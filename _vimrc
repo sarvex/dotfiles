@@ -117,6 +117,9 @@ Plugin 'josemarluedke/vim-rspec'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-vividchalk'
 Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+Plugin 'Lokaltog/vim-distinguished'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'candy.vim'
 
 " syntax support
 Plugin 'vim-ruby/vim-ruby'
@@ -136,7 +139,11 @@ Plugin 'elixir-lang/vim-elixir'
 Plugin 'Blackrush/vim-gocode'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'Buffergator'
-
+Plugin 'Vim-JDE'
+Plugin 'Guardian'
+Plugin 'github-theme'
+Plugin 'Solarized'
+Plugin 'cscope.vim'
 " Support and minor
 
 " Support for user-defined text objects
@@ -368,8 +375,6 @@ map <Leader>r :call RunNearestSpec()<CR>
 " Fast saving
 nmap <leader>w :w!<cr>
 
-set lines=30
-set columns=80
 set hlsearch
 set incsearch
 set ignorecase
@@ -382,8 +387,7 @@ set cursorline
 set splitright
 set foldmethod=syntax
 set foldlevelstart=10
-set guifont=Dejavu_Sans_Mono_for_Powerline:h9
-set tabstop=4
+set guifont=Dejavu_Sans_Mono_for_Powerline:h8
 set shiftwidth=4
 set softtabstop=4
 set autoindent
@@ -402,8 +406,10 @@ set showcmd             " Show (partial) command in status line.
 set showmatch           " Show matching brackets.
 set ruler               " line and column number of the cursor position
 set wildmenu            " enhanced command completion
-set visualbell          " use visual bell instead of beeping
 set laststatus=2        " always show the status line
 set listchars=tab:▷⋅,trail:·
-set list
 set magic
+set clipboard=unnamedplus
+
+colors vividchalk
+filetype on

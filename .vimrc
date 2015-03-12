@@ -380,6 +380,7 @@ set showcmd             " Show (partial) command in status line.
 set showmatch           " Show matching brackets.
 set ruler               " line and column number of the cursor position
 set wildmenu            " enhanced command completion
+set visualbell
 set laststatus=2        " always show the status line
 set listchars=tab:▷⋅,trail:·
 set magic

@@ -5,7 +5,7 @@
 
 (package-initialize)
 
-(setq package-list '(starter-kit-bindings starter-kit starter-kit-eshell starter-kit-js starter-kit-lisp starter-kit-ruby ace-jump-mode golden-ratio smart-mode-line moe-theme flx-ido expand-region projectile rainbow-blocks rainbow-delimiters rainbow-identifiers hackernews smart-mode-line-powerline-theme go-mode ggtags edts org))
+(setq package-list '(starter-kit-bindings starter-kit starter-kit-eshell starter-kit-js starter-kit-lisp starter-kit-ruby ace-jump-mode golden-ratio smart-mode-line moe-theme flx-ido expand-region projectile rainbow-blocks rainbow-delimiters rainbow-identifiers hackernews smart-mode-line-powerline-theme go-mode ggtags edts org go-autocomplete))
 
 (unless package-archive-contents
   (package-refresh-contents))
