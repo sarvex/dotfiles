@@ -399,17 +399,18 @@ set number
 set nowritebackup
 set nobackup
 set noswapfile
-set numberwidth=3       " number of culumns for line numbers
-set textwidth=0         " Do not wrap words (insert)
-set nowrap              " Do not wrap words (view)
-set showcmd             " Show (partial) command in status line.
-set showmatch           " Show matching brackets.
-set ruler               " line and column number of the cursor position
-set wildmenu            " enhanced command completion
-set laststatus=2        " always show the status line
+set numberwidth=3       
+set textwidth=0        
+set nowrap              
+set showcmd   
+set showmatch           
+set ruler              
+set wildmenu          
+set laststatus=2     
 set listchars=tab:▷⋅,trail:·
 set magic
 set clipboard=unnamedplus
+set fileformat=unix
 
 colors vividchalk
 filetype on
