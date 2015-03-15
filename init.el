@@ -5,7 +5,7 @@
 
 (package-initialize)
 
-(setq package-list '(starter-kit-bindings starter-kit starter-kit-eshell starter-kit-js starter-kit-lisp starter-kit-ruby ace-jump-mode golden-ratio smart-mode-line moe-theme flx-ido expand-region projectile rainbow-blocks rainbow-delimiters rainbow-identifiers hackernews smart-mode-line-powerline-theme go-mode ggtags edts org go-autocomplete))
+(setq package-list '(ace-jump-mode golden-ratio moe-theme flx-ido expand-region projectile rainbow-blocks rainbow-delimiters rainbow-identifiers hackernews powerline go-mode ggtags edts org go-mode go-autocomplete))
 
 (unless package-archive-contents
   (package-refresh-contents))
@@ -33,9 +33,8 @@
 (require 'go-autocomplete)
 (require 'go-mode-autoloads)
 
-
 (when (window-system)
-  (menu-bar-mode -1)
+   (menu-bar-mode -1)
   (tool-bar-mode -1)
   (scroll-bar-mode -1))
 
@@ -57,13 +56,6 @@
 (set-language-environment 'utf-8)
 (set-terminal-coding-system 'utf-8)
 
-(setq-default indent-tabs-mode nil)
-(setq-default indicate-empty-lines t)
-(setq-default tab-width 4)
-(setq-default default-buffer-file-coding-system 'utf-8-unix)
-(setq-default cursor-type 'hollow)
-(setq-default save-place t)
-
 (setq projectile-require-project-root nil)
 (setq recentf-max-menu-items 25)
 (setq ac-auto-show-menu t)
@@ -72,6 +64,12 @@
 (setq ac-quick-help-height 30)
 (setq ac-show-menu-immediately-on-auto-complete t)
 
+(setq-default indent-tabs-mode nil)
+(setq-default indicate-empty-lines t)
+(setq-default tab-width 4)
+(setq-default default-buffer-file-coding-system 'utf-8-unix)
+(setq-default cursor-type 'hollow)
+(setq-default save-place t)
 (setq-default make-backup-file nil)
 (setq-default auto-save-default nil)
 (setq-default read-file-name-completion-ignore-case t)
@@ -119,7 +117,7 @@
 (load-theme 'moe-dark t)
 (powerline-default-theme)
 
-(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+(global-set-key (kbd "C-x C-r") 'recentf-open-files)
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "C-=") 'er/expand-region)
 (global-set-key (kbd "C-c SPC") 'ace-jump-mode)
@@ -134,7 +132,7 @@
 
 ;; Show the current function name in the header line
 (which-function-mode)
-(setq which-func-unknown "n/a")
+(setq which-func-unknown "UNDEF")
 (setq-default header-line-format '((which-func-mode ("" which-func-format " "))))
 (setq mode-line-misc-info (assq-delete-all 'which-func-mode mode-line-misc-info))
 
@@ -158,3 +156,5 @@
   (add-hook 'before-save-hook 'gofmt-before-save)
   (local-set-key (kbd "M-.") 'godef-jump))
 (add-hook 'go-mode-hook 'go-mode-setup)
+
+(fringe-mode 4)

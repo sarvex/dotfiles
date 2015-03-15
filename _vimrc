@@ -33,7 +33,7 @@ let path='~/vimfiles/bundle'
 call vundle#begin(path)
 
 " plugin management
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle'
 
 " file tree
 Plugin 'scrooloose/nerdtree'
@@ -181,6 +181,7 @@ Plugin 'maksimr/vim-jsbeautify'
 Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'OrangeT/vim-csharp.git'
 
 call vundle#end()            " required
 
@@ -379,7 +380,6 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
-set autochdir
 set wrapscan
 set incsearch
 set magic
