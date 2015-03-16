@@ -65,8 +65,6 @@ Plugin 'rking/ag.vim'
 Plugin 'austintaylor/vim-indentobject'
 " global search & replace
 Plugin 'greplace.vim'
-" better looking statusline
-Plugin 'Lokaltog/powerline'
 
 Plugin 'bling/vim-airline'
 " plugin for resolving three-way merge conflicts
@@ -182,20 +180,13 @@ Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'OrangeT/vim-csharp.git'
+Plugin 'mhinz/vim-signify'
 
 call vundle#end()            " required
 
 filetype plugin indent on    " required
 
 hi SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
-set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
-set autowriteall        " Automatically save before commands like :next and :make
-set hidden              " enable multiple modified buffers
-set history=1000
-set autoread            " automatically read file that has been changed on disk and doesn't have changes in vim
-set guioptions-=m       " disable toolbar"
-set guioptions-=T       " disable toolbar"
-set completeopt=menuone,preview
 
 nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
 nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
@@ -209,13 +200,9 @@ set ofu=syntaxcomplete#Complete
 let g:rubycomplete_buffer_loading = 0
 let g:rubycomplete_classes_in_global = 1
 
-let g:Powerline_symbols = 'fancy'
 set t_Co=256
-let g:Powerline_mode_V="V·LINE"
-let g:Powerline_mode_cv="V·BLOCK"
-let g:Powerline_mode_S="S·LINE"
-let g:Powerline_mode_cs="S·BLOCK"
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 
 " showmarks
 let g:showmarks_enable = 0 " disabled by default by populardemand ;)
@@ -376,6 +363,14 @@ map <Leader>r :call RunNearestSpec()<CR>
 " Fast saving
 nmap <leader>w :w!<cr>
 
+set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
+set autowriteall 
+set hidden      
+set history=1000
+set autoread   
+set guioptions-=m       
+set guioptions-=T      
+set completeopt=menuone,preview
 set hlsearch
 set incsearch
 set ignorecase
@@ -411,6 +406,7 @@ set listchars=tab:▷⋅,trail:·
 set magic
 set clipboard=unnamedplus
 set fileformat=unix
+set fileformats=unix,dos
 
 colors vividchalk
 filetype on
