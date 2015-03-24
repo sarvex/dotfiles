@@ -5,7 +5,7 @@ set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 
 " plugin management
-Plugin 'gmarik/Vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " file tree
 Plugin 'scrooloose/nerdtree'
