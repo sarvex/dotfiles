@@ -33,7 +33,7 @@ let path='~/vimfiles/bundle'
 call vundle#begin(path)
 
 " plugin management
-Plugin 'gmarik/Vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " file tree
 Plugin 'scrooloose/nerdtree'
