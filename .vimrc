@@ -1,11 +1,38 @@
 set nocompatible
-filetype off
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
 
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 
 " plugin management
-Plugin 'gmarik/Vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " file tree
 Plugin 'scrooloose/nerdtree'
@@ -37,6 +64,8 @@ Plugin 'rking/ag.vim'
 Plugin 'austintaylor/vim-indentobject'
 " global search & replace
 Plugin 'greplace.vim'
+" better looking statusline
+" Plugin 'Lokaltog/powerline'
 
 Plugin 'bling/vim-airline'
 " plugin for resolving three-way merge conflicts
@@ -159,6 +188,14 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 hi SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
+set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
+set autowriteall        " Automatically save before commands like :next and :make
+set hidden              " enable multiple modified buffers
+set history=1000
+set autoread            " automatically read file that has been changed on disk and doesn't have changes in vim
+set guioptions-=m       " disable toolbar"
+set guioptions-=T       " disable toolbar"
+set completeopt=menuone,preview
 
 nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
 nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
@@ -172,9 +209,15 @@ set ofu=syntaxcomplete#Complete
 let g:rubycomplete_buffer_loading = 0
 let g:rubycomplete_classes_in_global = 1
 
+" let g:Powerline_symbols = 'fancy'
 set t_Co=256
+" let g:Powerline_mode_V="V·LINE"
+" let g:Powerline_mode_cv="V·BLOCK"
+" let g:Powerline_mode_S="S·LINE"
+" let g:Powerline_mode_cs="S·BLOCK"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+
 
 " showmarks
 let g:showmarks_enable = 0 " disabled by default by populardemand ;)
@@ -335,14 +378,6 @@ map <Leader>r :call RunNearestSpec()<CR>
 " Fast saving
 nmap <leader>w :w!<cr>
 
-set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
-set autowriteall 
-set hidden      
-set history=1000
-set autoread   
-set guioptions-=m       
-set guioptions-=T      
-set completeopt=menuone,preview
 set hlsearch
 set incsearch
 set ignorecase
@@ -354,7 +389,7 @@ set cursorline
 set splitright
 set foldmethod=syntax
 set foldlevelstart=10
-set guifont=Dejavu\ Sans\ Mono\ for\ Powerline\ 10
+set guifont=Dejavu_Sans_Mono_for_Powerline:h8
 set shiftwidth=4
 set softtabstop=4
 set autoindent
@@ -366,19 +401,19 @@ set number
 set nowritebackup
 set nobackup
 set noswapfile
-set numberwidth=3       
-set textwidth=0        
-set nowrap              
-set showcmd   
-set showmatch           
-set ruler              
-set wildmenu          
-set laststatus=2     
+set numberwidth=3
+set textwidth=0
+set nowrap
+set showcmd
+set showmatch
+set ruler
+set wildmenu
+set laststatus=2
 set listchars=tab:▷⋅,trail:·
 set magic
 set clipboard=unnamedplus
 set fileformat=unix
 set fileformats=unix,dos
 
-colors vividchalk
+colors solarized
 filetype on
