@@ -30,8 +30,7 @@
 (setq user-full-name "Sarvex Jatasra")
 (setq user-mail-address "sarvex.jatasra@gmail.com")
 
-
-;;; Emacs Default Configuration
+;;; Code:
 (setq locale-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-language-environment 'utf-8)
@@ -42,63 +41,6 @@
 (prefer-coding-system 'utf-8)
 
 (fset 'yes-or-no-p 'y-or-n-p)
-
-;(global-visual-line-mode t)
-(global-prettify-symbols-mode t)
-(blink-cursor-mode t)
-(show-paren-mode t)
-(line-number-mode t)
-(column-number-mode t)
-(delete-selection-mode t)
-(transient-mark-mode t)
-
-(setq-default fill-column 120)
-(setq-default major-mode 'org-mode)
-
-(setq gc-cons-threshold 67108864)
-(setq stack-trace-on-error t)
-(fringe-mode 4)
-(setq message-log-max 10240)
-(setq load-prefer-newer t)
-(setq inhibit-default-init t)
-(setq inhibit-startup-screen t)
-(setq initial-scratch-message nil)
-(setq history-length 1024)
-(setq view-read-only t)
-(setq indent-tabs-mode nil)
-(setq tab-width 4)
-(setq tab-always-indent 'complete)
-(setq indicate-empty-lines t)
-(setq initial-major-mode 'org-mode)
-(setq require-final-newline t)
-(setq kill-ring-max 256)
-(setq save-interprogram-paste-before-kill t)
-(setq completion-cycle-threshold 5)
-(setq scroll-margin 0)
-(setq scroll-conservatively 1024)
-(setq scroll-error-top-bottom t)
-(setq mouse-wheel-progressive-speed nil); trackpad scrolling on OS
-(setq mouse-wheel-scroll-amount '(1))
-(setq ring-bell-function (lambda () (message "*beep*")))
-(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-(setq delete-by-moving-to-trash
-      (or (not (eq system-type 'darwin))
-      (fboundp 'system-move-file-to-trash)))
-
-(add-hook 'text-mode-hook #'auto-fill-mode)
-(add-hook 'before-save-hook 'whitespace-cleanup)
-
-(put 'narrow-to-region 'disabled nil)
-(put 'narrow-to-page 'disabled nil)
-(put 'narrow-to-defun 'disabled nil)
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-(put 'erase-buffer 'disabled nil)
-(put 'eval-expression 'disabled nil)
-(put 'set-goal-column 'disabled nil)
-
-;;; Code:
 
 ;;; Debugging
 (setq message-log-max 10240)
@@ -2202,3 +2144,64 @@ A pair of `(VERSION . SCALA-VERSION)'.")
 ;(diminish 'emacs-lisp-mode "ε")
 ;(diminish 'lisp-mode "λ")
 ;;; init.el ends here
+
+
+
+;;; Emacs Default Configuration
+
+
+;(global-visual-line-mode t)
+(global-prettify-symbols-mode t)
+(blink-cursor-mode t)
+(show-paren-mode t)
+(line-number-mode t)
+(column-number-mode t)
+(delete-selection-mode t)
+(transient-mark-mode t)
+
+(setq-default fill-column 120)
+(setq-default major-mode 'org-mode)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+
+(setq gc-cons-threshold 67108864)
+(setq stack-trace-on-error t)
+(fringe-mode 4)
+(setq message-log-max 10240)
+(setq load-prefer-newer t)
+(setq inhibit-default-init t)
+(setq inhibit-startup-screen t)
+(setq initial-scratch-message nil)
+(setq history-length 1024)
+(setq view-read-only t)
+(setq tab-width 4)
+(setq tab-always-indent 'complete)
+(setq indicate-empty-lines t)
+(setq initial-major-mode 'org-mode)
+(setq require-final-newline t)
+(setq kill-ring-max 256)
+(setq save-interprogram-paste-before-kill t)
+(setq completion-cycle-threshold 5)
+(setq scroll-margin 0)
+(setq scroll-conservatively 1024)
+(setq scroll-error-top-bottom t)
+(setq mouse-wheel-progressive-speed nil); trackpad scrolling on OS
+(setq mouse-wheel-scroll-amount '(1))
+(setq ring-bell-function (lambda () (message "*beep*")))
+(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+(setq delete-by-moving-to-trash
+      (or (not (eq system-type 'darwin))
+      (fboundp 'system-move-file-to-trash)))
+
+(add-hook 'text-mode-hook #'auto-fill-mode)
+(add-hook 'before-save-hook 'whitespace-cleanup)
+
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-defun 'disabled nil)
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'erase-buffer 'disabled nil)
+(put 'eval-expression 'disabled nil)
+(put 'set-goal-column 'disabled nil)
