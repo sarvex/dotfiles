@@ -65,8 +65,6 @@ Plugin 'austintaylor/vim-indentobject'
 " global search & replace
 Plugin 'greplace.vim'
 " better looking statusline
-" Plugin 'Lokaltog/powerline'
-
 Plugin 'bling/vim-airline'
 " plugin for resolving three-way merge conflicts
 Plugin 'sjl/splice.vim'
@@ -138,7 +136,6 @@ Plugin 'elixir-lang/vim-elixir'
 Plugin 'Blackrush/vim-gocode'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'Buffergator'
-Plugin 'Vim-JDE'
 Plugin 'Guardian'
 Plugin 'github-theme'
 Plugin 'Solarized'
@@ -389,7 +386,7 @@ set cursorline
 set splitright
 set foldmethod=syntax
 set foldlevelstart=10
-set guifont=Dejavu_Sans_Mono_for_Powerline:h8
+set guifont=Source_Code_Pro_for_Powerline:h13
 set shiftwidth=4
 set softtabstop=4
 set autoindent
@@ -416,4 +413,9 @@ set fileformat=unix
 set fileformats=unix,dos
 
 colors solarized
+set background=dark
 filetype on
+
+if has("gui_macvim")
+    set shell=/bin/bash\ -l
+endif
