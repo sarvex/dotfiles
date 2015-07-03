@@ -45,7 +45,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(archlinux atom brew brew-cask bundler cabal coffee colorize command-not-found common-aliases copydir copyfile cp dircycle dirhistory dirpersist django emacs emoji-clock encode64 extract gem git git-extras git-flow gitfast gnu-utils go golang gradle grails heroku history-substring-search jira jsontools jump knife last-working-dir lein lol mix mosh mvn node npmosx postgres python rails rake rebar redis-cli ruby safe-paste sbt scala scd ssh-agent sublime sudo svn terminalapp terminator textmate themes thor tmux tmuxinator torrent urltools vi-mode vim-interaction vundle xcode yii hum zsh-reload zsh-syntax-highlighting)
+plugins=(adb autojump autopep8 aws battery bower brew brew-cask bundler cabal cake coffee colored-man colorize command-not-found common-aliases copydir copyfile cp dircycle dirhistory dirpersist django docker emacs emoji-clock encode64 extract gem git git-extras git-flow git-hubflow git-prompt gitfast github gitignore glassfish gnu-utils go golang gradle grails grunt heroku history history-substring-search httpie jsontools jump last-working-dir lein lol mercurial meteor mix mosh node npm nvm osx pep8 postgres pyenv pylint python rails rake rebar redis-cli ruby rvm safe-paste sbt scala scd ssh-agent sublime sudo svn terminalapp terminator textmate themes thor urltools vagrant vi-mode vim-interaction virtualenv vundle web-search zsh-reload zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -59,8 +59,20 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 alias zshconfig="mate ~/.zshrc ~/.zshenv"
 alias ohmyzsh="mate ~/.oh-my-zsh"
-alias homebrew="brew update && brew upgrade && brew cleanup && brew prune"
+alias homebrew="brew update && brew upgrade --all && brew cleanup && brew prune"
 
 tput setaf 13;fortune;tput setaf default
 
 iso () {hdiutil makehybrid -iso -joliet -o $1".iso" $1}
+
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+# bind UP and DOWN arrow keys
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+
+# bind P and N for EMACS mode
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
