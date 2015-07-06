@@ -151,14 +151,14 @@
     "Tahoma" "Verdana" "Arial Unicode MS"
     "Arial"))
     (setq dynamic-fonts-preferred-proportional-point-size
-      (pcase system-type (`darwin 12) (`windows-nt 9)))
+      (pcase system-type (`darwin 13) (`windows-nt 9)))
     (setq dynamic-fonts-preferred-monospace-fonts
       '("Source Code Pro" "Anonymous Pro"
     "Inconsolata" "Consolas" "Fira Mono"
     "Menlo" "DejaVu Sans Mono"
     "Bitstream Vera Mono" "Courier New"))
     (setq dynamic-fonts-preferred-monospace-point-size
-      (pcase system-type (`darwin 12) (`windows-nt 9)))
+      (pcase system-type (`darwin 13) (`windows-nt 9)))
     (dynamic-fonts-setup)))
 
 (use-package
@@ -261,7 +261,7 @@
   (progn
     (defun my-update-cursor ()
       (setq cursor-type (if (or god-local-mode buffer-read-only)
-    'hbar 'box)))
+        'hbar 'box)))
     (add-hook 'god-mode-enabled-hook #'my-update-cursor)
     (add-hook 'god-mode-disabled-hook #'my-update-cursor)
     (define-key isearch-mode-map (kbd "<escape>") 'god-mode-isearch-activate)
@@ -283,33 +283,33 @@
   :config (hydra-add-font-lock)
   (global-set-key (kbd "C-x t")
       (defhydra
-    hydra-toggle
-    (:color teal)
-    "
+        hydra-toggle
+        (:color teal)
+        "
 _a_ abbrev-mode:      %`abbrev-mode
 _d_ debug-on-error    %`debug-on-error
 _f_ auto-fill-mode    %`auto-fill-function
 _t_ truncate-lines    %`truncate-lines
 
 "
-    ("a" abbrev-mode nil)
-    ("d" toggle-debug-on-error nil)
-    ("f" auto-fill-mode nil)
-    ("t" toggle-truncate-lines nil)
-    ("q" nil "cancel")))
+        ("a" abbrev-mode nil)
+        ("d" toggle-debug-on-error nil)
+        ("f" auto-fill-mode nil)
+        ("t" toggle-truncate-lines nil)
+        ("q" nil "cancel")))
   (key-chord-define-global "ds"
-       (defhydra
-     hydra-zoom
-     ()
-     "zoom"
-     ("j" text-scale-increase "in")
-     ("k" text-scale-decrease "out")
-     ("0" (text-scale-set 0) "reset")
-     ("1" (text-scale-set 0)
-      :bind nil)
-     ("2" (text-scale-set 0)
-      :bind nil
-      :color blue)))
+           (defhydra
+         hydra-zoom
+         ()
+         "zoom"
+         ("j" text-scale-increase "in")
+         ("k" text-scale-decrease "out")
+         ("0" (text-scale-set 0) "reset")
+         ("1" (text-scale-set 0)
+          :bind nil)
+         ("2" (text-scale-set 0)
+          :bind nil
+          :color blue)))
   (defhydra
     hydra-error
     (global-map "M-g")
@@ -321,9 +321,9 @@ _t_ truncate-lines    %`truncate-lines
     ("q" nil "quit"))
   (global-set-key (kbd "C-M-o")
       (defhydra
-    hydra-window
-    (:color amaranth)
-    "
+        hydra-window
+        (:color amaranth)
+        "
 Move Point^^^^   Move Splitter   ^Ace^                       ^Split^
 --------------------------------------------------------------------------------
 _w_, _<up>_      Shift + Move    _C-a_: ace-window           _2_: split-window-below
@@ -332,33 +332,33 @@ _s_, _<down>_                    _C-d_: ace-window-delete    ^ ^
 _d_, _<right>_                   ^   ^                       ^ ^
 You can use arrow-keys or WASD.
 "
-    ("2" split-window-below nil)
-    ("3" split-window-right nil)
-    ("a" windmove-left nil)
-    ("s" windmove-down nil)
-    ("w" windmove-up nil)
-    ("d" windmove-right nil)
-    ("A" hydra-move-splitter-left nil)
-    ("S" hydra-move-splitter-down nil)
-    ("W" hydra-move-splitter-up nil)
-    ("D" hydra-move-splitter-right nil)
-    ("<left>" windmove-left nil)
-    ("<down>" windmove-down nil)
-    ("<up>" windmove-up nil)
-    ("<right>" windmove-right nil)
-    ("<S-left>" hydra-move-splitter-left nil)
-    ("<S-down>" hydra-move-splitter-down nil)
-    ("<S-up>" hydra-move-splitter-up nil)
-    ("<S-right>" hydra-move-splitter-right nil)
-    ("C-a" ace-window nil)
-    ("u" hydra--universal-argument nil)
-    ("C-s" (lambda ()
-     (interactive)
-     (ace-window 4)) nil)
-    ("C-d" (lambda ()
-     (interactive)
-     (ace-window 16)) nil)
-    ("q" nil "quit")))
+        ("2" split-window-below nil)
+        ("3" split-window-right nil)
+        ("a" windmove-left nil)
+        ("s" windmove-down nil)
+        ("w" windmove-up nil)
+        ("d" windmove-right nil)
+        ("A" hydra-move-splitter-left nil)
+        ("S" hydra-move-splitter-down nil)
+        ("W" hydra-move-splitter-up nil)
+        ("D" hydra-move-splitter-right nil)
+        ("<left>" windmove-left nil)
+        ("<down>" windmove-down nil)
+        ("<up>" windmove-up nil)
+        ("<right>" windmove-right nil)
+        ("<S-left>" hydra-move-splitter-left nil)
+        ("<S-down>" hydra-move-splitter-down nil)
+        ("<S-up>" hydra-move-splitter-up nil)
+        ("<S-right>" hydra-move-splitter-right nil)
+        ("C-a" ace-window nil)
+        ("u" hydra--universal-argument nil)
+        ("C-s" (lambda ()
+         (interactive)
+         (ace-window 4)) nil)
+        ("C-d" (lambda ()
+         (interactive)
+         (ace-window 16)) nil)
+        ("q" nil "quit")))
   (defhydra
     hydra-org-template
     (:color blue
@@ -404,10 +404,10 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
     (insert str)
     (org-try-structure-completion))
   (with-eval-after-load "org" (define-key org-mode-map "<" (lambda ()
-         (interactive)
-         (if (looking-back "^")
-         (hydra-org-template/body)
-           (self-insert-command 1))))))
+                 (interactive)
+                 (if (looking-back "^")
+                 (hydra-org-template/body)
+                   (self-insert-command 1))))))
 
 
 ;;; The minibuffer
@@ -555,16 +555,16 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :defer t
   :init (global-git-gutter+-mode t)
   :config (progn (custom-set-variables '(git-gutter:update-interval 2))
-     (define-key git-gutter+-mode-map (kbd "C-x n") 'git-gutter+-next-hunk)
-     (define-key git-gutter+-mode-map (kbd "C-x p") 'git-gutter+-previous-hunk)
-     (define-key git-gutter+-mode-map (kbd "C-x v =") 'git-gutter+-show-hunk)
-     (define-key git-gutter+-mode-map (kbd "C-x r") 'git-gutter+-revert-hunks)
-     (define-key git-gutter+-mode-map (kbd "C-x t") 'git-gutter+-stage-hunks)
-     (define-key git-gutter+-mode-map (kbd "C-x c") 'git-gutter+-commit)
-     (define-key git-gutter+-mode-map (kbd "C-x C") 'git-gutter+-stage-and-commit)
-     (define-key git-gutter+-mode-map (kbd "C-x C-y")
-       'git-gutter+-stage-and-commit-whole-buffer)
-     (define-key git-gutter+-mode-map (kbd "C-x U") 'git-gutter+-unstage-whole-buffer))
+         (define-key git-gutter+-mode-map (kbd "C-x n") 'git-gutter+-next-hunk)
+         (define-key git-gutter+-mode-map (kbd "C-x p") 'git-gutter+-previous-hunk)
+         (define-key git-gutter+-mode-map (kbd "C-x v =") 'git-gutter+-show-hunk)
+         (define-key git-gutter+-mode-map (kbd "C-x r") 'git-gutter+-revert-hunks)
+         (define-key git-gutter+-mode-map (kbd "C-x t") 'git-gutter+-stage-hunks)
+         (define-key git-gutter+-mode-map (kbd "C-x c") 'git-gutter+-commit)
+         (define-key git-gutter+-mode-map (kbd "C-x C") 'git-gutter+-stage-and-commit)
+         (define-key git-gutter+-mode-map (kbd "C-x C-y")
+           'git-gutter+-stage-and-commit-whole-buffer)
+         (define-key git-gutter+-mode-map (kbd "C-x U") 'git-gutter+-unstage-whole-buffer))
   :diminish git-gutter+-mode)
 
 (use-package
@@ -580,8 +580,8 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
       auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
 (setq delete-by-moving-to-trash (or (not (eq system-type 'darwin)) ; Trash is well supported on other
-        ; systems
-        (fboundp 'system-move-file-to-trash)))
+            ; systems
+            (fboundp 'system-move-file-to-trash)))
 
 (use-package
   tramp                                 ; Access remote files
@@ -597,9 +597,9 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
       dired-listing-switches "-alhF" dired-ls-F-marks-symlinks t ; -F marks links with @
       dired-recursive-copies 'always)
     (when (or (memq system-type '(gnu gnu/linux))
-      (string= (file-name-nondirectory insert-directory-program) "gls"))
+          (string= (file-name-nondirectory insert-directory-program) "gls"))
       (setq dired-listing-switches (concat dired-listing-switches
-           " --group-directories-first -v")))))
+               " --group-directories-first -v")))))
 
 (use-package
   dired-x                               ; Additional tools for Dired
@@ -645,9 +645,9 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :bind ("C-x C-r" . ido-recentf-open)
   :config (setq recentf-max-saved-items 512 recentf-max-menu-items 64 recentf-auto-cleanup 300
     recentf-exclude (list "/\\.git/.*\\'" ; Git contents
-          "/elpa/.*\\'"   ; Package files
-          "/itsalltext/"  ; It's all text temp files
-          #'ignoramus-boring-p)))
+              "/elpa/.*\\'"   ; Package files
+              "/itsalltext/"  ; It's all text temp files
+              #'ignoramus-boring-p)))
 
 (use-package
   autorevert
@@ -736,8 +736,8 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
      ("C-c m C-s" . mc/mark-all-in-region))
   :config (setq mc/mode-line
     '(:propertize (:eval (concat " " (number-to-string (mc/num-cursors))))
-      face
-      font-lock-warning-face)))
+          face
+          font-lock-warning-face)))
 
 (use-package
   move-text
@@ -857,8 +857,8 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :config (setq ag-reuse-buffers t      ; Don't spam buffer list with ag buffers
     ag-highlight-search t   ; A little fanciness
     ag-project-root-function (lambda (d)
-           (let ((default-directory d))
-         (projectile-project-root)))))
+               (let ((default-directory d))
+             (projectile-project-root)))))
 
 (use-package
   wgrep                                 ; Edit grep/occur/ag results in-place
@@ -876,7 +876,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :config (progn
     (setq whitespace-action '(auto-cleanup))
     (setq whitespace-style '(face tab-mark empty trailing lines-tail space-before-tab
-          indentation empty space-after-tab))
+              indentation empty space-after-tab))
     (setq whitespace-line-column nil)
     (global-whitespace-mode t))
   :diminish global-whitespace-mode)
@@ -935,8 +935,8 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :disabled t
   :init (require 'rainbow-blocks)
   :config (dolist (hook '(eval-expression-minibuffer-setup-hook emacs-lisp-mode-hook
-        inferior-emacs-lisp-mode-hook
-        lisp-mode-hook clojure-mode-hook))
+                inferior-emacs-lisp-mode-hook
+                lisp-mode-hook clojure-mode-hook))
     (add-hook hook #'rainbow-blocks-mode))
   :diminish rainbow-blocks-mode)
 
@@ -956,13 +956,13 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   hippie-exp                            ; Powerful expansion and completion
   :bind (([remap dabbrev-expand] . hippie-expand))
   :config (setq hippie-expand-try-functions-list '(try-expand-dabbrev try-expand-dabbrev-all-buffers
-              try-expand-dabbrev-from-kill
-              try-complete-file-name-partially
-              try-complete-file-name
-              try-expand-all-abbrevs
-              try-expand-list
-              try-complete-lisp-symbol-partially
-              try-complete-lisp-symbol)))
+                      try-expand-dabbrev-from-kill
+                      try-complete-file-name-partially
+                      try-complete-file-name
+                      try-expand-all-abbrevs
+                      try-expand-list
+                      try-complete-lisp-symbol-partially
+                      try-complete-lisp-symbol)))
 
 ;;; Company Mode Auto Completions
 
@@ -1057,13 +1057,6 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :config (add-to-list 'company-backends 'company-go))
 
 (use-package
-  company-coq
-  :ensure t
-  :defer t
-  :init (require 'company-coq)
-  :config (add-to-list 'company-backends 'company-coq))
-
-(use-package
   company-dcd
   :ensure t
   :defer t
@@ -1091,26 +1084,6 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :init (require 'company-statistics)
   :config (add-to-list 'company-backends 'company-statistics))
 
-(use-package
-  company-web
-  :ensure t
-  :defer t
-  :init (require 'company-web)
-  :config (add-to-list 'company-backends 'company-web))
-
-(use-package
-  company-racer
-  :ensure t
-  :defer t
-  :init (require 'company-racer)
-  :config (add-to-list 'company-backends 'company-racer))
-
-(use-package
-  slime-company
-  :ensure t
-  :defer t
-  :config (slime-setup '(slime-company)))
-
 
 ;;; Spelling and syntax checking
 (use-package
@@ -1119,8 +1092,8 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :if (eq system-type 'darwin)
   :config (progn
     (setq ispell-program-name (if (eq system-type 'darwin)
-          (executable-find "aspell")
-        (executable-find "hunspell")))
+              (executable-find "aspell")
+            (executable-find "hunspell")))
     (setq ispell-dictionary "en_GB")
     (setq ispell-silently-savep t)
     (setq ispell-choices-win-default-height 5)
@@ -1150,7 +1123,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
      ("C-c T f" . flycheck-mode))
   :config (progn (global-flycheck-mode t)
      (set-face-attribute 'flycheck-error-list-checker-name nil
-         :inherit 'italic)
+             :inherit 'italic)
      (setq flycheck-completion-system 'ido)
      (setq flycheck-indication-mode 'left-fringe)
      (use-package
@@ -1181,7 +1154,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :init (dolist (hook '(markdown-mode-hook latex-mode-hook rst-mode-hook))
       (add-hook hook #'tildify-mode))
   :config (add-hook 'latex-mode-hook (lambda ()
-           (setq-local tildify-space-string "~"))))
+               (setq-local tildify-space-string "~"))))
 
 (use-package
   typo
@@ -1212,8 +1185,8 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
       TeX-electric-math '("\\(" "\\)") TeX-quote-after-quote t TeX-clean-confirm nil
       TeX-source-correlate-mode t TeX-source-correlate-method 'synctex)
     (setq-default TeX-master nil     ; Ask for the master file
-      TeX-engine 'luatex ; Use a modern engine
-      TeX-PDF-mode t)
+          TeX-engine 'luatex ; Use a modern engine
+          TeX-PDF-mode t)
     (setcar (cdr (assoc "Check" TeX-command-list)) "chktex -v6 %s")))
 
 (use-package
@@ -1241,7 +1214,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :config (font-lock-add-keywords
        'latex-mode
        `((,(rx "\\" symbol-start "fx" (1+ (or (syntax word)
-          (syntax symbol))) symbol-end) . font-lock-warning-face))))
+              (syntax symbol))) symbol-end) . font-lock-warning-face))))
 
 (use-package
   latex                                 ; LaTeX editing
@@ -1249,9 +1222,9 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :defer t
   :config (progn
     (setq TeX-outline-extra `((,(rx (0+ space) "\\section*{") 2)
-          (,(rx (0+ space) "\\subsection*{") 3)
-          (,(rx (0+ space) "\\subsubsection*{") 4)
-          (,(rx (0+ space) "\\minisec{") 5)) LaTeX-babel-hyphen nil)
+              (,(rx (0+ space) "\\subsection*{") 3)
+              (,(rx (0+ space) "\\subsubsection*{") 4)
+              (,(rx (0+ space) "\\minisec{") 5)) LaTeX-babel-hyphen nil)
     (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode))) ; Easy math input
 
 (use-package
@@ -1271,14 +1244,14 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   bibtex                                ; BibTeX editing
   :defer t
   :config (progn (add-hook 'bibtex-mode-hook (lambda ()
-           (run-hooks 'prog-mode-hook)))
+               (run-hooks 'prog-mode-hook)))
      (bibtex-set-dialect 'biblatex)))
 
 (defun my-reftex-find-ams-environment-caption (environment)
   "Find the caption of an AMS ENVIRONMENT."
   (let ((re (rx-to-string `(and "\\begin{"
-    ,environment
-    "}"))))
+        ,environment
+        "}"))))
     (re-search-backward re)
     (goto-char (match-end 0)))
   (if (not (looking-at (rx (zero-or-more space) "[")))
@@ -1298,54 +1271,54 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :init (add-hook 'LaTeX-mode-hook #'reftex-mode)
   :config (progn
     (setq reftex-plug-into-AUCTeX t reftex-insert-label-flags '(t t) reftex-label-alist '(("definition"
-               ?d
-               "def:"
-               "~\\ref{%s}"
-               my-reftex-find-ams-environment-caption
-               ("definition"
-                "def.")
-               -3)
-              ("theorem"
-               ?h
-               "thm:"
-               "~\\ref{%s}"
-               my-reftex-find-ams-environment-caption
-               ("theorem"
-                "th.")
-               -3)
-              ("example"
-               ?x
-               "ex:"
-               "~\\ref{%s}"
-               my-reftex-find-ams-environment-caption
-               ("example"
-                "ex")
-               -3)
-              ("algorithm"
-               ?a
-               "alg:"
-               "~\\ref{%s}"
-               "\\\\caption[[{]"
-               ("algorithm"
-                "alg")
-               -3)))
+                           ?d
+                           "def:"
+                           "~\\ref{%s}"
+                           my-reftex-find-ams-environment-caption
+                           ("definition"
+                            "def.")
+                           -3)
+                          ("theorem"
+                           ?h
+                           "thm:"
+                           "~\\ref{%s}"
+                           my-reftex-find-ams-environment-caption
+                           ("theorem"
+                            "th.")
+                           -3)
+                          ("example"
+                           ?x
+                           "ex:"
+                           "~\\ref{%s}"
+                           my-reftex-find-ams-environment-caption
+                           ("example"
+                            "ex")
+                           -3)
+                          ("algorithm"
+                           ?a
+                           "alg:"
+                           "~\\ref{%s}"
+                           "\\\\caption[[{]"
+                           ("algorithm"
+                            "alg")
+                           -3)))
     (unless (assq 'biblatex reftex-cite-format-builtin)
       (add-to-list 'reftex-cite-format-builtin '(biblatex "The biblatex package" ((?\C-m .
-             "\\cite[]{%l}")
-              (?t .
-              "\\textcite{%l}")
-              (?a .
-              "\\autocite[]{%l}")
-              (?p .
-              "\\parencite{%l}")
-              (?f .
-              "\\footcite[][]{%l}")
-              (?F .
-              "\\fullcite[]{%l}")
-              (?x .
-              "[]{%l}")
-              (?X .
-              "{%l}"))))
+                         "\\cite[]{%l}")
+                          (?t .
+                          "\\textcite{%l}")
+                          (?a .
+                          "\\autocite[]{%l}")
+                          (?p .
+                          "\\parencite{%l}")
+                          (?f .
+                          "\\footcite[][]{%l}")
+                          (?F .
+                          "\\fullcite[]{%l}")
+                          (?x .
+                          "[]{%l}")
+                          (?X .
+                          "{%l}"))))
       (setq reftex-cite-format 'biblatex)))
   :diminish reftex-mode)
 
@@ -1362,28 +1335,28 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
       esh-mode
       :defer t
       :config (progn
-    (defun eshell/cds ()
-      (eshell/cd (or (locate-dominating-file default-directory "src")
-         (locate-dominating-file default-directory ".git"))))
-    (defun eshell/clear ()
-      (interactive)
-      (let ((inhibit-read-only t))
-    (delete-region (point-min)
-           (point-max)))
-      (eshell-send-input))
-    (add-hook 'eshell-mode-hook (lambda ()
-          (bind-key "C-l" 'eshell/clear
-        eshell-mode-map)))))
+        (defun eshell/cds ()
+          (eshell/cd (or (locate-dominating-file default-directory "src")
+             (locate-dominating-file default-directory ".git"))))
+        (defun eshell/clear ()
+          (interactive)
+          (let ((inhibit-read-only t))
+        (delete-region (point-min)
+               (point-max)))
+          (eshell-send-input))
+        (add-hook 'eshell-mode-hook (lambda ()
+                  (bind-key "C-l" 'eshell/clear
+                eshell-mode-map)))))
     (use-package
       eshell-opt
       :config (use-package
-    eshell-prompt-extras
-    :ensure eshell-prompt-extras))
+        eshell-prompt-extras
+        :ensure eshell-prompt-extras))
     (use-package
       em-term
       :defer t
       :config (setq eshell-visual-commands (append '("tmux" "screen" "ssh")
-           eshell-visual-commands)))
+                   eshell-visual-commands)))
     (use-package
       em-hist
       :defer t
@@ -1411,13 +1384,13 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :mode ("/itsalltext/.*\\.md\\'" . gfm-mode)
   :config (progn (let ((stylesheet (expand-file-name (locate-user-emacs-file "etc/pandoc.css"))))
        (setq markdown-command (mapconcat #'shell-quote-argument `("pandoc" "--toc"
-              "--section-divs"
-              "--css" ,(concat
-            "file://"
-            stylesheet)
-              "--standalone" "-f"
-              "markdown" "-t"
-              "html5") " ")))
+                      "--section-divs"
+                      "--css" ,(concat
+                        "file://"
+                        stylesheet)
+                      "--standalone" "-f"
+                      "markdown" "-t"
+                      "html5") " ")))
      (add-hook 'gfm-mode-hook #'turn-off-auto-fill)
      (add-hook 'gfm-mode-hook #'visual-line-mode)
      (add-hook 'gfm-mode-hook #'my-whitespace-style-no-long-lines)
@@ -1430,7 +1403,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :ensure t
   :defer t
   :config (add-hook 'yaml-mode-hook (lambda ()
-          (run-hooks 'prog-mode-hook))))
+              (run-hooks 'prog-mode-hook))))
 
 (use-package
   graphviz-dot-mode                     ; Graphviz
@@ -1684,7 +1657,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :ensure t
   :defer t
   :init (with-eval-after-load 'lisp-mode (bind-key "C-c e" #'macrostep-expand emacs-lisp-mode-map)
-      (bind-key "C-c e" #'macrostep-expand lisp-interaction-mode-map)))
+          (bind-key "C-c e" #'macrostep-expand lisp-interaction-mode-map)))
 
 (use-package
   ielm
@@ -1704,8 +1677,8 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :ensure t
   :defer t
   :config (add-hook 'racket-mode-hook (lambda ()
-        (define-key racket-mode-map (kbd "C-c r") 'racket-run)
-        (define-key racket-mode-map (kbd "C-c t") 'racket-test))))
+            (define-key racket-mode-map (kbd "C-c r") 'racket-run)
+            (define-key racket-mode-map (kbd "C-c t") 'racket-test))))
 
 (use-package
   geiser
@@ -1753,8 +1726,19 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
      (add-hook 'cider-repl-mode-hook 'paredit-mode)
      (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
      (setq nrepl-log-messages t nrepl-hide-special-buffers t cider-repl-tab-command
-       #'indent-for-tab-command cider-prefer-local-resources t
-       cider-repl-pop-to-buffer-on-connect nil)))
+           #'indent-for-tab-command cider-prefer-local-resources t
+           cider-repl-pop-to-buffer-on-connect nil)))
+
+(use-package
+  cider-decompile
+  :ensure t
+  :defer t)
+
+(use-package
+  cider-eval-sexp-fu
+  :ensure t
+  :defer t
+  :init (require 'cider-eval-sexp-fu))
 
 (use-package
   clojure-mode
@@ -1813,11 +1797,11 @@ A pair of `(VERSION . SCALA-VERSION)'.")
   :defer t
   :config (progn (let ((filename (locate-user-emacs-file my-scalastyle-jar)))
        (unless (file-exists-p filename)
-     (message "Downloading scalastyle JAR")
-     (url-copy-file my-scalastyle-url filename))
+         (message "Downloading scalastyle JAR")
+         (url-copy-file my-scalastyle-url filename))
        (with-eval-after-load 'flycheck
-     (setq flycheck-scalastyle-jar (expand-file-name filename) flycheck-scalastylerc
-       "scalastyle-config.xml")))))
+         (setq flycheck-scalastyle-jar (expand-file-name filename) flycheck-scalastylerc
+           "scalastyle-config.xml")))))
 
 (use-package
   sbt-mode                              ; Scala build tool
@@ -1913,18 +1897,16 @@ A pair of `(VERSION . SCALA-VERSION)'.")
   :defer t
   :bind (("M-." . godef-jump)
      ("C-c C-c" . go-run))
-  :config
-  (progn
+  :config (progn
     (setq gofmt-command "goimports")
-    (setq intent-tabs-mode nil)
     (add-hook 'go-mode-hook (lambda ()
-          ((add-hook 'before-save-hook #'gofmt-before-save)
-           (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
-           (local-set-key (kbd "C-c i") 'go-goto-imports)
-           (local-set-key (kbd "M-.") 'godef-jump)
-           (if (not (string-match "go" compile-command))
-           (set (make-local-variable 'compile-command)
-        "go build -v && go test -v && go vet")))))))
+              ((add-hook 'before-save-hook #'gofmt-before-save)
+               (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
+               (local-set-key (kbd "C-c i") 'go-goto-imports)
+               (local-set-key (kbd "M-.") 'godef-jump)
+               (if (not (string-match "go" compile-command))
+               (set (make-local-variable 'compile-command)
+            "go build -v && go test -v && go vet")))))))
 
 (use-package
   go-eldoc
@@ -1939,6 +1921,8 @@ A pair of `(VERSION . SCALA-VERSION)'.")
   go-play
   :ensure t
   :defer t)
+
+
 
 (use-package
   go-snippets
@@ -2018,12 +2002,12 @@ A pair of `(VERSION . SCALA-VERSION)'.")
   :ensure t
   :defer t
   :init (require 'rust-mode)
-;  :config (progn
-;    (setq racer-rust-src-path "c:/Rust/rustc/src/")
-;    (setq racer-cmd "c:/Rust/racer/target/release/racer")
-;    (add-to-list 'load-path "c:/Rust/racer/editors")
-;    (eval-after-load "rust-mode" '(require 'racer)))
-    )
+  :config (progn
+            ;    (setq racer-rust-src-path "c:/Rust/rustc/src/")
+            ;    (setq racer-cmd "c:/Rust/racer/target/release/racer")
+            ;    (add-to-list 'load-path "c:/Rust/racer/editors")
+            ;    (eval-after-load "rust-mode" '(require 'racer))
+    ))
 
 (use-package
   flycheck-rust                         ; Flycheck setup for Rust
@@ -2044,11 +2028,11 @@ A pair of `(VERSION . SCALA-VERSION)'.")
  '(package-selected-packages (quote (exec-path-from-shell use-package))))
 
 (with-eval-after-load 'rust-mode (add-hook 'rust-mode-hook #'yas-minor-mode-on)
-      (add-hook 'rust-mode-hook (lambda ()
-          (setq compile-command (rust-compile-command
-             (rust-test-file-p
-              buffer-file-name)))))
-      (define-key rust-mode-map (kbd "C-c C-c") 'rust-compile-and-maybe-run))
+          (add-hook 'rust-mode-hook (lambda ()
+              (setq compile-command (rust-compile-command
+                     (rust-test-file-p
+                      buffer-file-name)))))
+          (define-key rust-mode-map (kbd "C-c C-c") 'rust-compile-and-maybe-run))
 
 (defun rust-test-file-p (filename)
   (string-match-p (rx not-newline word-boundary "test.rs" string-end) filename))
@@ -2057,11 +2041,11 @@ A pair of `(VERSION . SCALA-VERSION)'.")
     (&optional
      run)
   (when buffer-file-name (let* ((source-file (file-name-nondirectory buffer-file-name))
-    (executable (file-name-sans-extension source-file))
-    (cmd (format (if (rust-test-file-p source-file) "rustc --test %s"
-           "rustc %s") source-file)))
-       (if run (concat cmd (pcase system-type (`windows-nt " && ")
-          (_ " && ./")) executable) cmd))))
+        (executable (file-name-sans-extension source-file))
+        (cmd (format (if (rust-test-file-p source-file) "rustc --test %s"
+               "rustc %s") source-file)))
+           (if run (concat cmd (pcase system-type (`windows-nt " && ")
+                  (_ " && ./")) executable) cmd))))
 
 (defun rust-compile-and-maybe-run
     (&optional
@@ -2070,7 +2054,7 @@ A pair of `(VERSION . SCALA-VERSION)'.")
 is run with prefix argument - also execute resulting binary."
   (interactive "P")
   (let ((compile-command (rust-compile-command (or force-run
-           (rust-test-file-p buffer-file-name)))))
+               (rust-test-file-p buffer-file-name)))))
     (recompile)))
 
 ;;; .NET
@@ -2099,17 +2083,17 @@ is run with prefix argument - also execute resulting binary."
      (add-hook 'haskell-mode-hook #'haskell-decl-scan-mode) ; Scan and navigate
      (add-hook 'haskell-mode-hook #'haskell-auto-insert-module-template)
      (setq haskell-tags-on-save t haskell-process-suggest-remove-import-lines t
-       haskell-process-auto-import-loaded-modules t
-       haskell-process-use-presentation-mode t haskell-process-show-debug-tips nil
-       haskell-process-log t haskell-process-suggest-hoogle-imports nil
-       haskell-process-suggest-hayoo-imports t haskell-process-type 'cabal-repl)
+           haskell-process-auto-import-loaded-modules t
+           haskell-process-use-presentation-mode t haskell-process-show-debug-tips nil
+           haskell-process-log t haskell-process-suggest-hoogle-imports nil
+           haskell-process-suggest-hayoo-imports t haskell-process-type 'cabal-repl)
      (bind-keys :map haskell-mode-map ("C-c C-l" . haskell-process-load-or-reload)
-    ("C-c C-z" . haskell-interactive-switch)
-    ("C-c C-n C-t" . haskell-process-do-type)
-    ("C-c C-n C-i" . haskell-process-do-info)
-    ("C-c C-n C-c" . haskell-process-cabal-build)
-    ("C-c C-n c" . haskell-process-cabal)
-    ("SPC" . haskell-mode-contextual-space))
+        ("C-c C-z" . haskell-interactive-switch)
+        ("C-c C-n C-t" . haskell-process-do-type)
+        ("C-c C-n C-i" . haskell-process-do-info)
+        ("C-c C-n C-c" . haskell-process-cabal-build)
+        ("C-c C-n c" . haskell-process-cabal)
+        ("SPC" . haskell-mode-contextual-space))
      (bind-key "C-c h d" #'haskell-describe haskell-mode-map)
      (bind-key "C-c h h" #'haskell-hayoo haskell-mode-map)
      (bind-key "C-c h H" #'haskell-hoogle haskell-mode-map)
@@ -2134,7 +2118,7 @@ is run with prefix argument - also execute resulting binary."
      (autoload 'ghc-debug "ghc" nil t)
      (setq ghc-ghc-options '("-fno-warn-unused-do-bind"))
      (add-hook 'haskell-mode-hook (lambda ()
-        (ghc-init)))))
+            (ghc-init)))))
 
 (use-package
   shm
@@ -2202,7 +2186,9 @@ is run with prefix argument - also execute resulting binary."
   alchemist
   :ensure t
   :defer t
-  :config (setq alchemist-project-compile-when-needed t))
+  :config (setq alchemist-project-compile-when-needed t)
+  (setq alchemist-goto-erlang-source-dir "/path/to/erlang/source/")
+  (setq alchemist-goto-elixir-source-dir "/path/to/elixir/source/"))
 
 (use-package
   elixir-mode
@@ -2210,9 +2196,9 @@ is run with prefix argument - also execute resulting binary."
   :defer t
   :init (add-to-list 'auto-mode-alist '("\\.elixir2\\'" . elixir-mode))
   :config (add-hook 'elixir-mode-hook (lambda ()
-        (and (file-exists (buffer-file-name))
-         (file-exists (elixir-mode-compiled-file-name))
-         (elixir-cos-mode t)))))
+            (and (file-exists (buffer-file-name))
+             (file-exists (elixir-mode-compiled-file-name))
+             (elixir-cos-mode t)))))
 
 (use-package
   elixir-yasnippets
@@ -2298,7 +2284,7 @@ is run with prefix argument - also execute resulting binary."
   css-mode
   :defer t
   :config (progn (add-hook 'css-mode-hook (lambda ()
-        (run-hooks 'prog-mode-hook)))
+            (run-hooks 'prog-mode-hook)))
      (put 'css-indent-offset 'safe-local-variable #'integerp)))
 
 (use-package
@@ -2307,6 +2293,9 @@ is run with prefix argument - also execute resulting binary."
   :commands (turn-on-css-eldoc)
   :init (add-hook 'css-mode-hook #'turn-on-css-eldoc))
 
+(use-package
+  php-mode                              ; Because sometimes you have to
+  :ensure t)
 
 ;;; Misc programming languages
 (use-package
@@ -2351,12 +2340,11 @@ is run with prefix argument - also execute resulting binary."
   :defer t
   :config (with-eval-after-load 'flycheck (add-to-list 'flycheck-checkers 'swift)))
 
-;;; Proof General & CO
+;;; Proof General & Coq
 
 (use-package
   proof-site
-  ;;  :load-path "lisp/proof-general/generic"
-  :load-path "/usr/local/share/emacs/site-lisp/ProofGeneral/generic/proof-site.el")
+  :load-path "lisp/proof-general/generic")
 
 (defvar coq-one-command-per-line)
 (setq coq-one-command-per-line nil)
@@ -2365,7 +2353,7 @@ is run with prefix argument - also execute resulting binary."
   proof-script
   :defer t
   :config (add-hook 'proof-mode-hook (lambda ()
-           (run-hooks 'prog-mode-hook))))
+               (run-hooks 'prog-mode-hook))))
 
 (use-package
   isar                                  ; Isabelle syntax for PG
@@ -2391,24 +2379,43 @@ is run with prefix argument - also execute resulting binary."
      (add-hook 'dired-mode-hook #'diff-hl-dired-mode)))
 
 (use-package
+  git-commit-mode
+  :ensure t
+  :defer t)
+
+(use-package
   magit
   :ensure t
   :defer
   :bind (("C-c g"   . magit-status)
      ("C-c v g" . magit-blame-mode))
   :config (progn
-    (setq magit-save-some-buffers 'dontask magit-stage-all-confirm nil
-      magit-unstage-all-confirm nil magit-set-upstream-on-push t
-      magit-default-tracking-name-function 'magit-default-tracking-name-branch-only
-      magit-restore-window-configuration t magit-completing-read-function
-      #'magit-ido-completing-read)
-    (magit-auto-revert-mode))
+        (setq magit-save-some-buffers 'dontask magit-stage-all-confirm nil
+          magit-unstage-all-confirm nil magit-set-upstream-on-push t
+          magit-default-tracking-name-function 'magit-default-tracking-name-branch-only
+          magit-restore-window-configuration t magit-completing-read-function
+          #'magit-ido-completing-read)
+        (magit-auto-revert-mode))
   :diminish magit-auto-revert-mode)
 
 (use-package
-  git-commit-mode
+  magit-filenotify
   :ensure t
-  :defer t)
+  :defer t
+  :config (add-hook 'magit-status-mode-hook #'magit-filenotify-mode))
+
+(use-package
+  magit-find-file
+  :ensure t
+  :defer t
+  :init (require 'magit-find-file))
+
+(use-package
+  magit-gitflow
+  :ensure t
+  :defer t
+  :init (require 'magit-gitflow)
+  :config (add-hook 'magit-mode-hook #'turn-on-magit-gitflow))
 
 (use-package
   gitconfig-mode
@@ -2479,13 +2486,13 @@ is run with prefix argument - also execute resulting binary."
       (projectile-global-mode))
   :config (progn (run-with-idle-timer 10 nil #'projectile-cleanup-known-projects)
      (setq projectile-completion-system 'ido projectile-enable-caching t
-       projectile-require-project-root nil projectile-find-dir-includes-top-level t
-       projectile-mode-line
-       '(:propertize (:eval (concat " " (projectile-project-name)))
-         face
-         font-lock-constant-face))
+           projectile-require-project-root nil projectile-find-dir-includes-top-level t
+           projectile-mode-line
+           '(:propertize (:eval (concat " " (projectile-project-name)))
+             face
+             font-lock-constant-face))
      (def-projectile-commander-method ?a "Find ag on project." (call-interactively
-            'projectile-ag))
+                    'projectile-ag))
      (bind-key "s a" #'ag-project-regexp projectile-command-map)
      (bind-key "s A" #'ag-project projectile-command-map)
      (bind-key "s d" #'ag-project-dired-regexp projectile-command-map)
@@ -2558,7 +2565,7 @@ is run with prefix argument - also execute resulting binary."
        (add-hook 'text-mode-hook #'bug-reference-mode)))
 
 (use-package
-  paradox
+  paradox                               ; Better package menu
   :ensure t
   :bind (("C-c l p" . paradox-list-packages)
      ("C-c l P" . package-list-packages-no-fetch))
@@ -2580,17 +2587,17 @@ is run with prefix argument - also execute resulting binary."
   :bind (("C-c u i" . emacs-init-time)
      ("C-c u T" . display-time-world))
   :config (setq display-time-world-time-format "%H:%M %Z, %d. %b" display-time-world-list '(("Europe/Berlin"
-             "Berlin")
-            ("Europe/London"
-             "London")
-            ("Europe/Istanbul"
-             "Istanbul")
-            ("America/Winnipeg"
-             "Winnipeg (CA)")
-            ("America/New_York"
-             "New York (USA)")
-            ("Asia/Tokyo"
-             "Tokyo (JP)"))))
+                         "Berlin")
+                        ("Europe/London"
+                         "London")
+                        ("Europe/Istanbul"
+                         "Istanbul")
+                        ("America/Winnipeg"
+                         "Winnipeg (CA)")
+                        ("America/New_York"
+                         "New York (USA)")
+                        ("Asia/Tokyo"
+                         "Tokyo (JP)"))))
 
 (use-package
   sr-speedbar
@@ -2693,9 +2700,9 @@ is run with prefix argument - also execute resulting binary."
     (setq rcirc-default-full-name (format "%s (http://www.sarvex.com)" user-full-name)
       rcirc-default-nick "sarvex" rcirc-time-format "%Y-%m-%d %H:%M " rcirc-server-alist
       '(("chat.freenode.not" :port 7000
-     :user-name "sarvex"
-     :encryption tls
-     :channels ("#emacs" "#haskell" "#hakyll" "#zsh"))))
+         :user-name "sarvex"
+         :encryption tls
+         :channels ("#emacs" "#haskell" "#hakyll" "#zsh"))))
     (add-hook 'rcirc-mode-hook #'flyspell-mode)
     (rcirc-track-minor-mode)))
 
@@ -2707,30 +2714,30 @@ is run with prefix argument - also execute resulting binary."
   :config (progn
     (setq org-catch-invisible-edits 'smart)
     (setq org-structure-template-alist '(("s" "#+begin_src ?\n\n#+end_src"
-          "<src lang=\"?\">\n\n</src>")
-         ("e" "#+begin_example\n?\n#+end_example"
-          "<example>\n?\n</example>")
-         ("q" "#+begin_quote\n?\n#+end_quote"
-          "<quote>\n?\n</quote>")
-         ("v" "#+begin_verse\n?\n#+end_verse"
-          "<verse>\n?\n</verse>")
-         ("v" "#+begin_verbatim\n?\n#+end_verbatim"
-          "<verbatim>\n?\n</verbatim>")
-         ("c" "#+begin_center\n?\n#+end_center"
-          "<center>\n?\n</center>")
-         ("l" "#+begin_latex\n?\n#+end_latex"
-          "<literal style=\"latex\">\n?\n</literal>")
-         ("l" "#+latex: "
-          "<literal style=\"latex\">?</literal>")
-         ("h" "#+begin_html\n?\n#+end_html"
-          "<literal style=\"html\">\n?\n</literal>")
-         ("h" "#+html: "
-          "<literal style=\"html\">?</literal>")
-         ("a" "#+begin_ascii\n?\n#+end_ascii" "")
-         ("a" "#+ascii: " "")
-         ("i" "#+index: ?" "#+index: ?")
-         ("i" "#+include: %file ?"
-          "<include file=%file markup=\"?\">")))
+              "<src lang=\"?\">\n\n</src>")
+             ("e" "#+begin_example\n?\n#+end_example"
+              "<example>\n?\n</example>")
+             ("q" "#+begin_quote\n?\n#+end_quote"
+              "<quote>\n?\n</quote>")
+             ("v" "#+begin_verse\n?\n#+end_verse"
+              "<verse>\n?\n</verse>")
+             ("v" "#+begin_verbatim\n?\n#+end_verbatim"
+              "<verbatim>\n?\n</verbatim>")
+             ("c" "#+begin_center\n?\n#+end_center"
+              "<center>\n?\n</center>")
+             ("l" "#+begin_latex\n?\n#+end_latex"
+              "<literal style=\"latex\">\n?\n</literal>")
+             ("l" "#+latex: "
+              "<literal style=\"latex\">?</literal>")
+             ("h" "#+begin_html\n?\n#+end_html"
+              "<literal style=\"html\">\n?\n</literal>")
+             ("h" "#+html: "
+              "<literal style=\"html\">?</literal>")
+             ("a" "#+begin_ascii\n?\n#+end_ascii" "")
+             ("a" "#+ascii: " "")
+             ("i" "#+index: ?" "#+index: ?")
+             ("i" "#+include: %file ?"
+              "<include file=%file markup=\"?\">")))
     (add-hook 'prog-mode-hook 'turn-on-orgstruct)
     (defun orgstruct-lisps-turn-on ()
       (setq orgstruct-heading-prefix-regexp ";; "))
@@ -2739,20 +2746,20 @@ is run with prefix argument - also execute resulting binary."
       org-capture
       :bind ("C-c c" . org-capture)
       :config (progn
-    (setq org-reverse-note-order t org-capture-templates '(("d" "Dev dump" entry
-            (file
-             "~/org/dev.org")
-            "* %?\n  %i\n %a"
-            :kill-buffer  t)
-               ("j" "Journal" entry
-            (file
-             "~/org/journal.org")
-            "* %U\n %?i\n %a"
-            :kill-buffer t)))))
+        (setq org-reverse-note-order t org-capture-templates '(("d" "Dev dump" entry
+                    (file
+                     "~/org/dev.org")
+                    "* %?\n  %i\n %a"
+                    :kill-buffer  t)
+                       ("j" "Journal" entry
+                    (file
+                     "~/org/journal.org")
+                    "* %U\n %?i\n %a"
+                    :kill-buffer t)))))
     (use-package
       org-clock
       :config (setq org-clock-idle-time 15 org-clock-in-resume t org-clock-persist t
-    org-clock-persist-query-resume nil org-clock-clocked-in-display 'both))))
+        org-clock-persist-query-resume nil org-clock-clocked-in-display 'both))))
 
 ;;; Online Help
 (use-package
@@ -2785,6 +2792,8 @@ is run with prefix argument - also execute resulting binary."
   :bind (("C-c h d" . dash-at-point)
      ("C-c h D" . dash-at-point-with-docset)))
 
+(bind-key "C-c h b" #'describe-personal-keybindings)
+
 (use-package
   yasnippet
   :ensure t
@@ -2794,10 +2803,26 @@ is run with prefix argument - also execute resulting binary."
   :config (progn (yas-global-mode t)
      (setq-default yas-prompt-functions '(yas-ido-prompt))))
 
-(bind-key "C-c h b" #'describe-personal-keybindings)
+(use-package
+  2048-game
+  :ensure t
+  :defer t)
 
 (diminish 'auto-fill-function)
 (diminish 'abbrev-mode)
+
+            ;(add-hook 'emacs-lisp-mode-hook (lambda () (diminish 'emacs-lisp-mode "ε")))
+            ;(add-hook 'elisp-mode-hook (lambda () (diminish 'emacs-lisp-mode "ε")))
+            ;(add-hook 'inferior-emacs-lisp-mode-hook (lambda () (diminish 'inferior-emacs-lisp-mode "ε")))
+            ;(add-hook 'lisp-mode-hook (lambda () (diminish 'lisp-mode "λ")))
+
+;;; init.el ends here
+
+
+;;; Emacs Default Configuration
+
+
+            ;(global-visual-line-mode t)
 (global-prettify-symbols-mode t)
 (blink-cursor-mode t)
 (show-paren-mode t)
@@ -2810,7 +2835,7 @@ is run with prefix argument - also execute resulting binary."
 (setq-default fill-column 120)
 (setq-default major-mode 'org-mode)
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 2)
+(setq-default tab-width 4)
 (setq-default tab-always-indent 'complete)
 
 (setq gc-cons-threshold (* 128 1024 1024))
@@ -2833,16 +2858,15 @@ is run with prefix argument - also execute resulting binary."
 (setq scroll-error-top-bottom t)
 
 (setq ring-bell-function (lambda ()
-       (message "*beep*")))
+           (message "*beep*")))
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 (setq delete-by-moving-to-trash (or (not (eq system-type 'darwin))
-        (fboundp 'system-move-file-to-trash)))
+            (fboundp 'system-move-file-to-trash)))
 
 (add-hook 'text-mode-hook #'auto-fill-mode)
 (add-hook 'before-save-hook #'whitespace-cleanup)
 
-(setq magit-last-seen-setup-instructions "1.4.0")
 (put 'narrow-to-region 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
 (put 'narrow-to-defun 'disabled nil)
@@ -2918,6 +2942,16 @@ is run with prefix argument - also execute resulting binary."
     (fullframe monky-status monky-quit-window)
     (fullframe ibuffer ibuffer-quit)))
 
+(use-package
+  skeletor
+  :ensure t
+  :defer
+  :config (setq skeletor-scala-use-ensime t))
+
+(use-package
+  worf
+  :ensure t
+  :defer)
 
 (use-package
   popwin
@@ -2934,6 +2968,18 @@ is run with prefix argument - also execute resulting binary."
   (progn
     (setq auto-install-directory "~/.emacs.d/auto-install/")
     (add-to-list 'load-path (expand-file-name "~/elisp/auto-install"))))
+
+(use-package
+  sublimity
+  :ensure t
+  :defer t
+  :init (require 'sublimity)
+  :config
+  (progn
+    (sublimity-mode t)
+    (setq sublimity-map-fraction 0.3)
+    (setq sublimity-map-text-scale -7)
+    (setq sublimity-map-size 20)))
 
 (use-package
   neotree
@@ -3012,6 +3058,18 @@ is run with prefix argument - also execute resulting binary."
   :diminish gradle-mode)
 
 (use-package
+  groovy-mode
+  :ensure t
+  :defer t
+  :mode "\.groovy$"
+  :interpreter "groovy"
+  :init (require 'groovy-mode)
+  :config
+  (add-hook
+   'groovy-mode-hook
+   (lambda () (groovy-electric-mode))))
+
+(use-package
   grunt
   :ensure t
   :defer t)
@@ -3038,4 +3096,14 @@ is run with prefix argument - also execute resulting binary."
     (add-to-list
      'smart-compile-alist
      '(append ("\\.rs\\'" . "cargo run")
-      ("\\.toml\\'" . "cargo run")))))
+          ("\\.toml\\'" . "cargo run")))))
+
+(use-package
+  docker
+  :ensure t
+  :defer t)
+
+(use-package
+  vagrant
+  :ensure t
+  :defer t)
