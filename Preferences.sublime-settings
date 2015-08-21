@@ -1,0 +1,24 @@
+{
+	"color_scheme": "Packages/Theme - Solarized Flat/Solarized Flat.tmTheme",
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"theme": "Soda SolarizedDark.sublime-theme",
+    "show_line_endings": true,
+    "show_encoding": true,
+    "highlight_modified_tabs": true,
+    "auto_complete_cycle": true,
+    "auto_complete_with_fields": true,
+    "auto_complete_commit_on_tab": true,
+    "default_line_ending": "unix",
+    "ensure_newline_at_eof_on_save": true,
+    "trim_trailing_white_space_on_save": true,
+    "highlight_line": true,
+    "translate_tabs_to_spaces": true,
+    "tab_size": 2,
+    "rulers": [120],
+    "margin": 2,
+    "font_size": 9,
+    "font_face": "Source Code Pro",
+}
