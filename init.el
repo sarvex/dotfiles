@@ -103,8 +103,7 @@
 
 ;;; Requires
 
-(eval-when-compile
-  (require #'use-package))
+(eval-when-compile (require #'use-package))
 
 (require #'bind-key)
 (require #'diminish)
@@ -180,27 +179,6 @@
   :ensure diminish)
 
 (use-package
-  dynamic-fonts
-  :ensure t
-  :config
-  (progn
-    (setq dynamic-fonts-preferred-proportional-fonts
-      '("Fira Sans" "Helvetica" "Segoe UI"
-    "DejaVu Sans" "Bitstream Vera"
-    "Tahoma" "Verdana" "Arial Unicode MS"
-    "Arial"))
-    (setq dynamic-fonts-preferred-proportional-point-size
-      (pcase system-type (`darwin 13) (`windows-nt 9)))
-    (setq dynamic-fonts-preferred-monospace-fonts
-      '("Source Code Pro" "Anonymous Pro"
-    "Inconsolata" "Consolas" "Fira Mono"
-    "Menlo" "DejaVu Sans Mono"
-    "Bitstream Vera Mono" "Courier New"))
-    (setq dynamic-fonts-preferred-monospace-point-size
-      (pcase system-type (`darwin 13) (`windows-nt 9)))
-    (dynamic-fonts-setup)))
-
-(use-package
   unicode-fonts                         ; Map Unicode blocks to fonts
   :ensure t
   :disabled t
@@ -238,6 +216,33 @@
   :ensure zenburn-theme
   :defer t
   :init (load-theme 'zenburn 'no-confirm))
+
+(use-package
+  darcula-theme
+  :ensure t
+  :defer t
+  :config (require #'darcula-theme))
+
+(use-package
+  dynamic-fonts
+  :ensure t
+  :config
+  (progn
+    (setq dynamic-fonts-preferred-proportional-fonts
+      '("Fira Sans" "Helvetica" "Segoe UI"
+    "DejaVu Sans" "Bitstream Vera"
+    "Tahoma" "Verdana" "Arial Unicode MS"
+    "Arial"))
+    (setq dynamic-fonts-preferred-proportional-point-size
+      (pcase system-type (`darwin 13) (`windows-nt 9)))
+    (setq dynamic-fonts-preferred-monospace-fonts
+      '("Source Code Pro" "Anonymous Pro"
+    "Inconsolata" "Consolas" "Fira Mono"
+    "Menlo" "DejaVu Sans Mono"
+    "Bitstream Vera Mono" "Courier New"))
+    (setq dynamic-fonts-preferred-monospace-point-size
+      (pcase system-type (`darwin 13) (`windows-nt 9)))
+    (dynamic-fonts-setup)))
 
 
 ;;; The mode line
@@ -1001,9 +1006,12 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
 ;;; Lisp
 (use-package
   paredit
-  :config (dolist (hook '(eval-expression-minibuffer-setup-hook emacs-lisp-mode-hook
-    inferior-emacs-lisp-mode-hook
-    lisp-mode-hook clojure-mode-hook))
+  :config
+  (dolist(hook '(eval-expression-minibuffer-setup-hook
+                 emacs-lisp-mode-hook
+                 inferior-emacs-lisp-mode-hook
+                 lisp-mode-hook
+                 clojure-mode-hook))
     (add-hook hook #'paredit-mode))
   :init (require 'paredit))
 
@@ -1016,6 +1024,19 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   paredit-menu
   :init (require 'paredit)
   :config (require 'paredit-menu))
+
+(use-package
+  adjust-parens
+  :ensure t
+  :defer t
+  :init (require #'adjust-parens)
+  :config
+  (dolist (hook '(eval-expression-minibuffer-setup-hook
+                  emacs-lisp-mode-hook
+                  inferior-emacs-lisp-mode-hook
+                  lisp-mode-hook
+                  clojure-mode-hook))
+    (add-hook hook #'adjust-parens-mode)))
 
 
 ;;; Skeletons, completion and expansion
@@ -1153,7 +1174,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :defer t
   :init (require #'company-statistics)
   :config (add-to-list 'company-backends 'company-statistics))
-  
+
 (use-package
   company-web
   :ensure t
@@ -1693,7 +1714,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
 ;;; Generic Lisp
 
 (use-package
-  paredit                               ; Balanced sexp editing
+  paredit
   :ensure t
   :defer t
   :init
@@ -1883,9 +1904,14 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :ensure t
   :defer t
   :config (flycheck-clojure-setup))
+
+(use-package
+  4clojure
+  :ensure t
+  :defer t)
 
 ;;; Scala
-(defconst my-scalastyle-version '("0.6.0" . "2.10")
+(defconst my-scalastyle-version '("0.8.0" . "2.11")
   "Version of scala style to use for Flycheck.
 
 A pair of `(VERSION . SCALA-VERSION)'.")
