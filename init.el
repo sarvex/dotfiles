@@ -21,7 +21,7 @@
 ;; You should have received a copy of the GNU General Public License along with
 ;; GNU Emacs; see the file COPYING.  If not, write to the Free Software
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
-;; USA.≈
+;; USA.
 
 ;;; Commentary:
 ;(byte-recompile-directory (expand-file-name "~/.emacs.d/elpa") 0)
@@ -42,9 +42,49 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;;; Debugging
 (setq message-log-max 102400)
 (setq stack-trace-on-error t)
+
+;(global-visual-line-mode t)
+(global-prettify-symbols-mode t)
+(blink-cursor-mode t)
+(show-paren-mode t)
+(line-number-mode t)
+(column-number-mode t)
+(delete-selection-mode t)
+(transient-mark-mode t)
+(electric-pair-mode t)
+
+(setq-default fill-column 120)
+(setq-default major-mode 'org-mode)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 2)
+(setq-default tab-always-indent 'complete)
+
+(setq gc-cons-threshold (* 128 1024 1024))
+(setq message-log-max 10240)
+(setq load-prefer-newer t)
+(setq inhibit-default-init t)
+(setq inhibit-startup-screen t)
+(setq initial-scratch-message nil)
+(setq history-length 1024)
+(setq view-read-only t)
+
+(setq indicate-empty-lines t)
+(setq initial-major-mode 'org-mode)
+(setq require-final-newline t)
+(setq kill-ring-max 256)
+(setq save-interprogram-paste-before-kill t)
+(setq completion-cycle-threshold 5)
+(setq scroll-margin 0)
+(setq scroll-conservatively 1024)
+(setq scroll-error-top-bottom t)
+
+(setq ring-bell-function (lambda () (message "*beep*")))
+(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+(setq delete-by-moving-to-trash (or (not (eq system-type 'darwin)) (fboundp 'system-move-file-to-trash)))
+
 
 
 ;;; Package management
@@ -53,7 +93,6 @@
 (require #'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-(add-to-list 'package-archives '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
@@ -404,10 +443,10 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
     (insert str)
     (org-try-structure-completion))
   (with-eval-after-load "org" (define-key org-mode-map "<" (lambda ()
-         (interactive)
-         (if (looking-back "^")
-         (hydra-org-template/body)
-           (self-insert-command 1))))))
+   (interactive)
+   (if (looking-back "^")
+   (hydra-org-template/body)
+     (self-insert-command 1))))))
 
 
 ;;; The minibuffer
@@ -454,6 +493,21 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :init (require #'ido-complete-space-or-hyphen))
 
 (use-package
+  ido-clever-match
+  :ensure t
+  :defer t)
+
+(use-package
+  ido-describe-bindings
+  :ensure t
+  :defer t)
+
+(use-package
+  ido-exit-target
+  :ensure t
+  :defer t)
+
+(use-package
   flx-ido
   :ensure t
   :init (flx-ido-mode))
@@ -470,7 +524,12 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   smex
   :ensure t
   :bind (([remap execute-extended-command] . smex)
-     ("M-X" . smex-major-mode-commands)))
+         ("M-X" . smex-major-mode-commands)))
+
+(use-package
+  diffview
+  :ensure t
+  :defer t)
 
 ;;; Buffer, Windows and Frames
 
@@ -580,8 +639,8 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
       auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
 (setq delete-by-moving-to-trash (or (not (eq system-type 'darwin)) ; Trash is well supported on other
-        ; systems
-        (fboundp 'system-move-file-to-trash)))
+  ; systems
+  (fboundp 'system-move-file-to-trash)))
 
 (use-package
   tramp                                 ; Access remote files
@@ -599,7 +658,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
     (when (or (memq system-type '(gnu gnu/linux))
       (string= (file-name-nondirectory insert-directory-program) "gls"))
       (setq dired-listing-switches (concat dired-listing-switches
-           " --group-directories-first -v")))))
+     " --group-directories-first -v")))))
 
 (use-package
   dired-x                               ; Additional tools for Dired
@@ -644,10 +703,8 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :init (recentf-mode t)
   :bind ("C-x C-r" . ido-recentf-open)
   :config (setq recentf-max-saved-items 512 recentf-max-menu-items 64 recentf-auto-cleanup 300
-    recentf-exclude (list "/\\.git/.*\\'" ; Git contents
-          "/elpa/.*\\'"   ; Package files
-          "/itsalltext/"  ; It's all text temp files
-          #'ignoramus-boring-p)))
+    recentf-exclude (list "/\\.git/.*\\'" "/elpa/.*\\'" "/itsalltext/"
+    #'ignoramus-boring-p)))
 
 (use-package
   autorevert
@@ -745,13 +802,6 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :ensure
   :bind (("<C-M-up>" . move-text-up)
      ("<C-M-down>" . move-text-down)))
-
-(use-package
-  reveal-in-osx-finder
-
-  :ensure
-  :if (eq system-type 'darwin)
-  :bind ("C-c o" . reveal-in-finder))
 
 (use-package
   expand-region                         ; Expand region by semantic units
@@ -857,8 +907,8 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :config (setq ag-reuse-buffers t      ; Don't spam buffer list with ag buffers
     ag-highlight-search t   ; A little fanciness
     ag-project-root-function (lambda (d)
-           (let ((default-directory d))
-         (projectile-project-root)))))
+     (let ((default-directory d))
+   (projectile-project-root)))))
 
 (use-package
   wgrep                                 ; Edit grep/occur/ag results in-place
@@ -876,7 +926,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :config (progn
     (setq whitespace-action '(auto-cleanup))
     (setq whitespace-style '(face tab-mark empty trailing lines-tail space-before-tab
-          indentation empty space-after-tab))
+    indentation empty space-after-tab))
     (setq whitespace-line-column nil)
     (global-whitespace-mode t))
   :diminish global-whitespace-mode)
@@ -935,8 +985,8 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :disabled t
   :init (require #'rainbow-blocks)
   :config (dolist (hook '(eval-expression-minibuffer-setup-hook emacs-lisp-mode-hook
-        inferior-emacs-lisp-mode-hook
-        lisp-mode-hook clojure-mode-hook))
+  inferior-emacs-lisp-mode-hook
+  lisp-mode-hook clojure-mode-hook))
     (add-hook hook #'rainbow-blocks-mode))
   :diminish rainbow-blocks-mode)
 
@@ -948,6 +998,26 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
 
 
 
+;;; Lisp
+(use-package
+  paredit
+  :config (dolist (hook '(eval-expression-minibuffer-setup-hook emacs-lisp-mode-hook
+    inferior-emacs-lisp-mode-hook
+    lisp-mode-hook clojure-mode-hook))
+    (add-hook hook #'paredit-mode))
+  :init (require 'paredit))
+
+(use-package
+  paredit-everywhere
+  :init (require 'paredit)
+  :config (add-hook #'prog-mode-hook #'paredit-everywhere-mode))
+
+(use-package
+  paredit-menu
+  :init (require 'paredit)
+  :config (require 'paredit-menu))
+
+
 ;;; Skeletons, completion and expansion
 
 (setq completion-cycle-threshold 5)
@@ -956,13 +1026,13 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   hippie-exp                            ; Powerful expansion and completion
   :bind (([remap dabbrev-expand] . hippie-expand))
   :config (setq hippie-expand-try-functions-list '(try-expand-dabbrev try-expand-dabbrev-all-buffers
-              try-expand-dabbrev-from-kill
-              try-complete-file-name-partially
-              try-complete-file-name
-              try-expand-all-abbrevs
-              try-expand-list
-              try-complete-lisp-symbol-partially
-              try-complete-lisp-symbol)))
+        try-expand-dabbrev-from-kill
+        try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-all-abbrevs
+        try-expand-list
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol)))
 
 ;;; Company Mode Auto Completions
 
@@ -980,13 +1050,13 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :diminish company-mode)
 
 (use-package
-  company-quickhelp                     ; Documentation popups for Company
+  company-quickhelp
   :ensure t
   :defer t
   :init (add-hook 'global-company-mode-hook #'company-quickhelp-mode))
 
 (use-package
-  company-math                          ; Completion for Math symbols
+  company-math
   :ensure t
   :defer t
   :config (require #'company-math)
@@ -1083,6 +1153,13 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :defer t
   :init (require #'company-statistics)
   :config (add-to-list 'company-backends 'company-statistics))
+  
+(use-package
+  company-web
+  :ensure t
+  :defer t
+  :config (require 'company-web)
+  :init (add-to-list 'company-backends 'company-web))
 
 
 ;;; Spelling and syntax checking
@@ -1092,8 +1169,8 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :if (eq system-type 'darwin)
   :config (progn
     (setq ispell-program-name (if (eq system-type 'darwin)
-          (executable-find "aspell")
-        (executable-find "hunspell")))
+    (executable-find "aspell")
+  (executable-find "hunspell")))
     (setq ispell-dictionary "en_GB")
     (setq ispell-silently-savep t)
     (setq ispell-choices-win-default-height 5)
@@ -1123,7 +1200,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
      ("C-c T f" . flycheck-mode))
   :config (progn (global-flycheck-mode t)
      (set-face-attribute 'flycheck-error-list-checker-name nil
-         :inherit 'italic)
+   :inherit 'italic)
      (setq flycheck-completion-system 'ido)
      (setq flycheck-indication-mode 'left-fringe)
      (use-package
@@ -1154,7 +1231,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :init (dolist (hook '(markdown-mode-hook latex-mode-hook rst-mode-hook))
       (add-hook hook #'tildify-mode))
   :config (add-hook 'latex-mode-hook (lambda ()
-           (setq-local tildify-space-string "~"))))
+     (setq-local tildify-space-string "~"))))
 
 (use-package
   typo
@@ -1214,7 +1291,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :config (font-lock-add-keywords
        'latex-mode
        `((,(rx "\\" symbol-start "fx" (1+ (or (syntax word)
-          (syntax symbol))) symbol-end) . font-lock-warning-face))))
+    (syntax symbol))) symbol-end) . font-lock-warning-face))))
 
 (use-package
   latex                                 ; LaTeX editing
@@ -1222,9 +1299,9 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :defer t
   :config (progn
     (setq TeX-outline-extra `((,(rx (0+ space) "\\section*{") 2)
-          (,(rx (0+ space) "\\subsection*{") 3)
-          (,(rx (0+ space) "\\subsubsection*{") 4)
-          (,(rx (0+ space) "\\minisec{") 5)) LaTeX-babel-hyphen nil)
+    (,(rx (0+ space) "\\subsection*{") 3)
+    (,(rx (0+ space) "\\subsubsection*{") 4)
+    (,(rx (0+ space) "\\minisec{") 5)) LaTeX-babel-hyphen nil)
     (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode))) ; Easy math input
 
 (use-package
@@ -1244,7 +1321,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   bibtex                                ; BibTeX editing
   :defer t
   :config (progn (add-hook 'bibtex-mode-hook (lambda ()
-           (run-hooks 'prog-mode-hook)))
+     (run-hooks 'prog-mode-hook)))
      (bibtex-set-dialect 'biblatex)))
 
 (defun my-reftex-find-ams-environment-caption (environment)
@@ -1271,54 +1348,54 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :init (add-hook 'LaTeX-mode-hook #'reftex-mode)
   :config (progn
     (setq reftex-plug-into-AUCTeX t reftex-insert-label-flags '(t t) reftex-label-alist '(("definition"
-               ?d
-               "def:"
-               "~\\ref{%s}"
-               my-reftex-find-ams-environment-caption
-               ("definition"
-                "def.")
-               -3)
-              ("theorem"
-               ?h
-               "thm:"
-               "~\\ref{%s}"
-               my-reftex-find-ams-environment-caption
-               ("theorem"
-                "th.")
-               -3)
-              ("example"
-               ?x
-               "ex:"
-               "~\\ref{%s}"
-               my-reftex-find-ams-environment-caption
-               ("example"
-                "ex")
-               -3)
-              ("algorithm"
-               ?a
-               "alg:"
-               "~\\ref{%s}"
-               "\\\\caption[[{]"
-               ("algorithm"
-                "alg")
-               -3)))
+         ?d
+         "def:"
+         "~\\ref{%s}"
+         my-reftex-find-ams-environment-caption
+         ("definition"
+    "def.")
+         -3)
+        ("theorem"
+         ?h
+         "thm:"
+         "~\\ref{%s}"
+         my-reftex-find-ams-environment-caption
+         ("theorem"
+    "th.")
+         -3)
+        ("example"
+         ?x
+         "ex:"
+         "~\\ref{%s}"
+         my-reftex-find-ams-environment-caption
+         ("example"
+    "ex")
+         -3)
+        ("algorithm"
+         ?a
+         "alg:"
+         "~\\ref{%s}"
+         "\\\\caption[[{]"
+         ("algorithm"
+    "alg")
+         -3)))
     (unless (assq 'biblatex reftex-cite-format-builtin)
       (add-to-list 'reftex-cite-format-builtin '(biblatex "The biblatex package" ((?\C-m .
-             "\\cite[]{%l}")
-              (?t .
-              "\\textcite{%l}")
-              (?a .
-              "\\autocite[]{%l}")
-              (?p .
-              "\\parencite{%l}")
-              (?f .
-              "\\footcite[][]{%l}")
-              (?F .
-              "\\fullcite[]{%l}")
-              (?x .
-              "[]{%l}")
-              (?X .
-              "{%l}"))))
+       "\\cite[]{%l}")
+        (?t .
+        "\\textcite{%l}")
+        (?a .
+        "\\autocite[]{%l}")
+        (?p .
+        "\\parencite{%l}")
+        (?f .
+        "\\footcite[][]{%l}")
+        (?F .
+        "\\fullcite[]{%l}")
+        (?x .
+        "[]{%l}")
+        (?X .
+        "{%l}"))))
       (setq reftex-cite-format 'biblatex)))
   :diminish reftex-mode)
 
@@ -1337,16 +1414,16 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
       :config (progn
     (defun eshell/cds ()
       (eshell/cd (or (locate-dominating-file default-directory "src")
-         (locate-dominating-file default-directory ".git"))))
+   (locate-dominating-file default-directory ".git"))))
     (defun eshell/clear ()
       (interactive)
       (let ((inhibit-read-only t))
     (delete-region (point-min)
-           (point-max)))
+     (point-max)))
       (eshell-send-input))
     (add-hook 'eshell-mode-hook (lambda ()
-          (bind-key "C-l" 'eshell/clear
-        eshell-mode-map)))))
+    (bind-key "C-l" 'eshell/clear
+  eshell-mode-map)))))
     (use-package
       eshell-opt
       :config (use-package
@@ -1356,7 +1433,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
       em-term
       :defer t
       :config (setq eshell-visual-commands (append '("tmux" "screen" "ssh")
-           eshell-visual-commands)))
+     eshell-visual-commands)))
     (use-package
       em-hist
       :defer t
@@ -1384,13 +1461,13 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :mode ("/itsalltext/.*\\.md\\'" . gfm-mode)
   :config (progn (let ((stylesheet (expand-file-name (locate-user-emacs-file "etc/pandoc.css"))))
        (setq markdown-command (mapconcat #'shell-quote-argument `("pandoc" "--toc"
-              "--section-divs"
-              "--css" ,(concat
-            "file://"
-            stylesheet)
-              "--standalone" "-f"
-              "markdown" "-t"
-              "html5") " ")))
+        "--section-divs"
+        "--css" ,(concat
+      "file://"
+      stylesheet)
+        "--standalone" "-f"
+        "markdown" "-t"
+        "html5") " ")))
      (add-hook 'gfm-mode-hook #'turn-off-auto-fill)
      (add-hook 'gfm-mode-hook #'visual-line-mode)
      (add-hook 'gfm-mode-hook #'my-whitespace-style-no-long-lines)
@@ -1403,7 +1480,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :ensure t
   :defer t
   :config (add-hook 'yaml-mode-hook (lambda ()
-          (run-hooks 'prog-mode-hook))))
+    (run-hooks 'prog-mode-hook))))
 
 (use-package
   graphviz-dot-mode                     ; Graphviz
@@ -1425,6 +1502,31 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :defer t
   :config (activate-malabar-mode))
 
+(use-package
+  java-imports
+  :ensure t
+  :defer t
+  :config
+  :bind ("M-I" . java-imports-add-import)
+  :config
+  (progn
+    (require 'java-imports)
+    (setq java-imports-find-block-function 'java-imports-find-place-sorted-block)))
+
+(use-package
+  java-snippets
+  :ensure t
+  :defer t)
+
+(use-package
+  nexus
+  :ensure t
+  :defer t)
+
+(use-package
+  mvn
+  :ensure t
+  :defer t)
 
 ;;; Programming utilities
 (use-package
@@ -1677,8 +1779,8 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :ensure t
   :defer t
   :config (add-hook 'racket-mode-hook (lambda ()
-        (define-key racket-mode-map (kbd "C-c r") 'racket-run)
-        (define-key racket-mode-map (kbd "C-c t") 'racket-test))))
+  (define-key racket-mode-map (kbd "C-c r") 'racket-run)
+  (define-key racket-mode-map (kbd "C-c t") 'racket-test))))
 
 (use-package
   geiser
@@ -1739,6 +1841,15 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :ensure t
   :defer t
   :init (require #'cider-eval-sexp-fu))
+
+(use-package
+  nrepl-eval-sexp-fu
+  :ensure t
+  :defer t
+  :config
+    (progn
+      (require 'highlight)
+      (require 'nrepl-eval-sexp-fu)))
 
 (use-package
   clojure-mode
@@ -1900,13 +2011,13 @@ A pair of `(VERSION . SCALA-VERSION)'.")
   :config (progn
     (setq gofmt-command "goimports")
     (add-hook 'go-mode-hook (lambda ()
-          ((add-hook 'before-save-hook #'gofmt-before-save)
-           (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
-           (local-set-key (kbd "C-c i") 'go-goto-imports)
-           (local-set-key (kbd "M-.") 'godef-jump)
-           (if (not (string-match "go" compile-command))
-           (set (make-local-variable 'compile-command)
-        "go build -v && go test -v && go vet")))))))
+    ((add-hook 'before-save-hook #'gofmt-before-save)
+     (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
+     (local-set-key (kbd "C-c i") 'go-goto-imports)
+     (local-set-key (kbd "M-.") 'godef-jump)
+     (if (not (string-match "go" compile-command))
+     (set (make-local-variable 'compile-command)
+  "go build -v && go test -v && go vet")))))))
 
 (use-package
   go-eldoc
@@ -1915,13 +2026,6 @@ A pair of `(VERSION . SCALA-VERSION)'.")
   :init (progn
       (require #'go-eldoc)
       (add-hook 'go-mode-hook #'go-eldoc-setup)))
-
-
-(use-package
-  go-play
-  :ensure t
-  :defer t)
-
 
 
 (use-package
@@ -2004,10 +2108,10 @@ A pair of `(VERSION . SCALA-VERSION)'.")
   :defer t
   :init (require #'rust-mode)
   :config (progn
-        ;    (setq racer-rust-src-path "c:/Rust/rustc/src/")
-        ;    (setq racer-cmd "c:/Rust/racer/target/release/racer")
-        ;    (add-to-list 'load-path "c:/Rust/racer/editors")
-        ;    (eval-after-load "rust-mode" '(require 'racer))
+  ;    (setq racer-rust-src-path "c:/Rust/rustc/src/")
+  ;    (setq racer-cmd "c:/Rust/racer/target/release/racer")
+  ;    (add-to-list 'load-path "c:/Rust/racer/editors")
+  ;    (eval-after-load "rust-mode" '(require 'racer))
     ))
 
 (use-package
@@ -2038,9 +2142,9 @@ A pair of `(VERSION . SCALA-VERSION)'.")
 
 (with-eval-after-load 'rust-mode (add-hook 'rust-mode-hook #'yas-minor-mode-on)
       (add-hook 'rust-mode-hook (lambda ()
-          (setq compile-command (rust-compile-command
-             (rust-test-file-p
-              buffer-file-name)))))
+    (setq compile-command (rust-compile-command
+       (rust-test-file-p
+        buffer-file-name)))))
       (define-key rust-mode-map (kbd "C-c C-c") 'rust-compile-and-maybe-run))
 
 (defun rust-test-file-p (filename)
@@ -2052,9 +2156,9 @@ A pair of `(VERSION . SCALA-VERSION)'.")
   (when buffer-file-name (let* ((source-file (file-name-nondirectory buffer-file-name))
     (executable (file-name-sans-extension source-file))
     (cmd (format (if (rust-test-file-p source-file) "rustc --test %s"
-           "rustc %s") source-file)))
+     "rustc %s") source-file)))
        (if run (concat cmd (pcase system-type (`windows-nt " && ")
-          (_ " && ./")) executable) cmd))))
+    (_ " && ./")) executable) cmd))))
 
 (defun rust-compile-and-maybe-run
     (&optional
@@ -2063,7 +2167,7 @@ A pair of `(VERSION . SCALA-VERSION)'.")
 is run with prefix argument - also execute resulting binary."
   (interactive "P")
   (let ((compile-command (rust-compile-command (or force-run
-           (rust-test-file-p buffer-file-name)))))
+     (rust-test-file-p buffer-file-name)))))
     (recompile)))
 
 ;;; .NET
@@ -2127,7 +2231,7 @@ is run with prefix argument - also execute resulting binary."
      (autoload 'ghc-debug "ghc" nil t)
      (setq ghc-ghc-options '("-fno-warn-unused-do-bind"))
      (add-hook 'haskell-mode-hook (lambda ()
-        (ghc-init)))))
+  (ghc-init)))))
 
 (use-package
   shm
@@ -2205,9 +2309,9 @@ is run with prefix argument - also execute resulting binary."
   :defer t
   :init (add-to-list 'auto-mode-alist '("\\.elixir2\\'" . elixir-mode))
   :config (add-hook 'elixir-mode-hook (lambda ()
-        (and (file-exists (buffer-file-name))
-         (file-exists (elixir-mode-compiled-file-name))
-         (elixir-cos-mode t)))))
+  (and (file-exists (buffer-file-name))
+   (file-exists (elixir-mode-compiled-file-name))
+   (elixir-cos-mode t)))))
 
 (use-package
   elixir-yasnippets
@@ -2293,7 +2397,7 @@ is run with prefix argument - also execute resulting binary."
   css-mode
   :defer t
   :config (progn (add-hook 'css-mode-hook (lambda ()
-        (run-hooks 'prog-mode-hook)))
+  (run-hooks 'prog-mode-hook)))
      (put 'css-indent-offset 'safe-local-variable #'integerp)))
 
 (use-package
@@ -2354,31 +2458,13 @@ is run with prefix argument - also execute resulting binary."
   :ensure t
   :defer t
   :config (with-eval-after-load 'flycheck (add-to-list 'flycheck-checkers 'swift)))
-
-;;; Proof General & Coq
 
-(use-package
-  proof-site
-  :load-path "lisp/proof-general/generic")
-
-(defvar coq-one-command-per-line)
-(setq coq-one-command-per-line nil)
-
-(use-package
-  proof-script
-  :defer t
-  :config (add-hook 'proof-mode-hook (lambda ()
-           (run-hooks 'prog-mode-hook))))
-
-(use-package
-  isar                                  ; Isabelle syntax for PG
-  :defer t
-  :config (add-hook 'isar-mode-hook #'my-whitespace-style-no-long-lines 'append))
 
 ;;; Databases
 (use-package
   sql
   :bind (("C-c d m" . sql-mysql)))
+
 
 ;;; Version control
 (use-package
@@ -2395,16 +2481,24 @@ is run with prefix argument - also execute resulting binary."
 
 (use-package
   magit
-  :ensure t
-  :defer
-  :bind (("C-c g"   . magit-status)
-     ("C-c v g" . magit-blame-mode))
-  :config (progn
-    (setq magit-save-some-buffers 'dontask magit-stage-all-confirm nil
-      magit-unstage-all-confirm nil magit-set-upstream-on-push t
+  :defer t
+  :bind
+  (("C-c g" . magit-status)
+   ("C-c f" . magit-grep)
+   ("C-c v g" . magit-blame-mode))
+  :config
+  (progn
+    (setq magit-save-some-buffers 'dontask
+      magit-stage-all-confirm nil
+      magit-unstage-all-confirm nil
+      magit-set-upstream-on-push t
       magit-default-tracking-name-function 'magit-default-tracking-name-branch-only
-      magit-restore-window-configuration t magit-completing-read-function
-      #'magit-ido-completing-read)
+      magit-restore-window-configuration t
+      magit-completing-read-function #'magit-ido-completing-read))
+  :init
+  (progn
+    (autoload 'magit-status "magit" nil t)
+    (require 'magit)
     ))
 
 (use-package
@@ -2425,6 +2519,36 @@ is run with prefix argument - also execute resulting binary."
   :defer t
   :init (require #'magit-gitflow)
   :config (add-hook 'magit-mode-hook #'turn-on-magit-gitflow))
+
+(use-package
+  magit-annex
+  :ensure t
+  :defer t)
+
+(use-package
+  magit-stgit
+  :ensure t
+  :defer t)
+
+(use-package
+  magit-rockstar
+  :ensure t
+  :defer t)
+
+(use-package
+  magit-topgit
+  :ensure t
+  :defer t)
+
+(use-package
+  magit-gh-pulls
+  :ensure t
+  :defer t)
+
+(use-package
+  magit-gerrit
+  :ensure t
+  :defer t)
 
 (use-package
   gitconfig-mode
@@ -2493,10 +2617,10 @@ is run with prefix argument - also execute resulting binary."
        projectile-require-project-root nil projectile-find-dir-includes-top-level t
        projectile-mode-line
        '(:propertize (:eval (concat " " (projectile-project-name)))
-         face
-         font-lock-constant-face))
+   face
+   font-lock-constant-face))
      (def-projectile-commander-method ?a "Find ag on project." (call-interactively
-            'projectile-ag))
+      'projectile-ag))
      (bind-key "s a" #'ag-project-regexp projectile-command-map)
      (bind-key "s A" #'ag-project projectile-command-map)
      (bind-key "s d" #'ag-project-dired-regexp projectile-command-map)
@@ -2591,17 +2715,17 @@ is run with prefix argument - also execute resulting binary."
   :bind (("C-c u i" . emacs-init-time)
      ("C-c u T" . display-time-world))
   :config (setq display-time-world-time-format "%H:%M %Z, %d. %b" display-time-world-list '(("Europe/Berlin"
-             "Berlin")
-            ("Europe/London"
-             "London")
-            ("Europe/Istanbul"
-             "Istanbul")
-            ("America/Winnipeg"
-             "Winnipeg (CA)")
-            ("America/New_York"
-             "New York (USA)")
-            ("Asia/Tokyo"
-             "Tokyo (JP)"))))
+       "Berlin")
+      ("Europe/London"
+       "London")
+      ("Europe/Istanbul"
+       "Istanbul")
+      ("America/Winnipeg"
+       "Winnipeg (CA)")
+      ("America/New_York"
+       "New York (USA)")
+      ("Asia/Tokyo"
+       "Tokyo (JP)"))))
 
 (use-package
   sr-speedbar
@@ -2718,30 +2842,30 @@ is run with prefix argument - also execute resulting binary."
   :config (progn
     (setq org-catch-invisible-edits 'smart)
     (setq org-structure-template-alist '(("s" "#+begin_src ?\n\n#+end_src"
-          "<src lang=\"?\">\n\n</src>")
-         ("e" "#+begin_example\n?\n#+end_example"
-          "<example>\n?\n</example>")
-         ("q" "#+begin_quote\n?\n#+end_quote"
-          "<quote>\n?\n</quote>")
-         ("v" "#+begin_verse\n?\n#+end_verse"
-          "<verse>\n?\n</verse>")
-         ("v" "#+begin_verbatim\n?\n#+end_verbatim"
-          "<verbatim>\n?\n</verbatim>")
-         ("c" "#+begin_center\n?\n#+end_center"
-          "<center>\n?\n</center>")
-         ("l" "#+begin_latex\n?\n#+end_latex"
-          "<literal style=\"latex\">\n?\n</literal>")
-         ("l" "#+latex: "
-          "<literal style=\"latex\">?</literal>")
-         ("h" "#+begin_html\n?\n#+end_html"
-          "<literal style=\"html\">\n?\n</literal>")
-         ("h" "#+html: "
-          "<literal style=\"html\">?</literal>")
-         ("a" "#+begin_ascii\n?\n#+end_ascii" "")
-         ("a" "#+ascii: " "")
-         ("i" "#+index: ?" "#+index: ?")
-         ("i" "#+include: %file ?"
-          "<include file=%file markup=\"?\">")))
+    "<src lang=\"?\">\n\n</src>")
+   ("e" "#+begin_example\n?\n#+end_example"
+    "<example>\n?\n</example>")
+   ("q" "#+begin_quote\n?\n#+end_quote"
+    "<quote>\n?\n</quote>")
+   ("v" "#+begin_verse\n?\n#+end_verse"
+    "<verse>\n?\n</verse>")
+   ("v" "#+begin_verbatim\n?\n#+end_verbatim"
+    "<verbatim>\n?\n</verbatim>")
+   ("c" "#+begin_center\n?\n#+end_center"
+    "<center>\n?\n</center>")
+   ("l" "#+begin_latex\n?\n#+end_latex"
+    "<literal style=\"latex\">\n?\n</literal>")
+   ("l" "#+latex: "
+    "<literal style=\"latex\">?</literal>")
+   ("h" "#+begin_html\n?\n#+end_html"
+    "<literal style=\"html\">\n?\n</literal>")
+   ("h" "#+html: "
+    "<literal style=\"html\">?</literal>")
+   ("a" "#+begin_ascii\n?\n#+end_ascii" "")
+   ("a" "#+ascii: " "")
+   ("i" "#+index: ?" "#+index: ?")
+   ("i" "#+include: %file ?"
+    "<include file=%file markup=\"?\">")))
     (add-hook 'prog-mode-hook 'turn-on-orgstruct)
     (defun orgstruct-lisps-turn-on ()
       (setq orgstruct-heading-prefix-regexp ";; "))
@@ -2751,15 +2875,15 @@ is run with prefix argument - also execute resulting binary."
       :bind ("C-c c" . org-capture)
       :config (progn
     (setq org-reverse-note-order t org-capture-templates '(("d" "Dev dump" entry
-            (file
-             "~/org/dev.org")
-            "* %?\n  %i\n %a"
-            :kill-buffer  t)
-               ("j" "Journal" entry
-            (file
-             "~/org/journal.org")
-            "* %U\n %?i\n %a"
-            :kill-buffer t)))))
+      (file
+       "~/org/dev.org")
+      "* %?\n  %i\n %a"
+      :kill-buffer  t)
+         ("j" "Journal" entry
+      (file
+       "~/org/journal.org")
+      "* %U\n %?i\n %a"
+      :kill-buffer t)))))
     (use-package
       org-clock
       :config (setq org-clock-idle-time 15 org-clock-in-resume t org-clock-persist t
@@ -2815,58 +2939,16 @@ is run with prefix argument - also execute resulting binary."
 (diminish 'auto-fill-function)
 (diminish 'abbrev-mode)
 
-        ;(add-hook 'emacs-lisp-mode-hook (lambda () (diminish 'emacs-lisp-mode "ε")))
-        ;(add-hook 'elisp-mode-hook (lambda () (diminish 'emacs-lisp-mode "ε")))
-        ;(add-hook 'inferior-emacs-lisp-mode-hook (lambda () (diminish 'inferior-emacs-lisp-mode "ε")))
-        ;(add-hook 'lisp-mode-hook (lambda () (diminish 'lisp-mode "λ")))
+  ;(add-hook 'emacs-lisp-mode-hook (lambda () (diminish 'emacs-lisp-mode "ε")))
+  ;(add-hook 'elisp-mode-hook (lambda () (diminish 'emacs-lisp-mode "ε")))
+  ;(add-hook 'inferior-emacs-lisp-mode-hook (lambda () (diminish 'inferior-emacs-lisp-mode "ε")))
+  ;(add-hook 'lisp-mode-hook (lambda () (diminish 'lisp-mode "λ")))
 
 ;;; init.el ends here
 
 
 ;;; Emacs Default Configuration
 
-
-        ;(global-visual-line-mode t)
-(global-prettify-symbols-mode t)
-(blink-cursor-mode t)
-(show-paren-mode t)
-(line-number-mode t)
-(column-number-mode t)
-(delete-selection-mode t)
-(transient-mark-mode t)
-(electric-pair-mode t)
-
-(setq-default fill-column 120)
-(setq-default major-mode 'org-mode)
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
-(setq-default tab-always-indent 'complete)
-
-(setq gc-cons-threshold (* 128 1024 1024))
-(setq message-log-max 10240)
-(setq load-prefer-newer t)
-(setq inhibit-default-init t)
-(setq inhibit-startup-screen t)
-(setq initial-scratch-message nil)
-(setq history-length 1024)
-(setq view-read-only t)
-
-(setq indicate-empty-lines t)
-(setq initial-major-mode 'org-mode)
-(setq require-final-newline t)
-(setq kill-ring-max 256)
-(setq save-interprogram-paste-before-kill t)
-(setq completion-cycle-threshold 5)
-(setq scroll-margin 0)
-(setq scroll-conservatively 1024)
-(setq scroll-error-top-bottom t)
-
-(setq ring-bell-function (lambda ()
-       (message "*beep*")))
-(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-(setq delete-by-moving-to-trash (or (not (eq system-type 'darwin))
-        (fboundp 'system-move-file-to-trash)))
 
 (add-hook 'text-mode-hook #'auto-fill-mode)
 (add-hook 'before-save-hook #'whitespace-cleanup)
@@ -2882,31 +2964,31 @@ is run with prefix argument - also execute resulting binary."
 (set-cursor-color "orange")
 
 
-;;; TODO
 
 (use-package
   key-chord
-
-  :ensure
-  :config (setq key-chord-two-keys-delay 0.05)
-  (key-chord-define-global "x1" 'delete-other-windows)
-  (key-chord-define-global "xk" 'ace-window)
-  (key-chord-define-global "0o" 'delete-window)
-  (key-chord-define-global "xn" 'helm-mini)
-  (key-chord-define-global "xb" 'projectile-switch-to-buffer)
-  (key-chord-define-global "jk" 'magit-status)
-  (key-chord-define-global "xm" 'helm-M-x)
-  ;; (key-chord-define-global "1q" "!")
-  ;; (key-chord-define-global "2w" "@")
-  ;; (key-chord-define-global "3e" "#")
-  ;; (key-chord-define-global "4r" "$")
-  ;; (key-chord-define-global "5t" "%")
-  ;; (key-chord-define-global "6y" "^")
-  ;; (key-chord-define-global "7y" "&")
-  ;; (key-chord-define-global "8u" "*")
-  ;; (key-chord-define-global "9i" "(")
-  ;; (key-chord-define-global "-p" "_")
-  (key-chord-mode +1))
+  :ensure t
+  :config
+  (progn
+    (setq key-chord-two-keys-delay 0.05)
+    (key-chord-define-global "x1" 'delete-other-windows)
+    (key-chord-define-global "xk" 'ace-window)
+    (key-chord-define-global "0o" 'delete-window)
+    (key-chord-define-global "xn" 'helm-mini)
+    (key-chord-define-global "xb" 'projectile-switch-to-buffer)
+    (key-chord-define-global "jk" 'magit-status)
+    (key-chord-define-global "xm" 'helm-M-x)
+    (key-chord-define-global "1q" "!")
+    (key-chord-define-global "2w" "@")
+    (key-chord-define-global "3e" "#")
+    (key-chord-define-global "4r" "$")
+    (key-chord-define-global "5t" "%")
+    (key-chord-define-global "6y" "^")
+    (key-chord-define-global "7y" "&")
+    (key-chord-define-global "8u" "*")
+    (key-chord-define-global "9i" "(")
+    (key-chord-define-global "-p" "_")
+    (key-chord-mode +1)))
 
 (use-package
   quickrun
@@ -3028,7 +3110,7 @@ is run with prefix argument - also execute resulting binary."
     (setq help-at-pt-display-when-idle t)
     (setq eclimd-executable "c:/Program Files/eclipse/eclimd.bat")
     (setq help-at-pt-timer-delay 0.1)
-    (setq eclimd-default-workspace "m:/workspace")
+    (setq eclimd-default-workspace "c:/Users/Sarvex/Workspace")
     (global-eclim-mode)
     (dolist (hook '(java-mode-hook scala-mode-hook groovy-mode-hook android-mode-hook))
       (addhook hook (lambda () (eclipse-mode t))))
