@@ -1,24 +1,32 @@
 {
-	"color_scheme": "Packages/Theme - Solarized Flat/Solarized Flat.tmTheme",
+	"always_show_minimap_viewport": true,
+	"auto_complete_commit_on_tab": true,
+	"auto_complete_cycle": true,
+	"auto_complete_with_fields": true,
+	"bold_folder_labels": true,
+	"color_scheme": "Packages/Theme - Dark Material/schemes/Dark-Material.tmTheme",
+	"default_line_ending": "unix",
+	"ensure_newline_at_eof_on_save": true,
+	"font_face": "Source Code Pro",
+	"font_size": 9,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
+		"Material Theme",
 		"Vintage"
 	],
-	"theme": "Soda SolarizedDark.sublime-theme",
-    "show_line_endings": true,
-    "show_encoding": true,
-    "highlight_modified_tabs": true,
-    "auto_complete_cycle": true,
-    "auto_complete_with_fields": true,
-    "auto_complete_commit_on_tab": true,
-    "default_line_ending": "unix",
-    "ensure_newline_at_eof_on_save": true,
-    "trim_trailing_white_space_on_save": true,
-    "highlight_line": true,
-    "translate_tabs_to_spaces": true,
-    "tab_size": 2,
-    "rulers": [120],
-    "margin": 2,
-    "font_size": 9,
-    "font_face": "Source Code Pro",
+	"margin": 2,
+	"overlay_scroll_bars": "enabled",
+	"rulers":
+	[
+		120
+	],
+	"show_encoding": true,
+	"show_line_endings": true,
+	"tab_size": 2,
+	"theme": "Dark-Material.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_automatic_white_space": true,
+	"trim_trailing_white_space_on_save": true
 }
