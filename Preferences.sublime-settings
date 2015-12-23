@@ -4,7 +4,7 @@
 	"auto_complete_cycle": true,
 	"auto_complete_with_fields": true,
 	"bold_folder_labels": true,
-	"color_scheme": "Packages/Theme - Dark Material/schemes/Dark-Material.tmTheme",
+	"color_scheme": "Packages/User/SublimeLinter/AgolaDark (SL).tmTheme",
 	"default_line_ending": "unix",
 	"ensure_newline_at_eof_on_save": true,
 	"font_face": "Source Code Pro",
@@ -13,7 +13,6 @@
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
-		"Material Theme",
 		"Vintage"
 	],
 	"margin": 2,
@@ -25,7 +24,7 @@
 	"show_encoding": true,
 	"show_line_endings": true,
 	"tab_size": 2,
-	"theme": "Dark-Material.sublime-theme",
+	"theme": "Cola.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_automatic_white_space": true,
 	"trim_trailing_white_space_on_save": true
