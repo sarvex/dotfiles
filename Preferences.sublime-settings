@@ -4,18 +4,26 @@
 	"auto_complete_cycle": true,
 	"auto_complete_with_fields": true,
 	"bold_folder_labels": true,
-	"color_scheme": "Packages/User/SublimeLinter/AgolaDark (SL).tmTheme",
+	"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 	"default_line_ending": "unix",
 	"ensure_newline_at_eof_on_save": true,
 	"font_face": "Source Code Pro",
 	"font_size": 9,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
+	"indent_guide_options": [ "draw_normal", "draw_active" ],
 	"ignored_packages":
 	[
 		"Vintage"
 	],
 	"margin": 2,
+	"material_theme_compact_sidebar": true,
+	"material_theme_contrast_mode": true,
+	"material_theme_panel_separator": true,
+	"material_theme_small_statusbar": true,
+	"material_theme_small_tab": true,
+	"material_theme_tabs_autowidth": true,
+	"material_theme_accent_lime": true,
 	"overlay_scroll_bars": "enabled",
 	"rulers":
 	[
@@ -24,7 +32,7 @@
 	"show_encoding": true,
 	"show_line_endings": true,
 	"tab_size": 2,
-	"theme": "Cola.sublime-theme",
+	"theme": "Material-Theme-Darker.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_automatic_white_space": true,
 	"trim_trailing_white_space_on_save": true
