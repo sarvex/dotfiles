@@ -169,10 +169,7 @@
 
 (when (window-system)
   (tool-bar-mode -1)
-  (scroll-bar-mode -1)
-  (tooltip-mode -1)
-  (when (not (eq system-type 'darwin))
-    (menu-bar-mode -1)))
+  (scroll-bar-mode -1))
 
 (use-package
   diminish
@@ -234,14 +231,14 @@
     "Tahoma" "Verdana" "Arial Unicode MS"
     "Arial"))
     (setq dynamic-fonts-preferred-proportional-point-size
-      (pcase system-type (`darwin 13) (`windows-nt 9)))
+      (pcase system-type (`darwin 13) (`windows-nt 9) (`gnu/linux 10)))
     (setq dynamic-fonts-preferred-monospace-fonts
       '("Source Code Pro" "Anonymous Pro"
     "Inconsolata" "Consolas" "Fira Mono"
     "Menlo" "DejaVu Sans Mono"
     "Bitstream Vera Mono" "Courier New"))
     (setq dynamic-fonts-preferred-monospace-point-size
-      (pcase system-type (`darwin 13) (`windows-nt 9)))
+      (pcase system-type (`darwin 13) (`windows-nt 9) (`gnu/linux 10)))
     (dynamic-fonts-setup)))
 
 
@@ -1058,7 +1055,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
 ;;; Company Mode Auto Completions
 
 (use-package
-  company                               ; Graphical (auto-)completion
+  company
   :ensure t
   :init (global-company-mode)
   :config (progn (bind-key [remap completion-at-point] #'company-complete company-mode-map)
@@ -1071,25 +1068,25 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :diminish company-mode)
 
 (use-package
-  company-quickhelp
+  company-anaconda
   :ensure t
   :defer t
-  :init (add-hook 'global-company-mode-hook #'company-quickhelp-mode))
+  :init (require #'company-anaconda)
+  :config (add-to-list 'company-backends 'company-anaconda))
 
 (use-package
-  company-math
+  company-ansible
   :ensure t
   :defer t
-  :config (require #'company-math)
-  :init (progn (add-to-list 'company-backends 'company-math-symbols-unicode)
-       (add-to-list 'company-backends 'company-math-symbols-latex)))
+  :init (require #'company-ansible)
+  :config (add-to-list 'company-backends 'company-ansible))
 
 (use-package
-  company-restclient
+  company-arduino
   :ensure t
   :defer t
-  :config (require #'company-restclient)
-  :init (add-to-list 'company-backends 'company-restclient))
+  :init (require #'company-arduino)
+  :config (add-to-list 'company-backends 'company-arduino))
 
 (use-package
   company-c-headers
@@ -1106,48 +1103,6 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :init (add-to-list 'company-backends 'company-cabal))
 
 (use-package
-  company-ghci
-  :ensure t
-  :defer t
-  :config (require #'company-ghci)
-  :init (add-to-list 'company-backends 'company-ghci))
-
-(use-package
-  company-inf-ruby
-  :ensure t
-  :defer t
-  :config (require #'company-inf-ruby)
-  :init (add-to-list 'company-backends 'company-inf-ruby))
-
-(use-package
-  company-jedi
-  :ensure t
-  :defer t
-  :config (require #'company-jedi)
-  :init (add-to-list 'company-backends 'company-jedi))
-
-(use-package
-  company-tern
-  :ensure t
-  :defer t
-  :config (require #'company-tern)
-  :init (add-to-list 'company-backends 'company-tern))
-
-(use-package
-  company-anaconda                      ; Python backend for Company
-  :ensure t
-  :defer t
-  :init (require #'company-anaconda)
-  :config (add-to-list 'company-backends 'company-anaconda))
-
-(use-package
-  company-go
-  :ensure t
-  :defer t
-  :init (require #'company-go)
-  :config (add-to-list 'company-backends 'company-go))
-
-(use-package
   company-dcd
   :ensure t
   :defer t
@@ -1162,6 +1117,41 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :config (add-to-list 'company-backends 'company-edbi))
 
 (use-package
+  company-emoji
+  :ensure t
+  :defer t
+  :init (require #'company-emoji)
+  :config (add-to-list 'company-backends 'company-emoji))
+
+(use-package
+  company-flx
+  :ensure t
+  :defer t
+  :init (require #'company-flx)
+  :config (add-to-list 'company-backends 'company-flx))
+
+(use-package
+  company-ghci
+  :ensure t
+  :defer t
+  :config (require #'company-ghci)
+  :init (add-to-list 'company-backends 'company-ghci))
+
+(use-package
+  company-go
+  :ensure t
+  :defer t
+  :init (require #'company-go)
+  :config (add-to-list 'company-backends 'company-go))
+
+(use-package
+  company-inf-ruby
+  :ensure t
+  :defer t
+  :config (require #'company-inf-ruby)
+  :init (add-to-list 'company-backends 'company-inf-ruby))
+
+(use-package
   company-irony
   :ensure t
   :defer t
@@ -1169,11 +1159,95 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :config (add-to-list 'company-backends 'company-irony))
 
 (use-package
+  company-irony-c-headers
+  :ensure t
+  :defer t
+  :init (require #'company-irony-c-headers)
+  :config (add-to-list 'company-backends 'company-irony-c-headers))
+
+(use-package
+  company-jedi
+  :ensure t
+  :defer t
+  :config (require #'company-jedi)
+  :init (add-to-list 'company-backends 'company-jedi))
+
+(use-package
+  company-math
+  :ensure t
+  :defer t
+  :config (require #'company-math)
+  :init (progn (add-to-list 'company-backends 'company-math-symbols-unicode)
+               (add-to-list 'company-backends 'company-math-symbols-latex)))
+
+(use-package
+  company-nixos-options
+  :ensure t
+  :defer t
+  :init (require #'company-nixos-options)
+  :config (add-to-list 'company-backends 'company-nixos-options))
+
+(use-package
+  company-qml
+  :ensure t
+  :defer t
+  :init (require #'company-qml)
+  :config (add-to-list 'company-backends 'company-qml))
+
+(use-package
+  company-quickhelp
+  :ensure t
+  :defer t
+  :init (add-hook 'global-company-mode-hook #'company-quickhelp-mode))
+
+(use-package
+  company-racer
+  :ensure t
+  :defer t
+  :init (require #'company-racer)
+  :config (add-to-list 'company-backends 'company-racer))
+
+(use-package
+  company-restclient
+  :ensure t
+  :defer t
+  :config (require #'company-restclient)
+  :init (add-to-list 'company-backends 'company-restclient))
+
+(use-package
+  company-shell
+  :ensure t
+  :defer t
+  :init (require #'company-shell)
+  :config (add-to-list 'company-backends 'company-shell))
+
+(use-package
+  company-sourcekit
+  :ensure t
+  :defer t
+  :init (require #'company-sourcekit)
+  :config (add-to-list 'company-backends 'company-sourcekit))
+
+(use-package
   company-statistics
   :ensure t
   :defer t
   :init (require #'company-statistics)
   :config (add-to-list 'company-backends 'company-statistics))
+
+(use-package
+  company-tern
+  :ensure t
+  :defer t
+  :config (require #'company-tern)
+  :init (add-to-list 'company-backends 'company-tern))
+
+(use-package
+  company-try-hard
+  :ensure t
+  :defer t
+  :init (require #'company-try-hard)
+  :config (add-to-list 'company-backends 'company-try-hard))
 
 (use-package
   company-web
