@@ -130,7 +130,7 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'vitaly/vim-syntastic-coffee'
 Plugin 'vim-scripts/jade.vim'
 Plugin 'wavded/vim-stylus'
-Plugin 'VimClojure'
+Plugin 'tpope/vim-fireplace
 Plugin 'slim-template/vim-slim'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'Blackrush/vim-gocode'
