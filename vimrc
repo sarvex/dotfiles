@@ -383,7 +383,4 @@ set fileformats=unix,dos
 colors solarized
 set background=dark
 filetype on
-
-if has("gui_macvim")
-    set shell=/bin/bash\ -l
-endif
+syntax on
