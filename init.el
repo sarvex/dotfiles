@@ -186,8 +186,8 @@
   darcula-theme
   :ensure t
   :defer t
-  :config (require #'darcula-theme)
-  :config (require 'darcula 'no-confirm))
+  :init (require #'darcula-theme)
+  :config (load-theme 'darcula 'no-confirm))
 
 (use-package
   dynamic-fonts
