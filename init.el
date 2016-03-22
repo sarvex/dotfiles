@@ -169,56 +169,25 @@
 
 (when (window-system)
   (tool-bar-mode -1)
-  (scroll-bar-mode -1))
+  (scroll-bar-mode -1)
+  (menu-bar-mode -1)
 
 (use-package
   diminish
   :ensure diminish)
 
 (use-package
-  unicode-fonts                         ; Map Unicode blocks to fonts
+  unicode-fonts                     
   :ensure t
   :disabled t
   :init (unicode-fonts-setup))
 
 (use-package
-  moe-theme
-  :ensure t
-  :defer t
-  :init (require #'moe-theme)
-  :config
-  (progn
-    (load-theme 'moe-dark 'no-confirm)
-    (moe-theme-set-color 'orange)))
-
-(use-package
-  solarized                             ; My colour theme
-  :ensure solarized-theme
-  :disabled t
-  :defer t
-  :init (load-theme 'solarized-light 'no-confirm)
-  :config
-  (progn
-    (setq setq solarized-use-variable-pitch nil)
-    (setq solarized-emphasize-indicators nil)
-    (setq solarized-height-minus-1 1.0)
-    (setq solarized-height-plus-1 1.0)
-    (setq solarized-height-plus-2 1.0)
-    (setq solarized-height-plus-3 1.0)
-    (setq solarized-height-plus-4 1.0)))
-
-(use-package
-  zenburn
-  :disabled t
-  :ensure zenburn-theme
-  :defer t
-  :init (load-theme 'zenburn 'no-confirm))
-
-(use-package
   darcula-theme
   :ensure t
   :defer t
-  :config (require #'darcula-theme))
+  :config (require #'darcula-theme)
+  :config (require 'darcula 'no-confirm)
 
 (use-package
   dynamic-fonts
@@ -231,14 +200,14 @@
     "Tahoma" "Verdana" "Arial Unicode MS"
     "Arial"))
     (setq dynamic-fonts-preferred-proportional-point-size
-      (pcase system-type (`darwin 13) (`windows-nt 9) (`gnu/linux 10)))
+      (pcase system-type (`darwin 13) (`windows-nt 10) (`gnu/linux 10)))
     (setq dynamic-fonts-preferred-monospace-fonts
       '("Source Code Pro" "Anonymous Pro"
     "Inconsolata" "Consolas" "Fira Mono"
     "Menlo" "DejaVu Sans Mono"
     "Bitstream Vera Mono" "Courier New"))
     (setq dynamic-fonts-preferred-monospace-point-size
-      (pcase system-type (`darwin 13) (`windows-nt 9) (`gnu/linux 10)))
+      (pcase system-type (`darwin 13) (`windows-nt 10) (`gnu/linux 10)))
     (dynamic-fonts-setup)))
 
 
@@ -247,7 +216,7 @@
   powerline
   :ensure t
   :init (require #'powerline)
-  :config (powerline-moe-theme))
+  :config (powerline-center-theme))
 
 (use-package
     stickyfunc-enhance
