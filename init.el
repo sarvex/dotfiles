@@ -113,9 +113,9 @@
 (require #'time-date)
 
 ;;; Key binding
-;(bind-key "C-c f v d" #'add-dir-local-variable)
-;(bind-key "C-c f v l" #'add-file-local-variable)
-;(bind-key "C-c f v p" #'add-file-local-variable-prop-line)
+(bind-key "C-c f v d" #'add-dir-local-variable)
+(bind-key "C-c f v l" #'add-file-local-variable)
+(bind-key "C-c f v p" #'add-file-local-variable-prop-line)
 (bind-key [remap just-one-space] #'cycle-spacing)
 (bind-key "C-c T d" #'toggle-debug-on-error)
 (bind-key "C-c h b" #'describe-personal-keybindings)
@@ -170,7 +170,7 @@
 (when (window-system)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
-  (menu-bar-mode -1)
+  (menu-bar-mode -1))
 
 (use-package
   diminish
@@ -187,7 +187,7 @@
   :ensure t
   :defer t
   :config (require #'darcula-theme)
-  :config (require 'darcula 'no-confirm)
+  :config (require 'darcula 'no-confirm))
 
 (use-package
   dynamic-fonts
