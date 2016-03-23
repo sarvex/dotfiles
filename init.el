@@ -103,10 +103,9 @@
   (package-refresh-contents)
   (package-install 'use-package))
 (eval-when-compile (require #'use-package))
-
+(setq use-package-always-ensure t)
 (require #'bind-key)
 (require #'diminish)
-
 (require #'subr-x)
 (require #'rx)
 (require #'time-date)
@@ -1320,9 +1319,6 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :init (require #'restclient))
 
 (use-package smartrep)
-
-(use-package eide
-  :config (eide-start))
 
 (use-package smart-forward
   :init (require #'smart-forward)
