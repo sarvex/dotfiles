@@ -1,6 +1,6 @@
 ;;; init.el --- Emacs configuration of Sarvex Jatasra -*- lexical-binding: t; -*-
 ;;
-;; Copyright (c) 2012-2015
+;; Copyright (c) 2012-2016
 ;;
 ;; Author: Sarvex Jatasra <sarvex.jatasra@gmail.com>
 ;; URL: sarvex.github.io
@@ -94,7 +94,6 @@
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("elpa" . "http://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
@@ -135,21 +134,17 @@
       (dolist (dir (parse-colon-path (getenv "INFOPATH")))
     (when dir (add-to-list 'Info-directory-list dir))))))
 
-(use-package ns-win
-  :if (eq system-type 'darwin)
-  :config
-  (progn
-    (setq ns-pop-up-frames nil)
-    (setq mac-option-modifier 'meta)
-    (setq mac-command-modifier 'meta)
-    (setq mac-right-command-modifier 'left mac-right-option-modifier 'none)
-    (setq mac-function-modifier 'hyper)))
+(setq mac-option-modifier 'meta)
+(setq mac-command-modifier 'meta)
+(setq mac-right-command-modifier 'left mac-right-option-modifier 'none)
+(setq mac-function-modifier 'hyper)
+
 
 ;;; Customization interface
 (defconst my-custom-file (locate-user-emacs-file "custom.el")
   "File used to store settings from Customization UI.")
 
-(use-package cus-edit
+(use-package cus-edit+
   :config
   (progn
     (setq custom-file my-custom-file custom-buffer-done-kill nil)
@@ -188,12 +183,12 @@
       '("Fira Sans" "Helvetica" "Segoe UI" "DejaVu Sans" "Bitstream Vera"
         "Tahoma" "Verdana" "Arial Unicode MS" "Arial"))
     (setq dynamic-fonts-preferred-proportional-point-size
-      (pcase system-type (`darwin 13) (`windows-nt 10) (`gnu/linux 10)))
+      (pcase system-type (`darwin 13) (`windows-nt 10) (`gnu/linux 13)))
     (setq dynamic-fonts-preferred-monospace-fonts
-      '("Source Code Pro" "Anonymous Pro" "Inconsolata" "Consolas" "Fira Mono"
+      '("Ubuntu Mono" "Source Code Pro" "Anonymous Pro" "Inconsolata" "Consolas" "Fira Mono"
         "Menlo" "DejaVu Sans Mono" "Bitstream Vera Mono" "Courier New"))
     (setq dynamic-fonts-preferred-monospace-point-size
-      (pcase system-type (`darwin 13) (`windows-nt 10) (`gnu/linux 10)))
+      (pcase system-type (`darwin 13) (`windows-nt 10) (`gnu/linux 13)))
     (dynamic-fonts-setup)))
 
 
@@ -258,136 +253,6 @@
     (setq deft-text-mode 'org-mode)
     (setq deft-use-filename-as-title t)))
 
-(use-package hydra-examples
-  :config (hydra-add-font-lock)
-  (global-set-key (kbd "C-x t")
-      (defhydra
-    hydra-toggle
-    (:color teal)
-    "
-_a_ abbrev-mode:      %`abbrev-mode
-_d_ debug-on-error    %`debug-on-error
-_f_ auto-fill-mode    %`auto-fill-function
-_t_ truncate-lines    %`truncate-lines
-
-"
-    ("a" abbrev-mode nil)
-    ("d" toggle-debug-on-error nil)
-    ("f" auto-fill-mode nil)
-    ("t" toggle-truncate-lines nil)
-    ("q" nil "cancel")))
-  (key-chord-define-global "ds"
-       (defhydra
-     hydra-zoom
-     ()
-     "zoom"
-     ("j" text-scale-increase "in")
-     ("k" text-scale-decrease "out")
-     ("0" (text-scale-set 0) "reset")
-     ("1" (text-scale-set 0)
-      :bind nil)
-     ("2" (text-scale-set 0)
-      :bind nil
-      :color blue)))
-  (defhydra
-    hydra-error
-    (global-map "M-g")
-    "goto-error"
-    ("h" first-error "first")
-    ("j" next-error "next")
-    ("k" previous-error "prev")
-    ("v" recenter-top-bottom "recenter")
-    ("q" nil "quit"))
-  (global-set-key (kbd "C-M-o")
-      (defhydra
-    hydra-window
-    (:color amaranth)
-    "
-Move Point^^^^   Move Splitter   ^Ace^                       ^Split^
---------------------------------------------------------------------------------
-_w_, _<up>_      Shift + Move    _C-a_: ace-window           _2_: split-window-below
-_a_, _<left>_                    _C-s_: ace-window-swap      _3_: split-window-right
-_s_, _<down>_                    _C-d_: ace-window-delete    ^ ^
-_d_, _<right>_                   ^   ^                       ^ ^
-You can use arrow-keys or WASD.
-"
-    ("2" split-window-below nil)
-    ("3" split-window-right nil)
-    ("a" windmove-left nil)
-    ("s" windmove-down nil)
-    ("w" windmove-up nil)
-    ("d" windmove-right nil)
-    ("A" hydra-move-splitter-left nil)
-    ("S" hydra-move-splitter-down nil)
-    ("W" hydra-move-splitter-up nil)
-    ("D" hydra-move-splitter-right nil)
-    ("<left>" windmove-left nil)
-    ("<down>" windmove-down nil)
-    ("<up>" windmove-up nil)
-    ("<right>" windmove-right nil)
-    ("<S-left>" hydra-move-splitter-left nil)
-    ("<S-down>" hydra-move-splitter-down nil)
-    ("<S-up>" hydra-move-splitter-up nil)
-    ("<S-right>" hydra-move-splitter-right nil)
-    ("C-a" ace-window nil)
-    ("u" hydra--universal-argument nil)
-    ("C-s" (lambda ()
-     (interactive)
-     (ace-window 4)) nil)
-    ("C-d" (lambda ()
-     (interactive)
-     (ace-window 16)) nil)
-    ("q" nil "quit")))
-  (defhydra
-    hydra-org-template
-    (:color blue
-    :hint nil)
-    "
-_c_enter  _q_uote     _e_macs-lisp    _L_aTeX:
-_l_atex   _E_xample   _p_erl          _i_ndex:
-_a_scii   _v_erse     _P_erl tangled  _I_NCLUDE:
-_s_rc     ^ ^         plant_u_ml      _H_TML:
-_h_tml    ^ ^         ^ ^             _A_SCII:
-"
-    ("s" (hot-expand "<s"))
-    ("E" (hot-expand "<e"))
-    ("q" (hot-expand "<q"))
-    ("v" (hot-expand "<v"))
-    ("c" (hot-expand "<c"))
-    ("l" (hot-expand "<l"))
-    ("h" (hot-expand "<h"))
-    ("a" (hot-expand "<a"))
-    ("L" (hot-expand "<L"))
-    ("i" (hot-expand "<i"))
-    ("e" (progn (hot-expand "<s")
-    (insert "emacs-lisp")
-    (forward-line)))
-    ("p" (progn (hot-expand "<s")
-    (insert "perl")
-    (forward-line)))
-    ("u" (progn (hot-expand "<s")
-    (insert "plantuml :file CHANGE.png")
-    (forward-line)))
-    ("P" (progn (insert
-     "#+HEADERS: :results output :exports both :shebang \"#!/usr/bin/env perl\"\n")
-    (hot-expand "<s")
-    (insert "perl")
-    (forward-line)))
-    ("I" (hot-expand "<I"))
-    ("H" (hot-expand "<H"))
-    ("A" (hot-expand "<A"))
-    ("<" self-insert-command "ins")
-    ("o" nil "quit"))
-  (defun hot-expand (str)
-    "Expand org template."
-    (insert str)
-    (org-try-structure-completion))
-  (with-eval-after-load "org" (define-key org-mode-map "<" (lambda ()
-   (interactive)
-   (if (looking-back "^")
-   (hydra-org-template/body)
-     (self-insert-command 1))))))
-
 
 ;;; The minibuffer
 (use-package savehist
@@ -449,9 +314,6 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
       '(:eval (if (buffer-file-name)
       (abbreviate-file-name (buffer-file-name)) "%b")))
 
-(use-package uniquify
-  :config (setq uniquify-buffer-name-style 'forward))
-
 (use-package ibuffer
   :bind (([remap list-buffers] . ibuffer))
   :config (setq ibuffer-formats
@@ -495,10 +357,6 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
 (use-package winner                                ; Undo and redo window configurations
   :init (winner-mode))
 
-(use-package ediff-wind
-  :config (setq ediff-window-setup-function #'ediff-setup-windows-plain ediff-split-window-function
-    #'split-window-horizontally))
-
 (use-package writeroom-mode
   :bind (("C-c T R" . writeroom-mode)))
 
@@ -536,24 +394,6 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
 
 (use-package tramp                                 ; Access remote files
   :config (setq tramp-auto-save-directory (locate-user-emacs-file "tramp-auto-save")))
-
-(use-package dired
-  :config (progn
-    (require #'dired-x)
-    (setq dired-auto-revert-buffer t
-      dired-listing-switches "-alhF" dired-ls-F-marks-symlinks t
-      dired-recursive-copies 'always)
-    (when (or (memq system-type '(gnu gnu/linux))
-      (string= (file-name-nondirectory insert-directory-program) "gls"))
-      (setq dired-listing-switches (concat dired-listing-switches
-     " --group-directories-first -v")))))
-
-(use-package dired-x
-  :bind (("C-x C-j" . dired-jump))
-  :config (progn
-    (setq dired-omit-verbose nil)
-    (when (eq system-type 'darwin)
-      (setq dired-guess-shell-gnutar "tar"))))
 
 (use-package copyright
   :bind (("C-c u C" . copyright-update))
@@ -774,6 +614,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :diminish rainbow-identifiers-mode)
 
 (use-package color-identifiers-mode
+  :defer t
   :config (global-color-indentifiers-mode)
   :diminish color-identifiers-mode)
 
@@ -1030,42 +871,11 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
 
 
 ;;; LaTeX with AUCTeX
-(use-package tex-site)
-
-(use-package tex
-  :config (progn
-    (setq TeX-parse-self t                   ; Parse documents to pro∫vide completion
-      TeX-auto-save t                    ; Automatically save style information
-      TeX-electric-sub-and-superscript t ; Automatically insert braces after
-      TeX-electric-math '("\\(" "\\)") TeX-quote-after-quote t TeX-clean-confirm nil
-      TeX-source-correlate-mode t TeX-source-correlate-method 'synctex)
-    (setq-default TeX-master nil     ; Ask for the master file
-      TeX-engine 'luatex ; Use a modern engine
-      TeX-PDF-mode t)
-    (setcar (cdr (assoc "Check" TeX-command-list)) "chktex -v6 %s")))
-
-(use-package tex-buf                               ; TeX buffer management
-  :config (setq TeX-save-query nil))
-
-(use-package tex-style                             ; TeX style
-  :config (setq LaTeX-csquotes-close-quote "}" LaTeX-csquotes-open-quote "\\enquote{"))
-
-(use-package tex-fold                              ; TeX folding
-  :init (add-hook 'TeX-mode-hook #'TeX-fold-mode))
-
 (use-package tex-mode                              ; TeX mode
   :config (font-lock-add-keywords
        'latex-mode
        `((,(rx "\\" symbol-start "fx" (1+ (or (syntax word)
     (syntax symbol))) symbol-end) . font-lock-warning-face))))
-
-(use-package latex                                 ; LaTeX editing
-  :config (progn
-    (setq TeX-outline-extra `((,(rx (0+ space) "\\section*{") 2)
-    (,(rx (0+ space) "\\subsection*{") 3)
-    (,(rx (0+ space) "\\subsubsection*{") 4)
-    (,(rx (0+ space) "\\minisec{") 5)) LaTeX-babel-hyphen nil)
-    (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode))) ; Easy math input
 
 (use-package auctex-latexmk
   :config (auctex-latexmk-setup))
@@ -1158,34 +968,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
   :config (progn
     ;; Scrolling
     (setq eshell-scroll-to-bottom-on-output t eshell-scroll-show-maximum-output t
-      eshell-save-history-on-exit t eshell-buffer-shorthand t)
-    (use-package esh-mode
-      :config (progn
-    (defun eshell/cds ()
-      (eshell/cd (or (locate-dominating-file default-directory "src")
-   (locate-dominating-file default-directory ".git"))))
-    (defun eshell/clear ()
-      (interactive)
-      (let ((inhibit-read-only t))
-    (delete-region (point-min)
-     (point-max)))
-      (eshell-send-input))
-    (add-hook 'eshell-mode-hook (lambda ()
-    (bind-key "C-l" 'eshell/clear
-  eshell-mode-map)))))
-    (use-package eshell-opt
-      :config (use-package
-    eshell-prompt-extras))
-    (use-package em-term
-      :config (setq eshell-visual-commands (append '("tmux" "screen" "ssh")
-     eshell-visual-commands)))
-    (use-package em-hist
-      :config (setq eshell-hist-ignoredups t)))
-  (use-package em-smart
-    :config (progn
-      (setq eshell-where-to-jump 'begin)
-      (setq eshell-review-quick-commands nil)
-      (setq eshell-smart-space-goes-to-end t))))
+      eshell-save-history-on-exit t eshell-buffer-shorthand t)))
 
 (add-hook 'emacs-lisp-mode-hook #'flyspell-prog-mode)
 
@@ -1224,9 +1007,6 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
 ;;; Java
 (use-package grails-mode
   :diminish grails-mode)
-
-(use-package malabar-mode
-  :config (activate-malabar-mode))
 
 (use-package java-imports
   :config
@@ -1404,11 +1184,6 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
 (use-package ielm
   :bind (("C-c u z" . ielm)))
 
-(use-package lisp-mode
-  :interpreter ("emacs" . emacs-lisp-mode)
-  :mode ("/Cask\\'" . emacs-lisp-mode)
-  :init (require #'ert))
-
 (bind-key "C-c T d" #'toggle-debug-on-error)
 
 (use-package racket-mode
@@ -1428,7 +1203,7 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
     (add-hook 'feature-mode-hook #'flyspell-mode)))
 
 ;;; Lua
-(use-package lua
+(use-package lua-mode
   :mode ("\\.lua\\'" . lua-mode)
   :interpreter ("lua" . lua-mode))
 
@@ -1481,39 +1256,6 @@ _h_tml    ^ ^         ^ ^             _A_SCII:
 
 (use-package 4clojure)
 
-
-;;; Scala
-(defconst my-scalastyle-version '("0.8.0" . "2.11")
-  "Version of scala style to use for Flycheck.
-
-A pair of `(VERSION . SCALA-VERSION)'.")
-
-(defconst my-scalastyle-jar
-  (pcase-let ((`(,version . ,scala-version) my-scalastyle-version))
-    (format "scalastyle_%s-%s-batch.jar" scala-version version))
-  "Name of the scalastyle JAR.")
-
-(defconst my-scalastyle-url
-  (pcase-let ((`(,version . ,scala-version) my-scalastyle-version))
-    (format
-     "https://oss.sonatype.org/content/repositories/releases/org/scalastyle/scalastyle_%s/%s/%s"
-     scala-version version my-scalastyle-jar))
-  "URL to get scalastyle from.")
-
-(use-package scala-mode2                           ; Scala editing
-  :config (progn (let ((filename (locate-user-emacs-file my-scalastyle-jar)))
-       (unless (file-exists-p filename)
-     (message "Downloading scalastyle JAR")
-     (url-copy-file my-scalastyle-url filename))
-       (with-eval-after-load 'flycheck
-     (setq flycheck-scalastyle-jar (expand-file-name filename) flycheck-scalastylerc
-       "scalastyle-config.xml")))))
-
-(use-package sbt-mode                              ; Scala build tool
-  :config (add-hook 'scala-mode-hook #'ensime-scala-mode-hook))
-
-(use-package ensime
-  :disabled t)
 
 ;;; Python
 (use-package python
@@ -1703,13 +1445,6 @@ is run with prefix argument - also execute resulting binary."
      (bind-key "C-c h i" #'haskell-navigate-imports haskell-mode-map)
      (bind-key "C-c h c" #'haskell-cabal-visit-file haskell-mode-map)))
 
-(use-package haskell
-  :init (dolist (hook '(haskell-mode-hook haskell-cabal-mode-hook))
-      (add-hook hook #'interactive-haskell-mode))
-  :config (progn (bind-key "C-c C-t" #'haskell-mode-show-type-at interactive-haskell-mode-map)
-     (bind-key "M-." #'haskell-mode-goto-loc interactive-haskell-mode-map)
-     (bind-key "C-c u u" #'haskell-mode-find-uses interactive-haskell-mode-map)))
-
 (use-package ghc
   :config (progn (autoload 'ghc-init "ghc" nil t)
      (autoload 'ghc-debug "ghc" nil t)
@@ -1724,11 +1459,6 @@ is run with prefix argument - also execute resulting binary."
      (require #'shm-reformat)
      (setq hindent-style "chris-done")
      (bind-key "C-c i" 'shm-reformat-decl haskell-mode-map)))
-
-(use-package haskell-interactive-mode)
-
-(use-package haskell-simple-indent                 ; Primitive Haskell indentation
-  :init (add-hook 'haskell-mode-hook #'haskell-simple-indent-mode))
 
 (use-package hindent                               ; Automated Haskell indentation
   :init (add-hook 'haskell-mode-hook #'hindent-mode))
@@ -1832,9 +1562,6 @@ is run with prefix argument - also execute resulting binary."
 (use-package puppet-mode                           ; Puppet manifests
   :config (setq puppet-fontify-variables-in-comments t))
 
-(use-package nxml-mode                             ; XML editing
-  :config (setq nxml-slash-auto-complete-flag t nxml-auto-insert-xml-declaration-flag t))
-
 (use-package feature-mode                          ; Feature files for ecukes/cucumber
   :config (progn (add-hook 'feature-mode-hook #'flyspell-mode)))
 
@@ -1857,9 +1584,6 @@ is run with prefix argument - also execute resulting binary."
 
 
 ;;; Version control
-(use-package vc-hooks                              ; Simple version control
-  :config (setq vc-follow-symlinks t))
-
 (use-package diff-hl
   :config (progn (global-diff-hl-mode)
      (add-hook 'dired-mode-hook #'diff-hl-dired-mode)))
@@ -1974,13 +1698,11 @@ is run with prefix argument - also execute resulting binary."
   :diminish grails-projectile-mode)
 
 (use-package org-projectile
-  :bind (("C-c n p" . org-projectile:project-todo-completing-read)
-     ("C-c c" . org-capture))
+  :bind (("C-c n p" . org-projectile:project-todo-completing-read))
   :config
   (progn
     (setq org-projectile:projects-file "projects.org")
-    (setq org-agenda-files (append org-agenda-files (org-projectile:todo-files)))
-    (add-to-list 'org-capture-templates (org-projectile:project-todo-entry "p"))))
+    (setq org-agenda-files (append org-agenda-files (org-projectile:todo-files)))))
 
 (use-package projectile-rails
   :init (require #'projectile-rails)
@@ -2043,24 +1765,8 @@ is run with prefix argument - also execute resulting binary."
   :bind (("C-c w b" . eww-list-bookmarks)
      ("C-c w w" . eww)))
 
-(use-package sx                                    ; StackExchange client for Emacs
-  :bind (("C-c w s" . sx-tab-frontpage)
-     ("C-c w S" . sx-tab-newest)
-     ("C-c w a" . sx-ask)))
-
-(use-package sx-compose
-  :config (progn (add-hook 'sx-compose-mode-hook #'turn-off-auto-fill)
-     (add-hook 'sx-compose-mode-hook #'visual-line-mode)
-     (bind-key "M-q" #'ignore sx-compose-mode-map)))
-
-(use-package sx-question-mode
-  :config (setq sx-question-mode-display-buffer-function #'switch-to-buffer))
-
 (use-package sendmail                              ; Send mails from Emacs
   :config (setq send-mail-function 'smtpmail-send-it))
-
-(use-package message                               ; Compose mails from Emacs
-  :config (setq message-send-mail-function 'smtpmail-send-it message-kill-buffer-on-exit t))
 
 (use-package smtpmail
   :config (setq smtpmail-smtp-server "vega.uberspace.de" smtpmail-smtp-service 587
@@ -2079,12 +1785,6 @@ is run with prefix argument - also execute resulting binary."
     (add-to-list 'erc-modules 'spelling)
     (erc-update-modules)))
 
-(use-package erc-join                              ; Automatically join channels with ERC
-  :config (setq erc-autojoin-channels-alist '(("\\.freenode\\.net" . ("#emacs")))))
-
-(use-package erc-track                             ; Track status of ERC in mode line
-  :config (setq erc-track-switch-direction 'newest erc-track-enable-keybindings t))
-
 (use-package rcirc                                 ; Simply ERC client
   :config (progn
     (setq rcirc-default-full-name (format "%s (http://www.sarvex.com)" user-full-name)
@@ -2095,6 +1795,7 @@ is run with prefix argument - also execute resulting binary."
      :channels ("#emacs" "#haskell" "#hakyll" "#zsh"))))
     (add-hook 'rcirc-mode-hook #'flyspell-mode)
     (rcirc-track-minor-mode)))
+
 
 ;;; * Org Mode
 
@@ -2130,23 +1831,7 @@ is run with prefix argument - also execute resulting binary."
     (add-hook 'prog-mode-hook 'turn-on-orgstruct)
     (defun orgstruct-lisps-turn-on ()
       (setq orgstruct-heading-prefix-regexp ";; "))
-    (add-hook 'lisps-mode-hook #'orgstruct-lisps-turn-on)
-    (use-package org-capture
-      :bind ("C-c c" . org-capture)
-      :config (progn
-    (setq org-reverse-note-order t org-capture-templates '(("d" "Dev dump" entry
-      (file
-       "~/org/dev.org")
-      "* %?\n  %i\n %a"
-      :kill-buffer  t)
-         ("j" "Journal" entry
-      (file
-       "~/org/journal.org")
-      "* %U\n %?i\n %a"
-      :kill-buffer t)))))
-    (use-package org-clock
-      :config (setq org-clock-idle-time 15 org-clock-in-resume t org-clock-persist t
-    org-clock-persist-query-resume nil org-clock-clocked-in-display 'both))))
+    (add-hook 'lisps-mode-hook #'orgstruct-lisps-turn-on)))
 
 ;;; Online Help
 (use-package find-func                             ; Find function/variable definitions
@@ -2155,9 +1840,6 @@ is run with prefix argument - also execute resulting binary."
      ("C-x K"   . find-function-on-key)
      ("C-x V"   . find-variable)
      ("C-x 4 V" . find-variable-other-window)))
-
-(use-package apropos                               ; Search symbols for documentation
-  :bind ("C-c h a" . apropos))
 
 (use-package ansible-doc
   :init (add-hook 'yaml-mode-hook #'ansible-doc-mode)
@@ -2296,27 +1978,12 @@ is run with prefix argument - also execute resulting binary."
     (setq helm-swoop-split-with-multiple-windows nil)
     (setq helm-swoop-split-direction 'split-window-vertically)))
 
-(use-package emacs-eclim
-  :init
-  (progn
-    (require #'eclim)
-    (require #'eclimd)
-    (require #'company-emacs-eclim)
-    (company-emacs-eclim-setup))
-  :config
-  (progn
-    (setq help-at-pt-display-when-idle t)
-    (setq eclimd-executable "c:/Program Files/eclipse/eclimd.bat")
-    (setq help-at-pt-timer-delay 0.1)
-    (setq eclimd-default-workspace "c:/Users/Sarvex/Workspace")
-    (global-eclim-mode)
-    (dolist (hook '(java-mode-hook scala-mode-hook groovy-mode-hook android-mode-hook))
-      (addhook hook (lambda () (eclipse-mode t))))
-    (help-at-pt-set-timer)))
-
 (use-package auto-package-update
   :init (require #'auto-package-update)
-  :config (auto-package-update-maybe))
+  :config
+  (progn
+    (setq auto-package-update-delete-old-versions t)
+    (auto-package-update-maybe)))
 
 (use-package android-mode)
 
