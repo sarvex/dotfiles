@@ -1639,7 +1639,7 @@ is run with prefix argument - also execute resulting binary."
 (use-package git-timemachine
   :bind ("C-c v t" . git-timemachine))
 
-(use-package git-blame)
+(use-package git-blamed)
 
 (use-package git-messenger)
 
