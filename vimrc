@@ -89,6 +89,7 @@ Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 Plugin 'Lokaltog/vim-distinguished'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'candy.vim'
+Plugin 'kristijanhusak/vim-hybrid-material'
 
 " syntax support
 Plugin 'vim-ruby/vim-ruby'
@@ -354,9 +355,8 @@ set cursorline
 set splitright
 set foldmethod=syntax
 set foldlevelstart=10
-set guifont=Source_Code_Pro_for_Powerline:h13
-set shiftwidth=4
-set softtabstop=4
+set shiftwidth=2
+set softtabstop=2
 set autoindent
 set smartindent
 set expandtab
@@ -380,7 +380,8 @@ set clipboard=unnamedplus
 set fileformat=unix
 set fileformats=unix,dos
 
-colors solarized
+let g:enable_bold_font = 1
 set background=dark
+colorscheme hybrid_material
 filetype on
 syntax on
