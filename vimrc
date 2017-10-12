@@ -1,5 +1,5 @@
 set nocompatible
-
+set shell=/bin/bash
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 
