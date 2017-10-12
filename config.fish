@@ -1,6 +1,5 @@
 set -gx WORKSPACE $HOME/Workspace
 set -gx PROJECTS $HOME/Projects
-set -gx DATA $HOME/Data
 
 set -gx CAFFE_ROOT $PROJECTS/caffe
 set -gx TORCH_ROOT $PROJECTS/torch
