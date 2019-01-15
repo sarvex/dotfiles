@@ -1,0 +1,24 @@
+-- http://projects.haskell.org/xmobar/
+-- install xmobar with these flags: --flags="with_alsa" --flags="with_mpd" --flags="with_xft"  OR --flags="all_extensions"
+-- you can find weather location codes here: http://weather.noaa.gov/index.html
+
+Config { font    = "xft:ubuntu mono:pixelsize=13:antialias=true:hinting=true"
+       , bgColor = "#002B36"
+       , fgColor = "#839496"
+       , position = Top
+       , lowerOnStart = True
+       , hideOnStart = False
+       , allDesktops = True
+       , persistent = True
+       , commands = [ Run Weather "KMLU" ["-t","temp: <tempF>F"] 36000
+                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+                    , Run Network "enp3s0" ["-t", "net: <rx>kb|<tx>kb"] 10
+                    , Run Cpu ["-t","cpu: <total>%","-H","50","--high","red"] 10
+                    , Run Memory ["-t","mem: <usedratio>%"] 10
+                    , Run DiskU [("/","hdd: <used>/<size>")] [] 3600
+                    , Run UnsafeStdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%UnsafeStdinReader% }{ <fc=#91A0BD> <fc=#859900>%cpu%</fc> : <fc=#DC322F>%memory%</fc> : <fc=#B58900>%disku%</fc> : <fc=#D33682>%enp3s0%</fc> : <fc=#6c71c4>%KMLU%</fc> : <fc=#fdf6e3>%date%</fc> </fc> "
+       }
