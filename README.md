@@ -1,7 +1,13 @@
-# Dotfiles
-Dotfiles are the customization files (their filenames usually begin with a period) that are used to personalize your linux or other Unix-based system.  This repository contains my personal dotfiles.  They are stored here for convenience so that I may quickly access them on new machines or new installs.  Also, others may find some of my configurations helpful in customizing their own dotfiles.  
+#  Dotfiles
+Dotfiles are the customization files that are used to personalize your Linux or other Unix-based system.  You can tell that a file is a dotfile because the name of the file will begin with a period--a dot!  The period at the beginning of a filename or directory name indicates that it is a hidden file or directory.  This repository contains my personal dotfiles.  They are stored here for convenience so that I may quickly access them on new machines or new installs.  Also, others may find some of my configurations helpful in customizing their own dotfiles.  
 
-# Some directories worth checking out in my dotfiles
-I focus a lot of attention on the Openbox window manager on my YouTube channel ( https://www.youtube.com/c/DistroTube ).  I often get questions about my Openbox configuration files and pipemenus.  Those files can be found here: https://gitlab.com/dwt1/dotfiles/tree/master/.config/openbox .
+# Who am I
+I am Derek Taylor (DT), the creator of the DistroTube channel (also DT) on YouTube: ( https://www.youtube.com/c/DistroTube ).  In my videos, I focus a lot of my attention on minimal window managers such as openbox, qtile, i3 and xmonad.  Viewers of my channel will often ask me for my configuration files for those window managers or related programs, such as the tint2 panel or the polybar panel.  This repository serves a triple function: (1) as a place to point viewers who ask me for my configs, (2) as a learning resource for those that wish to study my configs, and (3) as a backup and restore option for myself should the need arise.
 
-I also promote the Qtile window manager a lot DistroTube.  My Qtile configuration resides here: https://gitlab.com/dwt1/dotfiles/tree/master/.config/qtile .
+# How To Manage Your Own Dotfiles
+
+There are a hundred ways to manage your dotfiles.  My first suggestion would be to read up on the subject.  A great place to start is "Your unofficial guide to dotfiles on GitHub": https://dotfiles.github.io/
+
+Personally, I use the git bare repository method for managing my dotfiles: https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
+
+
