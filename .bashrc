@@ -3,7 +3,6 @@
 # | | | || |    http://www.youtube.com/c/DistroTube
 # | |_| || |    http://www.gitlab.com/dwt1/ 
 # |____/ |_|  	
-#    
   
 EDITOR=vim
 export TERM="xterm-256color"

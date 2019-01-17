@@ -3,8 +3,8 @@
 # Based on script by z3bra -- 2014-01-21
 
 W3MIMGDISPLAY="/usr/lib/w3m/w3mimgdisplay"
-FONTH=18 # Size of one terminal row
-FONTW=10 # Size of one terminal column
+FONTH=16 # Size of one terminal row
+FONTW=9 # Size of one terminal column
 
 X=$1
 Y=$2

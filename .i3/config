@@ -1,7 +1,7 @@
-# ____ _____ 
+#  ____ _____ 
 # |  _ \_   _|  Derek Taylor (DistroTube)
-# | | | || |  	http://www.youtube.com/c/DistroTube
-# | |_| || |  	http://www.gitlab.com/dwt1/ 
+# | | | || |    http://www.youtube.com/c/DistroTube
+# | |_| || |    http://www.gitlab.com/dwt1/ 
 # |____/ |_|  	
 #      
 # A customized config for i3-gaps window manager (http://www.i3wm.org) 
@@ -35,7 +35,7 @@ font xft:URWGothic-Book 11
 floating_modifier $mod
 
 # start a $myTerm
-set $myTerm xterm
+set $myTerm termite
 bindsym $mod+Return exec $myTerm
 
 # kill focused window
@@ -48,37 +48,37 @@ bindsym $mod+KP_Insert exec --no-startup-id rofi -show run
 bindsym $mod+' exec --no-startup-id morc_menu
 
 # Apps Launched with <SUPER> + <KEYPAD 1-9>
-bindsym $mod+KP_End exec $myTerm -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com
-bindsym $mod+KP_Down exec $myTerm -e sh ./scripts/googler-script.sh
-bindsym $mod+KP_Page_Down exec $myTerm -e newsboat
-bindsym $mod+KP_Left exec $myTerm -e rtv
-bindsym $mod+KP_Begin exec $myTerm -e neomutt
-bindsym $mod+KP_Right exec $myTerm -e twitch-curses
-bindsym $mod+KP_Home exec $myTerm -e sh ./scripts/haxor-news.sh
-bindsym $mod+KP_Up exec $myTerm -e toot curses
-bindsym $mod+KP_Page_Up exec $myTerm -e sh ./scripts/tig-script.sh
+bindsym $mod+KP_End exec $myTerm -e 'lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com'
+bindsym $mod+KP_Down exec $myTerm -e 'sh ./scripts/googler-script.sh'
+bindsym $mod+KP_Page_Down exec $myTerm -e 'newsboat'
+bindsym $mod+KP_Left exec $myTerm -e 'rtv'
+bindsym $mod+KP_Begin exec $myTerm -e 'neomutt'
+bindsym $mod+KP_Right exec $myTerm -e 'twitch-curses'
+bindsym $mod+KP_Home exec $myTerm -e 'sh ./scripts/haxor-news.sh'
+bindsym $mod+KP_Up exec $myTerm -e 'toot curses'
+bindsym $mod+KP_Page_Up exec $myTerm -e 'sh ./scripts/tig-script.sh'
 
 # Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 1-9>
-bindsym $mod+Shift+KP_1 exec $myTerm -e vifm
-bindsym $mod+Shift+KP_2 exec $myTerm -e htop
-bindsym $mod+Shift+KP_3 exec $myTerm -e cmus
-bindsym $mod+Shift+KP_4 exec $myTerm -e irssi
-bindsym $mod+Shift+KP_5 exec $myTerm -e rtorrent
-bindsym $mod+Shift+KP_6 exec $myTerm -e youtube-viewer
-bindsym $mod+Shift+KP_7 exec $myTerm -e ncpamixer
-bindsym $mod+Shift+KP_8 exec $myTerm -e calcurse
-bindsym $mod+Shift+KP_9 exec $myTerm -e vim /home/dt/.i3/config
+bindsym $mod+Shift+KP_1 exec $myTerm -e 'vifm'
+bindsym $mod+Shift+KP_2 exec $myTerm -e 'htop'
+bindsym $mod+Shift+KP_3 exec $myTerm -e 'cmus'
+bindsym $mod+Shift+KP_4 exec $myTerm -e 'irssi'
+bindsym $mod+Shift+KP_5 exec $myTerm -e 'rtorrent'
+bindsym $mod+Shift+KP_6 exec $myTerm -e 'youtube-viewer'
+bindsym $mod+Shift+KP_7 exec $myTerm -e 'ncpamixer'
+bindsym $mod+Shift+KP_8 exec $myTerm -e 'calcurse'
+bindsym $mod+Shift+KP_9 exec $myTerm -e 'vim /home/dt/.i3/config'
 
 # Apps Launched with <SUPER> + <CTRL> + <KEYPAD 1-9>
-bindsym $mod+Ctrl+KP_End exec $myTerm -e htop
-bindsym $mod+Ctrl+KP_Down exec $myTerm -e glances
-bindsym $mod+Ctrl+KP_Page_Down exec $myTerm -e nmon
-bindsym $mod+Ctrl+KP_Left exec $myTerm -e httping -KY --draw-phase localhost
-bindsym $mod+Ctrl+KP_Begin exec $myTerm -e s-tui
-bindsym $mod+Ctrl+KP_Right exec $myTerm -e pianobar 
-bindsym $mod+Ctrl+KP_Home exec $myTerm -e cmatrix -C cyan
-bindsym $mod+Ctrl+KP_Up exec $myTerm -e joplin
-bindsym $mod+Ctrl+KP_Page_Up exec $myTerm -e wopr report.xml
+bindsym $mod+Ctrl+KP_End exec $myTerm -e 'htop'
+bindsym $mod+Ctrl+KP_Down exec $myTerm -e 'glances'
+bindsym $mod+Ctrl+KP_Page_Down exec $myTerm -e 'nmon'
+bindsym $mod+Ctrl+KP_Left exec $myTerm -e 'httping -KY --draw-phase localhost'
+bindsym $mod+Ctrl+KP_Begin exec $myTerm -e 's-tui'
+bindsym $mod+Ctrl+KP_Right exec $myTerm -e 'pianobar'
+bindsym $mod+Ctrl+KP_Home exec $myTerm -e 'cmatrix -C cyan'
+bindsym $mod+Ctrl+KP_Up exec $myTerm -e 'joplin'
+bindsym $mod+Ctrl+KP_Page_Up exec $myTerm -e 'wopr report.xml'
 
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
