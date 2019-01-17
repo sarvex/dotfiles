@@ -1,7 +1,7 @@
 #  ____ _____ 
 # |  _ \_   _|  Derek Taylor (DistroTube)
-# | | | || |  	http://www.youtube.com/c/DistroTube
-# | |_| || |  	http://www.gitlab.com/dwt1/ 
+# | | | || |    http://www.youtube.com/c/DistroTube
+# | |_| || |    http://www.gitlab.com/dwt1/ 
 # |____/ |_|  	
 #    
   
