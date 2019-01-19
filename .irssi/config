@@ -40,6 +40,16 @@ servers = (
     address = "irc.undernet.org";
     chatnet = "Undernet";
     port = "6667";
+  },
+  {
+    address = "chat.freenode.net";
+    chatnet = "Freenode";
+    port = "6697";
+    password = "DistroTube:PASSSWORD";
+    use_tls = "yes";
+    tls_cert = "~/.irssi/certs/freenode.pem";
+    tls_verify = "no";
+    autoconnect = "yes";
   }
 );
 
