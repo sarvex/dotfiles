@@ -1422,7 +1422,7 @@ label-disconnected-foreground = ${colors.foreground}
 [module/wireless-network]
 ;https://github.com/jaagr/polybar/wiki/Module:-network
 type = internal/network
-interface = wlp3s0
+interface = ${env:WIRELESS}
 interval = 3.0
 label-connected = %essid%
 
@@ -1520,3 +1520,4 @@ format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 
 ###############################################################################
+# vim:ft=dosini
