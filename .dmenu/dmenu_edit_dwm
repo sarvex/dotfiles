@@ -8,6 +8,8 @@
 # Use dmenu to open and edit a file from a given list.
 # I use this to quickly open my dwm source files in vim.
 
+source $HOME/.dmenurc
+
 # Global variables:
 FILES=${1:-"/home/dt/dwm"}
 DMENU='dmenu -l -i'

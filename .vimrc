@@ -14,6 +14,12 @@ call vundle#begin()		" required, all plugins must appear after this line.
 Plugin 'gmarik/Vundle.vim'							" Vundle
 Plugin 'vim-airline/vim-airline'					" Airline
 Plugin 'vim-airline/vim-airline-themes'				" Airline Themes
+Plugin 'scrooloose/nerdtree'						" added nerdtree
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plugin 'ryanoasis/vim-devicons'
+Plugin 'vim-python/python-syntax'
+Plugin 'jreybert/vimagit'
+Plugin 'severin-lemaignan/vim-minimap'
 "Plugin 'klen/python-mode'                          " Python Mode
 
 call vundle#end()		" required, all plugins must appear before this line.
@@ -59,7 +65,7 @@ set rtp+=/usr/share/powerline/bindings/vim/
 set laststatus=2
 
 " Use 256 colours (Use this setting only if your terminal supports 256 colours)
-set t_Co=256
+" set t_Co=256
 
 syntax on   
 set number
@@ -88,6 +94,18 @@ set shiftwidth=4
 set tabstop=4
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => NERDTree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Uncomment to autostart the NERDTree
+" autocmd vimenter * NERDTree
+map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+let NERDTreeShowLineNumbers=1
+let NERDTreeShowHidden=1
+let NERDTreeMinimalUI = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 hi LineNr ctermfg=4 ctermbg=232
@@ -98,7 +116,20 @@ hi Statement ctermfg=3
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set mouse=nicr
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Splits and Tabbed Files
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set splitbelow splitright
 
+set path+=**					" Searches current directory recursively.
+set wildmenu					" Display all matches when tab complete.
 set incsearch
 set nobackup
 set noswapfile
+
+let g:minimap_highlight='Visual'
+
+let g:python_highlight_all = 1
+syntax on
+
+

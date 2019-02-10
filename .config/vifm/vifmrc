@@ -118,6 +118,8 @@ endif
 
 set statusline="  Hint: %z%= %A %10u:%-7g %15s %20d  "
 
+" Set line numbers to show
+
 " ------------------------------------------------------------------------------
 
 " :mark mark /full/directory/path [filename]
@@ -247,7 +249,7 @@ filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ {View in shotwell}
         \ shotwell,
 fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
-          " Get w3m image previews inside vifm
+         " Get w3m image previews inside vifm
 		  \ imgt %px %py %pw %ph %c
           \ %pc
          " \ imgc %px %py %pw %ph   NOT NEEDED IN XTERM

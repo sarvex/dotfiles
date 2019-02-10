@@ -29,6 +29,6 @@ cpu(){
 }
 
 while true; do
-     xsetroot -name "$(cpu) | $(mem) | $(upd) | $(dte)"
+     xsetroot -name "$(cpu) | $(mem) | $(dte)"
      sleep 10s    # Update time every ten seconds
 done &

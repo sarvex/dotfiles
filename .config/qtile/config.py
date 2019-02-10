@@ -21,7 +21,6 @@
 # The above copyright notice and this permission notice shall be included in all copies or substantial 
 # portions of the Software.
 
-
 ##### IMPORTS #####
 
 import os
@@ -63,23 +62,23 @@ def app_or_group(group, app):
 def init_keys():
     keys = [
             Key(
-                [mod], "Return", 
+                [mod], "Return",
                 lazy.spawn(myTerm)                        # Open terminal
                 ),
             Key(
-                [mod], "Tab", 
+                [mod], "Tab",
                 lazy.next_layout()                        # Toggle through layouts
                 ),
             Key(
-                [mod, "shift"], "c", 
+                [mod, "shift"], "c",
                 lazy.window.kill()                        # Kill active window
                 ),
             Key(
-                [mod, "shift"], "r", 
+                [mod, "shift"], "r",
                 lazy.restart()                            # Restart Qtile
                 ),
             Key(
-                [mod, "shift"], "q", 
+                [mod, "shift"], "q",
                 lazy.shutdown()                           # Shutdown Qtile
                 ),
             Key([mod], "i",
@@ -97,31 +96,30 @@ def init_keys():
             Key([mod, "control"], "j",
                 lazy.layout.section_down()                        # Move down a section in treetab
                 ),
-                
             # Window controls
             Key(
-                [mod], "k", 
+                [mod], "k",
                 lazy.layout.down()                        # Switch between windows in current stack pane
                 ),
             Key(
-                [mod], "j", 
+                [mod], "j",
                 lazy.layout.up()                          # Switch between windows in current stack pane
                 ),
             Key(
-                [mod, "shift"], "k", 
+                [mod, "shift"], "k",
                 lazy.layout.shuffle_down()                # Move windows down in current stack
                 ),
             Key(
-                [mod, "shift"], "j", 
+                [mod, "shift"], "j",
                 lazy.layout.shuffle_up()                  # Move windows up in current stack
                 ),
             Key(
-                [mod, "shift"], "l", 
+                [mod, "shift"], "l",
                 lazy.layout.grow(),                       # Grow size of current window (XmonadTall)
                 lazy.layout.increase_nmaster(),           # Increase number in master pane (Tile)
                 ),
             Key(
-                [mod, "shift"], "h", 
+                [mod, "shift"], "h",
                 lazy.layout.shrink(),                     # Shrink size of current window (XmonadTall)
                 lazy.layout.decrease_nmaster(),           # Decrease number in master pane (Tile)
                 ),
@@ -134,44 +132,43 @@ def init_keys():
                 window_to_next_group
                 ),
             Key(
-                [mod], "n", 
+                [mod], "n",
                 lazy.layout.normalize()                   # Restore all windows to default size ratios 
                 ),
             Key(
-                [mod], "m", 
+                [mod], "m",
                 lazy.layout.maximize()                    # Toggle a window between minimum and maximum sizes
                 ),
-                
             Key(
-                [mod, "shift"], "KP_Enter", 
+                [mod, "shift"], "KP_Enter",
                 lazy.window.toggle_floating()             # Toggle floating
                 ),
             Key(
-                [mod, "shift"], "space", 
+                [mod, "shift"], "space",
                 lazy.layout.rotate(),                     # Swap panes of split stack (Stack)
                 lazy.layout.flip()                        # Switch which side main pane occupies (XmonadTall)
                 ),
             # Stack controls
             Key(
-                [mod], "space", 
+                [mod], "space",
                 lazy.layout.next()                        # Switch window focus to other pane(s) of stack
                 ),
             Key(
-                [mod, "control"], "Return", 
+                [mod, "control"], "Return",
                 lazy.layout.toggle_split()                # Toggle between split and unsplit sides of stack
                 ),
             # GUI Apps
 
             Key(
-                [mod], "w", 
+                [mod], "w",
                 lazy.function(app_or_group("WWW", "firefox"))
                 ),
             Key(
-                [mod], "f", 
+                [mod], "f",
                 lazy.spawn("pcmanfm")
                 ),
             Key(
-                [mod], "g", 
+                [mod], "g",
                 lazy.spawn("geany")
                 ),
             # Apps Launched with <SUPER> + <KEYPAD 0-9>
@@ -191,8 +188,8 @@ def init_keys():
                 ),
             Key(
                 [mod], "KP_Page_Down",                               # Keypad 3
-                lazy.spawn(myTerm+" -e newsboat") 
-                ), 
+                lazy.spawn(myTerm+" -e newsboat")
+                ),
             Key(
                 [mod], "KP_Left",                                    # Keypad 4
                 lazy.spawn(myTerm+" -e rtv")
@@ -200,7 +197,7 @@ def init_keys():
             Key(
                 [mod], "KP_Begin",                                   # Keypad 5
                 lazy.spawn(myTerm+" -e neomutt")
-                ), 
+                ),
             Key(
                 [mod], "KP_Right",                                   # Keypad 6
                 lazy.spawn(myTerm+" -e twitch-curses")
@@ -228,7 +225,7 @@ def init_keys():
                 ),
             Key(
                 [mod, "shift"], "KP_Page_Down",                      # Keypad 3
-                lazy.spawn(myTerm+" -e cmus") 
+                lazy.spawn(myTerm+" -e cmus")
                 ),
             Key(
                 [mod, "shift"], "KP_Left",                           # Keypad 4
@@ -237,7 +234,7 @@ def init_keys():
             Key(
                 [mod, "shift"], "KP_Begin",                          # Keypad 5
                 lazy.spawn(myTerm+" -e rtorrent")
-                ), 
+                ),
             Key(
                 [mod, "shift"], "KP_Right",                          # Keypad 6
                 lazy.spawn(myTerm+" -e youtube-viewer")
@@ -265,7 +262,7 @@ def init_keys():
                 ),
             Key(
                 [mod, "control"], "KP_Page_Down",                      # Keypad 3
-                lazy.spawn(myTerm+" -e nmon") 
+                lazy.spawn(myTerm+" -e nmon")
                 ),
             Key(
                 [mod, "control"], "KP_Left",                           # Keypad 4
@@ -274,7 +271,7 @@ def init_keys():
             Key(
                 [mod, "control"], "KP_Begin",                          # Keypad 5
                 lazy.spawn(myTerm+" -e s-tui")
-                ), 
+                ),
             Key(
                 [mod, "control"], "KP_Right",                          # Keypad 6
                 lazy.spawn(myTerm+" -e sh ./scripts/pianobar.sh")
@@ -294,7 +291,6 @@ def init_keys():
         ]
     return keys
 
-
 ##### BAR COLORS #####
 
 def init_colors():
@@ -309,9 +305,9 @@ def init_colors():
             ["#357FC5", "#357FC5"], # background color for cmus widget
             ["#000000", "#000000"], # background color for clock widget
             ["#84598d", "#84598d"]] # background color for systray widget
-            
+
 ##### GROUPS #####
-    
+
 def init_group_names():
     return [("DEV", {'layout': 'max'}),
             ("WWW", {'layout': 'max'}),
@@ -321,7 +317,7 @@ def init_group_names():
             ("CHAT", {'layout': 'bsp'}),
             ("MEDIA", {'layout': 'monadtall'}),
             ("GFX", {'layout': 'floating'})]
-           
+
 def init_groups():
     return [Group(name, **kwargs) for name, kwargs in group_names]
 
@@ -330,14 +326,14 @@ def init_groups():
 
 def init_floating_layout():
     return layout.Floating(border_focus="#3B4022")
-    
+
 def init_layout_theme():
     return {"border_width": 2,
             "margin": 10,
             "border_focus": "AD69AF",
             "border_normal": "1D2330"
-		    }
-		    
+           }
+
 def init_border_args():
     return {"border_width": 2}
 
@@ -350,12 +346,12 @@ def init_layouts():
                 font = "Ubuntu",
                 fontsize = 10,
                 sections = ["FIRST", "SECOND"],
-                section_fontsize = 11, 
-                bg_color = "141414", 
-                active_bg = "90C435", 
-                active_fg = "000000", 
-                inactive_bg = "384323", 
-                inactive_fg = "a0a0a0", 
+                section_fontsize = 11,
+                bg_color = "141414",
+                active_bg = "90C435",
+                active_fg = "000000",
+                inactive_bg = "384323",
+                inactive_fg = "a0a0a0",
                 padding_y = 5,
                 section_top = 10,
                 panel_width = 320,
@@ -373,7 +369,6 @@ def init_layouts():
             #layout.Zoomy(**layout_theme),
             layout.Floating(**layout_theme)]
 
-
 ##### WIDGETS #####
 
 def init_widgets_defaults():
@@ -388,17 +383,17 @@ def init_widgets_list():
                widget.Sep(
                         linewidth = 0,
                         padding = 6,
-                        foreground = colors[2], 
+                        foreground = colors[2],
                         background = colors[0]
                         ),
                widget.GroupBox(font="Ubuntu Bold",
                         fontsize = 9,
-                        margin_y = 0, 
-                        margin_x = 0, 
-                        padding_y = 9, 
-                        padding_x = 5, 
-                        borderwidth = 1, 
-                        active = colors[2], 
+                        margin_y = 0,
+                        margin_x = 0,
+                        padding_y = 9,
+                        padding_x = 5,
+                        borderwidth = 1,
+                        active = colors[2],
                         inactive = colors[2],
                         rounded = False,
                         highlight_method = "block",
@@ -406,25 +401,25 @@ def init_widgets_list():
                         this_screen_border = colors [4],
                         other_current_screen_border = colors[0],
                         other_screen_border = colors[0],
-                        foreground = colors[2], 
+                        foreground = colors[2],
                         background = colors[0]
-                        ), 
+                        ),
                widget.Prompt(
-                        prompt=prompt, 
+                        prompt=prompt,
                         font="Ubuntu Mono",
-                        padding=10, 
+                        padding=10,
                         foreground = colors[3],
                         background = colors[1]
                         ),
                widget.Sep(
                         linewidth = 0,
                         padding = 10,
-                        foreground = colors[2], 
+                        foreground = colors[2],
                         background = colors[0]
                         ),
                widget.WindowName(font="Ubuntu",
                         fontsize = 11,
-                        foreground = colors[5], 
+                        foreground = colors[5],
                         background = colors[0],
                         padding = 6
                         ),
@@ -443,15 +438,15 @@ def init_widgets_list():
                         background = colors[6]
                         ),
                widget.TextBox(
-                        text=" ↯", 
-                        foreground=colors[0], 
+                        text=" ↯",
+                        foreground=colors[0],
                         background=colors[6],
                         padding = 0,
                         fontsize=14
                         ),
                widget.Net(
-                        interface = "enp3s0", 
-                        foreground = colors[0], 
+                        interface = "enp3s0",
+                        foreground = colors[0],
                         background = colors[6],
                         padding = 6
                         ),
@@ -462,14 +457,14 @@ def init_widgets_list():
                         ),
                widget.TextBox(
                         font="Ubuntu Bold",
-                        text=" ☵", 
+                        text=" ☵",
                         padding = 6,
-                        foreground=colors[2], 
+                        foreground=colors[2],
                         background=colors[3],
                         fontsize=14
-		                ),
+                        ),
                widget.CurrentLayout(
-                        foreground = colors[2], 
+                        foreground = colors[2],
                         background = colors[3],
                         padding = 6
                         ),
@@ -480,24 +475,24 @@ def init_widgets_list():
                         ),
                widget.TextBox(
                         font="Ubuntu Bold",
-                        text=" ⟳", 
+                        text=" ⟳",
                         padding = 6,
-                        foreground=colors[0], 
+                        foreground=colors[0],
                         background=colors[7],
                         fontsize=14
-		                ),
+                        ),
                widget.Pacman(
                         execute = "urxvtc",
                         update_interval = 1800,
-                        foreground = colors[0], 
+                        foreground = colors[0],
                         background = colors[7]
                         ),
                widget.TextBox(
-                        text="Updates", 
+                        text="Updates",
                         padding = 6,
-                        foreground=colors[0], 
+                        foreground=colors[0],
                         background=colors[7]
-		                ),
+                        ),
                widget.Image(
                         scale = True,
                         filename = "~/.config/qtile/bar05.png",
@@ -505,16 +500,16 @@ def init_widgets_list():
                         ),
                widget.TextBox(
                         font="Ubuntu Bold",
-                        text=" ♫", 
+                        text=" ♫",
                         padding = 6,
                         foreground = "d7d7d7",
                         background=colors[8],
                         fontsize=14
-		                ),
+                        ),
                widget.Cmus(
                         max_chars = 40,
                         update_interval = 0.5,
-                        foreground = "d7d7d7", 
+                        foreground = "d7d7d7",
                         background = colors[8]
                         ),
                widget.Image(
@@ -524,42 +519,40 @@ def init_widgets_list():
                         ),
                widget.TextBox(
                         font="Ubuntu Bold",
-                        text=" 🕒", 
+                        text=" 🕒",
                         foreground=colors[2],
-                        background=colors[9], 
+                        background=colors[9],
                         padding = 6,
                         fontsize=14
                         ),
                widget.Clock(
-                        foreground = colors[2], 
+                        foreground = colors[2],
                         background = colors[9],
                         format="%A, %B %d - %H:%M"
                         ),
                widget.Sep(
                         linewidth = 0,
                         padding = 6,
-                        foreground = colors[0], 
+                        foreground = colors[0],
                         background = colors[9]
                         ),
-              ]       
+              ]
     return widgets_list
-
 
 ##### SCREENS ##### (TRIPLE MONITOR SETUP)
 
 def init_widgets_screen1():
     widgets_screen1 = init_widgets_list()
     return widgets_screen1                       # Slicing removes unwanted widgets on Monitors 1,3
-    
+
 def init_widgets_screen2():
     widgets_screen2 = init_widgets_list()
     return widgets_screen2                       # Monitor 2 will display all widgets in widgets_list
-    
+
 def init_screens():
     return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.95, size=25)), 
             Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=0.95, size=25)), 
             Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.95, size=25))]
-
 
 ##### FLOATING WINDOWS #####
 
@@ -599,21 +592,18 @@ if __name__ in ["config", "__main__"]:
     widgets_screen1 = init_widgets_screen1()
     widgets_screen2 = init_widgets_screen2()
 
-
 ##### SETS GROUPS KEYBINDINGS #####
 
 for i, (name, kwargs) in enumerate(group_names, 1):
     keys.append(Key([mod], str(i), lazy.group[name].toscreen()))          # Switch to another group
     keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name)))   # Send current window to another group
-     
-                        
+
 ##### STARTUP APPLICATIONS #####
 
 @hook.subscribe.startup_once
 def start_once():
     home = os.path.expanduser('~')
     subprocess.call([home + '/.config/qtile/autostart.sh'])
-
 
 ##### NEEDED FOR SOME JAVA APPS #####
 

@@ -114,7 +114,6 @@ static const char *colorname[] = {
 	"#1D2330",
 };
 
-
 /*
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor

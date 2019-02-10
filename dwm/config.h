@@ -6,8 +6,10 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int gappx     = 5;        /* pixel gap between clients */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "UbuntuMono Nerd Font:size=11" };
-static const char dmenufont[]       = "UbuntuMono Nerd Font:size=11";
+static const int horizpadbar        = 6;        /* horizontal padding for statusbar */
+static const int vertpadbar         = 7;        /* vertical padding for statusbar */
+static const char *fonts[]          = { "UbuntuMono Nerd Font:size=10" };
+static const char dmenufont[]       = "UbuntuMono Nerd Font:size=10";
 static const char col_gray1[]       = "#1D2330";
 static const char col_gray2[]       = "#4B5665";
 static const char col_gray3[]       = "#AD69AF";
@@ -87,7 +89,7 @@ static Key keys[] = {
 	{ MODKEY,                 XK_d,            incnmaster,     {.i = -1 } },
 	{ MODKEY,                 XK_h,            setmfact,       {.f = -0.05} },
 	{ MODKEY,                 XK_l,            setmfact,       {.f = +0.05} },
-	{ MODKEY,                 XK_Return,       zoom,           {0} },
+	{ MODKEY|ShiftMask,       XK_Return,       zoom,           {0} },
 	{ MODKEY,                 XK_Tab,          view,           {0} },
 	{ MODKEY|ShiftMask,       XK_c,            killclient,     {0} },
 	{ MODKEY,                 XK_t,            setlayout,      {.v = &layouts[0]} },
