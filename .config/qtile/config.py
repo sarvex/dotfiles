@@ -8,18 +8,19 @@
 # A customized config.py for Qtile window manager (http://www.qtile.org)     
 # Modified by Derek Taylor (http://www.gitlab.com/dwt1/ )
 #
-# The following comments are the copyright and licensing information from the default config.
-# Copyright (c) 2010 Aldo Cortesi, 2010, 2014 dequis, 2012 Randall Ma, 2012-2014 Tycho Andersen, 
-# 2012 Craig Barnes, 2013 horsik, 2013 Tao Sauvage
+# The following comments are the copyright and licensing information from the default
+# qtile config. Copyright (c) 2010 Aldo Cortesi, 2010, 2014 dequis, 2012 Randall Ma,
+# 2012-2014 Tycho Andersen, 2012 Craig Barnes, 2013 horsik, 2013 Tao Sauvage
 #
-# Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
-# and associated documentation files (the "Software"), to deal in the Software without restriction, 
-# including without limitation the rights to use, copy, modify, merge, publish, distribute, 
-# sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
+# Permission is hereby granted, free of charge, to any person obtaining a copy of this
+# software and associated documentation files (the "Software"), to deal in the Software
+# without restriction, including without limitation the rights to use, copy, modify,
+# merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to the following
+# conditions:
 #
-# The above copyright notice and this permission notice shall be included in all copies or substantial 
-# portions of the Software.
+# The above copyright notice and this permission notice shall be included in all copies
+# or substantial portions of the Software.
 
 ##### IMPORTS #####
 

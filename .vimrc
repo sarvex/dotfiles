@@ -68,14 +68,14 @@ set laststatus=2
 " set t_Co=256
 
 syntax on   
-set number
+set relativenumber
 let g:rehash256 = 1
 let g:Powerline_symbols='unicode'
 let g:Powerline_theme='long'
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline_theme='powerlineish'
+let g:airline_theme='angr'
 
 " Uncomment to prevent non-normal modes showing in powerline and below powerline.
 set noshowmode
@@ -108,7 +108,9 @@ let NERDTreeMinimalUI = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-hi LineNr ctermfg=4 ctermbg=232
+hi LineNr ctermfg=4
+hi CursorLineNr ctermfg=15 ctermbg=8
+hi VertSplit ctermfg=8 ctermbg=0
 hi Statement ctermfg=3
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

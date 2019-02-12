@@ -2,16 +2,15 @@
 -- install xmobar with these flags: --flags="with_alsa" --flags="with_mpd" --flags="with_xft"  OR --flags="all_extensions"
 -- you can find weather location codes here: http://weather.noaa.gov/index.html
 
-Config { font    = "xft:ubuntu mono:pixelsize=13:antialias=true:hinting=true"
-       , bgColor = "#002B36"
-       , fgColor = "#839496"
+Config { font    = "xft:UbuntuMono Nerd Font:pixelsize=14:antialias=true:hinting=true"
+       , bgColor = "#282A36"
+       , fgColor = "#F8F8F2"
        , position = Top
        , lowerOnStart = True
        , hideOnStart = False
        , allDesktops = True
        , persistent = True
-       , commands = [ Run Weather "KMLU" ["-t","temp: <tempF>F"] 36000
-                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+       , commands = [ Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                     , Run Network "enp3s0" ["-t", "net: <rx>kb|<tx>kb"] 10
                     , Run Cpu ["-t","cpu: <total>%","-H","50","--high","red"] 10
                     , Run Memory ["-t","mem: <usedratio>%"] 10
@@ -20,5 +19,5 @@ Config { font    = "xft:ubuntu mono:pixelsize=13:antialias=true:hinting=true"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%UnsafeStdinReader% }{ <fc=#91A0BD> <fc=#859900>%cpu%</fc> : <fc=#DC322F>%memory%</fc> : <fc=#B58900>%disku%</fc> : <fc=#D33682>%enp3s0%</fc> : <fc=#6c71c4>%KMLU%</fc> : <fc=#fdf6e3>%date%</fc> </fc> "
+       , template = "%UnsafeStdinReader% }{ <fc=#91A0BD> <fc=#BD93F9>%cpu%</fc> : <fc=#FF6E67>%memory%</fc> : <fc=#9AEDFE>%disku%</fc> : <fc=#F4F99D>%enp3s0%</fc> : <fc=#F8F8F2>%date%</fc> </fc> "
        }

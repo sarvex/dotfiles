@@ -83,35 +83,35 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-unsigned int alpha = 0xef;
+unsigned int alpha = 0xee;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	"#1D2330",
-	"#645377",
-	"#AD69AF",
-	"#B1B5C8",
-	"#92969d",
-	"#645377",
-	"#AD69AF",
-	"#B1B5C8",
+	"#282A36",
+	"#FF5555",
+	"#50FA7B",
+	"#F1FA8C",
+	"#BD93F9",
+	"#FF79C6",
+	"#8BE9FD",
+	"#BFBFBF",
 
 	/* 8 bright colors */
-	"#4B5665",
-	"#84598D",
-	"#7B8290",
-	"#d1d7e1",
-	"#4B5665",
-	"#84598D",
-	"#7B8290",
-	"#d1d7e1",
+	"#4D4D4D",
+	"#FF6E67",
+	"#5AF78E",
+	"#F4F99D",
+	"#CAA9FA",
+	"#FF92D0",
+	"#9AEDFE",
+	"#E6E6E6",
 
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
-	"#C0C5CE",
-	"#1D2330",
+	"#F8F8F2",
+	"#282A36",
 };
 
 /*
@@ -178,8 +178,8 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
+	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ TERMMOD,              XK_I,           iso14755,       {.i =  0} },
 };
 
 /*

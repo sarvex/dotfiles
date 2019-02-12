@@ -1,7 +1,15 @@
-/* See LICENSE file for copyright and license details. */
+/*  ____ _____  */
+/* |  _ \_   _|  Derek Taylor (DistroTube) */
+/* | | | || |  	http://www.youtube.com/c/DistroTube */
+/* | |_| || |  	http://www.gitlab.com/dwt1/ */
+/* |____/ |_|  	*/ 
 
+
+#include "selfrestart.c"
+
+/* See LICENSE file for copyright and license details. */
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int gappx     = 5;        /* pixel gap between clients */
 static const int showbar            = 1;        /* 0 means no bar */
@@ -10,12 +18,12 @@ static const int horizpadbar        = 6;        /* horizontal padding for status
 static const int vertpadbar         = 7;        /* vertical padding for statusbar */
 static const char *fonts[]          = { "UbuntuMono Nerd Font:size=10" };
 static const char dmenufont[]       = "UbuntuMono Nerd Font:size=10";
-static const char col_gray1[]       = "#1D2330";
-static const char col_gray2[]       = "#4B5665";
-static const char col_gray3[]       = "#AD69AF";
-static const char col_gray4[]       = "#d1d7e1";
-static const char col_cyan[]        = "#84598D";
-static const unsigned int baralpha = 0xef;
+static const char col_gray1[]       = "#000000";
+static const char col_gray2[]       = "#000000"; /* border color unfocused windows */
+static const char col_gray3[]       = "#96b5b4";
+static const char col_gray4[]       = "#c0c5ce";
+static const char col_cyan[]        = "#924441"; /* border color focused windows and tags */
+static const unsigned int baralpha = 0xee;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
@@ -150,7 +158,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ShiftMask,             XK_q,		quit,			{0} },
+	{ MODKEY|ShiftMask, 			XK_r, 		self_restart,	{0} },
 };
 
 /* button definitions */

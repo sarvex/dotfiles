@@ -72,25 +72,25 @@ import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1
 ---CONFIG
 ----------------------------------------------------------------------------------------------
 myModMask       = mod4Mask  -- Sets modkey to super/windows key
-myTerminal      = "urxvtc" -- Sets default terminal
+myTerminal      = "st" 		-- Sets default terminal
 myTextEditor    = "editor"  -- Sets default text editor
-myBorderWidth   = 3         -- Sets border width for windows
+myBorderWidth   = 2			-- Sets border width for windows
 windowCount 	= gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 main = do
-    xmproc0 <- spawnPipe "xmobar -x 0 /home/dt/.config/xmobar/xmobarrc0"  -- Launches xmobar
-    xmproc1 <- spawnPipe "xmobar -x 1 /home/dt/.config/xmobar/xmobarrc1"  -- Launches xmobar
-    xmproc2 <- spawnPipe "xmobar -x 2 /home/dt/.config/xmobar/xmobarrc2"  -- Launches xmobar 
+    xmproc0 <- spawnPipe "xmobar -x 0 /home/dt/.config/xmobar/xmobarrc2"  -- Launch xmobar mon2
+    xmproc1 <- spawnPipe "xmobar -x 1 /home/dt/.config/xmobar/xmobarrc1"  -- Launch xmobar mon1
+    xmproc2 <- spawnPipe "xmobar -x 2 /home/dt/.config/xmobar/xmobarrc0"  -- Launch xmobar mon0
     xmonad $ ewmh desktopConfig
         { manageHook = ( isFullscreen --> doFullFloat ) <+> manageHook defaultConfig <+> manageDocks
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
-                        , ppCurrent = xmobarColor "#859900" "" . wrap "[" "]"  -- Current workspace in xmobar
-                        , ppVisible = xmobarColor "#859900" "" . wrap "" ""    -- Visible but not current workspace
-                        , ppHidden = xmobarColor "#D33682" ""                  -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#D33682" ""         -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#859900" "" . shorten 80      -- Title of active window in xmobar
-                        , ppSep =  "<fc=#839496> : </fc>"                     -- Separators in xmobar
+                        , ppCurrent = xmobarColor "#50FA7B" "" . wrap "[" "]"  -- Current workspace in xmobar
+                        , ppVisible = xmobarColor "#50FA7B" ""   -- Visible but not current workspace
+                        , ppHidden = xmobarColor "#F1FA8C" "" . wrap "*" ""    -- Hidden workspaces in xmobar
+                        , ppHiddenNoWindows = xmobarColor "#FF79C6" ""         -- Hidden workspaces (no windows)
+                        , ppTitle = xmobarColor "#F8F8F2" "" . shorten 80      -- Title of active window in xmobar
+                        , ppSep =  "<fc=#9AEDFE> : </fc>"                      -- Separators in xmobar
                         , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"   -- Urgent workspace
                         , ppExtras  = [windowCount]							   -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:exs) -> [ws,l]++exs++[t]
@@ -101,8 +101,8 @@ main = do
         , layoutHook         = myLayoutHook 
         , workspaces         = myWorkspaces
         , borderWidth        = myBorderWidth 
-        , normalBorderColor  = "#151515"
-        , focusedBorderColor = "#76581E"
+        , normalBorderColor  = "#282A36"
+        , focusedBorderColor = "#C7ABCA"
         } `additionalKeysP`         myKeys 
 
 ----------------------------------------------------------------------------------------------
@@ -169,7 +169,7 @@ myKeys =
         , ("M-S-<Space>",       sendMessage ToggleStruts)
         , ("M-d",               asks (XMonad.layoutHook . config) >>= setLayout)
         , ("M-<KP_Enter>",      sendMessage NextLayout)
-        , ("M-S-f",             sendMessage (T.Toggle "floatz"))
+        , ("M-S-f",             sendMessage (T.Toggle "float"))
         , ("M-S-g",             sendMessage (T.Toggle "gimp"))
         , ("M-S-x",             sendMessage $ Toggle REFLECTX)
         , ("M-S-y",             sendMessage $ Toggle REFLECTY)
@@ -195,7 +195,7 @@ myKeys =
 
     -- Main Run Apps
         , ("M-<Return>",        spawn myTerminal)
-        , ("M-<KP_Insert>",     spawn "rofi -show run")
+        , ("M-<KP_Insert>",     spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#282A36' -nf '#F8F8F2' -sb '#BD93F9' -sf '#282A36' -p 'dmenu:'")
         
     -- Command Line Apps  (MOD + KEYPAD 1-9)
         , ("M-<KP_End>",        spawn (myTerminal ++ " -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com")) -- Keypad 1
@@ -205,17 +205,17 @@ myKeys =
         , ("M-<KP_Begin>",      spawn (myTerminal ++ " -e neomutt"))                 -- Keypad 5
         , ("M-<KP_Right>",      spawn (myTerminal ++ " -e twitch-curses"))           -- Keypad 6
         , ("M-<KP_Home>",       spawn (myTerminal ++ " -e sh ./scripts/haxor-news.sh"))        -- Keypad 7
-        , ("M-<KP_Up>",         spawn (myTerminal ++ " -e rainbowstream"))           -- Keypad 8
+        , ("M-<KP_Up>",         spawn (myTerminal ++ " -e toot curses"))           -- Keypad 8
         , ("M-<KP_Page_Up>",    spawn (myTerminal ++ " -e sh ./scripts/tig-script.sh"))      -- Keypad 9
         
     -- Command Line Apps  (MOD + SHIFT + KEYPAD 1-9)
-        , ("M-S-<KP_End>",        spawn (myTerminal ++ " -e ranger"))                -- Keypad 1
-        , ("M-S-<KP_Down>",       spawn (myTerminal ++ " -e irssi"))                  -- Keypad 2
-        , ("M-S-<KP_Page_Down>",  spawn (myTerminal ++ " -e mocp"))                  -- Keypad 3
-        , ("M-S-<KP_Left>",       spawn (myTerminal ++ " -e ''"))                 -- Keypad 4
+        , ("M-S-<KP_End>",        spawn (myTerminal ++ " -e vifm"))                -- Keypad 1
+        , ("M-S-<KP_Down>",       spawn (myTerminal ++ " -e htop"))                  -- Keypad 2
+        , ("M-S-<KP_Page_Down>",  spawn (myTerminal ++ " -e cmus"))                  -- Keypad 3
+        , ("M-S-<KP_Left>",       spawn (myTerminal ++ " -e irssi"))                 -- Keypad 4
         , ("M-S-<KP_Begin>",      spawn (myTerminal ++ " -e rtorrent"))              -- Keypad 5
         , ("M-S-<KP_Right>",      spawn (myTerminal ++ " -e youtube-viewer"))        -- Keypad 6
-        , ("M-S-<KP_Home>",       spawn (myTerminal ++ " -e alsamixer"))             -- Keypad 7
+        , ("M-S-<KP_Home>",       spawn (myTerminal ++ " -e ncpamixer"))             -- Keypad 7
         , ("M-S-<KP_Up>",         spawn (myTerminal ++ " -e calcurse"))              -- Keypad 8
         , ("M-S-<KP_Page_Up>",    spawn (myTerminal ++ " -e vim /home/dt/.xmonad/xmonad.hs")) -- Keypad 9
         
@@ -225,9 +225,9 @@ myKeys =
         , ("M-C-<KP_Page_Down>",  spawn (myTerminal ++ " -e nmon"))                -- Keypad 3
         , ("M-C-<KP_Left>",       spawn (myTerminal ++ " -e httping -KY --draw-phase localhost"))                     -- Keypad 4
         , ("M-C-<KP_Begin>",      spawn (myTerminal ++ " -e s-tui"))                 -- Keypad 5
-        , ("M-C-<KP_Right>",      spawn (myTerminal ++ " -e ''"))           -- Keypad 6
-        , ("M-C-<KP_Home>",       spawn (myTerminal ++ " -e ''"))        -- Keypad 7
-        , ("M-C-<KP_Up>",         spawn (myTerminal ++ " -e ''"))           -- Keypad 8
+        , ("M-C-<KP_Right>",      spawn (myTerminal ++ " -e pianobar"))           -- Keypad 6
+        , ("M-C-<KP_Home>",       spawn (myTerminal ++ " -e cmatrix -C cyan"))        -- Keypad 7
+        , ("M-C-<KP_Up>",         spawn (myTerminal ++ " -e joplin"))           -- Keypad 8
         , ("M-C-<KP_Page_Up>",    spawn (myTerminal ++ " -e wopr report.xml"))      -- Keypad 9
         
     -- GUI Apps
@@ -263,7 +263,7 @@ xmobarEscape = concatMap doubleLts
         
 myWorkspaces :: [String]   
 myWorkspaces = clickable . (map xmobarEscape) 
-               $ [" dev", "www", "sys", "doc", "vbox", "chat", "media", "gfx"]
+               $ ["dev", "www", "sys", "doc", "vbox", "chat", "media", "gfx"]
   where                                                                      
         clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
                       (i,ws) <- zip [1..8] l,                                        
@@ -283,7 +283,6 @@ myManageHook = placeHook (withGaps (20,12,12,12) (smart (0.5,0.5))) <+> insertPo
             myWebApps     = ["firefox", "thunderbird"]
             myMediaApps   = ["vlc", "ncmpcpp", "weechat", "mplayer", "gimp"]
             mySystApps    = ["ranger", "pcmanfm", "geany", "nitrogen"]
-
             myFloatApps   = ["file-roller", "nitrogen"]
             myUnfloatApps = ["gimp"]
 
@@ -291,7 +290,7 @@ myManageHook = placeHook (withGaps (20,12,12,12) (smart (0.5,0.5))) <+> insertPo
 ----------------------------------------------------------------------------------------------
 ---LAYOUTS
 ----------------------------------------------------------------------------------------------
-myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floatz $ 
+myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats $ 
                mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ renamed [CutWordsLeft 4] $ maximize $
                minimize $ boringWindows $ spacing 0 $
                myDevLayout $
@@ -303,23 +302,25 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                myMediaLayout $
                myGfxLayout $
                myDefaultLayout
-
-myDefaultLayout = grid ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floatz
-myDevLayout = onWorkspace (myWorkspaces !! 0) $ grid  ||| threeCol ||| threeRow ||| oneBig ||| floatz
-myWebLayout = onWorkspace (myWorkspaces !! 1) $ noBorders monocle ||| oneBig ||| threeCol ||| threeRow ||| grid
-mySysLayout = onWorkspace (myWorkspaces !! 2) $ oneBig ||| threeCol ||| threeRow ||| grid
-myDocLayout = onWorkspace (myWorkspaces !! 3) $ oneBig ||| threeCol ||| threeRow ||| grid
-myVboxLayout = onWorkspace (myWorkspaces !! 4) $ noBorders monocle ||| oneBig ||| threeCol ||| threeRow ||| grid
-myChatLayout = onWorkspace (myWorkspaces !! 5) $ grid  ||| threeCol ||| threeRow ||| oneBig ||| floatz
-myMediaLayout = onWorkspace (myWorkspaces !! 6) $ noBorders monocle ||| oneBig ||| space ||| threeRow
-myGfxLayout = onWorkspace (myWorkspaces !! 7) $ T.toggleLayouts gimp $ noBorders monocle ||| floatz ||| grid
-
+		where 
+		myDevLayout = onWorkspace (myWorkspaces !! 0) $ grid  ||| threeCol ||| threeRow ||| oneBig ||| floats
+		myWebLayout = onWorkspace (myWorkspaces !! 1) $ noBorders monocle ||| oneBig ||| threeCol ||| threeRow ||| grid
+		mySysLayout = onWorkspace (myWorkspaces !! 2) $ oneBig ||| threeCol ||| threeRow ||| grid
+		myDocLayout = onWorkspace (myWorkspaces !! 3) $ oneBig ||| threeCol ||| threeRow ||| grid
+		myVboxLayout = onWorkspace (myWorkspaces !! 4) $ noBorders monocle ||| oneBig ||| threeCol ||| threeRow ||| grid
+		myChatLayout = onWorkspace (myWorkspaces !! 5) $ grid  ||| threeCol ||| threeRow ||| oneBig ||| floats
+		myMediaLayout = onWorkspace (myWorkspaces !! 6) $ noBorders monocle ||| oneBig ||| space ||| threeRow
+		myGfxLayout = onWorkspace (myWorkspaces !! 7) $ T.toggleLayouts gimp $ noBorders monocle ||| floats ||| grid
+		myDefaultLayout = grid ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
+		
 grid            = renamed [Replace "grid"]         $ limitWindows 12 $ spacing 4 $ mkToggle (single MIRROR) $ Grid (16/10)
 threeCol        = renamed [Replace "threeCol"]     $ limitWindows 3  $ ThreeCol 1 (3/100) (1/2) 
 threeRow        = renamed [Replace "threeRow"]     $ limitWindows 3  $ Mirror $ mkToggle (single MIRROR) zoomRow
 oneBig          = renamed [Replace "oneBig"]       $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
 monocle         = renamed [Replace "monocle"]      $ limitWindows 20   Full
 space           = renamed [Replace "space"]        $ limitWindows 4  $ spacing 36 $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (2/3) (2/3)
-floatz          = renamed [Replace "floatz"]       $ limitWindows 20   simplestFloat
+floats          = renamed [Replace "floats"]       $ limitWindows 20   simplestFloat
 gimp            = renamed [Replace "gimp"]         $ limitWindows 5  $ withIM 0.11 (Role "gimp-toolbox") $ reflectHoriz $ withIM 0.15 (Role "gimp-dock") Full
+
+
 

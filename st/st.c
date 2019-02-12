@@ -38,14 +38,10 @@
 
 /* macros */
 #define IS_SET(flag)		((term.mode & (flag)) != 0)
-#define NUMMAXLEN(x)		((int)(sizeof(x) * 2.56 + 0.5) + 1)
 #define ISCONTROLC0(c)		(BETWEEN(c, 0, 0x1f) || (c) == '\177')
 #define ISCONTROLC1(c)		(BETWEEN(c, 0x80, 0x9f))
 #define ISCONTROL(c)		(ISCONTROLC0(c) || ISCONTROLC1(c))
 #define ISDELIM(u)		(utf8strchr(worddelimiters, u) != NULL)
-
-/* constants */
-#define ISO14755CMD		"dmenu -w \"$WINDOWID\" -p codepoint: </dev/null"
 
 enum term_mode {
 	MODE_WRAP        = 1 << 0,
@@ -256,10 +252,10 @@ xwrite(int fd, const char *s, size_t len)
 void *
 xmalloc(size_t len)
 {
-	void *p = malloc(len);
+	void *p;
 
-	if (!p)
-		die("Out of memory\n");
+	if (!(p = malloc(len)))
+		die("malloc: %s\n", strerror(errno));
 
 	return p;
 }
@@ -268,7 +264,7 @@ void *
 xrealloc(void *p, size_t len)
 {
 	if ((p = realloc(p, len)) == NULL)
-		die("Out of memory\n");
+		die("realloc: %s\n", strerror(errno));
 
 	return p;
 }
@@ -277,7 +273,7 @@ char *
 xstrdup(char *s)
 {
 	if ((s = strdup(s)) == NULL)
-		die("Out of memory\n");
+		die("strdup: %s\n", strerror(errno));
 
 	return s;
 }
@@ -446,6 +442,7 @@ selstart(int col, int row, int snap)
 	selclear();
 	sel.mode = SEL_EMPTY;
 	sel.type = SEL_REGULAR;
+	sel.alt = IS_SET(MODE_ALTSCREEN);
 	sel.snap = snap;
 	sel.oe.x = sel.ob.x = col;
 	sel.oe.y = sel.ob.y = row;
@@ -474,7 +471,6 @@ selextend(int col, int row, int type, int done)
 	oldsey = sel.ne.y;
 	oldtype = sel.type;
 
-	sel.alt = IS_SET(MODE_ALTSCREEN);
 	sel.oe.x = col;
 	sel.oe.y = row;
 	selnormalize();
@@ -687,7 +683,7 @@ execsh(char *cmd, char **args)
 	errno = 0;
 	if ((pw = getpwuid(getuid())) == NULL) {
 		if (errno)
-			die("getpwuid:%s\n", strerror(errno));
+			die("getpwuid: %s\n", strerror(errno));
 		else
 			die("who are you?\n");
 	}
@@ -730,13 +726,15 @@ sigchld(int a)
 	pid_t p;
 
 	if ((p = waitpid(pid, &stat, WNOHANG)) < 0)
-		die("Waiting for pid %hd failed: %s\n", pid, strerror(errno));
+		die("waiting for pid %hd failed: %s\n", pid, strerror(errno));
 
 	if (pid != p)
 		return;
 
-	if (!WIFEXITED(stat) || WEXITSTATUS(stat))
-		die("child finished with error '%d'\n", stat);
+	if (WIFEXITED(stat) && WEXITSTATUS(stat))
+		die("child exited with status %d\n", WEXITSTATUS(stat));
+	else if (WIFSIGNALED(stat))
+		die("child terminated due to signal %d\n", WTERMSIG(stat));
 	exit(0);
 }
 
@@ -781,7 +779,8 @@ ttynew(char *line, char *cmd, char *out, char **args)
 
 	if (line) {
 		if ((cmdfd = open(line, O_RDWR)) < 0)
-			die("open line failed: %s\n", strerror(errno));
+			die("open line '%s' failed: %s\n",
+			    line, strerror(errno));
 		dup2(cmdfd, 0);
 		stty(args);
 		return cmdfd;
@@ -793,7 +792,7 @@ ttynew(char *line, char *cmd, char *out, char **args)
 
 	switch (pid = fork()) {
 	case -1:
-		die("fork failed\n");
+		die("fork failed: %s\n", strerror(errno));
 		break;
 	case 0:
 		close(iofd);
@@ -805,9 +804,17 @@ ttynew(char *line, char *cmd, char *out, char **args)
 			die("ioctl TIOCSCTTY failed: %s\n", strerror(errno));
 		close(s);
 		close(m);
+#ifdef __OpenBSD__
+		if (pledge("stdio getpw proc exec", NULL) == -1)
+			die("pledge\n");
+#endif
 		execsh(cmd, args);
 		break;
 	default:
+#ifdef __OpenBSD__
+		if (pledge("stdio rpath tty proc", NULL) == -1)
+			die("pledge\n");
+#endif
 		close(s);
 		cmdfd = m;
 		signal(SIGCHLD, sigchld);
@@ -826,7 +833,7 @@ ttyread(void)
 
 	/* append read bytes to unprocessed bytes */
 	if ((ret = read(cmdfd, buf+buflen, LEN(buf)-buflen)) < 0)
-		die("Couldn't read from shell: %s\n", strerror(errno));
+		die("couldn't read from shell: %s\n", strerror(errno));
 	buflen += ret;
 
 	written = twrite(buf, buflen, 0);
@@ -1447,7 +1454,8 @@ tsetattr(int *attr, int l)
 			} else {
 				fprintf(stderr,
 					"erresc(default): gfx attr %d unknown\n",
-					attr[i]), csidump();
+					attr[i]);
+				csidump();
 			}
 			break;
 		}
@@ -1973,28 +1981,6 @@ tprinter(char *s, size_t len)
 }
 
 void
-iso14755(const Arg *arg)
-{
-	FILE *p;
-	char *us, *e, codepoint[9], uc[UTF_SIZ];
-	unsigned long utf32;
-
-	if (!(p = popen(ISO14755CMD, "r")))
-		return;
-
-	us = fgets(codepoint, sizeof(codepoint), p);
-	pclose(p);
-
-	if (!us || *us == '\0' || *us == '-' || strlen(us) > 7)
-		return;
-	if ((utf32 = strtoul(us, &e, 16)) == ULONG_MAX ||
-	    (*e != '\n' && *e != '\0'))
-		return;
-
-	ttywrite(uc, utf8encode(utf32, uc), 1);
-}
-
-void
 toggleprinter(const Arg *arg)
 {
 	term.mode ^= MODE_PRINT;
@@ -2278,7 +2264,7 @@ eschandle(uchar ascii)
 	case 'Z': /* DECID -- Identify Terminal */
 		ttywrite(vtiden, strlen(vtiden), 0);
 		break;
-	case 'c': /* RIS -- Reset to inital state */
+	case 'c': /* RIS -- Reset to initial state */
 		treset();
 		resettitle();
 		xloadcols();
