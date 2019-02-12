@@ -85,11 +85,11 @@ main = do
         { manageHook = ( isFullscreen --> doFullFloat ) <+> manageHook defaultConfig <+> manageDocks
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
-                        , ppCurrent = xmobarColor "#50FA7B" "" . wrap "[" "]"  -- Current workspace in xmobar
-                        , ppVisible = xmobarColor "#50FA7B" ""   -- Visible but not current workspace
-                        , ppHidden = xmobarColor "#F1FA8C" "" . wrap "*" ""    -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#FF79C6" ""         -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#F8F8F2" "" . shorten 80      -- Title of active window in xmobar
+                        , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]"  -- Current workspace in xmobar
+                        , ppVisible = xmobarColor "#c3e88d" ""   -- Visible but not current workspace
+                        , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""    -- Hidden workspaces in xmobar
+                        , ppHiddenNoWindows = xmobarColor "#F07178" ""         -- Hidden workspaces (no windows)
+                        , ppTitle = xmobarColor "#d0d0d0" "" . shorten 80      -- Title of active window in xmobar
                         , ppSep =  "<fc=#9AEDFE> : </fc>"                      -- Separators in xmobar
                         , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"   -- Urgent workspace
                         , ppExtras  = [windowCount]							   -- # of windows current workspace
@@ -101,8 +101,8 @@ main = do
         , layoutHook         = myLayoutHook 
         , workspaces         = myWorkspaces
         , borderWidth        = myBorderWidth 
-        , normalBorderColor  = "#282A36"
-        , focusedBorderColor = "#C7ABCA"
+        , normalBorderColor  = "#292d3e"
+        , focusedBorderColor = "#bbc5ff"
         } `additionalKeysP`         myKeys 
 
 ----------------------------------------------------------------------------------------------

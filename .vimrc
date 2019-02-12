@@ -108,8 +108,8 @@ let NERDTreeMinimalUI = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-hi LineNr ctermfg=4
-hi CursorLineNr ctermfg=15 ctermbg=8
+hi LineNr ctermfg=242
+hi CursorLineNr ctermfg=15
 hi VertSplit ctermfg=8 ctermbg=0
 hi Statement ctermfg=3
 

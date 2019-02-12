@@ -9,6 +9,13 @@ ZSH=/usr/share/oh-my-zsh/
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="powerlevel9k"
+POWERLEVEL9K_COLOR_SCHEME='dark'
+POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND='5'
+POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND='0'
+POWERLEVEL9K_STATUS_OK_BACKGROUND='8'
+POWERLEVEL9K_VCS_CLEAN_BACKGROUND='11'
+POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='8'
+POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='10'
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -102,3 +109,9 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
 fi
 
 source $ZSH/oh-my-zsh.sh
+
+# terminal rickroll!
+alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
+
+# dotfile git alias
+alias config='/usr/bin/git --git-dir=/home/dt/dotfiles --work-tree=/home/dt'

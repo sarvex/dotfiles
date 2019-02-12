@@ -3,8 +3,8 @@
 -- you can find weather location codes here: http://weather.noaa.gov/index.html
 
 Config { font    = "xft:UbuntuMono Nerd Font:pixelsize=14:antialias=true:hinting=true"
-       , bgColor = "#282A36"
-       , fgColor = "#F8F8F2"
+       , bgColor = "#292d3e"
+       , fgColor = "#bbc5ff"
        , position = Top
        , lowerOnStart = True
        , hideOnStart = False
@@ -19,5 +19,5 @@ Config { font    = "xft:UbuntuMono Nerd Font:pixelsize=14:antialias=true:hinting
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%UnsafeStdinReader% }{ <fc=#91A0BD> <fc=#BD93F9>%cpu%</fc> : <fc=#FF6E67>%memory%</fc> : <fc=#9AEDFE>%disku%</fc> : <fc=#F4F99D>%enp3s0%</fc> : <fc=#F8F8F2>%date%</fc> </fc> "
+       , template = "%UnsafeStdinReader% }{ <fc=#91A0BD> <fc=#FFE585>%cpu%</fc> : <fc=#F07178>%memory%</fc> : <fc=#82AAFF>%disku%</fc> : <fc=#c3e88d>%enp3s0%</fc> : <fc=#A3F7FF>%date%</fc> </fc> "
        }

@@ -88,30 +88,30 @@ unsigned int alpha = 0xee;
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	"#282A36",
-	"#FF5555",
-	"#50FA7B",
-	"#F1FA8C",
-	"#BD93F9",
-	"#FF79C6",
-	"#8BE9FD",
-	"#BFBFBF",
+	"#292d3e",
+	"#f07178",
+	"#c3e88d",
+	"#ffcb6b",
+	"#82aaff",
+	"#c792ea",
+	"#89ddff",
+	"#d0d0d0",
 
 	/* 8 bright colors */
-	"#4D4D4D",
-	"#FF6E67",
-	"#5AF78E",
-	"#F4F99D",
-	"#CAA9FA",
-	"#FF92D0",
-	"#9AEDFE",
-	"#E6E6E6",
+	"#434758",
+	"#ff8b92",
+	"#ddffa7",
+	"#ffe585",
+	"#9cc4ff",
+	"#e1acff",
+	"#a3f7ff",
+	"#ffffff",
 
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
-	"#F8F8F2",
-	"#282A36",
+	"#bbc5ff",
+	"#292d3e",
 };
 
 /*
