@@ -1,6 +1,6 @@
-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
 ---IMPORTS
-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
     -- Base
 import XMonad
 import XMonad.Config.Desktop
@@ -68,9 +68,9 @@ import XMonad.Layout.IM (withIM, Property(Role))
     -- Prompts
 import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1D(..))
 
-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
 ---CONFIG
-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
 myModMask       = mod4Mask  -- Sets modkey to super/windows key
 myTerminal      = "st" 		-- Sets default terminal
 myTextEditor    = "editor"  -- Sets default text editor
@@ -78,21 +78,21 @@ myBorderWidth   = 2			-- Sets border width for windows
 windowCount 	= gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 main = do
-    xmproc0 <- spawnPipe "xmobar -x 0 /home/dt/.config/xmobar/xmobarrc2"  -- Launch xmobar mon2
-    xmproc1 <- spawnPipe "xmobar -x 1 /home/dt/.config/xmobar/xmobarrc1"  -- Launch xmobar mon1
-    xmproc2 <- spawnPipe "xmobar -x 2 /home/dt/.config/xmobar/xmobarrc0"  -- Launch xmobar mon0
+    xmproc0 <- spawnPipe "xmobar -x 0 /home/dt/.config/xmobar/xmobarrc2" -- xmobar mon 2
+    xmproc1 <- spawnPipe "xmobar -x 1 /home/dt/.config/xmobar/xmobarrc1" -- xmobar mon 1
+    xmproc2 <- spawnPipe "xmobar -x 2 /home/dt/.config/xmobar/xmobarrc0" -- xmobar mon 0
     xmonad $ ewmh desktopConfig
         { manageHook = ( isFullscreen --> doFullFloat ) <+> manageHook defaultConfig <+> manageDocks
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
-                        , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]"  -- Current workspace in xmobar
-                        , ppVisible = xmobarColor "#c3e88d" ""   -- Visible but not current workspace
-                        , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""    -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#F07178" ""         -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#d0d0d0" "" . shorten 80      -- Title of active window in xmobar
-                        , ppSep =  "<fc=#9AEDFE> : </fc>"                      -- Separators in xmobar
-                        , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"   -- Urgent workspace
-                        , ppExtras  = [windowCount]							   -- # of windows current workspace
+                        , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
+                        , ppVisible = xmobarColor "#c3e88d" ""   			  -- Visible but not current workspace
+                        , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+                        , ppHiddenNoWindows = xmobarColor "#F07178" ""        -- Hidden workspaces (no windows)
+                        , ppTitle = xmobarColor "#d0d0d0" "" . shorten 80     -- Title of active window in xmobar
+                        , ppSep =  "<fc=#9AEDFE> : </fc>"                     -- Separators in xmobar
+                        , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
+                        , ppExtras  = [windowCount]							  -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:exs) -> [ws,l]++exs++[t]
                         }
         , modMask            = myModMask
@@ -105,20 +105,19 @@ main = do
         , focusedBorderColor = "#bbc5ff"
         } `additionalKeysP`         myKeys 
 
-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
 ---AUTOSTART
-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
 myStartupHook = do
           spawnOnce "urxvtd &" 
           spawnOnce "nitrogen --restore &" 
           spawnOnce "compton --config /home/dt/.config/compton/compton.conf &" 
           setWMName "LG3D"
-          --spawnOnce "/home/dt/.xmonad/xmonad.start"                                    -- Sets our wallpaper
-          --spawnOnce "compton -cCGfF -o 1.00 -O 0.100 -I 0.100 -t 0 -l 0 -r 3 -D2 -m 0.88 --opacity-rule 75:'class_g *=\"XTerm\"' &"  	-- Enables compositing
+          --spawnOnce "/home/dt/.xmonad/xmonad.start" -- Sets our wallpaper
 
-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
 ---KEYBINDINGS
-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
 myKeys =
     -- Xmonad
         [ ("M-C-r",             spawn "xmonad --recompile")      -- Recompiles xmonad
@@ -252,9 +251,9 @@ myKeys =
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
                 
 
-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
 ---WORKSPACES
-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
 
 xmobarEscape = concatMap doubleLts
   where
@@ -287,9 +286,9 @@ myManageHook = placeHook (withGaps (20,12,12,12) (smart (0.5,0.5))) <+> insertPo
             myUnfloatApps = ["gimp"]
 
 
-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
 ---LAYOUTS
-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats $ 
                mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ renamed [CutWordsLeft 4] $ maximize $
                minimize $ boringWindows $ spacing 0 $
