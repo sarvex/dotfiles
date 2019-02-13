@@ -1,6 +1,6 @@
 # dwm - dynamic window manager
 
-![Screenshot of my desktop](https://gitlab.com/dwt1/dotfiles/raw/master/.screenshots/dotfiles03.png) 
+![Screenshot of my desktop](https://gitlab.com/dwt1/dotfiles/raw/master/.screenshots/dotfiles04.png) 
 dwm is an extremely fast, small, and dynamic window manager for X.
 
 
