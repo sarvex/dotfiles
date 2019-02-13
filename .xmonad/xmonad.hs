@@ -231,7 +231,7 @@ myKeys =
         , ("M-C-<KP_Page_Up>",    spawn (myTerminal ++ " -e wopr report.xml"))      -- Keypad 9
         
     -- GUI Apps
-        , ("M-w",               spawn "firefox")
+        , ("M-w",               spawn "surf http://www.youtube.com/c/DistroTube/")
         , ("M-f",               spawn "pcmanfm")
         , ("M-g",               runOrRaise "geany" (resource =? "geany"))
 
