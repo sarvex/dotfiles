@@ -93,7 +93,7 @@ main = do
                         , ppSep =  "<fc=#9AEDFE> : </fc>"                     -- Separators in xmobar
                         , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras  = [windowCount]							  -- # of windows current workspace
-                        , ppOrder  = \(ws:l:t:exs) -> [ws,l]++exs++[t]
+                        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                         }
         , modMask            = myModMask
         , terminal           = myTerminal
