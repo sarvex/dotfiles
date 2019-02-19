@@ -166,12 +166,22 @@ static MouseShortcut mshortcuts[] = {
 #define MODKEY Mod1Mask
 #define TERMMOD (ControlMask|ShiftMask)
 
+MouseKey mkeys[] = {
+	/* button               mask            function        argument */
+	{ Button4,              ShiftMask,      kscrollup,      {.i =  1} },
+	{ Button5,              ShiftMask,      kscrolldown,    {.i =  1} },
+	{ Button4,              TERMMOD,        zoom,  		    {.f =  +1} },
+	{ Button5,              TERMMOD,        zoom,    		{.f =  -1} },
+};
+
 static Shortcut shortcuts[] = {
 	/* mask                 keysym          function        argument */
 	{ XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
+	{ ControlMask,         	XK_k,  			kscrollup,      {.i =  1} },
+	{ ControlMask, 			XK_j, 			kscrolldown, 	{.i =  1} },
 	{ TERMMOD,              XK_K,      		zoom,           {.f = +1} },
 	{ TERMMOD,              XK_J,       	zoom,           {.f = -1} },
 	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },

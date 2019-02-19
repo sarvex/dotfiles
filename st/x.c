@@ -144,6 +144,9 @@ static void xdrawglyphfontspecs(const XftGlyphFontSpec *, Glyph, int, int, int);
 static void xdrawglyph(Glyph, int, int);
 static void xclear(int, int, int, int);
 static int xgeommasktogravity(int);
+static void ximopen(Display *);
+static void ximinstantiate(Display *, XPointer, XPointer);
+static void ximdestroy(XIM, XPointer, XPointer);
 static void xinit(int, int);
 static void cresize(int, int);
 static void xresize(int, int);
@@ -414,6 +417,7 @@ bpress(XEvent *e)
 {
 	struct timespec now;
 	MouseShortcut *ms;
+	MouseKey *mk;
 	int snap;
 
 	if (IS_SET(MODE_MOUSE) && !(e->xbutton.state & forceselmod)) {
@@ -421,10 +425,20 @@ bpress(XEvent *e)
 		return;
 	}
 
-	for (ms = mshortcuts; ms < mshortcuts + LEN(mshortcuts); ms++) {
-		if (e->xbutton.button == ms->b
-				&& match(ms->mask, e->xbutton.state)) {
-			ttywrite(ms->s, strlen(ms->s), 1);
+	if (tisaltscr()) {
+		for (ms = mshortcuts; ms < mshortcuts + LEN(mshortcuts); ms++) {
+			if (e->xbutton.button == ms->b
+					&& match(ms->mask, e->xbutton.state)) {
+				ttywrite(ms->s, strlen(ms->s), 1);
+				return;
+			}
+		}
+	}
+
+	for (mk = mkeys; mk < mkeys + LEN(mkeys); mk++) {
+		if (e->xbutton.button == mk->b
+				&& match(mk->mask, e->xbutton.state)) {
+			mk->func(&mk->arg);
 			return;
 		}
 	}
@@ -1021,6 +1035,43 @@ xunloadfonts(void)
 }
 
 void
+ximopen(Display *dpy)
+{
+	XIMCallback destroy = { .client_data = NULL, .callback = ximdestroy };
+
+	if ((xw.xim = XOpenIM(xw.dpy, NULL, NULL, NULL)) == NULL) {
+		XSetLocaleModifiers("@im=local");
+		if ((xw.xim = XOpenIM(xw.dpy, NULL, NULL, NULL)) == NULL) {
+			XSetLocaleModifiers("@im=");
+			if ((xw.xim = XOpenIM(xw.dpy, NULL, NULL, NULL)) == NULL)
+				die("XOpenIM failed. Could not open input device.\n");
+		}
+	}
+	if (XSetIMValues(xw.xim, XNDestroyCallback, &destroy, NULL) != NULL)
+		die("XSetIMValues failed. Could not set input method value.\n");
+	xw.xic = XCreateIC(xw.xim, XNInputStyle, XIMPreeditNothing | XIMStatusNothing,
+				XNClientWindow, xw.win, XNFocusWindow, xw.win, NULL);
+	if (xw.xic == NULL)
+		die("XCreateIC failed. Could not obtain input method.\n");
+}
+
+void
+ximinstantiate(Display *dpy, XPointer client, XPointer call)
+{
+	ximopen(dpy);
+	XUnregisterIMInstantiateCallback(xw.dpy, NULL, NULL, NULL,
+					ximinstantiate, NULL);
+}
+
+void
+ximdestroy(XIM xim, XPointer client, XPointer call)
+{
+	xw.xim = NULL;
+	XRegisterIMInstantiateCallback(xw.dpy, NULL, NULL, NULL,
+					ximinstantiate, NULL);
+}
+
+void
 xinit(int cols, int rows)
 {
 	XGCValues gcvalues;
@@ -1094,7 +1145,7 @@ xinit(int cols, int rows)
 	xw.attrs.background_pixel = dc.col[defaultbg].pixel;
 	xw.attrs.border_pixel = dc.col[defaultbg].pixel;
 	xw.attrs.bit_gravity = NorthWestGravity;
-	xw.attrs.event_mask = FocusChangeMask | KeyPressMask
+	xw.attrs.event_mask = FocusChangeMask | KeyPressMask | KeyReleaseMask
 		| ExposureMask | VisibilityChangeMask | StructureNotifyMask
 		| ButtonMotionMask | ButtonPressMask | ButtonReleaseMask;
 	xw.attrs.colormap = xw.cmap;
@@ -1121,22 +1172,7 @@ xinit(int cols, int rows)
 	xw.draw = XftDrawCreate(xw.dpy, xw.buf, xw.vis, xw.cmap);
 
 	/* input methods */
-	if ((xw.xim = XOpenIM(xw.dpy, NULL, NULL, NULL)) == NULL) {
-		XSetLocaleModifiers("@im=local");
-		if ((xw.xim =  XOpenIM(xw.dpy, NULL, NULL, NULL)) == NULL) {
-			XSetLocaleModifiers("@im=");
-			if ((xw.xim = XOpenIM(xw.dpy,
-					NULL, NULL, NULL)) == NULL) {
-				die("XOpenIM failed. Could not open input"
-					" device.\n");
-			}
-		}
-	}
-	xw.xic = XCreateIC(xw.xim, XNInputStyle, XIMPreeditNothing
-					   | XIMStatusNothing, XNClientWindow, xw.win,
-					   XNFocusWindow, xw.win, NULL);
-	if (xw.xic == NULL)
-		die("XCreateIC failed. Could not obtain input method.\n");
+	ximopen(xw.dpy);
 
 	/* white cursor, black outline */
 	cursor = XCreateFontCursor(xw.dpy, mouseshape);
@@ -1612,6 +1648,16 @@ xfinishdraw(void)
 	XSetForeground(xw.dpy, dc.gc,
 			dc.col[IS_SET(MODE_REVERSE)?
 				defaultfg : defaultbg].pixel);
+}
+
+void
+xximspot(int x, int y)
+{
+	XPoint spot = { borderpx + x * win.cw, borderpx + (y + 1) * win.ch };
+	XVaNestedList attr = XVaCreateNestedList(0, XNSpotLocation, &spot, NULL);
+
+	XSetICValues(xw.xic, XNPreeditAttributes, attr, NULL);
+	XFree(attr);
 }
 
 void
