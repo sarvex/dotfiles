@@ -51,11 +51,21 @@ https://www.reddit.com/r/archlinux.rss "~REDDIT: r/archlinux"
 https://www.reddit.com/r/vim.rss "~REDDIT: r/vim"
 https://www.reddit.com/r/unixporn.rss "~REDDIT: r/unixporn"
 -------------------------
--------GIT REPOS---------
+-------GIT_REPOS---------
 -------------------------
 https://gitlab.com/dwt1.atom "~GITLAB: dwt1 (distrotube)"
-https://github.com/LukeSmithxyz.atom "~GITHUB: LukeSmithxyz
+https://github.com/LukeSmithxyz.atom "~GITHUB: LukeSmithxyz"
 -------------------------
--------MASTODON----------
+-------SOURCEFORGE-------
 -------------------------
-https://mastodon.technology/@distrotube.atom "~MASTODON: DistroTube"
+https://sourceforge.net/p/clonezilla/activity/feed "~SOURCEFORGE: Clonezilla"
+https://sourceforge.net/p/mx-linux/activity/feed "~SORUCEFORGE: MX Linux"
+https://sourceforge.net/p/antix-linux/activity/feed "~SOURCEFORGE: AntiX"
+https://sourceforge.net/mirror/tor-browser/activity/feed "~SOURCEFORGE: Tor Browser"
+-------------------------
+-------ARCHLINUX---------
+-------------------------
+https://www.archlinux.org/feeds/packages/added/ "~ARCH: Packages Added"
+https://www.archlinux.org/feeds/packages/removed/ "~ARCH: Packages Removed"
+https://aur.archlinux.org/rss/ "~ARCH: Packages Added (AUR)"
+https://wiki.archlinux.org/api.php?hidebots=1&urlversion=1&days=7&limit=50&action=feedrecentchanges&feedformat=rss "~ARCH: Arch Wiki"
