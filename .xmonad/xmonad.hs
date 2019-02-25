@@ -5,6 +5,7 @@
 import XMonad
 import XMonad.Config.Desktop
 import Data.Maybe (isJust)
+import Data.Ratio ((%))
 import System.IO (hPutStrLn)
 import System.Exit (exitSuccess)
 import qualified XMonad.StackSet as W
@@ -43,12 +44,9 @@ import qualified XMonad.Actions.ConstrainedResize as Sqr
     -- Layouts modifiers
 import XMonad.Layout.PerWorkspace (onWorkspace) 
 import XMonad.Layout.Renamed (renamed, Rename(CutWordsLeft, Replace))
-import XMonad.Layout.WorkspaceDir 
+import XMonad.Layout.WorkspaceDir
 import XMonad.Layout.Spacing (spacing) 
-import XMonad.Layout.Minimize
-import XMonad.Layout.Maximize
 import XMonad.Layout.NoBorders
-import XMonad.Layout.BoringWindows (boringWindows)
 import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import XMonad.Layout.Reflect (reflectVert, reflectHoriz, REFLECTX(..), REFLECTY(..))
@@ -72,27 +70,27 @@ import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1
 ---CONFIG
 ------------------------------------------------------------------------
 myModMask       = mod4Mask  -- Sets modkey to super/windows key
-myTerminal      = "st" 		-- Sets default terminal
+myTerminal      = "st"      -- Sets default terminal
 myTextEditor    = "editor"  -- Sets default text editor
-myBorderWidth   = 2			-- Sets border width for windows
-windowCount 	= gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+myBorderWidth   = 2         -- Sets border width for windows
+windowCount     = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 main = do
     xmproc0 <- spawnPipe "xmobar -x 0 /home/dt/.config/xmobar/xmobarrc2" -- xmobar mon 2
     xmproc1 <- spawnPipe "xmobar -x 1 /home/dt/.config/xmobar/xmobarrc1" -- xmobar mon 1
     xmproc2 <- spawnPipe "xmobar -x 2 /home/dt/.config/xmobar/xmobarrc0" -- xmobar mon 0
     xmonad $ ewmh desktopConfig
-        { manageHook = ( isFullscreen --> doFullFloat ) <+> manageHook defaultConfig <+> manageDocks
+        { manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> myManageHook <+> manageHook desktopConfig 
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
                         , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
-                        , ppVisible = xmobarColor "#c3e88d" ""   			  -- Visible but not current workspace
+                        , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
                         , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
                         , ppHiddenNoWindows = xmobarColor "#F07178" ""        -- Hidden workspaces (no windows)
                         , ppTitle = xmobarColor "#d0d0d0" "" . shorten 80     -- Title of active window in xmobar
                         , ppSep =  "<fc=#9AEDFE> : </fc>"                     -- Separators in xmobar
                         , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
-                        , ppExtras  = [windowCount]							  -- # of windows current workspace
+                        , ppExtras  = [windowCount]                           -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                         }
         , modMask            = myModMask
@@ -100,7 +98,7 @@ main = do
         , startupHook        = myStartupHook
         , layoutHook         = myLayoutHook 
         , workspaces         = myWorkspaces
-        , borderWidth        = myBorderWidth 
+        , borderWidth        = myBorderWidth
         , normalBorderColor  = "#292d3e"
         , focusedBorderColor = "#bbc5ff"
         } `additionalKeysP`         myKeys 
@@ -141,9 +139,6 @@ myKeys =
         , ("M1-S-<Tab>",        rotSlavesDown)                   -- Rotate all windows except the master and keep the focus in place
         , ("M1-C-<Tab>",        rotAllDown)                      -- Rotate all the windows in the current stack
 
-        , ("M-*",               withFocused minimizeWindow)
-        --, ("M-S-*",             sendMessage RestoreNextMinimizedWin)
-        , ("M-!",               withFocused (sendMessage . maximizeRestore))
         , ("M-$",               toggleFloatNext)
         , ("M-S-$",             toggleFloatAllNew)
         , ("M-S-s",             windows copyToAll) 
@@ -165,16 +160,14 @@ myKeys =
         , ("M-C-<Left>",        sendMessage (DecreaseLeft 10))   --  Decrease size of focused window left
 
     -- Layouts
-        , ("M-S-<Space>",       sendMessage ToggleStruts)
-        , ("M-d",               asks (XMonad.layoutHook . config) >>= setLayout)
-        , ("M-<KP_Enter>",      sendMessage NextLayout)
+        , ("M-<Space>",         sendMessage NextLayout)                                  -- Switch to next layout
+        , ("M-S-<Space>",       sendMessage ToggleStruts)                                -- Toggles struts
+        , ("M-S-b",             sendMessage $ Toggle NOBORDERS)                          -- Toggles noborder
+        , ("M-S-=",             sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
         , ("M-S-f",             sendMessage (T.Toggle "float"))
-        , ("M-S-g",             sendMessage (T.Toggle "gimp"))
         , ("M-S-x",             sendMessage $ Toggle REFLECTX)
         , ("M-S-y",             sendMessage $ Toggle REFLECTY)
         , ("M-S-m",             sendMessage $ Toggle MIRROR)
-        , ("M-S-b",             sendMessage $ Toggle NOBORDERS)
-        , ("M-S-d",             sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
         , ("M-<KP_Multiply>",   sendMessage (IncMasterN 1))      -- Increase the number of clients in the master pane
         , ("M-<KP_Divide>",     sendMessage (IncMasterN (-1)))   -- Decrease the number of clients in the master pane
         , ("M-S-<KP_Multiply>", increaseLimit)                   -- Increase the number of windows that can be shown
@@ -190,7 +183,6 @@ myKeys =
         , ("M-<KP_Subtract>",   moveTo Prev nonNSP)                         -- Go to previous workspace
         , ("M-S-<KP_Add>",      shiftTo Next nonNSP >> moveTo Next nonNSP)  -- Shifts focused window to next workspace
         , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to previous workspace
-
 
     -- Main Run Apps
         , ("M-<Return>",        spawn myTerminal)
@@ -250,7 +242,6 @@ myKeys =
         ] where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
                 
-
 ------------------------------------------------------------------------
 ---WORKSPACES
 ------------------------------------------------------------------------
@@ -268,58 +259,39 @@ myWorkspaces = clickable . (map xmobarEscape)
                       (i,ws) <- zip [1..8] l,                                        
                       let n = i ] 
 
-myManageHook = placeHook (withGaps (20,12,12,12) (smart (0.5,0.5))) <+> insertPosition End Newer <+> floatNextHook <+>
-        (composeAll . concat $
-        [ [ resource  =? r --> doF (W.view "main" . W.shift "main")   | r <- myTermApps    ]
-        , [ resource  =? r --> doF (W.view "web" . W.shift "web")   | r <- myWebApps     ]
-        , [ resource  =? r --> doF (W.view "media" . W.shift "media") | r <- myMediaApps   ]
-        , [ resource  =? r --> doF (W.view "syst" . W.shift "syst")   | r <- mySystApps    ]
-        , [ resource  =? r --> doFloat                            | r <- myFloatApps   ]
-        , [ className =? c --> ask >>= doF . W.sink               | c <- myUnfloatApps ]
-        ]) <+> manageHook defaultConfig
-        where
-            myTermApps    = ["termite", "xterm", "htop", "irssi"]
-            myWebApps     = ["firefox", "thunderbird"]
-            myMediaApps   = ["vlc", "ncmpcpp", "weechat", "mplayer", "gimp"]
-            mySystApps    = ["ranger", "pcmanfm", "geany", "nitrogen"]
-            myFloatApps   = ["file-roller", "nitrogen"]
-            myUnfloatApps = ["gimp"]
+myManageHook = composeAll
+     [
+        className =? "Firefox"        --> doShift "www"
+      , className =? "vivaldi"        --> doShift "www"
+      , className =? "irssi"          --> doShift "chat"
+      , className =? "zoom"           --> doShift "chat"
+      , className =? "hexchat"        --> doShift "chat"
+      , className =? "pcmanfm"        --> doShift "sys"
+      , className =? "vifm"           --> doShift "sys"
+      , className =? "cmus"           --> doShift "media"
+      , className =? "Vlc"            --> doShift "media"
+      , className =? "Virtualbox"     --> doFloat
+      , className =? "Gimp"           --> doFloat
+      , (className =? "Firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
+     ]
+
 
 
 ------------------------------------------------------------------------
 ---LAYOUTS
 ------------------------------------------------------------------------
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats $ 
-               mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ renamed [CutWordsLeft 4] $ maximize $
-               minimize $ boringWindows $ spacing 0 $
-               myDevLayout $
-               myWebLayout $
-               mySysLayout $
-               myDocLayout $
-               myVboxLayout $
-               myChatLayout $
-               myMediaLayout $
-               myGfxLayout $
-               myDefaultLayout
+               mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ myDefaultLayout
 		where 
-		myDevLayout = onWorkspace (myWorkspaces !! 0) $ grid  ||| threeCol ||| threeRow ||| oneBig ||| floats
-		myWebLayout = onWorkspace (myWorkspaces !! 1) $ noBorders monocle ||| oneBig ||| threeCol ||| threeRow ||| grid
-		mySysLayout = onWorkspace (myWorkspaces !! 2) $ oneBig ||| threeCol ||| threeRow ||| grid
-		myDocLayout = onWorkspace (myWorkspaces !! 3) $ oneBig ||| threeCol ||| threeRow ||| grid
-		myVboxLayout = onWorkspace (myWorkspaces !! 4) $ noBorders monocle ||| oneBig ||| threeCol ||| threeRow ||| grid
-		myChatLayout = onWorkspace (myWorkspaces !! 5) $ grid  ||| threeCol ||| threeRow ||| oneBig ||| floats
-		myMediaLayout = onWorkspace (myWorkspaces !! 6) $ noBorders monocle ||| oneBig ||| space ||| threeRow
-		myGfxLayout = onWorkspace (myWorkspaces !! 7) $ T.toggleLayouts gimp $ noBorders monocle ||| floats ||| grid
 		myDefaultLayout = grid ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
 		
-grid            = renamed [Replace "grid"]         $ limitWindows 12 $ spacing 4 $ mkToggle (single MIRROR) $ Grid (16/10)
-threeCol        = renamed [Replace "threeCol"]     $ limitWindows 3  $ ThreeCol 1 (3/100) (1/2) 
-threeRow        = renamed [Replace "threeRow"]     $ limitWindows 3  $ Mirror $ mkToggle (single MIRROR) zoomRow
-oneBig          = renamed [Replace "oneBig"]       $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
-monocle         = renamed [Replace "monocle"]      $ limitWindows 20   Full
-space           = renamed [Replace "space"]        $ limitWindows 4  $ spacing 36 $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (2/3) (2/3)
-floats          = renamed [Replace "floats"]       $ limitWindows 20   simplestFloat
-gimp            = renamed [Replace "gimp"]         $ limitWindows 5  $ withIM 0.11 (Role "gimp-toolbox") $ reflectHoriz $ withIM 0.15 (Role "gimp-dock") Full
+grid       = renamed [Replace "grid"]         $ limitWindows 12 $ spacing 4 $ mkToggle (single MIRROR) $ Grid (16/10)
+threeCol   = renamed [Replace "threeCol"]     $ limitWindows 3  $ ThreeCol 1 (3/100) (1/2) 
+threeRow   = renamed [Replace "threeRow"]     $ limitWindows 3  $ Mirror $ mkToggle (single MIRROR) zoomRow
+oneBig     = renamed [Replace "oneBig"]       $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
+monocle    = renamed [Replace "monocle"]      $ limitWindows 20 $ Full
+space      = renamed [Replace "space"]        $ limitWindows 4  $ spacing 36 $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (2/3) (2/3)
+floats     = renamed [Replace "floats"]       $ limitWindows 20 $ simplestFloat
 
 
 

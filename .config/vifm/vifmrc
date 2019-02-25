@@ -252,8 +252,8 @@ filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ shotwell,
 fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
          " Get w3m image previews inside vifm
-		  \ imgt %px %py %pw %ph %c
-          \ %pc
+		 " \ imgt %px %py %pw %ph %c
+         " \ %pc
          " \ imgc %px %py %pw %ph   NOT NEEDED IN XTERM
 
 " OpenRaster
