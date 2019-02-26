@@ -20,7 +20,7 @@ import qualified XMonad.StackSet as W
     -- Utilities
 import XMonad.Util.Loggers
 import XMonad.Util.EZConfig (additionalKeysP, additionalMouseBindings)  
-import XMonad.Util.NamedScratchpad (NamedScratchpad(NS), namedScratchpadManageHook, namedScratchpadAction, customFloating)
+import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (safeSpawn, unsafeSpawn, runInTerm, spawnPipe)
 import XMonad.Util.SpawnOnce
 
@@ -134,8 +134,8 @@ myKeys =
         , ("M-S-c", kill1)                           -- Kill the currently focused client
         , ("M-S-a", killAll)                         -- Kill all the windows on the current workspace
         
-        , ("M-<Delete>", withFocused $ windows . W.sink)
-        , ("M-S-<Delete>", sinkAll)                  -- Pushes floating windows back into tiling
+        , ("M-<Delete>", withFocused $ windows . W.sink)  -- Push floating window back to tile.
+        , ("M-S-<Delete>", sinkAll)                  -- Push ALL floating windows back to tile.
         , ("M-m", windows W.focusMaster)             -- Move focus to the master window
         , ("M-j", windows W.focusDown)               -- Move focus to the next window
         , ("M-k", windows W.focusUp)                 -- Move focus to the prev window
@@ -191,6 +191,9 @@ myKeys =
         , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next workspace
         , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to previous workspace
 
+    -- Scratchpads
+        , ("M-S-<Return>", namedScratchpadAction myScratchPads "terminal")
+        
     -- Main Run Apps
         , ("M-<Return>", spawn myTerminal)
         , ("M-<KP_Insert>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#282A36' -nf '#F8F8F2' -sb '#BD93F9' -sf '#282A36' -p 'dmenu:'")
@@ -280,13 +283,12 @@ myManageHook = composeAll
       , className =? "Virtualbox"     --> doFloat
       , className =? "Gimp"           --> doFloat
       , (className =? "Firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
-     ]
-
-
+     ] <+> namedScratchpadManageHook myScratchPads
 
 ------------------------------------------------------------------------
 ---LAYOUTS
 ------------------------------------------------------------------------
+
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats $ 
                mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ myDefaultLayout
 		where 
@@ -300,5 +302,21 @@ monocle    = renamed [Replace "monocle"]  $ limitWindows 20 $ Full
 space      = renamed [Replace "space"]    $ limitWindows 4  $ spacing 12 $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (2/3) (2/3)
 floats     = renamed [Replace "floats"]   $ limitWindows 20 $ simplestFloat
 
+------------------------------------------------------------------------
+---SCRATCHPADS
+------------------------------------------------------------------------
 
+myScratchPads = [ NS "terminal" spawnTerm  findTerm manageTerm ]
 
+	where
+    spawnTerm = myTerminal ++  " -n scratchpad"
+    findTerm = resource =? "scratchpad"
+    manageTerm = customFloating $ W.RationalRect l t w h -- and I'd like it fixed using the geometry below
+
+	where
+        -- reusing these variables is ok since they're confined to their own 
+        -- where clauses 
+        h = 0.9    -- height, 10% 
+        w = 0.9    -- width, 100%
+        t = 0.95 -h -- bottom edge
+        l = 0.95 -w -- centered left/right
