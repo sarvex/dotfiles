@@ -128,7 +128,7 @@ static Key keys[] = {
 
 	
     /* Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 1-9>  */
-	{ MODKEY|ShiftMask,       XK_KP_End,       spawn,          CMD("st -e vifm") },
+	{ MODKEY|ShiftMask,       XK_KP_End,       spawn,          CMD("st -e ~/.config/vifm/scripts/vifmrun") },
 	{ MODKEY|ShiftMask,       XK_KP_Down,      spawn,          CMD("st -e htop") },
 	{ MODKEY|ShiftMask,       XK_KP_Page_Down, spawn,          CMD("st -e cmus") },
 	{ MODKEY|ShiftMask,       XK_KP_Left,      spawn,          CMD("st -e irssi") },

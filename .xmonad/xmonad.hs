@@ -210,7 +210,7 @@ myKeys =
         , ("M-<KP_Page_Up>", spawn (myTerminal ++ " -e sh ./scripts/tig-script.sh"))   -- Keypad 9
         
     -- Command Line Apps  (MOD + SHIFT + KEYPAD 1-9)
-        , ("M-S-<KP_End>", spawn (myTerminal ++ " -e vifm"))                           -- Keypad 1
+        , ("M-S-<KP_End>", spawn (myTerminal ++ " -e ~/.config/vifm/scripts/vifmrun"))                           -- Keypad 1
         , ("M-S-<KP_Down>", spawn (myTerminal ++ " -e htop"))                          -- Keypad 2
         , ("M-S-<KP_Page_Down>", spawn (myTerminal ++ " -e cmus"))                     -- Keypad 3
         , ("M-S-<KP_Left>", spawn (myTerminal ++ " -e irssi"))                         -- Keypad 4
@@ -245,12 +245,12 @@ myKeys =
         , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
         , ("<XF86HomePage>", spawn "firefox")
         , ("<XF86Search>", safeSpawn "firefox" ["https://www.google.com/"])
-        , ("<XF86Mail>", runOrRaise "thunderbird" (resource =? "thunderbird"))
+        , ("<XF86Mail>", runOrRaise "geary" (resource =? "thunderbird"))
         , ("<XF86Calculator>", runOrRaise "gcalctool" (resource =? "gcalctool"))
         , ("<XF86Eject>", spawn "toggleeject")
         , ("<Print>", spawn "scrotd 0")
-        ] where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
-                nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
+        ] where nonNSP          = WSIs (return (\ws -> W.tag ws /= "nsp"))
+                nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "nsp"))
                 
 ------------------------------------------------------------------------
 ---WORKSPACES
