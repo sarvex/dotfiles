@@ -117,3 +117,5 @@ alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/mas
 
 # dotfile git alias
 alias config='/usr/bin/git --git-dir=/home/dt/dotfiles --work-tree=/home/dt'
+
+zstyle ':completion:*' completer _expand_alias _complete _ignored

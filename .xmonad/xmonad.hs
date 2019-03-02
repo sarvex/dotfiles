@@ -86,7 +86,7 @@ main = do
     xmproc0 <- spawnPipe "xmobar -x 0 /home/dt/.config/xmobar/xmobarrc2" -- xmobar mon 2
     xmproc1 <- spawnPipe "xmobar -x 1 /home/dt/.config/xmobar/xmobarrc1" -- xmobar mon 1
     xmproc2 <- spawnPipe "xmobar -x 2 /home/dt/.config/xmobar/xmobarrc0" -- xmobar mon 0
-    xmonad $ ewmh desktopConfig
+    xmonad $ ewmh $ desktopConfig
         { manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> myManageHook <+> manageHook desktopConfig 
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
@@ -192,7 +192,8 @@ myKeys =
         , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to previous workspace
 
     -- Scratchpads
-        , ("M-S-<Return>", namedScratchpadAction myScratchPads "terminal")
+        , ("M-C-<Return>", namedScratchpadAction myScratchPads "terminal")
+        , ("M-C-c", namedScratchpadAction myScratchPads "cmus")
         
     -- Main Run Apps
         , ("M-<Return>", spawn myTerminal)
@@ -291,9 +292,9 @@ myManageHook = composeAll
 
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats $ 
                mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ myDefaultLayout
-		where 
-		myDefaultLayout = grid ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
-		
+             where 
+                 myDefaultLayout = grid ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
+
 grid       = renamed [Replace "grid"]     $ limitWindows 12 $ spacing 4 $ mkToggle (single MIRROR) $ Grid (16/10)
 threeCol   = renamed [Replace "threeCol"] $ limitWindows 3  $ ThreeCol 1 (3/100) (1/2) 
 threeRow   = renamed [Replace "threeRow"] $ limitWindows 3  $ Mirror $ mkToggle (single MIRROR) zoomRow
@@ -306,17 +307,24 @@ floats     = renamed [Replace "floats"]   $ limitWindows 20 $ simplestFloat
 ---SCRATCHPADS
 ------------------------------------------------------------------------
 
-myScratchPads = [ NS "terminal" spawnTerm  findTerm manageTerm ]
+myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
+                , NS "cmus" spawnCmus findCmus manageCmus  
+                ]
 
-	where
-    spawnTerm = myTerminal ++  " -n scratchpad"
-    findTerm = resource =? "scratchpad"
-    manageTerm = customFloating $ W.RationalRect l t w h -- and I'd like it fixed using the geometry below
-
-	where
-        -- reusing these variables is ok since they're confined to their own 
-        -- where clauses 
-        h = 0.9    -- height, 10% 
-        w = 0.9    -- width, 100%
-        t = 0.95 -h -- bottom edge
-        l = 0.95 -w -- centered left/right
+    where
+    spawnTerm  = myTerminal ++  " -n scratchpad"
+    findTerm   = resource =? "scratchpad"
+    manageTerm = customFloating $ W.RationalRect l t w h
+                 where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 -h
+                 l = 0.95 -w
+    spawnCmus  = myTerminal ++  " -n cmus 'cmus'"
+    findCmus   = resource =? "cmus"
+    manageCmus = customFloating $ W.RationalRect l t w h
+                 where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 -h
+                 l = 0.95 -w
