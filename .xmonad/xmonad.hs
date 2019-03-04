@@ -4,7 +4,7 @@
 -- | |_| || |    http://www.gitlab.com/dwt1/ 
 -- |____/ |_|  	
 --
--- A customized configuration for xmonad window manager (http://www.xmonad.org)   
+-- My configuration for the xmonad window manager (http://www.xmonad.org)   
 
 ------------------------------------------------------------------------
 ---IMPORTS
