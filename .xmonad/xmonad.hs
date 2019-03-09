@@ -1,10 +1,6 @@
---  ____ _____ 
--- |  _ \_   _|  Derek Taylor (DistroTube)
--- | | | || |    http://www.youtube.com/c/DistroTube
--- | |_| || |    http://www.gitlab.com/dwt1/ 
--- |____/ |_|  	
---
--- My configuration for the xmonad window manager (http://www.xmonad.org)   
+-- The xmonad configuration of Derek Taylor (DistroTube)
+-- http://www.youtube.com/c/DistroTube
+-- http://www.gitlab.com/dwt1/
 
 ------------------------------------------------------------------------
 ---IMPORTS
@@ -12,6 +8,7 @@
     -- Base
 import XMonad
 import XMonad.Config.Desktop
+import Data.Monoid
 import Data.Maybe (isJust)
 import System.IO (hPutStrLn)
 import System.Exit (exitSuccess)
@@ -29,8 +26,6 @@ import XMonad.Hooks.DynamicLog (dynamicLogWithPP, defaultPP, wrap, pad, xmobarPP
 import XMonad.Hooks.ManageDocks (avoidStruts, docksStartupHook, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers (isFullscreen, isDialog,  doFullFloat, doCenterFloat) 
 import XMonad.Hooks.Place (placeHook, withGaps, smart)
-import XMonad.Hooks.InsertPosition
-import XMonad.Hooks.FloatNext (floatNextHook, toggleFloatNext, toggleFloatAllNew)
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.EwmhDesktops   -- required for xcomposite in obs to work
 
@@ -44,7 +39,6 @@ import XMonad.Actions.WithAll (sinkAll, killAll)
 import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), shiftNextScreen, shiftPrevScreen) 
 import XMonad.Actions.GridSelect (GSConfig(..), goToSelected, bringSelected, colorRangeFromClassName, buildDefaultGSConfig)
 import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, removeEmptyWorkspace)
-import XMonad.Actions.Warp (warpToWindow, banishScreen, Corner(LowerRight))
 import XMonad.Actions.MouseResize
 import qualified XMonad.Actions.ConstrainedResize as Sqr
 
@@ -86,8 +80,8 @@ main = do
     xmproc0 <- spawnPipe "xmobar -x 0 /home/dt/.config/xmobar/xmobarrc2" -- xmobar mon 2
     xmproc1 <- spawnPipe "xmobar -x 1 /home/dt/.config/xmobar/xmobarrc1" -- xmobar mon 1
     xmproc2 <- spawnPipe "xmobar -x 2 /home/dt/.config/xmobar/xmobarrc0" -- xmobar mon 0
-    xmonad $ ewmh $ desktopConfig
-        { manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> myManageHook <+> manageHook desktopConfig 
+    xmonad $ ewmh desktopConfig
+        { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageHook desktopConfig <+> manageDocks
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
                         , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
@@ -130,12 +124,15 @@ myKeys =
         , ("M-S-q", io exitSuccess)                  -- Quits xmonad
     
     -- Windows
-        , ("M-r", refresh)                           -- Refresh
+        -- , ("M-r", refresh)                           -- Refresh
         , ("M-S-c", kill1)                           -- Kill the currently focused client
-        , ("M-S-a", killAll)                         -- Kill all the windows on the current workspace
-        
+        , ("M-S-a", killAll)                         -- Kill all the windows on current workspace
+
+    -- Floating windows
         , ("M-<Delete>", withFocused $ windows . W.sink)  -- Push floating window back to tile.
         , ("M-S-<Delete>", sinkAll)                  -- Push ALL floating windows back to tile.
+
+    -- Windows navigation
         , ("M-m", windows W.focusMaster)             -- Move focus to the master window
         , ("M-j", windows W.focusDown)               -- Move focus to the next window
         , ("M-k", windows W.focusUp)                 -- Move focus to the prev window
@@ -145,9 +142,6 @@ myKeys =
         , ("M-<Backspace>", promote)                 -- Moves focused window to master, all others maintain order
         , ("M1-S-<Tab>", rotSlavesDown)              -- Rotate all windows except master and keep focus in place
         , ("M1-C-<Tab>", rotAllDown)                 -- Rotate all the windows in the current stack
-
-        , ("M-$", toggleFloatNext)
-        , ("M-S-$", toggleFloatAllNew)
         , ("M-S-s", windows copyToAll)  
         , ("M-C-s", killAllOtherCopies) 
         
@@ -180,8 +174,10 @@ myKeys =
         , ("M-S-<KP_Multiply>", increaseLimit)              -- Increase number of windows that can be shown
         , ("M-S-<KP_Divide>", decreaseLimit)                -- Decrease number of windows that can be shown
 
-        , ("M-h", sendMessage Shrink)
-        , ("M-l", sendMessage Expand)
+        , ("M-C-h", sendMessage Shrink)
+        , ("M-C-l", sendMessage Expand)
+        , ("M-C-j", sendMessage MirrorShrink)
+        , ("M-C-k", sendMessage MirrorExpand)
         , ("M-S-;", sendMessage zoomReset)
         , ("M-;", sendMessage ZoomFullToggle)
 
@@ -233,7 +229,7 @@ myKeys =
         , ("M-C-<KP_Page_Up>", spawn (myTerminal ++ " -e wopr report.xml"))            -- Keypad 9
         
     -- GUI Apps
-        , ("M-w", spawn "surf http://www.youtube.com/c/DistroTube/")
+        , ("M-b", spawn "surf http://www.youtube.com/c/DistroTube/")
         , ("M-f", spawn "pcmanfm")
         , ("M-g", runOrRaise "geany" (resource =? "geany"))
 
@@ -269,20 +265,17 @@ myWorkspaces = clickable . (map xmobarEscape)
         clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
                       (i,ws) <- zip [1..8] l,                                        
                       let n = i ] 
-
+myManageHook :: Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
      [
-        className =? "Firefox"        --> doShift "www"
-      , className =? "vivaldi"        --> doShift "www"
-      , className =? "irssi"          --> doShift "chat"
-      , className =? "zoom"           --> doShift "chat"
-      , className =? "hexchat"        --> doShift "chat"
-      , className =? "pcmanfm"        --> doShift "sys"
-      , className =? "vifm"           --> doShift "sys"
-      , className =? "cmus"           --> doShift "media"
-      , className =? "Vlc"            --> doShift "media"
-      , className =? "Virtualbox"     --> doFloat
-      , className =? "Gimp"           --> doFloat
+        className =? "Firefox"     --> doShift "<action=xdotool key super+2>www</action>"
+      , title =? "Vivaldi"         --> doShift "<action=xdotool key super+2>www</action>"
+      , title =? "irssi"           --> doShift "<action=xdotool key super+6>chat</action>"
+      , className =? "cmus"        --> doShift "<action=xdotool key super+7>media</action>"
+      , className =? "vlc"         --> doShift "<action=xdotool key super+7>media</action>"
+      , className =? "Virtualbox"  --> doFloat
+      , className =? "Gimp"        --> doFloat
+      , className =? "Gimp"        --> doShift "<action=xdotool key super+8>gfx</action>"
       , (className =? "Firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads
 
@@ -293,9 +286,11 @@ myManageHook = composeAll
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats $ 
                mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ myDefaultLayout
              where 
-                 myDefaultLayout = grid ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
+                 myDefaultLayout = tall ||| grid ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
 
-grid       = renamed [Replace "grid"]     $ limitWindows 12 $ spacing 4 $ mkToggle (single MIRROR) $ Grid (16/10)
+
+tall       = renamed [Replace "tall"]     $ limitWindows 12 $ spacing 6 $ ResizableTall 1 (3/100) (1/2) []
+grid       = renamed [Replace "grid"]     $ limitWindows 12 $ spacing 6 $ mkToggle (single MIRROR) $ Grid (16/10)
 threeCol   = renamed [Replace "threeCol"] $ limitWindows 3  $ ThreeCol 1 (3/100) (1/2) 
 threeRow   = renamed [Replace "threeRow"] $ limitWindows 3  $ Mirror $ mkToggle (single MIRROR) zoomRow
 oneBig     = renamed [Replace "oneBig"]   $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)

@@ -218,7 +218,7 @@ def init_keys():
             # Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 0-9>
             Key(
                 [mod, "shift"], "KP_End",                            # Keypad 1
-                lazy.spawn(myTerm+" -e vifm")
+                lazy.spawn(myTerm+" -e sh ./.config/vifm/scripts/vifmrun")
                 ),
             Key(
                 [mod, "shift"], "KP_Down",                           # Keypad 2
@@ -295,17 +295,17 @@ def init_keys():
 ##### BAR COLORS #####
 
 def init_colors():
-    return [["#1D2330", "#1D2330"], # panel background
-            ["#84598D", "#84598D"], # background for current screen tab
-            ["#B1B5C8", "#B1B5C8"], # font color for group names
-            ["#645377", "#645377"], # background color for layout widget
+    return [["#292D3E", "#292D3E"], # panel background
+            ["#434758", "#434758"], # background for current screen tab
+            ["#D0D0D0", "#D0D0D0"], # font color for group names
+            ["#F07178", "#F07178"], # background color for layout widget
             ["#000000", "#000000"], # background for other screen tabs
             ["#AD69AF", "#AD69AF"], # dark green gradiant for other screen tabs
-            ["#7B8290", "#7B8290"], # background color for network widget
-            ["#AD69AF", "#AD69AF"], # background color for pacman widget
-            ["#357FC5", "#357FC5"], # background color for cmus widget
+            ["#C3E88D", "#C3E88D"], # background color for network widget
+            ["#C792EA", "#C792EA"], # background color for pacman widget
+            ["#9CC4FF", "#9CC4FF"], # background color for cmus widget
             ["#000000", "#000000"], # background color for clock widget
-            ["#84598d", "#84598d"]] # background color for systray widget
+            ["#434758", "#434758"]] # background color for systray widget
 
 ##### GROUPS #####
 
@@ -460,12 +460,12 @@ def init_widgets_list():
                         font="Ubuntu Bold",
                         text=" ☵",
                         padding = 6,
-                        foreground=colors[2],
+                        foreground=colors[0],
                         background=colors[3],
                         fontsize=14
                         ),
                widget.CurrentLayout(
-                        foreground = colors[2],
+                        foreground = colors[0],
                         background = colors[3],
                         padding = 6
                         ),
@@ -503,14 +503,14 @@ def init_widgets_list():
                         font="Ubuntu Bold",
                         text=" ♫",
                         padding = 6,
-                        foreground = "d7d7d7",
+                        foreground=colors[0],
                         background=colors[8],
                         fontsize=14
                         ),
                widget.Cmus(
                         max_chars = 40,
                         update_interval = 0.5,
-                        foreground = "d7d7d7",
+                        foreground=colors[0],
                         background = colors[8]
                         ),
                widget.Image(

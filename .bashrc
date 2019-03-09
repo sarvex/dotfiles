@@ -100,7 +100,6 @@ alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias np='nano -w PKGBUILD'
 alias more=less
-alias ub='$HOME/scripts/ub.sh'
 
 # terminal rickroll!
 alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
@@ -155,3 +154,5 @@ export YAOURT_COLORS="nb=1:pkg=1:ver=1;32:lver=1;45:installed=1;42:grp=1;34:od=1
 neofetch
 
 alias config='/usr/bin/git --git-dir=/home/dt/dotfiles --work-tree=/home/dt'
+alias tb="nc termbin.com 9999"
+alias tb="nc termbin.com 9999"
