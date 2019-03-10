@@ -12,6 +12,8 @@ dynamically, and different layouts may be used on each
 workspace. Xinerama is fully supported, allowing windows to be tiled
 on several physical screens.
 
+This directory houses my personal xmonad configuration (xmonad.hs).  To check out my config, you will need to have xmonad, xmonad-contrib and xmobar installed.   Then you need to place the xmonad.hs file in ~/.xmonad or in ~/.config/xmonad/.  Then recompile xmonad and restart xmonad.
+
 ## Quick Start
 
   * From hackage:
