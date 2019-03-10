@@ -2,7 +2,7 @@
 
 ![Screenshot of my desktop](https://gitlab.com/dwt1/dotfiles/raw/master/.screenshots/dotfiles05.png) 
 
-[xmonad][] is a tiling window manager for X. Windows are arranged
+Xmonad is a tiling window manager for X. Windows are arranged
 automatically to tile the screen without gaps or overlap, maximising
 screen use. Window manager features are accessible from the keyboard:
 a mouse is optional. xmonad is written, configured and extensible in
