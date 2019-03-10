@@ -1,4 +1,4 @@
-# xmonad: A Tiling Window Manager
+# My Xmonad Configuration (xmonad.hs) 
 
 ![Screenshot of my desktop](https://gitlab.com/dwt1/dotfiles/raw/master/.screenshots/dotfiles05.png) 
 
