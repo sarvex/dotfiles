@@ -111,6 +111,7 @@ myStartupHook = do
           spawnOnce "urxvtd &" 
           spawnOnce "nitrogen --restore &" 
           spawnOnce "compton --config /home/dt/.config/compton/compton.conf &" 
+          spawnOnce "exec /usr/bin/trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --alpha 0 --tint 0x292d3e --height 19 &"
           setWMName "LG3D"
           --spawnOnce "/home/dt/.xmonad/xmonad.start" -- Sets our wallpaper
 
@@ -193,7 +194,7 @@ myKeys =
         
     -- Main Run Apps
         , ("M-<Return>", spawn myTerminal)
-        , ("M-<KP_Insert>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#282A36' -nf '#F8F8F2' -sb '#BD93F9' -sf '#282A36' -p 'dmenu:'")
+        , ("M-<KP_Insert>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
         
     -- Command Line Apps  (MOD + KEYPAD 1-9)
         , ("M-<KP_End>", spawn (myTerminal ++ " -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com"))  -- Keypad 1
