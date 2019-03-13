@@ -125,7 +125,6 @@ myKeys =
         , ("M-S-q", io exitSuccess)                  -- Quits xmonad
     
     -- Windows
-        -- , ("M-r", refresh)                           -- Refresh
         , ("M-S-c", kill1)                           -- Kill the currently focused client
         , ("M-S-a", killAll)                         -- Kill all the windows on current workspace
 
