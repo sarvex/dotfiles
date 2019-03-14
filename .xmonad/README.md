@@ -13,3 +13,19 @@ workspace. Xinerama is fully supported, allowing windows to be tiled
 on several physical screens.
 
 This directory houses my personal xmonad configuration (xmonad.hs).  To check out my config, you will need to have xmonad, xmonad-contrib and xmobar installed.   Then you need to place the xmonad.hs file in ~/.xmonad or in ~/.config/xmonad/.  Then recompile xmonad and restart xmonad.
+
+# My Keybindings
+
+| Keybinding | Action |
+| :--- | :--- |
+| `MODKEY + Keypad Insert` | opens run launcher (dmenu is the run launcher but can be easily changed) |
+| `MODKEY + Enter` | opens terminal (st is the terminal but can be easily changed) |
+| `MODKEY + j` | windows focus down (switches focus between windows in the stack) |
+| `MODKEY + k` | windows focus up (switches focus between windows in the stack) |
+| `MODKEY + SHIFT + j` | windows swap down (swap windows in the stack) |
+| `MODKEY + SHIFT + k` | windows swap up (swap the windows in the stack) |
+| `MODKEY + h` | shrink window (decreases window width) |
+| `MODKEY + l` | expand window (increases window width) |
+| `MODKEY + w` | switches focus to monitor 1 |
+| `MODKEY + e` | switches focus to monitor 2 |
+| `MODKEY + r` | switches focus to monitor 3 |
