@@ -15,8 +15,8 @@ dwm is an extremely fast, small, and dynamic window manager for X.
 | `MODKEY + SHIFT + k` | rotate stack -1 (rotates the windows in the stack) |
 | `MODKEY + h` | setmfact -0.05 (decreases window width) |
 | `MODKEY + l` | setmfact +0.05 (increases window width) |
-| `MODKEY + ,` | focusmon -1 |
-| `MODKEY + .` | focusmon +1 |
+| `MODKEY + ,` | focusmon -1 (switches focus between monitors) |
+| `MODKEY + .` | focusmon +1 (switches focus between monitors) |
 
 # Requirements
 
