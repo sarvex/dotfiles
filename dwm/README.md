@@ -3,6 +3,12 @@
 ![Screenshot of my desktop](https://gitlab.com/dwt1/dotfiles/raw/master/.screenshots/dotfiles04.png) 
 dwm is an extremely fast, small, and dynamic window manager for X.
 
+# My keybindings
+
+| Keybinding | Action |
+| :--- | :--- |
+| `MODKEY + Keypad Insert` | opens run launcher (dmenu) |
+| `MODKEY + Enter` | opens terminal (st) |
 
 # Requirements
 

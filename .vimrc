@@ -20,6 +20,9 @@ Plugin 'ryanoasis/vim-devicons'
 Plugin 'vim-python/python-syntax'
 Plugin 'jreybert/vimagit'
 Plugin 'severin-lemaignan/vim-minimap'
+Plugin 'vimwiki/vimwiki'                            " Vim wiki
+Plugin 'ap/vim-css-color'                           " Color previews for CSS
+Plugin 'tpope/vim-surround'                         " Change surrounding marks
 "Plugin 'klen/python-mode'                          " Python Mode
 
 call vundle#end()		" required, all plugins must appear before this line.

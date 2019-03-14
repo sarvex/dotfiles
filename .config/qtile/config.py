@@ -551,8 +551,8 @@ def init_widgets_screen2():
     return widgets_screen2                       # Monitor 2 will display all widgets in widgets_list
 
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.95, size=25)), 
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=0.95, size=25)), 
+    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.95, size=25)),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=0.95, size=25)),
             Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.95, size=25))]
 
 ##### FLOATING WINDOWS #####
