@@ -3,12 +3,20 @@
 ![Screenshot of my desktop](https://gitlab.com/dwt1/dotfiles/raw/master/.screenshots/dotfiles04.png) 
 dwm is an extremely fast, small, and dynamic window manager for X.
 
-# My keybindings
+# My Keybindings
 
 | Keybinding | Action |
 | :--- | :--- |
 | `MODKEY + Keypad Insert` | opens run launcher (dmenu) |
 | `MODKEY + Enter` | opens terminal (st) |
+| `MODKEY + j` | focus stack +1 |
+| `MODKEY + k` | focus stack -1 |
+| `MODKEY + SHIFT + j` | rotate stack +1 |
+| `MODKEY + SHIFT + k` | rotate stack -1 |
+| `MODKEY + ,` | focusmon -1 |
+| `MODKEY + .` | focusmon +1 |
+| `MODKEY + h` | setmfact -0.05 (decreases window width) |
+| `MODKEY + l` | setmfact +0.05 (increases window width) |
 
 # Requirements
 
