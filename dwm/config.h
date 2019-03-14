@@ -18,7 +18,7 @@ static const int horizpadbar        = 6;        /* horizontal padding for status
 static const int vertpadbar         = 7;        /* vertical padding for statusbar */
 static const char *fonts[]          = { "UbuntuMono Nerd Font:size=10" };
 static const char dmenufont[]       = "UbuntuMono Nerd Font:size=10";
-static const char col_gray1[]       = "#000000";
+static const char col_gray1[]       = "#292d3e";
 static const char col_gray2[]       = "#000000"; /* border color unfocused windows */
 static const char col_gray3[]       = "#96b5b4";
 static const char col_gray4[]       = "#c0c5ce";
