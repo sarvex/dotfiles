@@ -5,6 +5,8 @@ Qtile
 
 |travis| |coveralls| |rtd|
 
+![Screenshot of my desktop](https://www.gitlab.com/dwt1/dotfiles/raw/master/.screenshots/dotfiles07.png)
+
 A full-featured, pure-Python tiling window manager
 ==================================================
 
