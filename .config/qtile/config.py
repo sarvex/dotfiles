@@ -176,7 +176,7 @@ def init_keys():
             Key(
                 [mod], "KP_Insert",                                  # Keypad 0
                 # lazy.spawncmd()                                    # Qtile Run Dialog
-                lazy.spawn("rofi -show run")
+                lazy.spawn("dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
                 ),
             Key(
                 [mod], "KP_End",                                     # Keypad 1
