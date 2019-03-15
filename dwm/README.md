@@ -6,6 +6,7 @@ dwm is an extremely fast, small, and dynamic window manager for X.
 # My Keybindings
 
 The MODKEY is set to the `Super` key (aka the `Windows` key)
+
 | Keybinding | Action |
 | :--- | :--- |
 | `MODKEY + Keypad Insert` | opens run launcher (dmenu is the run launcher but can be easily changed) |
