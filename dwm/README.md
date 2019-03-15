@@ -11,6 +11,8 @@ The MODKEY is set to the `Super` key (aka the `Windows` key)
 | :--- | :--- |
 | `MODKEY + Keypad Insert` | opens run launcher (dmenu is the run launcher but can be easily changed) |
 | `MODKEY + Enter` | opens terminal (st is the terminal but can be easily changed) |
+| `MODKEY + SHIFT + c` | closes window with focus |
+| `MODKEY + SHIFT + q` | quits dwm |
 | `MODKEY + j` | focus stack +1 (switches focus between windows in the stack) |
 | `MODKEY + k` | focus stack -1 (switches focus between windows in the stack) |
 | `MODKEY + SHIFT + j` | rotate stack +1 (rotates the windows in the stack) |

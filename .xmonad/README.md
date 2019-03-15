@@ -22,6 +22,8 @@ The MODKEY is set to the Super key (aka the Windows key).
 | :--- | :--- |
 | `MODKEY + Keypad Insert` | opens run launcher (dmenu is the run launcher but can be easily changed) |
 | `MODKEY + Enter` | opens terminal (st is the terminal but can be easily changed) |
+| `MODKEY + SHIFT + c` | closes window with focus |
+| `MODKEY + SHIFT + q` | quits xmonad |
 | `MODKEY + j` | windows focus down (switches focus between windows in the stack) |
 | `MODKEY + k` | windows focus up (switches focus between windows in the stack) |
 | `MODKEY + SHIFT + j` | windows swap down (swap windows in the stack) |
