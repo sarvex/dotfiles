@@ -18,6 +18,8 @@ A full-featured, pure-Python tiling window manager
 
 # My Keybindings
 
+The MODKEY is set to the Super key (aka the Windows key).
+
 | Keybinding | Action |
 | :--- | :--- |
 | `MODKEY + Keypad Insert` | opens run launcher (dmenu is the run launcher but can be easily changed) |

@@ -16,6 +16,8 @@ This directory houses my personal xmonad configuration (xmonad.hs).  To check ou
 
 # My Keybindings
 
+The MODKEY is set to the Super key (aka the Windows key).
+
 | Keybinding | Action |
 | :--- | :--- |
 | `MODKEY + Keypad Insert` | opens run launcher (dmenu is the run launcher but can be easily changed) |
