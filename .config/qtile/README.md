@@ -30,9 +30,9 @@ The MODKEY is set to the Super key (aka the Windows key).
 | `MODKEY + SHIFT + k` | lazy layout shuffle_down (rotates the windows in the stack) |
 | `MODKEY + SHIFT + h` | Shrink size of window (MondadTall layout) |
 | `MODKEY + SHIFT + l` | Shrink size of window (MondadTall layout) |
-| `MODKEY + i` | swtich focus to monitor 1 |
-| `MODKEY + o` | swtich focus to monitor 2 |
-| `MODKEY + p` | swtich focus to monitor 3 |
+| `MODKEY + i` | switch focus to monitor 1 |
+| `MODKEY + o` | switch focus to monitor 2 |
+| `MODKEY + p` | switch focus to monitor 3 |
 
 # Current Release
 
