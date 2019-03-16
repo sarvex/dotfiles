@@ -14,8 +14,8 @@ Xft.hintstyle: hintfull
 Xft.lcdfilter: lcdfilter
 
 XTerm*renderFont: true
-XTerm*faceName: xft:UbuntuMono Nerd Font
-XTerm*faceSize: 13
+XTerm*faceName: xft:Mononoki Nerd Font
+XTerm*faceSize: 12
 XTerm*utf8: 2
 XTerm*locale: true
 

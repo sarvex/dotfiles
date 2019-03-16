@@ -9,9 +9,8 @@ hc() {
 hc emit_hook reload
 
 xsetroot -solid '#5A8E3A'
-
-nitrogen --restore
-urxvtd -q -o -f
+compton -C ~/.config/compton/compton.conf &
+nitrogen --restore &
 
 # remove all existing keybindings
 hc keyunbind --all
@@ -24,7 +23,41 @@ Mod=Mod4   # Use the super key as the main modifier
 hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
-hc keybind $Mod-Return spawn urxvtc
+hc keybind $Mod-Return spawn st
+hc keybind $Mod-KP_Insert spawn dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'
+
+
+hc keybind $Mod-KP_End spawn st -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com
+hc keybind $Mod-KP_Down spawn st -e sh ./scripts/googler-script.sh
+hc keybind $Mod-KP_Page_Down spawn st -e newsboat
+hc keybind $Mod-KP_Left spawn st -e rtv
+hc keybind $Mod-KP_Begin spawn st -e neomutt
+hc keybind $Mod-KP_Right spawn st -e twitch-curses
+hc keybind $Mod-KP_Home spawn st -e sh ./scripts/haxor-news.sh
+hc keybind $Mod-KP_Up spawn st -e toot curses
+hc keybind $Mod-KP_Page_Up spawn st -e sh ./scripts/tig-script.sh
+
+
+hc keybind $Mod-Shift-KP_End spawn st -e ~/.config/vifm/scripts/vifmrun
+hc keybind $Mod-Shift-KP_Down spawn st -e htop
+hc keybind $Mod-Shift-KP_Page_Down spawn st -e cmus
+hc keybind $Mod-Shift-KP_Left spawn st -e irssi
+hc keybind $Mod-Shift-KP_Begin spawn st -e rtorrent
+hc keybind $Mod-Shift-KP_Right spawn st -e youtube-viewer
+hc keybind $Mod-Shift-KP_Home spawn st -e ncpamixer
+hc keybind $Mod-Shift-KP_Up spawn st -e calcurse
+hc keybind $Mod-Shift-KP_Page_Up spawn st -e vim ~/.config/herbstluftwm/autostart
+
+
+hc keybind $Mod-Control-KP_End spawn st -e htop
+hc keybind $Mod-Control-KP_Down spawn st -e glances
+hc keybind $Mod-Control-KP_Page_Down spawn st -e nmon
+hc keybind $Mod-Control-KP_Left spawn st -e httping -KY --draw-phase localhost
+hc keybind $Mod-Control-KP_Begin spawn st -e s-tui
+hc keybind $Mod-Control-KP_Right spawn st -e pianobar
+hc keybind $Mod-Control-KP_Home spawn st -e cmatrix -C cyan
+hc keybind $Mod-Control-KP_Up spawn st -e joplin
+hc keybind $Mod-Control-KP_Page_Up spawn st -e wopr report.xml
 
 # basic movement
 # focusing clients
@@ -126,7 +159,7 @@ hc set frame_gap 4
 hc attr theme.active.color '#9fbc00'
 hc attr theme.normal.color '#454545'
 hc attr theme.urgent.color orange
-hc attr theme.inner_width 1
+hc attr theme.inner_width 0
 hc attr theme.inner_color black
 hc attr theme.border_width 3
 hc attr theme.floating.border_width 4
@@ -162,7 +195,7 @@ herbstclient set tree_style '╾│ ├└╼─┐'
 # hc set_monitors 1280x1024+0+0 1280x1024+1280+0
 # or simply:
 # hc detect_monitors
-hc set_monitors 1920x1054+1920+26 1920x1054+3840+26 1920x1054+0+26
+hc set_monitors 1920x1058+1920+22 1920x1058+3840+22 1920x1058+0+22
 
 # find the panel
 panel=~/.config/herbstluftwm/panel.sh

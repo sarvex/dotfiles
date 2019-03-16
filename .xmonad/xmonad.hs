@@ -111,8 +111,8 @@ myStartupHook = do
           spawnOnce "urxvtd &" 
           spawnOnce "nitrogen --restore &" 
           spawnOnce "compton --config /home/dt/.config/compton/compton.conf &" 
-          spawnOnce "exec /usr/bin/trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --alpha 0 --tint 0x292d3e --height 19 &"
           setWMName "LG3D"
+          --spawnOnce "exec /usr/bin/trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 15 --transparent true --alpha 0 --tint 0x292d3e --height 19 &"
           --spawnOnce "/home/dt/.xmonad/xmonad.start" -- Sets our wallpaper
 
 ------------------------------------------------------------------------

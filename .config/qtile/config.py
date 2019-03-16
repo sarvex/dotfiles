@@ -64,104 +64,104 @@ def init_keys():
     keys = [
             Key(
                 [mod], "Return",
-                lazy.spawn(myTerm)                        # Open terminal
+                lazy.spawn(myTerm)                      # Open terminal
                 ),
             Key(
                 [mod], "Tab",
-                lazy.next_layout()                        # Toggle through layouts
+                lazy.next_layout()                      # Toggle through layouts
                 ),
             Key(
                 [mod, "shift"], "c",
-                lazy.window.kill()                        # Kill active window
+                lazy.window.kill()                      # Kill active window
                 ),
             Key(
                 [mod, "shift"], "r",
-                lazy.restart()                            # Restart Qtile
+                lazy.restart()                          # Restart Qtile
                 ),
             Key(
                 [mod, "shift"], "q",
-                lazy.shutdown()                           # Shutdown Qtile
+                lazy.shutdown()                         # Shutdown Qtile
                 ),
-            Key([mod], "i",
-                lazy.to_screen(2)                         # Keyboard focus screen(0)
+            Key([mod], "w",
+                lazy.to_screen(2)                       # Keyboard focus screen(0)
                 ),
-            Key([mod], "o",
-                lazy.to_screen(0)                         # Keyboard focus screen(1)
+            Key([mod], "e",
+                lazy.to_screen(0)                       # Keyboard focus screen(1)
                 ),
-            Key([mod], "p",
-                lazy.to_screen(1)                         # Keyboard focus screen(2)
+            Key([mod], "r",
+                lazy.to_screen(1)                       # Keyboard focus screen(2)
                 ),
             Key([mod, "control"], "k",
-                lazy.layout.section_up()                          # Move up a section in treetab
+                lazy.layout.section_up()                # Move up a section in treetab
                 ),
             Key([mod, "control"], "j",
-                lazy.layout.section_down()                        # Move down a section in treetab
+                lazy.layout.section_down()              # Move down a section in treetab
                 ),
             # Window controls
             Key(
                 [mod], "k",
-                lazy.layout.down()                        # Switch between windows in current stack pane
+                lazy.layout.down()                      # Switch between windows in current stack pane
                 ),
             Key(
                 [mod], "j",
-                lazy.layout.up()                          # Switch between windows in current stack pane
+                lazy.layout.up()                        # Switch between windows in current stack pane
                 ),
             Key(
                 [mod, "shift"], "k",
-                lazy.layout.shuffle_down()                # Move windows down in current stack
+                lazy.layout.shuffle_down()              # Move windows down in current stack
                 ),
             Key(
                 [mod, "shift"], "j",
-                lazy.layout.shuffle_up()                  # Move windows up in current stack
+                lazy.layout.shuffle_up()                # Move windows up in current stack
                 ),
             Key(
                 [mod, "shift"], "l",
-                lazy.layout.grow(),                       # Grow size of current window (XmonadTall)
-                lazy.layout.increase_nmaster(),           # Increase number in master pane (Tile)
+                lazy.layout.grow(),                     # Grow size of current window (XmonadTall)
+                lazy.layout.increase_nmaster(),         # Increase number in master pane (Tile)
                 ),
             Key(
                 [mod, "shift"], "h",
-                lazy.layout.shrink(),                     # Shrink size of current window (XmonadTall)
-                lazy.layout.decrease_nmaster(),           # Decrease number in master pane (Tile)
+                lazy.layout.shrink(),                   # Shrink size of current window (XmonadTall)
+                lazy.layout.decrease_nmaster(),         # Decrease number in master pane (Tile)
                 ),
             Key(
-                [mod, "shift"], "Left",                   # Move window to workspace to the left
+                [mod, "shift"], "Left",                 # Move window to workspace to the left
                 window_to_prev_group
                 ),
             Key(
-                [mod, "shift"], "Right",                  # Move window to workspace to the right
+                [mod, "shift"], "Right",                # Move window to workspace to the right
                 window_to_next_group
                 ),
             Key(
                 [mod], "n",
-                lazy.layout.normalize()                   # Restore all windows to default size ratios 
+                lazy.layout.normalize()                 # Restore all windows to default size ratios 
                 ),
             Key(
                 [mod], "m",
-                lazy.layout.maximize()                    # Toggle a window between minimum and maximum sizes
+                lazy.layout.maximize()                  # Toggle a window between minimum and maximum sizes
                 ),
             Key(
                 [mod, "shift"], "KP_Enter",
-                lazy.window.toggle_floating()             # Toggle floating
+                lazy.window.toggle_floating()           # Toggle floating
                 ),
             Key(
                 [mod, "shift"], "space",
-                lazy.layout.rotate(),                     # Swap panes of split stack (Stack)
-                lazy.layout.flip()                        # Switch which side main pane occupies (XmonadTall)
+                lazy.layout.rotate(),                   # Swap panes of split stack (Stack)
+                lazy.layout.flip()                      # Switch which side main pane occupies (XmonadTall)
                 ),
             # Stack controls
             Key(
                 [mod], "space",
-                lazy.layout.next()                        # Switch window focus to other pane(s) of stack
+                lazy.layout.next()                      # Switch window focus to other pane(s) of stack
                 ),
             Key(
                 [mod, "control"], "Return",
-                lazy.layout.toggle_split()                # Toggle between split and unsplit sides of stack
+                lazy.layout.toggle_split()              # Toggle between split and unsplit sides of stack
                 ),
             # GUI Apps
 
             Key(
-                [mod], "w",
+                [mod], "b",
                 lazy.function(app_or_group("WWW", "firefox"))
                 ),
             Key(
@@ -574,9 +574,9 @@ def init_mouse():
 ##### DEFINING A FEW THINGS #####
 
 if __name__ in ["config", "__main__"]:
-    mod = "mod4"                                         # Sets mod key to SUPER/WINDOWS
+    mod = "mod4"                                     # Sets mod key to SUPER/WINDOWS
     myTerm = "st"                                    # My terminal of choice
-    myConfig = "/home/dt/.config/qtile/config.py"        # Qtile config file location 
+    myConfig = "/home/dt/.config/qtile/config.py"    # Qtile config file location 
 
     colors = init_colors()
     keys = init_keys()

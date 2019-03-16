@@ -5,7 +5,7 @@
 # |____/ |_|  	
   
 EDITOR=vim
-export TERM="xterm-256color"
+export TERM="st-256color"
 
 [[ $- != *i* ]] && return
 
