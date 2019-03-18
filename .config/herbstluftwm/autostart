@@ -26,7 +26,7 @@ hc keybind $Mod-Shift-c close
 hc keybind $Mod-Return spawn st
 hc keybind $Mod-KP_Insert spawn dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'
 
-
+# Apps Launched with <SUPER> + <KEYPAD 0-9>
 hc keybind $Mod-KP_End spawn st -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com
 hc keybind $Mod-KP_Down spawn st -e sh ./scripts/googler-script.sh
 hc keybind $Mod-KP_Page_Down spawn st -e newsboat
@@ -37,7 +37,7 @@ hc keybind $Mod-KP_Home spawn st -e sh ./scripts/haxor-news.sh
 hc keybind $Mod-KP_Up spawn st -e toot curses
 hc keybind $Mod-KP_Page_Up spawn st -e sh ./scripts/tig-script.sh
 
-
+# Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 0-9>
 hc keybind $Mod-Shift-KP_End spawn st -e ~/.config/vifm/scripts/vifmrun
 hc keybind $Mod-Shift-KP_Down spawn st -e htop
 hc keybind $Mod-Shift-KP_Page_Down spawn st -e cmus
@@ -48,7 +48,7 @@ hc keybind $Mod-Shift-KP_Home spawn st -e ncpamixer
 hc keybind $Mod-Shift-KP_Up spawn st -e calcurse
 hc keybind $Mod-Shift-KP_Page_Up spawn st -e vim ~/.config/herbstluftwm/autostart
 
-
+# Apps Launched with <SUPER> + <CONTROL> + <KEYPAD 0-9>
 hc keybind $Mod-Control-KP_End spawn st -e htop
 hc keybind $Mod-Control-KP_Down spawn st -e glances
 hc keybind $Mod-Control-KP_Page_Down spawn st -e nmon
@@ -155,6 +155,7 @@ hc set always_show_frame 1
 hc set frame_bg_transparent 1
 hc set frame_transparent_width 5
 hc set frame_gap 4
+hc set focus_follows_mouse 1
 
 hc attr theme.active.color '#9fbc00'
 hc attr theme.normal.color '#454545'
@@ -174,6 +175,8 @@ hc set frame_padding 0
 hc set smart_window_surroundings 0
 hc set smart_frame_surroundings 1
 hc set mouse_recenter_gap 0
+hc set focus_crosses_monitor_boundaries 1
+hc set swap_monitors_to_get_tag 1
 
 # rules
 hc unrule -F
