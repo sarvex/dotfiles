@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
-
-# this is a simple config for herbstluftwm
+#  ____ _____ 
+# |  _ \_   _|  Derek Taylor (DistroTube)
+# | | | || |  	http://www.youtube.com/c/DistroTube
+# | |_| || |  	http://www.gitlab.com/dwt1/ 
+# |____/ |_|  	
+#        
+# A customized configuration for herbstluftwm (http://www.herbstluftwm.org)     
+# Modified by Derek Taylor (http://www.gitlab.com/dwt1/ )
 
 hc() {
     herbstclient "$@"
@@ -11,6 +17,11 @@ hc emit_hook reload
 xsetroot -solid '#5A8E3A'
 compton -C ~/.config/compton/compton.conf &
 nitrogen --restore &
+
+# Uncomment the following lines to use xmobar as the panel
+# Remember to comment out the last 8 lines of this config, so that
+# polybar will no longer launch on startup.
+# $HOME/.config/herbstluftwm/xmobar
 
 # remove all existing keybindings
 hc keyunbind --all
@@ -207,3 +218,4 @@ for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
     # start it on each monitor
     "$panel" $monitor &
 done
+
