@@ -19,6 +19,8 @@ POWERLEVEL9K_VCS_CLEAN_BACKGROUND='11'
 POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='8'
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='10'
 POWERLEVEL9K_VCS_MAX_SYNC_LATENCY_SECONDS='0.05'
+POWERLEVEL9K_VI_INSERT_MODE_STRING='INSERT' 
+POWERLEVEL9K_VI_COMMAND_MODE_STRING='NORMAL'﻿
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -132,3 +134,5 @@ alias grep='grep --colour=auto'
 
 zstyle ':completion:*' completer _expand_alias _complete _ignored
 alias tb="nc termbin.com 9999"
+
+bindkey -v

@@ -46,7 +46,7 @@ format-offset =
 
 [colors]
 ; Nord theme ============
-background = #1D2330
+background = #292d3e
 foreground = #c0c5ce
 alert = #bd2c40
 volume-min = #a3be8c
@@ -630,40 +630,40 @@ format-background = ${colors.background}
 type = custom/text
 content = "%{T2} %{T-}"
 content-font = 2
-content-foreground = #84598D
-content-background = #1D2330
+content-foreground = #C3E88D
+content-background = #292d3e
 
 [module/arrow2]
 ; grey to Blue
 type = custom/text
 content = "%{T2} %{T-}"
 content-font = 2
-content-foreground = #4B5665
-content-background = #84598D
+content-foreground = #82AAFF
+content-background = #C3E88D
 
 [module/arrow3]
 ; grey to Blue
 type = custom/text
 content = "%{T2} %{T-}"
 content-font = 2
-content-foreground = #92969D
-content-background = #4B5665
+content-foreground = #C792EA
+content-background = #82AAFF
 
 [module/arrow4]
 ; grey to Blue
 type = custom/text
 content = "%{T2} %{T-}"
 content-font = 2
-content-foreground = #645377
-content-background = #92969D
+content-foreground = #FFE585
+content-background = #C792EA
 
 [module/arrow5]
 ; grey to Blue
 type = custom/text
 content = "%{T2} %{T-}"
 content-font = 2
-content-foreground = #AD69AF
-content-background = #645377
+content-foreground = #F07178
+content-background = #FFE585
 
 [module/arrow6]
 ; grey to Blue
@@ -671,7 +671,7 @@ type = custom/text
 content = "%{T2} %{T-}"
 content-font = 2
 content-foreground = #1D2330
-content-background = #AD69AF
+content-background = #F07178
 
 
 
@@ -686,10 +686,10 @@ type = custom/script
 exec = ~/.config/polybar/scripts/check-all-updates.sh
 interval = 1000
 label = Updates: %output%
-format-foreground = #ededed
-format-background = #AD69AF
+format-foreground = #ffffff
+format-background = #F07178
 format-prefix = "  "
-format-prefix-foreground = #d7d7d7
+format-prefix-foreground = #ffffff
 
 
 [module/aur-updates]
@@ -867,8 +867,8 @@ type = internal/cpu
 ; Seconds to sleep between updates
 ; Default: 1
 interval = 1
-format-foreground = #1D2330
-format-background = #92969D
+format-foreground = ${colors.background}
+format-background = #C792EA
 format-prefix = " "
 format-prefix-foreground = ${colors.background}
 
@@ -1102,9 +1102,9 @@ label = %percentage_used%%
 
 format = Mem <label>
 format-prefix = " "
-format-prefix-foreground = ${colors.foreground}
-format-foreground = ${colors.foreground}
-format-background = #4B5665
+format-prefix-foreground = #292d3e
+format-foreground = #292d3e
+format-background = #82AAFF
 
 ################################################################################
 
@@ -1167,9 +1167,9 @@ interface = enp3s0
 label-connected = "%upspeed:7%"
 format-connected = <label-connected>
 format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.foreground}
-format-connected-foreground = ${colors.foreground}
-format-connected-background = #84598D
+format-connected-prefix-foreground = #292d3e
+format-connected-foreground = #292d3e
+format-connected-background = #C3E88D
 
 ################################################################################
 
@@ -1183,9 +1183,9 @@ interface = enp3s0
 label-connected = "%downspeed:7%"
 format-connected = <label-connected>
 format-connected-prefix = "  "
-format-connected-prefix-foreground = ${colors.foreground}
-format-connected-foreground = ${colors.foreground}
-format-connected-background = #84598D
+format-connected-prefix-foreground = #292d3e
+format-connected-foreground = #292d3e
+format-connected-background = #C3E88D
 
 ################################################################################
 
@@ -1212,8 +1212,8 @@ click-right = exec pavucontrol
 click-left = ~/.config/polybar/scripts/pavolume.sh --togmute
 scroll-up = ~/.config/polybar/scripts/pavolume.sh --up
 scroll-down = ~/.config/polybar/scripts/pavolume.sh --down
-format-foreground = #d7d7d7
-format-background = #645377
+format-foreground = ${colors.background}
+format-background = #FFE585
 
 
 

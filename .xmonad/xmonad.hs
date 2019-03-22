@@ -208,7 +208,7 @@ myKeys =
         
     -- Command Line Apps  (MOD + SHIFT + KEYPAD 1-9)
         , ("M-S-<KP_End>", spawn (myTerminal ++ " -e ~/.config/vifm/scripts/vifmrun"))                           -- Keypad 1
-        , ("M-S-<KP_Down>", spawn (myTerminal ++ " -e htop"))                          -- Keypad 2
+        , ("M-S-<KP_Down>", spawn (myTerminal ++ " -e joplin"))                          -- Keypad 2
         , ("M-S-<KP_Page_Down>", spawn (myTerminal ++ " -e cmus"))                     -- Keypad 3
         , ("M-S-<KP_Left>", spawn (myTerminal ++ " -e irssi"))                         -- Keypad 4
         , ("M-S-<KP_Begin>", spawn (myTerminal ++ " -e rtorrent"))                     -- Keypad 5
@@ -219,13 +219,13 @@ myKeys =
         
     -- Command Line Apps  (MOD + CTRL + KEYPAD 1-9)
         , ("M-C-<KP_End>", spawn (myTerminal ++ " -e htop"))                           -- Keypad 1
-        , ("M-C-<KP_Down>", spawn (myTerminal ++ " -e glances"))                       -- Keypad 2
+        , ("M-C-<KP_Down>", spawn (myTerminal ++ " -e gtop"))                       -- Keypad 2
         , ("M-C-<KP_Page_Down>", spawn (myTerminal ++ " -e nmon"))                     -- Keypad 3
-        , ("M-C-<KP_Left>", spawn (myTerminal ++ " -e httping -KY --draw-phase localhost"))  -- Keypad 4
+        , ("M-C-<KP_Left>", spawn (myTerminal ++ " -e glances"))  -- Keypad 4
         , ("M-C-<KP_Begin>", spawn (myTerminal ++ " -e s-tui"))                        -- Keypad 5
-        , ("M-C-<KP_Right>", spawn (myTerminal ++ " -e pianobar"))                     -- Keypad 6
+        , ("M-C-<KP_Right>", spawn (myTerminal ++ " -e httping -KY --draw-phase localhost"))                     -- Keypad 6
         , ("M-C-<KP_Home>", spawn (myTerminal ++ " -e cmatrix -C cyan"))               -- Keypad 7
-        , ("M-C-<KP_Up>", spawn (myTerminal ++ " -e joplin"))                          -- Keypad 8
+        , ("M-C-<KP_Up>", spawn (myTerminal ++ " -e pianobar"))                          -- Keypad 8
         , ("M-C-<KP_Page_Up>", spawn (myTerminal ++ " -e wopr report.xml"))            -- Keypad 9
         
     -- GUI Apps

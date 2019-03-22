@@ -129,7 +129,7 @@ static Key keys[] = {
 	
     /* Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 1-9>  */
 	{ MODKEY|ShiftMask,       XK_KP_End,       spawn,          CMD("st -e ~/.config/vifm/scripts/vifmrun") },
-	{ MODKEY|ShiftMask,       XK_KP_Down,      spawn,          CMD("st -e htop") },
+	{ MODKEY|ShiftMask,       XK_KP_Down,      spawn,          CMD("st -e joplin") },
 	{ MODKEY|ShiftMask,       XK_KP_Page_Down, spawn,          CMD("st -e cmus") },
 	{ MODKEY|ShiftMask,       XK_KP_Left,      spawn,          CMD("st -e irssi") },
 	{ MODKEY|ShiftMask,       XK_KP_Begin,     spawn,          CMD("st -e rtorrent") },
@@ -140,13 +140,13 @@ static Key keys[] = {
 	
     /* Apps Launched with <SUPER> + <CONTROL> + <KEYPAD 1-9>  */
 	{ MODKEY|ControlMask,     XK_KP_End,       spawn,          CMD("st -e htop") },
-	{ MODKEY|ControlMask,     XK_KP_Down,      spawn,          CMD("st -e glances") },
+	{ MODKEY|ControlMask,     XK_KP_Down,      spawn,          CMD("st -e gtop") },
 	{ MODKEY|ControlMask,     XK_KP_Page_Down, spawn,          CMD("st -e nmon") },
-	{ MODKEY|ControlMask,     XK_KP_Left,      spawn,          CMD("st -e httping -KY --draw-phase localhost") },
+	{ MODKEY|ControlMask,     XK_KP_Left,      spawn,          CMD("st -e glances") },
 	{ MODKEY|ControlMask,     XK_KP_Begin,     spawn,          CMD("st -e s-tui") },
-	{ MODKEY|ControlMask,     XK_KP_Right,     spawn,          CMD("st -e pianobar") },
+	{ MODKEY|ControlMask,     XK_KP_Right,     spawn,          CMD("st -e httping -KY --draw-phase localhost") },
 	{ MODKEY|ControlMask,     XK_KP_Home,      spawn,          CMD("st -e cmatrix -C cyan") },
-	{ MODKEY|ControlMask,     XK_KP_Up,        spawn,          CMD("st -e joplin") },
+	{ MODKEY|ControlMask,     XK_KP_Up,        spawn,          CMD("st -e pianobar") },
 	{ MODKEY|ControlMask,     XK_KP_Page_Up,   spawn,          CMD("st -e wopr report.xml") },
 	
 	TAGKEYS(                        XK_1,                      0)

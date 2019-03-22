@@ -222,7 +222,7 @@ def init_keys():
                 ),
             Key(
                 [mod, "shift"], "KP_Down",                           # Keypad 2
-                lazy.spawn(myTerm+" -e htop")
+                lazy.spawn(myTerm+" -e joplin")
                 ),
             Key(
                 [mod, "shift"], "KP_Page_Down",                      # Keypad 3
@@ -259,7 +259,7 @@ def init_keys():
                 ),
             Key(
                 [mod, "control"], "KP_Down",                           # Keypad 2
-                lazy.spawn(myTerm+" -e glances")
+                lazy.spawn(myTerm+" -e gtop")
                 ),
             Key(
                 [mod, "control"], "KP_Page_Down",                      # Keypad 3
@@ -267,7 +267,7 @@ def init_keys():
                 ),
             Key(
                 [mod, "control"], "KP_Left",                           # Keypad 4
-                lazy.spawn(myTerm+" -e httping -KY --draw-phase localhost")
+                lazy.spawn(myTerm+" -e glances")
                 ),
             Key(
                 [mod, "control"], "KP_Begin",                          # Keypad 5
@@ -275,7 +275,7 @@ def init_keys():
                 ),
             Key(
                 [mod, "control"], "KP_Right",                          # Keypad 6
-                lazy.spawn(myTerm+" -e sh ./scripts/pianobar.sh")
+                lazy.spawn(myTerm+" -e httping -KY --draw-phase localhost")
                 ),
             Key(
                 [mod, "control"], "KP_Home",                           # Keypad 7
@@ -283,7 +283,7 @@ def init_keys():
                 ),
             Key(
                 [mod, "control"], "KP_Up",                             # Keypad 8
-                lazy.spawn("sh ./scripts/joplin.sh")
+                lazy.spawn(myTerm+" -e pianobar")
                 ),
             Key(
                 [mod, "control"], "KP_Page_Up",                        # Keypad 9
