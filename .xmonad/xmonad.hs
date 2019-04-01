@@ -16,7 +16,7 @@ import qualified XMonad.StackSet as W
 
     -- Utilities
 import XMonad.Util.Loggers
-import XMonad.Util.EZConfig (additionalKeysP, additionalMouseBindings)  
+import XMonad.Util.EZConfig (additionalKeysP, additionalMouseBindings)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (safeSpawn, unsafeSpawn, runInTerm, spawnPipe)
 import XMonad.Util.SpawnOnce

@@ -136,3 +136,6 @@ zstyle ':completion:*' completer _expand_alias _complete _ignored
 alias tb="nc termbin.com 9999"
 
 bindkey -v
+bindkey '^R' history-incremental-search-backward
+
+export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
