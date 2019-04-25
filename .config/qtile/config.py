@@ -180,7 +180,7 @@ def init_keys():
                 ),
             Key(
                 [mod], "KP_End",                                     # Keypad 1
-                lazy.spawn(myTerm+" -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com")
+                lazy.spawn(myTerm+" -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube")
                 # lazy.spawn(myTerm+" -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com")
                 ),
             Key(

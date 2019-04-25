@@ -116,7 +116,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,       XK_period,       tagmon,         {.i = +1 } },
 	
     /* Apps Launched with <SUPER> + <KEYPAD 1-9>  */
-	{ MODKEY,                 XK_KP_End,       spawn,          CMD("st -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com") },
+	{ MODKEY,                 XK_KP_End,       spawn,          CMD("st -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube") },
 	{ MODKEY,                 XK_KP_Down,      spawn,          CMD("st -e sh ./scripts/googler-script.sh") },
 	{ MODKEY,                 XK_KP_Page_Down, spawn,          CMD("st -e newsboat") },
 	{ MODKEY,                 XK_KP_Left,      spawn,          CMD("st -e rtv") },
