@@ -108,6 +108,15 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=1
 let NERDTreeMinimalUI = 1
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Minimap
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:minimap_show='<leader>mm'
+let g:minimap_update='<leader>mu'
+let g:minimap_close='<leader>mc'
+let g:minimap_toggle='<leader>mt'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

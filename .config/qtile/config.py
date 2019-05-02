@@ -391,7 +391,7 @@ def init_widgets_list():
                         fontsize = 9,
                         margin_y = 0,
                         margin_x = 0,
-                        padding_y = 9,
+                        padding_y = 5,
                         padding_x = 5,
                         borderwidth = 1,
                         active = colors[2],
@@ -422,7 +422,7 @@ def init_widgets_list():
                         fontsize = 11,
                         foreground = colors[5],
                         background = colors[0],
-                        padding = 6
+                        padding = 5
                         ),
                widget.Image(
                         scale = True,
@@ -431,7 +431,7 @@ def init_widgets_list():
                         ),
                widget.Systray(
                         background=colors[10],
-                        padding = 6
+                        padding = 5
                         ),
                widget.Image(
                         scale = True,
@@ -449,7 +449,7 @@ def init_widgets_list():
                         interface = "enp3s0",
                         foreground = colors[0],
                         background = colors[6],
-                        padding = 6
+                        padding = 5
                         ),
                widget.Image(
                         scale = True,
@@ -459,7 +459,7 @@ def init_widgets_list():
                widget.TextBox(
                         font="Ubuntu Bold",
                         text=" ☵",
-                        padding = 6,
+                        padding = 5,
                         foreground=colors[0],
                         background=colors[3],
                         fontsize=14
@@ -467,7 +467,7 @@ def init_widgets_list():
                widget.CurrentLayout(
                         foreground = colors[0],
                         background = colors[3],
-                        padding = 6
+                        padding = 5
                         ),
                widget.Image(
                         scale = True,
@@ -477,7 +477,7 @@ def init_widgets_list():
                widget.TextBox(
                         font="Ubuntu Bold",
                         text=" ⟳",
-                        padding = 6,
+                        padding = 5,
                         foreground=colors[0],
                         background=colors[7],
                         fontsize=14
@@ -490,7 +490,7 @@ def init_widgets_list():
                         ),
                widget.TextBox(
                         text="Updates",
-                        padding = 6,
+                        padding = 5,
                         foreground=colors[0],
                         background=colors[7]
                         ),
@@ -502,7 +502,7 @@ def init_widgets_list():
                widget.TextBox(
                         font="Ubuntu Bold",
                         text=" ♫",
-                        padding = 6,
+                        padding = 5,
                         foreground=colors[0],
                         background=colors[8],
                         fontsize=14
@@ -523,7 +523,7 @@ def init_widgets_list():
                         text=" 🕒",
                         foreground=colors[2],
                         background=colors[9],
-                        padding = 6,
+                        padding = 5,
                         fontsize=14
                         ),
                widget.Clock(
@@ -533,7 +533,7 @@ def init_widgets_list():
                         ),
                widget.Sep(
                         linewidth = 0,
-                        padding = 6,
+                        padding = 5,
                         foreground = colors[0],
                         background = colors[9]
                         ),
@@ -551,9 +551,9 @@ def init_widgets_screen2():
     return widgets_screen2                       # Monitor 2 will display all widgets in widgets_list
 
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.95, size=25)),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=0.95, size=25)),
-            Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.95, size=25))]
+    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.95, size=20)),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=0.95, size=20)),
+            Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.95, size=20))]
 
 ##### FLOATING WINDOWS #####
 

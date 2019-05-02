@@ -132,6 +132,8 @@ alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias grep='grep --colour=auto'
 
+alias lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss'
+
 zstyle ':completion:*' completer _expand_alias _complete _ignored
 alias tb="nc termbin.com 9999"
 
