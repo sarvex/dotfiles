@@ -196,7 +196,7 @@ myKeys =
         , ("M-<KP_Insert>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
         
     -- Command Line Apps  (MOD + KEYPAD 1-9)
-        , ("M-<KP_End>", spawn (myTerminal ++ " -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com"))  -- Keypad 1
+        , ("M-<KP_End>", spawn (myTerminal ++ " -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube"))  -- Keypad 1
         , ("M-<KP_Down>", spawn (myTerminal ++ " -e sh ./scripts/googler-script.sh"))  -- Keypad 2
         , ("M-<KP_Page_Down>", spawn (myTerminal ++ " -e newsboat"))                   -- Keypad 3
         , ("M-<KP_Left>", spawn (myTerminal ++ " -e rtv"))                             -- Keypad 4
