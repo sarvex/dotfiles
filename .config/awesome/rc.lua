@@ -268,7 +268,7 @@ globalkeys = my_table.join(
     -- dmenu
     awful.key({ modkey, "Shift" }, "Return",
     function ()
-        awful.spawn(string.format("dmenu_run -i -nb '#292d3e' -nf '#ffffff' -sb '#fea63c' -sf '#191919' -fn 'UbuntuMono Nerd Font:bold:pixelsize=14'",
+        awful.spawn(string.format("dmenu_run -i  -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -fn 'UbuntuMono Nerd Font:bold:pixelsize=14'",
         beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
 	end,
     {description = "show dmenu", group = "hotkeys"}),
@@ -279,6 +279,8 @@ globalkeys = my_table.join(
         {description = "edit config files" , group = "dmenu scripts" }),
     awful.key({ modkey, "Shift" }, "m", function () awful.util.spawn( "./.dmenu/dmenu-sysmon.sh" ) end,
         {description = "system monitoring apps" , group = "dmenu scripts" }),
+    awful.key({ modkey, "Shift" }, "p", function () awful.util.spawn( "passmenu" ) end,
+        {description = "passmenu" , group = "dmenu scripts" }),
     awful.key({ modkey, "Shift"  }, "s", function () awful.util.spawn( "./.dmenu/dmenu-surfraw.sh" ) end,
         {description = "surfraw web search" , group = "dmenu scripts" }),
         
@@ -308,8 +310,8 @@ globalkeys = my_table.join(
         {description = "pianobar" , group = "terminal apps" }),
     awful.key({ modkey, altkey }, "r", function () awful.util.spawn( "st -e rtv" ) end,
         {description = "rtv" , group = "terminal apps" }),
-    awful.key({ modkey, altkey  }, "t", function () awful.util.spawn( "st -e rtorrent" ) end,
-        {description = "rtorrent" , group = "terminal apps" }),
+    awful.key({ modkey, altkey  }, "t", function () awful.util.spawn( "sh /home/dt/thinkorswim/thinkorswim" ) end,
+        {description = "thinkorswim" , group = "gui  apps" }),
     awful.key({ modkey, altkey  }, "w", function () awful.util.spawn( "st -e wopr report.xml" ) end,
         {description = "wopr report.xml" , group = "terminal apps" }),
     awful.key({ modkey, altkey  }, "y", function () awful.util.spawn( "st -e youtube-viewer" ) end,

@@ -172,12 +172,37 @@ def init_keys():
                 [mod], "g",
                 lazy.spawn("geany")
                 ),
-            # Apps Launched with <SUPER> + <KEYPAD 0-9>
+                
+            # Dmenu Run Launcher
             Key(
-                [mod], "KP_Insert",                                  # Keypad 0
-                # lazy.spawncmd()                                    # Qtile Run Dialog
+                [mod, "shift"], "Return",
+                # lazy.spawncmd()
                 lazy.spawn("dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
                 ),
+
+
+            Key(
+                [mod, "shift"], "e",
+                # lazy.spawncmd()
+                lazy.spawn("./.dmenu/dmenu-edit-configs.sh")
+                ),
+            Key(
+                [mod, "shift"], "m",
+                # lazy.spawncmd()
+                lazy.spawn("./.dmenu/dmenu-sysmon.sh")
+                ),
+            Key(
+                [mod, "shift"], "p",
+                # lazy.spawncmd()
+                lazy.spawn("passmenu")
+                ),
+            Key(
+                [mod, "shift"], "s",
+                # lazy.spawncmd()
+                lazy.spawn("./.dmenu/dmenu-surfraw.sh")
+                ),
+                
+                
             Key(
                 [mod], "KP_End",                                     # Keypad 1
                 lazy.spawn(myTerm+" -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube")
