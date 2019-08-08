@@ -283,7 +283,8 @@ globalkeys = my_table.join(
         {description = "passmenu" , group = "dmenu scripts" }),
     awful.key({ modkey, "Shift"  }, "s", function () awful.util.spawn( "./.dmenu/dmenu-surfraw.sh" ) end,
         {description = "surfraw web search" , group = "dmenu scripts" }),
-        
+    awful.key({ modkey, "Shift"  }, "t", function () awful.util.spawn( "./.dmenu/dmenu-trading.sh" ) end,
+        {description = "trading programs" , group = "dmenu scripts" }),
         
     -- My applications
     awful.key({ modkey, altkey  }, "a", function () awful.util.spawn( "st -e ncpamixer" ) end,

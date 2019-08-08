@@ -11,6 +11,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()		" required, all plugins must appear after this line.
 
+"Plugin 'arcticicestudio/nord-vim'                   " Nord Color Scheme
 Plugin 'gmarik/Vundle.vim'							" Vundle
 Plugin 'vim-airline/vim-airline'					" Airline
 Plugin 'vim-airline/vim-airline-themes'				" Airline Themes
@@ -120,6 +121,7 @@ let g:minimap_toggle='<leader>mt'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" colorscheme nord
 hi LineNr ctermfg=242
 hi CursorLineNr ctermfg=15
 hi VertSplit ctermfg=8 ctermbg=0
