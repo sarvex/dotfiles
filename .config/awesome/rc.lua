@@ -311,8 +311,6 @@ globalkeys = my_table.join(
         {description = "pianobar" , group = "terminal apps" }),
     awful.key({ modkey, altkey }, "r", function () awful.util.spawn( "st -e rtv" ) end,
         {description = "rtv" , group = "terminal apps" }),
-    awful.key({ modkey, altkey  }, "t", function () awful.util.spawn( "sh /home/dt/thinkorswim/thinkorswim" ) end,
-        {description = "thinkorswim" , group = "gui  apps" }),
     awful.key({ modkey, altkey  }, "w", function () awful.util.spawn( "st -e wopr report.xml" ) end,
         {description = "wopr report.xml" , group = "terminal apps" }),
     awful.key({ modkey, altkey  }, "y", function () awful.util.spawn( "st -e youtube-viewer" ) end,
