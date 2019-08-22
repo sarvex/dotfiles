@@ -19,7 +19,7 @@ super + Escape
 #
 
 # quit/restart bspwm
-super + alt + {q,r}
+super + shift + {q,r}
 	bspc {quit,wm -r}
 
 # close and kill
@@ -133,6 +133,9 @@ super + alt + s
 # launch common system montoring programs
 super + alt + m
    /home/dt/.dmenu/dmenu-sysmon.sh 
+# launch reddio Reddit viewer
+super + alt + r
+   /home/dt/.dmenu/dmenu-reddio.sh 
 # launch stock trading programs
 super + alt + t
    /home/dt/.dmenu/dmenu-trading.sh 
