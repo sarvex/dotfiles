@@ -191,47 +191,31 @@ myKeys =
         , ("M-C-<Return>", namedScratchpadAction myScratchPads "terminal")
         , ("M-C-c", namedScratchpadAction myScratchPads "cmus")
         
-    -- Main Run Apps
+    -- Open Terminal
         , ("M-<Return>", spawn myTerminal)
-        , ("M-<KP_Insert>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
-        
-    -- Command Line Apps  (MOD + KEYPAD 1-9)
-        , ("M-<KP_End>", spawn (myTerminal ++ " -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube"))  -- Keypad 1
-        , ("M-<KP_Down>", spawn (myTerminal ++ " -e sh ./scripts/googler-script.sh"))  -- Keypad 2
-        , ("M-<KP_Page_Down>", spawn (myTerminal ++ " -e newsboat"))                   -- Keypad 3
-        , ("M-<KP_Left>", spawn (myTerminal ++ " -e rtv"))                             -- Keypad 4
-        , ("M-<KP_Begin>", spawn (myTerminal ++ " -e neomutt"))                        -- Keypad 5
-        , ("M-<KP_Right>", spawn (myTerminal ++ " -e twitch-curses"))                  -- Keypad 6
-        , ("M-<KP_Home>", spawn (myTerminal ++ " -e sh ./scripts/haxor-news.sh"))      -- Keypad 7
-        , ("M-<KP_Up>", spawn (myTerminal ++ " -e toot curses"))                       -- Keypad 8
-        , ("M-<KP_Page_Up>", spawn (myTerminal ++ " -e sh ./scripts/tig-script.sh"))   -- Keypad 9
-        
-    -- Command Line Apps  (MOD + SHIFT + KEYPAD 1-9)
-        , ("M-S-<KP_End>", spawn (myTerminal ++ " -e ~/.config/vifm/scripts/vifmrun"))                           -- Keypad 1
-        , ("M-S-<KP_Down>", spawn (myTerminal ++ " -e joplin"))                          -- Keypad 2
-        , ("M-S-<KP_Page_Down>", spawn (myTerminal ++ " -e cmus"))                     -- Keypad 3
-        , ("M-S-<KP_Left>", spawn (myTerminal ++ " -e irssi"))                         -- Keypad 4
-        , ("M-S-<KP_Begin>", spawn (myTerminal ++ " -e rtorrent"))                     -- Keypad 5
-        , ("M-S-<KP_Right>", spawn (myTerminal ++ " -e youtube-viewer"))               -- Keypad 6
-        , ("M-S-<KP_Home>", spawn (myTerminal ++ " -e ncpamixer"))                     -- Keypad 7
-        , ("M-S-<KP_Up>", spawn (myTerminal ++ " -e calcurse"))                        -- Keypad 8
-        , ("M-S-<KP_Page_Up>", spawn (myTerminal ++ " -e vim ~/.xmonad/xmonad.hs"))    -- Keypad 9
-        
-    -- Command Line Apps  (MOD + CTRL + KEYPAD 1-9)
-        , ("M-C-<KP_End>", spawn (myTerminal ++ " -e htop"))                           -- Keypad 1
-        , ("M-C-<KP_Down>", spawn (myTerminal ++ " -e gtop"))                       -- Keypad 2
-        , ("M-C-<KP_Page_Down>", spawn (myTerminal ++ " -e nmon"))                     -- Keypad 3
-        , ("M-C-<KP_Left>", spawn (myTerminal ++ " -e glances"))  -- Keypad 4
-        , ("M-C-<KP_Begin>", spawn (myTerminal ++ " -e s-tui"))                        -- Keypad 5
-        , ("M-C-<KP_Right>", spawn (myTerminal ++ " -e httping -KY --draw-phase localhost"))                     -- Keypad 6
-        , ("M-C-<KP_Home>", spawn (myTerminal ++ " -e cmatrix -C cyan"))               -- Keypad 7
-        , ("M-C-<KP_Up>", spawn (myTerminal ++ " -e pianobar"))                          -- Keypad 8
-        , ("M-C-<KP_Page_Up>", spawn (myTerminal ++ " -e wopr report.xml"))            -- Keypad 9
-        
-    -- GUI Apps
-        , ("M-b", spawn "surf http://www.youtube.com/c/DistroTube/")
-        , ("M-f", spawn "pcmanfm")
-        , ("M-g", runOrRaise "geany" (resource =? "geany"))
+
+    -- Dmenu Scripts (Alt+Ctr+Key)
+        , ("M1-C-<Return>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
+        , ("M1-C-e", spawn "./.dmenu/dmenu-edit-configs.sh")
+        , ("M1-C-m", spawn "./.dmenu/dmenu-sysmon.sh")
+        , ("M1-C-p", spawn "passmenu")
+        , ("M1-C-s", spawn "./.dmenu/dmenu-surfraw.sh")
+
+    -- My Applications (Super+Alt+Key)
+        , ("M-M1-a", spawn (myTerminal ++ " -e ncpamixer"))
+        , ("M-M1-b", spawn ("surf www.youtube.com/c/DistroTube/"))
+        , ("M-M1-c", spawn (myTerminal ++ " -e cmus"))
+        , ("M-M1-e", spawn (myTerminal ++ " -e neomutt"))
+        , ("M-M1-f", spawn (myTerminal ++ " -e sh ./.config/vifm/scripts/vifmrun"))
+        , ("M-M1-i", spawn (myTerminal ++ " -e irssi"))
+        , ("M-M1-j", spawn (myTerminal ++ " -e joplin"))
+        , ("M-M1-l", spawn (myTerminal ++ " -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube"))
+        , ("M-M1-m", spawn (myTerminal ++ " -e toot curses"))
+        , ("M-M1-n", spawn (myTerminal ++ " -e newsboat"))
+        , ("M-M1-p", spawn (myTerminal ++ " -e pianobar"))
+        , ("M-M1-r", spawn (myTerminal ++ " -e rtv"))
+        , ("M-M1-w", spawn (myTerminal ++ " -e wopr report.xml"))
+        , ("M-M1-y", spawn (myTerminal ++ " -e youtube-viewer"))
 
     -- Multimedia Keys
         , ("<XF86AudioPlay>", spawn "cmus toggle")

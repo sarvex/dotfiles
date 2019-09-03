@@ -266,27 +266,26 @@ globalkeys = my_table.join(
 
     -- {{{ Personal keybindings
     -- dmenu
-    awful.key({ modkey, "Shift" }, "Return",
+    awful.key({ altkey, "Control" }, "Return",
     function ()
         awful.spawn(string.format("dmenu_run -i  -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -fn 'UbuntuMono Nerd Font:bold:pixelsize=14'",
         beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
 	end,
     {description = "show dmenu", group = "hotkeys"}),
 
-    -- My dmenu scripts
-    
-    awful.key({ modkey, "Shift"  }, "e", function () awful.util.spawn( "./.dmenu/dmenu-edit-configs.sh" ) end,
+    -- My dmenu scripts (Alt+Ctrl+Key)
+    awful.key({ altkey, "Control"  }, "e", function () awful.util.spawn( "./.dmenu/dmenu-edit-configs.sh" ) end,
         {description = "edit config files" , group = "dmenu scripts" }),
-    awful.key({ modkey, "Shift" }, "m", function () awful.util.spawn( "./.dmenu/dmenu-sysmon.sh" ) end,
+    awful.key({ altkey, "Control" }, "m", function () awful.util.spawn( "./.dmenu/dmenu-sysmon.sh" ) end,
         {description = "system monitoring apps" , group = "dmenu scripts" }),
-    awful.key({ modkey, "Shift" }, "p", function () awful.util.spawn( "passmenu" ) end,
+    awful.key({ altkey, "Control" }, "p", function () awful.util.spawn( "passmenu" ) end,
         {description = "passmenu" , group = "dmenu scripts" }),
-    awful.key({ modkey, "Shift"  }, "s", function () awful.util.spawn( "./.dmenu/dmenu-surfraw.sh" ) end,
+    awful.key({ altkey, "Control"  }, "s", function () awful.util.spawn( "./.dmenu/dmenu-surfraw.sh" ) end,
         {description = "surfraw web search" , group = "dmenu scripts" }),
-    awful.key({ modkey, "Shift"  }, "t", function () awful.util.spawn( "./.dmenu/dmenu-trading.sh" ) end,
+    awful.key({ altkey, "Control"  }, "t", function () awful.util.spawn( "./.dmenu/dmenu-trading.sh" ) end,
         {description = "trading programs" , group = "dmenu scripts" }),
         
-    -- My applications
+    -- My applications (Super+Alt+Key)
     awful.key({ modkey, altkey  }, "a", function () awful.util.spawn( "st -e ncpamixer" ) end,
         {description = "ncpamixer" , group = "terminal apps" }),
     awful.key({ modkey, altkey }, "b", function () awful.util.spawn( "surf www.youtube.com/c/DistroTube" ) end,
@@ -303,7 +302,7 @@ globalkeys = my_table.join(
         {description = "joplin" , group = "terminal apps" }),
     awful.key({ modkey, altkey }, "l", function () awful.util.spawn( "st -e lynx --cfg=~/.lynx/lynx.cfg --lss=~/.lynx/lynx.lss -vikeys gopher://distro.tube" ) end,
         {description = "lynx cli browser" , group = "terminal apps" }),
-    awful.key({ modkey, altkey }, "m", function () awful.util.spawn( "st -e sh ./scripts/toot.sh" ) end,
+    awful.key({ modkey, altkey }, "m", function () awful.util.spawn( "st -e toot curses" ) end,
         {description = "toot curses" , group = "terminal apps" }),
     awful.key({ modkey, altkey }, "n", function () awful.util.spawn( "st -e newsboat" ) end,
         {description = "newsboat" , group = "terminal apps" }),
