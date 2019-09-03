@@ -6,9 +6,6 @@
 super + Return
 	st
 
-# program launcher
-super + shift + Return
-	dmenu_run
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -121,21 +118,30 @@ super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 #
-# dmenu scripts
+# dmenu scripts (Alt+Ctrl+Key)
 #
 
+# run program launcher
+alt + ctrl + Return
+	dmenu_run
 # edit common config files
-super + alt + e
+alt + ctrl + e
    /home/dt/.dmenu/dmenu-edit-configs.sh
 # surfraw
-super + alt + s
+alt + ctrl + s
    /home/dt/.dmenu/dmenu-surfraw.sh 
 # launch common system montoring programs
-super + alt + m
+alt + ctrl + m
    /home/dt/.dmenu/dmenu-sysmon.sh 
 # launch reddio Reddit viewer
-super + alt + r
+alt + ctrl + p
+   exec passmenu 
+# launch reddio Reddit viewer
+alt + ctrl + r
+   /home/dt/.dmenu/dmenu-reddio.sh 
+# launch reddio Reddit viewer
+alt + ctrl + r
    /home/dt/.dmenu/dmenu-reddio.sh 
 # launch stock trading programs
-super + alt + t
+alt + ctrl + t
    /home/dt/.dmenu/dmenu-trading.sh 
