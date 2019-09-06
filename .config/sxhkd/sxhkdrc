@@ -1,19 +1,26 @@
-#
-# wm independent hotkeys
-#
+#  ____ _____ 
+# |  _ \_   _|  Derek Taylor (DistroTube)
+# | | | || |  	http://www.youtube.com/c/DistroTube
+# | |_| || |  	http://www.gitlab.com/dwt1/ 
+# |____/ |_|  	
+#        
+# A customized sxhkdrc for the bspwm window manager.
+# https://github.com/baskerville/sxhkd
+# https://github.com/baskerville/bspwm
+
+
+# WM INDEPENDENT KEYBINDINGS
 
 # terminal emulator
 super + Return
 	st
 
-
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
 
-#
-# bspwm hotkeys
-#
+
+# BSPWM HOTKEYS
 
 # quit/restart bspwm
 super + shift + {q,r}
@@ -35,9 +42,8 @@ super + y
 super + g
 	bspc node -s biggest
 
-#
-# state/flags
-#
+
+# STATE/FLAGS
 
 # set the window state
 super + {t,shift + t,s,f}
@@ -47,9 +53,8 @@ super + {t,shift + t,s,f}
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
-#
-# focus/swap
-#
+
+# FOCUS/SWAP
 
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
@@ -81,9 +86,8 @@ super + {o,i}
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
-#
-# preselect
-#
+
+# PRESELECT
 
 # preselect the direction
 super + ctrl + {h,j,k,l}
@@ -101,9 +105,8 @@ super + ctrl + space
 super + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
-#
-# move/resize
-#
+
+# MOVE/RESIZE
 
 # expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
@@ -117,9 +120,8 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
-#
-# dmenu scripts (Alt+Ctrl+Key)
-#
+
+# DMENU SCRIPTS (Alt+Ctrl+Key)
 
 # run program launcher
 alt + ctrl + Return
