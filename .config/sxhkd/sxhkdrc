@@ -11,10 +11,6 @@
 
 # WM INDEPENDENT KEYBINDINGS
 
-# terminal emulator
-super + Return
-	st
-
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
@@ -121,6 +117,15 @@ super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 
+# APPLICATION KEYBINDINGS
+
+# terminal emulator
+super + Return
+	st
+# launch lynx web browser
+super + alt + b
+    st -e lynx gopher://distro.tube
+
 # DMENU SCRIPTS (Alt+Ctrl+Key)
 
 # run program launcher
@@ -132,18 +137,15 @@ alt + ctrl + e
 # surfraw
 alt + ctrl + s
    /home/dt/.dmenu/dmenu-surfraw.sh 
-# launch common system montoring programs
+# common system montoring programs
 alt + ctrl + m
    /home/dt/.dmenu/dmenu-sysmon.sh 
-# launch reddio Reddit viewer
+# passmenu
 alt + ctrl + p
    exec passmenu 
-# launch reddio Reddit viewer
+# reddio Reddit viewer
 alt + ctrl + r
    /home/dt/.dmenu/dmenu-reddio.sh 
-# launch reddio Reddit viewer
-alt + ctrl + r
-   /home/dt/.dmenu/dmenu-reddio.sh 
-# launch stock trading programs
+# stock trading programs
 alt + ctrl + t
    /home/dt/.dmenu/dmenu-trading.sh 
