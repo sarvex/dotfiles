@@ -24,26 +24,29 @@ choice=$(echo -e "${options[@]}" | dmenu -l -i -p 'Last 10 Posts From Reddit: ')
 		echo "Program terminated."
 	fi
 	if [ "$choice" == ' r/archlinux ' ]; then
-        exec st -e './.dmenu/dmenu-reddio-archlinux.sh'
+        exec st -e $SHELL -c 'reddio print -l 10 r/archlinux;$SHELL'
 	fi
 	if [ "$choice" == ' r/commandline ' ]; then
-        exec st -e './.dmenu/dmenu-reddio-commandline.sh'
+        exec st -e $SHELL -c 'reddio print -l 10 r/commandline;$SHELL'
 	fi
 	if [ "$choice" == ' r/DistroTube ' ]; then
-        exec st -e './.dmenu/dmenu-reddio-distrotube.sh'
+        exec st -e $SHELL -c 'reddio print -l 10 r/DistroTube;$SHELL'
+	fi
+	if [ "$choice" == ' r/GopherHoles ' ]; then
+        exec st -e $SHELL -c 'reddio print -l 10 r/GopherHoles;$SHELL'
 	fi
 	if [ "$choice" == ' r/linux ' ]; then
-        exec st -e './.dmenu/dmenu-reddio-linux.sh'
+        exec st -e $SHELL -c 'reddio print -l 10 r/linux;$SHELL'
 	fi
 	if [ "$choice" == ' r/linuxmasterrace ' ]; then
-        exec st -e './.dmenu/dmenu-reddio-linuxmasterrace.sh'
+        exec st -e $SHELL -c 'reddio print -l 10 r/linuxmasterrace;$SHELL'
 	fi
 	if [ "$choice" == ' r/unixporn ' ]; then
-        exec st -e './.dmenu/dmenu-reddio-unixporn.sh'
+        exec st -e $SHELL -c 'reddio print -l 10 r/unixporn;$SHELL'
 	fi
 	if [ "$choice" == ' r/linux4noobs ' ]; then
-        exec st -e './.dmenu/dmenu-reddio-linux4noobs.sh'
+        exec st -e $SHELL -c 'reddio print -l 10 r/linux4noobs;$SHELL'
 	fi
 	if [ "$choice" == ' r/vim ' ]; then
-        exec st -e './.dmenu/dmenu-reddio-vim.sh'
+        exec st -e $SHELL -c 'reddio print -l 10 r/vim;$SHELL'
 	fi
