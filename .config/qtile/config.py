@@ -182,32 +182,32 @@ def init_keys():
 
 
             Key(
-                [mod, "shift"], "e",
+                [mod1, "control"], "e",
                 # lazy.spawncmd()
                 lazy.spawn("./.dmenu/dmenu-edit-configs.sh")
                 ),
             Key(
-                [mod, "shift"], "m",
+                [mod1, "control"], "m",
                 # lazy.spawncmd()
                 lazy.spawn("./.dmenu/dmenu-sysmon.sh")
                 ),
             Key(
-                [mod, "shift"], "p",
+                [mod1, "control"], "p",
                 # lazy.spawncmd()
                 lazy.spawn("passmenu")
                 ),
             Key(
-                [mod, "shift"], "r",
+                [mod1, "control"], "r",
                 # lazy.spawncmd()
                 lazy.spawn("./.dmenu/dmenu-reddio.sh")
                 ),
             Key(
-                [mod, "shift"], "s",
+                [mod1, "control"], "s",
                 # lazy.spawncmd()
                 lazy.spawn("./.dmenu/dmenu-surfraw.sh")
                 ),
             Key(
-                [mod, "shift"], "t",
+                [mod1, "control"], "t",
                 # lazy.spawncmd()
                 lazy.spawn("./.dmenu/dmenu-trading.sh")
                 ),
