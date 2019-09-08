@@ -197,9 +197,19 @@ def init_keys():
                 lazy.spawn("passmenu")
                 ),
             Key(
+                [mod, "shift"], "r",
+                # lazy.spawncmd()
+                lazy.spawn("./.dmenu/dmenu-reddio.sh")
+                ),
+            Key(
                 [mod, "shift"], "s",
                 # lazy.spawncmd()
                 lazy.spawn("./.dmenu/dmenu-surfraw.sh")
+                ),
+            Key(
+                [mod, "shift"], "t",
+                # lazy.spawncmd()
+                lazy.spawn("./.dmenu/dmenu-trading.sh")
                 ),
                 
                 
