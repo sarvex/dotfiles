@@ -22,7 +22,7 @@ declare -a options=(" awesome
  zsh 
  quit ")
 
-choice=$(echo -e "${options[@]}" | dmenu -l -i -p 'Edit a config file: ')
+choice=$(echo -e "${options[@]}" | dmenu -i -p 'Edit a config file: ')
 
 	if [ "$choice" == ' quit ' ]; then
 		echo "Program terminated."
