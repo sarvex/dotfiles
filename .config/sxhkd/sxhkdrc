@@ -128,9 +128,13 @@ super + alt + l
 # launch irssi chat client
 super + alt + i
     st -e irssi
+# launch newsboat feed reeder
+super + alt + n
+    st -e newsboat
 # launch vifm file manager
 super + alt + v
     st -e ./.config/vifm/scripts/vifmrun
+ 
 
 # DMENU SCRIPTS (Alt+Ctrl+Key)
 
