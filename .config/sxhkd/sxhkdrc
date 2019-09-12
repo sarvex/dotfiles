@@ -117,7 +117,7 @@ super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 
-# APPLICATION KEYBINDINGS
+# APPLICATION KEYBINDINGS (Super + Alt + Key)
 
 # terminal emulator
 super + Return
@@ -125,7 +125,12 @@ super + Return
 # launch lynx web browser
 super + alt + l
     st -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys gopher://distro.tube
-
+# launch irssi chat client
+super + alt + i
+    st -e irssi
+# launch vifm file manager
+super + alt + v
+    st -e ./.config/vifm/scripts/vifmrun
 
 # DMENU SCRIPTS (Alt+Ctrl+Key)
 
