@@ -135,6 +135,9 @@ super + alt + n
 super + alt + v
     st -e ./.config/vifm/scripts/vifmrun
  
+# launch htop
+super + alt + h
+    st -e htop
 
 # DMENU SCRIPTS (Alt+Ctrl+Key)
 
