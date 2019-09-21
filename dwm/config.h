@@ -86,7 +86,7 @@ static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
 	/* modifier               key              function        argument */
-	{ MODKEY,                 XK_KP_Insert,    spawn,          {.v = dmenucmd } },
+	{ Mod1Mask|ControlMask,   XK_Return,       spawn,          {.v = dmenucmd } },
 	{ MODKEY,                 XK_Return,       spawn,          {.v = termcmd } },
 	{ MODKEY,                 XK_b,            togglebar,      {0} },
 	{ MODKEY|ShiftMask,       XK_j,            rotatestack,    {.i = +1 } },
@@ -115,39 +115,18 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,       XK_comma,        tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,       XK_period,       tagmon,         {.i = +1 } },
 	
-    /* Apps Launched with <SUPER> + <KEYPAD 1-9>  */
-	{ MODKEY,                 XK_KP_End,       spawn,          CMD("st -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube") },
-	{ MODKEY,                 XK_KP_Down,      spawn,          CMD("st -e sh ./scripts/googler-script.sh") },
-	{ MODKEY,                 XK_KP_Page_Down, spawn,          CMD("st -e newsboat") },
-	{ MODKEY,                 XK_KP_Left,      spawn,          CMD("st -e rtv") },
-	{ MODKEY,                 XK_KP_Begin,     spawn,          CMD("st -e neomutt") },
-	{ MODKEY,                 XK_KP_Right,     spawn,          CMD("st -e twitch-curses") },
-	{ MODKEY,                 XK_KP_Home,      spawn,          CMD("st -e sh ./scripts/haxor-news.sh") },
-	{ MODKEY,                 XK_KP_Up,        spawn,          CMD("st -e toot curses") },
-	{ MODKEY,                 XK_KP_Page_Up,   spawn,          CMD("st -e sh ./scripts/tig-script.sh") },
-
-	
-    /* Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 1-9>  */
-	{ MODKEY|ShiftMask,       XK_KP_End,       spawn,          CMD("st -e ~/.config/vifm/scripts/vifmrun") },
-	{ MODKEY|ShiftMask,       XK_KP_Down,      spawn,          CMD("st -e joplin") },
-	{ MODKEY|ShiftMask,       XK_KP_Page_Down, spawn,          CMD("st -e cmus") },
-	{ MODKEY|ShiftMask,       XK_KP_Left,      spawn,          CMD("st -e irssi") },
-	{ MODKEY|ShiftMask,       XK_KP_Begin,     spawn,          CMD("st -e rtorrent") },
-	{ MODKEY|ShiftMask,       XK_KP_Right,     spawn,          CMD("st -e youtube-viewer") },
-	{ MODKEY|ShiftMask,       XK_KP_Home,      spawn,          CMD("st -e ncpamixer") },
-	{ MODKEY|ShiftMask,       XK_KP_Up,        spawn,          CMD("st -e calcurse") },
-	{ MODKEY|ShiftMask,       XK_KP_Page_Up,   spawn,          CMD("st -e vim /home/dt/dwm/config.h") },
-	
-    /* Apps Launched with <SUPER> + <CONTROL> + <KEYPAD 1-9>  */
-	{ MODKEY|ControlMask,     XK_KP_End,       spawn,          CMD("st -e htop") },
-	{ MODKEY|ControlMask,     XK_KP_Down,      spawn,          CMD("st -e gtop") },
-	{ MODKEY|ControlMask,     XK_KP_Page_Down, spawn,          CMD("st -e nmon") },
-	{ MODKEY|ControlMask,     XK_KP_Left,      spawn,          CMD("st -e glances") },
-	{ MODKEY|ControlMask,     XK_KP_Begin,     spawn,          CMD("st -e s-tui") },
-	{ MODKEY|ControlMask,     XK_KP_Right,     spawn,          CMD("st -e httping -KY --draw-phase localhost") },
-	{ MODKEY|ControlMask,     XK_KP_Home,      spawn,          CMD("st -e cmatrix -C cyan") },
-	{ MODKEY|ControlMask,     XK_KP_Up,        spawn,          CMD("st -e pianobar") },
-	{ MODKEY|ControlMask,     XK_KP_Page_Up,   spawn,          CMD("st -e wopr report.xml") },
+    /* Dmenu scripts launched with ALT + CTRL + KEY  */
+	{ Mod1Mask|ControlMask,   XK_e,            spawn,          CMD("./.dmenu/dmenu-edit-configs.sh") },
+	{ Mod1Mask|ControlMask,   XK_m,            spawn,          CMD("./.dmenu/dmenu-sysmon.sh") },
+	{ Mod1Mask|ControlMask,   XK_p,            spawn,          CMD("passmenu") },
+	{ Mod1Mask|ControlMask,   XK_s,            spawn,          CMD("./.dmenu/dmenu-surfraw.sh") },
+    
+    /* Apps Launched with SUPER + ALT + KEY  */
+	{ MODKEY|Mod1Mask,        XK_l,            spawn,          CMD("st -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube") },
+	{ MODKEY|Mod1Mask,        XK_i,            spawn,          CMD("st -e irssi") },
+	{ MODKEY|Mod1Mask,        XK_n,            spawn,          CMD("st -e newsboat") },
+	{ MODKEY|Mod1Mask,        XK_r,            spawn,          CMD("st -e rtv") },
+	{ MODKEY|Mod1Mask,        XK_e,            spawn,          CMD("st -e neomutt") },
 	
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)

@@ -97,7 +97,7 @@ def init_keys():
             Key([mod, "control"], "j",
                 lazy.layout.section_down()              # Move down a section in treetab
                 ),
-            # Window controls
+            ### Window controls
             Key(
                 [mod], "k",
                 lazy.layout.down()                      # Switch between windows in current stack pane
@@ -149,7 +149,7 @@ def init_keys():
                 lazy.layout.rotate(),                   # Swap panes of split stack (Stack)
                 lazy.layout.flip()                      # Switch which side main pane occupies (XmonadTall)
                 ),
-            # Stack controls
+            ### Stack controls
             Key(
                 [mod], "space",
                 lazy.layout.next()                      # Switch window focus to other pane(s) of stack
@@ -158,171 +158,87 @@ def init_keys():
                 [mod, "control"], "Return",
                 lazy.layout.toggle_split()              # Toggle between split and unsplit sides of stack
                 ),
-            # GUI Apps
-
-            Key(
-                [mod], "b",
-                lazy.function(app_or_group("WWW", "firefox"))
-                ),
-            Key(
-                [mod], "f",
-                lazy.spawn("pcmanfm")
-                ),
-            Key(
-                [mod], "g",
-                lazy.spawn("geany")
-                ),
                 
-            # Dmenu Run Launcher
+            ### Dmenu Run Launcher
             Key(
-                [mod, "shift"], "Return",
-                # lazy.spawncmd()
+                ["mod1", "control"], "Return",
                 lazy.spawn("dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
                 ),
-
-
+                
+            ### Dmenu scripts launched with ALT + CTRL + KEY
             Key(
-                [mod1, "control"], "e",
-                # lazy.spawncmd()
+                ["mod1", "control"], "e",
                 lazy.spawn("./.dmenu/dmenu-edit-configs.sh")
                 ),
             Key(
-                [mod1, "control"], "m",
-                # lazy.spawncmd()
+                ["mod1", "control"], "m",
                 lazy.spawn("./.dmenu/dmenu-sysmon.sh")
                 ),
             Key(
-                [mod1, "control"], "p",
-                # lazy.spawncmd()
+                ["mod1", "control"], "p",
                 lazy.spawn("passmenu")
                 ),
             Key(
-                [mod1, "control"], "r",
-                # lazy.spawncmd()
+                ["mod1", "control"], "r",
                 lazy.spawn("./.dmenu/dmenu-reddio.sh")
                 ),
             Key(
-                [mod1, "control"], "s",
-                # lazy.spawncmd()
+                ["mod1", "control"], "s",
                 lazy.spawn("./.dmenu/dmenu-surfraw.sh")
                 ),
             Key(
-                [mod1, "control"], "t",
-                # lazy.spawncmd()
+                ["mod1", "control"], "t",
                 lazy.spawn("./.dmenu/dmenu-trading.sh")
                 ),
                 
-                
+            ### My applications launched with SUPER + ALT + KEY
             Key(
-                [mod], "KP_End",                                     # Keypad 1
+                [mod, "mod1"], "l",
                 lazy.spawn(myTerm+" -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube")
-                # lazy.spawn(myTerm+" -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com")
                 ),
             Key(
-                [mod], "KP_Down",                                    # Keypad 2
-                lazy.spawn(myTerm+" -e sh ./scripts/googler-script.sh")
-                ),
-            Key(
-                [mod], "KP_Page_Down",                               # Keypad 3
+                [mod, "mod1"], "n",
                 lazy.spawn(myTerm+" -e newsboat")
                 ),
             Key(
-                [mod], "KP_Left",                                    # Keypad 4
+                [mod, "mod1"], "r",
                 lazy.spawn(myTerm+" -e rtv")
                 ),
             Key(
-                [mod], "KP_Begin",                                   # Keypad 5
+                [mod, "mod1"], "e",
                 lazy.spawn(myTerm+" -e neomutt")
                 ),
             Key(
-                [mod], "KP_Right",                                   # Keypad 6
-                lazy.spawn(myTerm+" -e twitch-curses")
-                ),
-            Key(
-                [mod], "KP_Home",                                    # Keypad 7
-                lazy.spawn(myTerm+" -e sh ./scripts/haxor-news.sh")
-                ),
-            Key(
-                [mod], "KP_Up",                                      # Keypad 8
+                [mod, "mod1"], "m",
                 lazy.spawn(myTerm+" -e sh ./scripts/toot.sh")
                 ),
             Key(
-                [mod], "KP_Page_Up",                                 # Keypad 9
+                [mod, "mod1"], "t",
                 lazy.spawn(myTerm+" -e sh ./scripts/tig-script.sh")
                 ),
-            # Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 0-9>
             Key(
-                [mod, "shift"], "KP_End",                            # Keypad 1
+                [mod, "mod1"], "f",
                 lazy.spawn(myTerm+" -e sh ./.config/vifm/scripts/vifmrun")
                 ),
             Key(
-                [mod, "shift"], "KP_Down",                           # Keypad 2
+                [mod, "mod1"], "j",
                 lazy.spawn(myTerm+" -e joplin")
                 ),
             Key(
-                [mod, "shift"], "KP_Page_Down",                      # Keypad 3
+                [mod, "mod1"], "c",
                 lazy.spawn(myTerm+" -e cmus")
                 ),
             Key(
-                [mod, "shift"], "KP_Left",                           # Keypad 4
+                [mod, "mod1"], "i",
                 lazy.spawn(myTerm+" -e irssi")
                 ),
             Key(
-                [mod, "shift"], "KP_Begin",                          # Keypad 5
-                lazy.spawn(myTerm+" -e rtorrent")
-                ),
-            Key(
-                [mod, "shift"], "KP_Right",                          # Keypad 6
+                [mod, "mod1"], "y",
                 lazy.spawn(myTerm+" -e youtube-viewer")
                 ),
             Key(
-                [mod, "shift"], "KP_Home",                           # Keypad 7
+                [mod, "mod1"], "a",
                 lazy.spawn(myTerm+" -e ncpamixer")
-                ),
-            Key(
-                [mod, "shift"], "KP_Up",                             # Keypad 8
-                lazy.spawn(myTerm+" -e calcurse")
-                ),
-            Key(
-                [mod, "shift"], "KP_Page_Up",                        # Keypad 9
-                lazy.spawn(myTerm+" -e vim /home/dt/.config/qtile/config.py")
-                ),
-            # Apps Launched with <SUPER> + <CONTROL> + <KEYPAD 0-9>
-            Key(
-                [mod, "control"], "KP_End",                            # Keypad 1
-                lazy.spawn(myTerm+" -e htop")
-                ),
-            Key(
-                [mod, "control"], "KP_Down",                           # Keypad 2
-                lazy.spawn(myTerm+" -e gtop")
-                ),
-            Key(
-                [mod, "control"], "KP_Page_Down",                      # Keypad 3
-                lazy.spawn(myTerm+" -e nmon")
-                ),
-            Key(
-                [mod, "control"], "KP_Left",                           # Keypad 4
-                lazy.spawn(myTerm+" -e glances")
-                ),
-            Key(
-                [mod, "control"], "KP_Begin",                          # Keypad 5
-                lazy.spawn(myTerm+" -e s-tui")
-                ),
-            Key(
-                [mod, "control"], "KP_Right",                          # Keypad 6
-                lazy.spawn(myTerm+" -e httping -KY --draw-phase localhost")
-                ),
-            Key(
-                [mod, "control"], "KP_Home",                           # Keypad 7
-                lazy.spawn(myTerm+" -e cmatrix -C cyan")
-                ),
-            Key(
-                [mod, "control"], "KP_Up",                             # Keypad 8
-                lazy.spawn(myTerm+" -e pianobar")
-                ),
-            Key(
-                [mod, "control"], "KP_Page_Up",                        # Keypad 9
-                lazy.spawn(myTerm+" -e wopr report.xml")
                 ),
         ]
     return keys
