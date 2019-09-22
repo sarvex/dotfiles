@@ -45,12 +45,12 @@ bindsym $mod+Shift+c kill
 bindsym $mod+Shift+Return exec dmenu_run -i  -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -fn 'UbuntuMono Nerd Font:bold:pixelsize=14'
 
 # MY DMENU SCRIPTS
-bindsym $mod+Shift+e exec ./.dmenu/dmenu-edit-configs.sh
-bindsym $mod+Shift+m exec ./.dmenu/dmenu-sysmon.sh
-bindsym $mod+Shift+p exec passmenu
-bindsym $mod+Shift+r exec ./.dmenu/dmenu-reddio.sh
-bindsym $mod+Shift+s exec ./.dmenu/dmenu-surfraw.sh
-bindsym $mod+Shift+t exec ./.dmenu/dmenu-trading.sh
+bindsym Mod1+Control+e exec ./.dmenu/dmenu-edit-configs.sh
+bindsym Mod1+Control+m exec ./.dmenu/dmenu-sysmon.sh
+bindsym Mod1+Control+p exec passmenu
+bindsym Mod1+Control+r exec ./.dmenu/dmenu-reddio.sh
+bindsym Mod1+Control+s exec ./.dmenu/dmenu-surfraw.sh
+bindsym Mod1+Control+t exec ./.dmenu/dmenu-trading.sh
 
 # MY APPLICATIONS
 bindsym $mod+Mod1+a exec $myTerm -e ncpamixer
