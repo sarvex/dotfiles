@@ -143,6 +143,10 @@ alias lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys'
 zstyle ':completion:*' completer _expand_alias _complete _ignored
 alias tb="nc termbin.com 9999"
 
+# alt+<- | alt+->  
+bindkey "^[f" forward-word      # deletes everything right of the prompt.
+bindkey "^[b" backward-word     # deletes characters one at a time, backwards.
+
 bindkey -v
 bindkey '^R' history-incremental-search-backward
 

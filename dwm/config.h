@@ -123,6 +123,7 @@ static Key keys[] = {
     
     /* Apps Launched with SUPER + ALT + KEY  */
 	{ MODKEY|Mod1Mask,        XK_l,            spawn,          CMD("st -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube") },
+	{ MODKEY|Mod1Mask,        XK_f,            spawn,          CMD("st -e sh ./.config/vifm/scripts/vifmrun") },
 	{ MODKEY|Mod1Mask,        XK_i,            spawn,          CMD("st -e irssi") },
 	{ MODKEY|Mod1Mask,        XK_n,            spawn,          CMD("st -e newsboat") },
 	{ MODKEY|Mod1Mask,        XK_r,            spawn,          CMD("st -e rtv") },
