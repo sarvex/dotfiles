@@ -5,7 +5,8 @@
  | |_| || |    http://www.gitlab.com/dwt1/ 
  |____/ |_| 
  
- My awesome window manager configuration.
+ My awesome window manager configuration. Provided here for those that want to examine or use
+ my config in part or in whole.
  
 --]]
 
