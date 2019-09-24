@@ -1,17 +1,25 @@
 #! /bin/sh
+#  ____ _____ 
+# |  _ \_   _|  Derek Taylor (DistroTube)
+# | | | || |  	http://www.youtube.com/c/DistroTube
+# | |_| || |  	http://www.gitlab.com/dwt1/ 
+# |____/ |_|  	
+#        
+# A customized bspwmrc for the bspwm window manager.
+# https://github.com/baskerville/sxhkd
+# https://github.com/baskerville/bspwm
+
 
 #### AUTOSTART ####
-
 sxhkd &
 compton &
 nitrogen --restore &
 ./.config/bspwm/panel.sh &
 
 #### MONITORS ####
-
-bspc monitor DisplayPort-0 -d 1 2 3
-bspc monitor DisplayPort-1 -d 1 2 3
-bspc monitor HDMI-A-0 -d 1 2 3
+bspc monitor DisplayPort-0 -d 1 2 3 4 5 6 7 8 9
+bspc monitor DisplayPort-1 -d 1 2 3 4 5 6 7 8 9
+bspc monitor HDMI-A-0 -d 1 2 3 4 5 6 7 8 9
 
 #### BSPWM configuration ####
 #bspc config border_radius       8
