@@ -20,7 +20,7 @@ The MODKEY is set to the Super key (aka the Windows key).
 
 | Keybinding | Action |
 | :--- | :--- |
-| `MODKEY + Keypad Insert` | opens run launcher (dmenu is the run launcher but can be easily changed) |
+| `ALT + CTRL + Enter` | opens run launcher (dmenu is the run launcher but can be easily changed) |
 | `MODKEY + Enter` | opens terminal (st is the terminal but can be easily changed) |
 | `MODKEY + SHIFT + c` | closes window with focus |
 | `MODKEY + SHIFT + q` | quits xmonad |
