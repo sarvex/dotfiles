@@ -10,8 +10,8 @@ nitrogen --restore &
 #### MONITORS ####
 
 bspc monitor DisplayPort-0 -d 1 2 3
-bspc monitor DisplayPort-1 -d 4 5 6
-bspc monitor HDMI-A-0 -d 7 8 9 
+bspc monitor DisplayPort-1 -d 1 2 3
+bspc monitor HDMI-A-0 -d 1 2 3
 
 #### BSPWM configuration ####
 #bspc config border_radius       8
