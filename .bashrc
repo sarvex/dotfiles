@@ -3,6 +3,8 @@
 # | | | || |    http://www.youtube.com/c/DistroTube
 # | |_| || |    http://www.gitlab.com/dwt1/ 
 # |____/ |_|  	
+# 
+# My bash config.
   
 EDITOR=vim
 export TERM="st-256color"
