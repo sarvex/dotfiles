@@ -122,23 +122,47 @@ super + {Left,Down,Up,Right}
 # terminal emulator
 super + Return
 	st
+# launch ncpamixer
+super + alt + a
+    st -e ncpamixer
+# launch surf browser
+super + alt + b
+    surf www.youtube.com/c/DistroTube
+# launch cmus
+super + alt + c
+    st -e cmus
 # launch lynx web browser
 super + alt + l
     st -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys gopher://distro.tube
 # launch irssi chat client
 super + alt + i
     st -e irssi
+# launch joplin
+super + alt + j
+    st -e joplin
+# launch toot cli
+super + alt + m
+    st -e toot curses
 # launch newsboat feed reeder
 super + alt + n
     st -e newsboat
+# launch pianobar
+super + alt + p
+    st -e pianobar
+# launch rtv
+super + alt + r
+    st -e rtv
 # launch vifm file manager
 super + alt + v
     st -e ./.config/vifm/scripts/vifmrun
- 
-# launch htop
-super + alt + h
-    st -e htop
-
+# launch wopr
+super + alt + w
+    st -e wopr report.xml
+# launch youtube viewer
+super + alt + y
+    st -e youtube-viewer
+    
+    
 # DMENU SCRIPTS (Alt+Ctrl+Key)
 
 # run program launcher
