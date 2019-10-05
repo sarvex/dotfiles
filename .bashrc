@@ -159,4 +159,3 @@ alias tb="nc termbin.com 9999"
 set -o vi
 
 export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
-./pfetch/pfetch

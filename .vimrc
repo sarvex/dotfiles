@@ -11,7 +11,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()		" required, all plugins must appear after this line.
 
-"Plugin 'arcticicestudio/nord-vim'                   " Nord Color Scheme
 Plugin 'gmarik/Vundle.vim'							" Vundle
 Plugin 'vim-airline/vim-airline'					" Airline
 Plugin 'vim-airline/vim-airline-themes'				" Airline Themes
@@ -24,7 +23,7 @@ Plugin 'severin-lemaignan/vim-minimap'
 Plugin 'vimwiki/vimwiki'                            " Vim wiki
 Plugin 'ap/vim-css-color'                           " Color previews for CSS
 Plugin 'tpope/vim-surround'                         " Change surrounding marks
-"Plugin 'klen/python-mode'                          " Python Mode
+Plugin 'hsitz/VimOrganizer'							" Org Mode
 
 call vundle#end()		" required, all plugins must appear before this line.
 
@@ -148,4 +147,5 @@ let g:minimap_highlight='Visual'
 let g:python_highlight_all = 1
 syntax on
 
-
+au! BufRead,BufWrite,BufWritePost,BufNewFile *.org 
+au BufEnter *.org            call org#SetOrgFileType()

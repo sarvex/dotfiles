@@ -28,38 +28,38 @@ choice=$(echo -e "${options[@]}" | dmenu -i -p 'Edit a config file: ')
 		echo "Program terminated."
 	fi
 	if [ "$choice" == ' awesome ' ]; then
-        exec st -e vim $HOME/.config/awesome/rc.lua
+        exec emacs $HOME/.config/awesome/rc.lua
 	fi
 	if [ "$choice" == ' bash ' ]; then
-        exec st -e vim $HOME/.bashrc
+        exec emacs $HOME/.bashrc
 	fi
 	if [ "$choice" == ' bspwm ' ]; then
-        exec st -e vim $HOME/.config/bspwm/bspwmrc
+        exec emacs $HOME/.config/bspwm/bspwmrc
 	fi
 	if [ "$choice" == ' dwm ' ]; then
-        exec st -e vim $HOME/dwm/config.h
+        exec emacs $HOME/dwm/config.h
 	fi
 	if [ "$choice" == ' herbstluftwm ' ]; then
-        exec st -e vim $HOME/.config/herbstluftwm/autostart
+        exec emacs $HOME/.config/herbstluftwm/autostart
 	fi
 	if [ "$choice" == ' i3 ' ]; then
-        exec st -e vim $HOME/.i3/config
+        exec emacs $HOME/.i3/config
 	fi
 	if [ "$choice" == ' polybar ' ]; then
-        exec st -e vim $HOME/.config/polybar/config
+        exec emacs $HOME/.config/polybar/config
 	fi
 	if [ "$choice" == ' qtile ' ]; then
-        exec st -e vim $HOME/.config/qtile/config.py
+        exec emacs $HOME/.config/qtile/config.py
 	fi
 	if [ "$choice" == ' st ' ]; then
-        exec st -e vim $HOME/st/config.h
+        exec emacs $HOME/st/config.h
 	fi
 	if [ "$choice" == ' sxhkd ' ]; then
-        exec st -e vim $HOME/.config/sxhkd/sxhkdrc
+        exec emacs $HOME/.config/sxhkd/sxhkdrc
 	fi
 	if [ "$choice" == ' xmonad ' ]; then
-        exec st -e vim $HOME/.xmonad/xmonad.hs
+        exec emacs $HOME/.xmonad/xmonad.hs
 	fi
 	if [ "$choice" == ' zsh ' ]; then
-        exec st -e vim $HOME/.zshrc
+        exec emacs $HOME/.zshrc
 	fi
