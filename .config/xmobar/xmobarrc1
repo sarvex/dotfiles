@@ -3,8 +3,8 @@
 -- you can find weather location codes here: http://weather.noaa.gov/index.html
 
 Config { font    = "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=true"
-       , bgColor = "#292d3e"
-       , fgColor = "#bbc5ff"
+       , bgColor = "#282A36"
+       , fgColor = "#B45BCF"
        , position = Top
        , lowerOnStart = True
        , hideOnStart = False
@@ -15,5 +15,5 @@ Config { font    = "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=t
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%UnsafeStdinReader% }{ <fc=#91A0BD> <fc=#fdf6e3>%date%</fc> </fc> "
+       , template = "%UnsafeStdinReader% }{ <fc=#A0522D> <fc=#fdf6e3>%date%</fc> </fc> "
        }

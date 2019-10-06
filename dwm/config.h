@@ -16,8 +16,8 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int horizpadbar        = 6;        /* horizontal padding for statusbar */
 static const int vertpadbar         = 7;        /* vertical padding for statusbar */
-static const char *fonts[]          = { "UbuntuMono Nerd Font:size=10" };
-static const char dmenufont[]       = "UbuntuMono Nerd Font:size=10";
+static const char *fonts[]          = { "Mononoki Nerd Font:size=10" };
+static const char dmenufont[]       = "Mononoki Nerd Font:size=10";
 static const char col_gray1[]       = "#292d3e";
 static const char col_gray2[]       = "#000000"; /* border color unfocused windows */
 static const char col_gray3[]       = "#96b5b4";
