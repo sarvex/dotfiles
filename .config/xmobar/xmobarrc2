@@ -11,14 +11,15 @@ Config { font    = "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=t
        , hideOnStart = False
        , allDesktops = True
        , persistent = True
+       , iconRoot = "/home/dt/.xmonad/xpm/"  -- default: "."
        , commands = [ Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
-                    , Run Network "enp3s0" ["-t", "net: <rx>kb|<tx>kb"] 10
-                    , Run Cpu ["-t","cpu: <total>%","-H","50","--high","red"] 10
-                    , Run Memory ["-t","mem: <usedratio>%"] 10
-                    , Run DiskU [("/","hdd: <used>/<size>")] [] 3600
+                    , Run Network "enp4s0" ["-t", "<icon=network-icon_24.xpm/> net: <rx>kb|<tx>kb"] 10
+                    , Run Cpu ["-t","<icon=gnome_cpu_24.xpm/> cpu: <total>%","-H","50","--high","red"] 10
+                    , Run Memory ["-t", "<icon=memory-icon_24.xpm/> mem: <usedratio>%"] 10
+                    , Run DiskU [("/","<icon=harddisk-icon_24.xpm/> hdd: <used>/<size>")] [] 3600
                     , Run UnsafeStdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%UnsafeStdinReader% }{ <fc=#A0522D> <fc=#FFB86C>%cpu%</fc> : <fc=#FF5555>%memory%</fc> : <fc=#82AAFF>%disku%</fc> : <fc=#c3e88d>%enp3s0%</fc> : <fc=#8BE9FD>%date%</fc> </fc> "
+       , template = "%UnsafeStdinReader% }{ <fc=#A0522D> <fc=#FFB86C>%cpu%</fc> : <fc=#FF5555>%memory%</fc> : <fc=#82AAFF>%disku%</fc> : <fc=#c3e88d>%enp4s0%</fc> : <icon=calendar-clock-icon_24.xpm/> <fc=#8BE9FD>%date%</fc> </fc> "
        }
