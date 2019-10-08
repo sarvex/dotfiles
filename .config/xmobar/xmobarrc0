@@ -3,6 +3,7 @@
 -- you can find weather location codes here: http://weather.noaa.gov/index.html
 
 Config { font    = "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=true"
+       , additionalFonts = [ "xft:FontAwesome:pixelsize=13" ]
        , bgColor = "#282A36"
        , fgColor = "#B45BCF"
        , position = Top
@@ -10,10 +11,11 @@ Config { font    = "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=t
        , hideOnStart = False
        , allDesktops = True
        , persistent = True
-       , commands = [ Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+       , iconRoot = "/home/dt/.xmonad/xpm/"  -- default: "."
+       , commands = [ Run Date "%a, %b %d %Y, %H:%M:%S" "date" 10
                     , Run UnsafeStdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%UnsafeStdinReader% }{ <fc=#A0522D> <fc=#fdf6e3>%date%</fc> </fc> "
+       , template = "%UnsafeStdinReader% }{ <fc=#A0522D> <icon=calendar-clock-icon_20.xpm/> <fc=#8BE9FD>%date%</fc> </fc> "
        }
