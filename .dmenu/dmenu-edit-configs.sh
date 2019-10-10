@@ -19,6 +19,8 @@ declare -nc options=(" awesome
  qtile 
  st 
  sxhkd 
+ vim 
+ xmobar 
  xmonad 
  zsh 
  quit ")
@@ -60,6 +62,12 @@ choice=$(echo -e "${options[@]}" | dmenu -i -p 'Edit a config file: ')
 	fi
 	if [ "$choice" == ' sxhkd ' ]; then
         exec emacsclient -nc '~/.config/sxhkd/sxhkdrc'
+	fi
+	if [ "$choice" == ' vim ' ]; then
+        exec emacsclient -nc '~/.vimrc'
+	fi
+	if [ "$choice" == ' xmobar ' ]; then
+        exec emacsclient -nc '~/.config/xmobar/xmobarrc2'
 	fi
 	if [ "$choice" == ' xmonad ' ]; then
         exec emacsclient -nc '~/.xmonad/xmonad.hs'
