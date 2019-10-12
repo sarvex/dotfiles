@@ -37,7 +37,7 @@ import XMonad.Actions.CopyWindow (kill1, copyToAll, killAllOtherCopies, runOrCop
 import XMonad.Actions.WindowGo (runOrRaise, raiseMaybe)
 import XMonad.Actions.WithAll (sinkAll, killAll)
 import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), shiftNextScreen, shiftPrevScreen) 
-import XMonad.Actions.GridSelect (GSConfig(..), goToSelected, bringSelected, colorRangeFromClassName, buildDefaultGSConfig)
+import XMonad.Actions.GridSelect
 import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, removeEmptyWorkspace)
 import XMonad.Actions.MouseResize
 import qualified XMonad.Actions.ConstrainedResize as Sqr
@@ -70,6 +70,7 @@ import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1
 ------------------------------------------------------------------------
 ---CONFIG
 ------------------------------------------------------------------------
+myFont          = "xft:Mononoki Nerd Font:regular:pixelsize=12"
 myModMask       = mod4Mask  -- Sets modkey to super/windows key
 myTerminal      = "st"      -- Sets default terminal
 myTextEditor    = "vim"     -- Sets default text editor
@@ -116,7 +117,33 @@ myStartupHook = do
           setWMName "LG3D"
           --spawnOnce "exec /usr/bin/trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 15 --transparent true --alpha 0 --tint 0x292d3e --height 19 &"
           --spawnOnce "/home/dt/.xmonad/xmonad.start" -- Sets our wallpaper
+          
+------------------------------------------------------------------------
+---GRID SELECT
+------------------------------------------------------------------------
 
+myColorizer :: Window -> Bool -> X (String, String)
+myColorizer = colorRangeFromClassName
+                  (0x31,0x2e,0x39) -- lowest inactive bg
+                  (0x31,0x2e,0x39) -- highest inactive bg
+                  (0x61,0x57,0x72) -- active bg
+                  (0xc0,0xa7,0x9a) -- inactive fg
+                  (0xff,0xff,0xff) -- active fg
+                  
+-- gridSelect menu layout
+mygridConfig colorizer = (buildDefaultGSConfig myColorizer)
+    { gs_cellheight   = 30
+    , gs_cellwidth    = 200
+    , gs_cellpadding  = 8
+    , gs_originFractX = 0.5
+    , gs_originFractY = 0.5
+    , gs_font         = myFont
+    }
+    
+spawnSelected' :: [(String, String)] -> X ()
+spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
+    where conf = defaultGSConfig
+    
 ------------------------------------------------------------------------
 ---KEYBINDINGS
 ------------------------------------------------------------------------
@@ -133,6 +160,30 @@ myKeys =
     -- Floating windows
         , ("M-<Delete>", withFocused $ windows . W.sink)  -- Push floating window back to tile.
         , ("M-S-<Delete>", sinkAll)                  -- Push ALL floating windows back to tile.
+
+
+    -- Grid Select
+        , (("M-S-t"), spawnSelected'
+          [ ("Audacity", "audacity")
+          , ("Deadbeef", "deadbeef")
+          , ("Emacs", "emacs")
+          , ("Firefox", "firefox")
+          , ("Geany", "geany")
+          , ("Geary", "geary")
+          , ("Gimp", "gimp")
+          , ("Kdenlive", "kdenlive")
+          , ("LibreOffice Impress", "loimpress")
+          , ("LibreOffice Writer", "lowriter")
+          , ("OBS", "obs")
+          , ("PCManFM", "pcmanfm")
+          , ("Simple Terminal", "st")
+          , ("Steam", "steam")
+          , ("Surf Browser",    "surf suckless.org")
+          , ("Xonotic", "xonotic-glx")
+          ])
+
+        , ("M-S-g", goToSelected $ mygridConfig myColorizer)
+        , ("M-S-b", bringSelected $ mygridConfig myColorizer)
 
     -- Windows navigation
         , ("M-m", windows W.focusMaster)             -- Move focus to the master window
@@ -165,7 +216,7 @@ myKeys =
     -- Layouts
         , ("M-<Space>", sendMessage NextLayout)                              -- Switch to next layout
         , ("M-S-<Space>", sendMessage ToggleStruts)                          -- Toggles struts
-        , ("M-S-b", sendMessage $ Toggle NOBORDERS)                          -- Toggles noborder
+        , ("M-S-n", sendMessage $ Toggle NOBORDERS)                          -- Toggles noborder
         , ("M-S-=", sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
         , ("M-S-f", sendMessage (T.Toggle "float"))
         , ("M-S-x", sendMessage $ Toggle REFLECTX)
@@ -246,10 +297,10 @@ xmobarEscape = concatMap doubleLts
         
 myWorkspaces :: [String]   
 myWorkspaces = clickable . (map xmobarEscape) 
-               $ ["dev", "www", "sys", "doc", "vbox", "chat", "media", "gfx"]
+               $ ["dev", "www", "sys", "doc", "vbox", "chat", "mus", "vid", "gfx"]
   where                                                                      
         clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
-                      (i,ws) <- zip [1..8] l,                                        
+                      (i,ws) <- zip [1..9] l,                                        
                       let n = i ] 
 myManageHook :: Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
