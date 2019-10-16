@@ -24,7 +24,9 @@
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa-stable" . "http://stable.melpa.org/packages/"))))
- '(package-selected-packages (quote (minimap lua-mode haskell-mode ##)))
+ '(package-selected-packages
+   (quote
+    (rainbow-mode pdf-tools emojify minimap lua-mode haskell-mode ##)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -32,18 +34,22 @@
 (add-to-list 'load-path "/home/dt/.emacs.d/elpa/which-key-3.3.0/which-key.el")
 (require 'which-key)
 (which-key-mode)
+(require 'rainbow-mode)
+  (use-package rainbow-mode
+    :ensure t
+    :config
+    (setq rainbow-x-colors nil)
+    (add-hook 'prog-mode-hook 'rainbow-mode))
+
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'dracula t)
-
+(add-hook 'after-init-hook #'global-emojify-mode)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "mononoki Nerd Font Mono" :foundry "UKWN" :slant normal :weight normal :height 120 :width normal))))
- '(minimap-active-region-background ((t (:background "#303342"))))
- '(powerline-grey22-white ((t (:background "gray22" :foreground "white" :box nil))) t)
- '(powerline-grey40-white ((t (:background "dark magenta" :foreground "white" :box nil))) t))
+ '(default ((t (:family "mononoki Nerd Font Mono" :foundry "UKWN" :slant normal :weight normal :height 120 :width normal)))))
 
 ;;; Keybindings
 (global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop) ; Indent selection by one tab length

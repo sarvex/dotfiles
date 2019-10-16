@@ -16,19 +16,19 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-blue"
 theme.wallpaper                                 = theme.dir .. "/starwars.jpg"
-theme.font                                      = "UbuntuMono Nerd Font 11"
-theme.taglist_font                              = "Droid Sans 7"
-theme.fg_normal                                 = "#FEFEFE"
+theme.font                                      = "Mononoki Nerd Font 9"
+theme.taglist_font                              = "Droid Sans Bold 7"
+theme.fg_normal                                 = "#ffffff"
 theme.fg_focus                                  = "#A77AC4"
 theme.fg_urgent                                 = "#b74822"
-theme.bg_normal                                 = "#292d3e"
-theme.bg_focus                                  = "#892f4e"
+theme.bg_normal                                 = "#282a36"
+theme.bg_focus                                  = "#FF79C6"
 theme.bg_urgent                                 = "#3F3F3F"
-theme.taglist_fg_focus                          = "#ffffff"
+theme.taglist_fg_focus                          = "#282a36"
 theme.tasklist_bg_focus                         = "#000000"
 theme.tasklist_fg_focus                         = "#A77AC4"
 theme.border_width                              = 2
-theme.border_normal                             = "#292D3E"
+theme.border_normal                             = "#282a36"
 theme.border_focus                              = "#F07178"
 theme.border_marked                             = "#CC9393"
 theme.titlebar_bg_focus                         = "#3F3F3F"
@@ -115,7 +115,7 @@ local clock = awful.widget.watch(
 theme.cal = lain.widget.cal({
     attach_to = { clock },
     notification_preset = {
-        font = "UbuntuMono Nerd Font 11",
+        font = "Mononoki Nerd Font 11",
         fg   = theme.fg_normal,
         bg   = theme.bg_normal
     }
@@ -239,7 +239,7 @@ Copy/paste the city code in the URL to this file in city_id
 local weathericon = wibox.widget.imagebox(theme.widget_weather)
 theme.weather = lain.widget.weather({
     city_id = 2803138, -- placeholder (Belgium)
-    notification_preset = { font = "UbuntuMono Nerd Font 11", fg = theme.fg_normal },
+    notification_preset = { font = "Mononoki Nerd Font 11", fg = theme.fg_normal },
     weather_na_markup = markup.fontfg(theme.font, "#ffffff", "N/A "),
     settings = function()
         descr = weather_now["weather"][1]["description"]:lower()

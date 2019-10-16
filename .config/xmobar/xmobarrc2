@@ -21,5 +21,5 @@ Config { font    = "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=t
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%UnsafeStdinReader% }{ <fc=#A0522D> <fc=#FFB86C>%cpu%</fc> <fc=#FF5555>%memory%</fc> <fc=#82AAFF>%disku%</fc> <fc=#c3e88d>%enp4s0%</fc> <icon=calendar-clock-icon_20.xpm/> <fc=#8BE9FD>%date%</fc> </fc> "
+       , template = " <icon=haskell_20.xpm/> <fc=#666666>|</fc> %UnsafeStdinReader% }{ <fc=#FFB86C>%cpu%</fc> <fc=#FF5555>%memory%</fc> <fc=#82AAFF>%disku%</fc> <fc=#c3e88d>%enp4s0%</fc> <icon=calendar-clock-icon_20.xpm/> <fc=#8BE9FD>%date%</fc> "
        }

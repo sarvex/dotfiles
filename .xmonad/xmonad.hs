@@ -111,7 +111,7 @@ main = do
 ---AUTOSTART
 ------------------------------------------------------------------------
 myStartupHook = do
-          spawnOnce "urxvtd &" 
+          --spawnOnce "emacs --daemon &"
           spawnOnce "nitrogen --restore &" 
           spawnOnce "compton --config /home/dt/.config/compton/compton.conf &" 
           setWMName "LG3D"
@@ -148,21 +148,21 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
 ---KEYBINDINGS
 ------------------------------------------------------------------------
 myKeys =
-    -- Xmonad
+    --- Xmonad
         [ ("M-C-r", spawn "xmonad --recompile")      -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")        -- Restarts xmonad
         , ("M-S-q", io exitSuccess)                  -- Quits xmonad
     
-    -- Windows
+    --- Windows
         , ("M-S-c", kill1)                           -- Kill the currently focused client
         , ("M-S-a", killAll)                         -- Kill all the windows on current workspace
 
-    -- Floating windows
+    --- Floating windows
         , ("M-<Delete>", withFocused $ windows . W.sink)  -- Push floating window back to tile.
         , ("M-S-<Delete>", sinkAll)                  -- Push ALL floating windows back to tile.
 
 
-    -- Grid Select
+    --- Grid Select
         , (("M-S-t"), spawnSelected'
           [ ("Audacity", "audacity")
           , ("Deadbeef", "deadbeef")
@@ -185,7 +185,7 @@ myKeys =
         , ("M-S-g", goToSelected $ mygridConfig myColorizer)
         , ("M-S-b", bringSelected $ mygridConfig myColorizer)
 
-    -- Windows navigation
+    --- Windows navigation
         , ("M-m", windows W.focusMaster)             -- Move focus to the master window
         , ("M-j", windows W.focusDown)               -- Move focus to the next window
         , ("M-k", windows W.focusUp)                 -- Move focus to the prev window
@@ -213,7 +213,7 @@ myKeys =
         , ("M-C-<Right>", sendMessage (DecreaseRight 10)) --  Decrease size of focused window right
         , ("M-C-<Left>", sendMessage (DecreaseLeft 10))   --  Decrease size of focused window left
 
-    -- Layouts
+    --- Layouts
         , ("M-<Space>", sendMessage NextLayout)                              -- Switch to next layout
         , ("M-S-<Space>", sendMessage ToggleStruts)                          -- Toggles struts
         , ("M-S-n", sendMessage $ Toggle NOBORDERS)                          -- Toggles noborder
@@ -234,27 +234,27 @@ myKeys =
         , ("M-S-;", sendMessage zoomReset)
         , ("M-;", sendMessage ZoomFullToggle)
 
-    -- Workspaces
+    --- Workspaces
         , ("M-<KP_Add>", moveTo Next nonNSP)                                -- Go to next workspace
         , ("M-<KP_Subtract>", moveTo Prev nonNSP)                           -- Go to previous workspace
         , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next workspace
         , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to previous workspace
 
-    -- Scratchpads
+    --- Scratchpads
         , ("M-C-<Return>", namedScratchpadAction myScratchPads "terminal")
         , ("M-C-c", namedScratchpadAction myScratchPads "cmus")
         
-    -- Open Terminal
+    --- Open Terminal
         , ("M-<Return>", spawn myTerminal)
 
-    -- Dmenu Scripts (Alt+Ctr+Key)
+    --- Dmenu Scripts (Alt+Ctr+Key)
         , ("M1-C-<Return>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
         , ("M1-C-e", spawn "./.dmenu/dmenu-edit-configs.sh")
         , ("M1-C-m", spawn "./.dmenu/dmenu-sysmon.sh")
         , ("M1-C-p", spawn "passmenu")
         , ("M1-C-s", spawn "./.dmenu/dmenu-surfraw.sh")
 
-    -- My Applications (Super+Alt+Key)
+    --- My Applications (Super+Alt+Key)
         , ("M-M1-a", spawn (myTerminal ++ " -e ncpamixer"))
         , ("M-M1-b", spawn ("surf www.youtube.com/c/DistroTube/"))
         , ("M-M1-c", spawn (myTerminal ++ " -e cmus"))
@@ -270,7 +270,7 @@ myKeys =
         , ("M-M1-w", spawn (myTerminal ++ " -e wopr report.xml"))
         , ("M-M1-y", spawn (myTerminal ++ " -e youtube-viewer"))
 
-    -- Multimedia Keys
+    --- Multimedia Keys
         , ("<XF86AudioPlay>", spawn "cmus toggle")
         , ("<XF86AudioPrev>", spawn "cmus prev")
         , ("<XF86AudioNext>", spawn "cmus next")
