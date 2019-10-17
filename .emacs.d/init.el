@@ -8,6 +8,7 @@
 ;; Modified by Derek Taylor (http://www.gitlab.com/dwt1/ )
 
 (require 'package)
+(require 'erc)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -26,7 +27,7 @@
      ("melpa-stable" . "http://stable.melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (rainbow-mode pdf-tools emojify minimap lua-mode haskell-mode ##)))
+    (undo-tree rainbow-mode pdf-tools emojify minimap lua-mode haskell-mode ##)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
