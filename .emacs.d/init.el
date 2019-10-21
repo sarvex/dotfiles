@@ -27,7 +27,7 @@
      ("melpa-stable" . "http://stable.melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (undo-tree rainbow-mode pdf-tools emojify minimap lua-mode haskell-mode ##)))
+    (multi-term org-bullets undo-tree rainbow-mode pdf-tools emojify minimap lua-mode haskell-mode ##)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -51,6 +51,14 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "mononoki Nerd Font Mono" :foundry "UKWN" :slant normal :weight normal :height 120 :width normal)))))
+
+(require 'org-bullets)
+;; (setq org-bullets-bullet-list '("☯" "○" "✸" "✿" "~"))
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+;; minimal rendering by default in eww
+(setq-default shr-inhibit-images t)`
+(setq-default shr-use-fonts nil)
 
 ;;; Keybindings
 (global-set-key (kbd "C->") 'indent-rigidly-right-to-tab-stop) ; Indent selection by one tab length

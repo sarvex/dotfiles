@@ -6,7 +6,7 @@
 # 
 # My bash config.
   
-EDITOR=vim
+EDITOR="emacsclient -c"
 export TERM="st-256color"
 
 [[ $- != *i* ]] && return
@@ -42,7 +42,7 @@ colors() {
 
 # Change the window title of X terminals
 case ${TERM} in
-	xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|interix|konsole*)
+	xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|st|interix|konsole*)
 		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
 		;;
 	screen*)
@@ -97,16 +97,6 @@ fi
 
 unset use_color safe_term match_lhs sh
 
-alias cp="cp -i"                          # confirm before overwriting something
-alias df='df -h'                          # human-readable sizes
-alias free='free -m'                      # show sizes in MB
-alias np='nano -w PKGBUILD'
-alias more=less
-
-# terminal rickroll!
-alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
-
-
 xhost +local:root > /dev/null 2>&1
 
 complete -cf sudo
@@ -124,9 +114,8 @@ shopt -s expand_aliases
 # Enable history appending instead of overwriting.  #139609
 shopt -s histappend
 
-#
-# # ex - archive extractor
-# # usage: ex <file>
+### ARCHIVE EXTRACTION ###
+# usage: ex <file>
 ex ()
 {
   if [ -f $1 ] ; then
@@ -149,13 +138,37 @@ ex ()
   fi
 }
 
-# better yaourt colors
-export YAOURT_COLORS="nb=1:pkg=1:ver=1;32:lver=1;45:installed=1;42:grp=1;34:od=1;41;5:votes=1;44:dsc=0:other=1;35"
+### ALIASES ###
+# navigation
+alias ..='cd ..'
+alias ...='cd .. ; cd ..'
 
+# Changing "ls" to "exa"
+alias ls='exa -al --color=always --group-directories-first' # my preferred listing
+alias la='exa -a --color=always --group-directories-first'  # all files and dirs
+alias ll='exa -l --color=always --group-directories-first'  # long format
+alias lt='exa -aT --color=always --group-directories-first' # tree listing
+
+# adding flags
+alias cp="cp -i"                          # confirm before overwriting something
+alias df='df -h'                          # human-readable sizes
+alias free='free -m'                      # show sizes in MB
 alias lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys'
+
+# the terminal rickroll
+alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
+
+# bare git repo alias for dotfiles
 alias config='/usr/bin/git --git-dir=/home/dt/dotfiles --work-tree=/home/dt'
+
+# termbin
 alias tb="nc termbin.com 9999"
 
+### ENABLE VI MODE ###
 set -o vi
 
+### SET VIM AS MANPAGER ###
 export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
+
+### BASH POWERLINE ###
+source ~/.bash-powerline.sh
