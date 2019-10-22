@@ -5,7 +5,7 @@
 ;; |____/ |_|  	
 ;;        
 ;; A customized config.py for Qtile window manager (http://www.qtile.org)     
-;; Modified by Derek Taylor (http://www.gitlab.com/dwt1/ )
+;; Modified by Derek Taylor (http://www.gitlab.com/dwt1/)
 
 (require 'package)
 (require 'erc)
