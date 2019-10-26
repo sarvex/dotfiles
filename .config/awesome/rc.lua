@@ -6,7 +6,7 @@
  |____/ |_| 
  
  My awesome window manager configuration. Provided here for those that want to examine or use
- my config in part or in whole.
+ my config in part or in whole. Take what works for you; leave the rest!
  
 --]]
 
