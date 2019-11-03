@@ -4,7 +4,7 @@
 # | |_| || |    http://www.gitlab.com/dwt1/ 
 # |____/ |_|  	
 # 
-# My bash config.
+# My bash config. Not much to see here.  Some pretty standard stuff.
   
 EDITOR="emacsclient -c"
 export TERM="st-256color"
