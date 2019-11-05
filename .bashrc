@@ -82,10 +82,10 @@ if ${use_color} ; then
 		PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
 	fi
 
-	alias ls='ls -lah'
-	alias grep='grep --colour=auto'
-	alias egrep='egrep --colour=auto'
-	alias fgrep='fgrep --colour=auto'
+	alias ls='ls -lah' \
+		grep='grep --colour=auto' \
+		egrep='egrep --colour=auto' \
+		fgrep='fgrep --colour=auto'
 else
 	if [[ ${EUID} == 0 ]] ; then
 		# show root@ when we don't have colors
@@ -138,8 +138,8 @@ ex ()
 
 ### ALIASES ###
 # navigation
-alias ..='cd ..'
-alias ...='cd .. ; cd ..'
+alias	..='cd ..' \
+		...='cd ../..'
 
 # Changing "ls" to "exa"
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
@@ -157,7 +157,7 @@ alias lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys'
 alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
 
 # bare git repo alias for dotfiles
-alias config='/usr/bin/git --git-dir=/home/dt/dotfiles --work-tree=/home/dt'
+alias config="/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME"
 
 # termbin
 alias tb="nc termbin.com 9999"
