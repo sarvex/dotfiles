@@ -163,7 +163,7 @@ alias config="/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME"
 alias tb="nc termbin.com 9999"
 
 ### ENABLE VI MODE ###
-set -o vi
+#set -o vi
 
 ### SET VIM AS MANPAGER ###
 export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
