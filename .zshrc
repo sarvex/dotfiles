@@ -149,7 +149,7 @@ alias tb="nc termbin.com 9999"
 bindkey "^[f" forward-word      # deletes everything right of the prompt.
 bindkey "^[b" backward-word     # deletes characters one at a time, backwards.
 
-bindkey -v
+# bindkey -v
 bindkey '^R' history-incremental-search-backward
 
 export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
