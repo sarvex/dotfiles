@@ -18,6 +18,7 @@ i3
 polybar
 qtile
 st
+stumpwm
 sxhkd
 vim
 xmobar
@@ -32,49 +33,52 @@ case "$choice" in
 		echo "Program terminated." && exit 1
 	;;
 	awesome)
-		choice="HOME/.config/awesome/rc.lua"
+		choice="$HOME/.config/awesome/rc.lua"
 	;;
 	bash)
-		choice="HOME/.bashrc"
+		choice="$HOME/.bashrc"
 	;;
 	bspwm)
-		choice="HOME/.config/bspwm/bspwmrc"
+		choice="$HOME/.config/bspwm/bspwmrc"
 	;;
 	dwm)
-		choice="HOME/dwm/config.h"
+		choice="$HOME/dwm/config.h"
 	;;
 	emacs)
-		choice="HOME/.emacs.d/init.el"
+		choice="$HOME/.emacs.d/init.el"
 	;;
 	herbstluftwm)
-		choice="HOME/.config/herbstluftwm/autostart"
+		choice="$HOME/.config/herbstluftwm/autostart"
 	;;
 	i3)
-		choice="HOME/.i3/config"
+		choice="$HOME/.i3/config"
 	;;
 	polybar)
-		choice="HOME/.config/polybar/config"
+		choice="$HOME/.config/polybar/config"
 	;;
 	qtile)
-		choice="HOME/.config/qtile/config.py"
+		choice="$HOME/.config/qtile/config.py"
 	;;
 	st)
-		choice="HOME/st/config.h"
+		choice="$HOME/st/config.h"
+	;;
+	stumpwm)
+		choice="$HOME/.config/stumpwm/config"
 	;;
 	sxhkd)
-		choice="HOME/.config/sxhkd/sxhkdrc"
+		choice="$HOME/.config/sxhkd/sxhkdrc"
 	;;
 	vim)
-		choice="HOME/.vimrc"
+		choice="$HOME/.vimrc"
 	;;
 	xmobar)
-		choice="HOME/.config/xmobar/xmobarrc2"
+		choice="$HOME/.config/xmobar/xmobarrc2"
 	;;
 	xmonad)
-		choice="HOME/.xmonad/xmonad.hs"
+		choice="$HOME/.xmonad/xmonad.hs"
 	;;
 	zsh)
-		choice="HOME/.zshrc"
+		choice="$HOME/.zshrc"
 	;;
 	*)
 		exit 1
