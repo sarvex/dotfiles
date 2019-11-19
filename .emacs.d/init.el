@@ -4,7 +4,7 @@
 ;; | |_| || |  	 http://www.gitlab.com/dwt1/ 
 ;; |____/ |_|  	
 ;;        
-;; A customized config.py for Qtile window manager (http://www.qtile.org)     
+;; A customized config for Emacs (https://www.gnu.org/software/emacs/)     
 ;; Modified by Derek Taylor (http://www.gitlab.com/dwt1/)
 
 (require 'package)
