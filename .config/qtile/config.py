@@ -162,7 +162,7 @@ def init_keys():
             ### Dmenu Run Launcher
             Key(
                 ["mod1", "control"], "Return",
-                lazy.spawn("dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
+                lazy.spawn("dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#282a36' -nf '#ffffff' -sb '#bd93f9' -sf '#282a36' -p 'dmenu:'")
                 ),
                 
             ### Dmenu scripts launched with ALT + CTRL + KEY
@@ -246,15 +246,15 @@ def init_keys():
 ##### BAR COLORS #####
 
 def init_colors():
-    return [["#292D3E", "#292D3E"], # panel background
+    return [["#282a36", "#282a36"], # panel background
             ["#434758", "#434758"], # background for current screen tab
-            ["#D0D0D0", "#D0D0D0"], # font color for group names
-            ["#F07178", "#F07178"], # background color for layout widget
+            ["#ffffff", "#ffffff"], # font color for group names
+            ["#ff5555", "#ff5555"], # background color for layout widget
             ["#000000", "#000000"], # background for other screen tabs
-            ["#AD69AF", "#AD69AF"], # dark green gradiant for other screen tabs
-            ["#C3E88D", "#C3E88D"], # background color for network widget
-            ["#C792EA", "#C792EA"], # background color for pacman widget
-            ["#9CC4FF", "#9CC4FF"], # background color for cmus widget
+            ["#A77AC4", "#A77AC4"], # dark green gradiant for other screen tabs
+            ["#50fa7b", "#50fa7b"], # background color for network widget
+            ["#7197E7", "#7197E7"], # background color for pacman widget
+            ["#9AEDFE", "#9AEDFE"], # background color for cmus widget
             ["#000000", "#000000"], # background color for clock widget
             ["#434758", "#434758"]] # background color for systray widget
 
@@ -281,7 +281,7 @@ def init_floating_layout():
 
 def init_layout_theme():
     return {"border_width": 2,
-            "margin": 10,
+            "margin": 4,
             "border_focus": "AD69AF",
             "border_normal": "1D2330"
            }
@@ -325,7 +325,7 @@ def init_layouts():
 
 def init_widgets_defaults():
     return dict(font="Ubuntu Mono",
-                fontsize = 11,
+                fontsize = 12,
                 padding = 2,
                 background=colors[2])
 
@@ -349,8 +349,8 @@ def init_widgets_list():
                         inactive = colors[2],
                         rounded = False,
                         highlight_method = "block",
-                        this_current_screen_border = colors[1],
-                        this_screen_border = colors [4],
+                        this_current_screen_border = colors[5],
+                        this_screen_border = colors [1],
                         other_current_screen_border = colors[0],
                         other_screen_border = colors[0],
                         foreground = colors[2],
@@ -375,118 +375,123 @@ def init_widgets_list():
                         background = colors[0],
                         padding = 5
                         ),
-               widget.Image(
-                        scale = True,
-                        filename = "~/.config/qtile/bar06.png",
-                        background = colors[6]
+               widget.TextBox(
+                        text='',
+                        background = colors[0],
+                        foreground = colors[5],
+                        padding=0,
+                        fontsize=37
                         ),
                widget.Systray(
                         background=colors[10],
                         padding = 5
                         ),
-               widget.Image(
-                        scale = True,
-                        filename = "~/.config/qtile/bar02-b.png",
-                        background = colors[6]
-                        ),
                widget.TextBox(
                         text=" ↯",
-                        foreground=colors[0],
-                        background=colors[6],
+                        foreground=colors[2],
+                        background=colors[5],
                         padding = 0,
                         fontsize=14
                         ),
                widget.Net(
-                        interface = "enp3s0",
-                        foreground = colors[0],
-                        background = colors[6],
+                        interface = "enp4s0",
+                        foreground = colors[2],
+                        background = colors[5],
                         padding = 5
                         ),
-               widget.Image(
-                        scale = True,
-                        filename = "~/.config/qtile/bar03.png",
-                        background = colors[3]
+               widget.TextBox(
+                        text='',
+                        background = colors[5],
+                        foreground = colors[7],
+                        padding=0,
+                        fontsize=37
                         ),
                widget.TextBox(
                         font="Ubuntu Bold",
                         text=" ☵",
                         padding = 5,
-                        foreground=colors[0],
-                        background=colors[3],
+                        foreground=colors[2],
+                        background=colors[7],
                         fontsize=14
                         ),
                widget.CurrentLayout(
-                        foreground = colors[0],
-                        background = colors[3],
+                        foreground = colors[2],
+                        background = colors[7],
                         padding = 5
                         ),
-               widget.Image(
-                        scale = True,
-                        filename = "~/.config/qtile/bar04.png",
-                        background = colors[7]
+               widget.TextBox(
+                        text='',
+                        background = colors[7],
+                        foreground = colors[5],
+                        padding=0,
+                        fontsize=37
                         ),
                widget.TextBox(
                         font="Ubuntu Bold",
                         text=" ⟳",
                         padding = 5,
-                        foreground=colors[0],
-                        background=colors[7],
+                        foreground=colors[2],
+                        background=colors[5],
                         fontsize=14
                         ),
                widget.Pacman(
                         execute = "urxvtc",
                         update_interval = 1800,
-                        foreground = colors[0],
-                        background = colors[7]
+                        foreground = colors[2],
+                        background = colors[5]
                         ),
                widget.TextBox(
                         text="Updates",
                         padding = 5,
-                        foreground=colors[0],
-                        background=colors[7]
+                        foreground=colors[2],
+                        background=colors[5]
                         ),
-               widget.Image(
-                        scale = True,
-                        filename = "~/.config/qtile/bar05.png",
-                        background = colors[8]
+               widget.TextBox(
+                        text='',
+                        background = colors[5],
+                        foreground = colors[7],
+                        padding=0,
+                        fontsize=37
                         ),
                widget.TextBox(
                         font="Ubuntu Bold",
                         text=" ♫",
                         padding = 5,
-                        foreground=colors[0],
-                        background=colors[8],
+                        foreground=colors[2],
+                        background=colors[7],
                         fontsize=14
                         ),
                widget.Cmus(
                         max_chars = 40,
                         update_interval = 0.5,
-                        foreground=colors[0],
-                        background = colors[8]
+                        foreground=colors[2],
+                        background = colors[7]
                         ),
-               widget.Image(
-                        scale = True,
-                        filename = "~/.config/qtile/bar07.png",
-                        background = colors[9]
+               widget.TextBox(
+                        text='',
+                        background = colors[7],
+                        foreground = colors[5],
+                        padding=0,
+                        fontsize=37
                         ),
                widget.TextBox(
                         font="Ubuntu Bold",
                         text=" 🕒",
                         foreground=colors[2],
-                        background=colors[9],
+                        background=colors[5],
                         padding = 5,
                         fontsize=14
                         ),
                widget.Clock(
                         foreground = colors[2],
-                        background = colors[9],
+                        background = colors[5],
                         format="%A, %B %d - %H:%M"
                         ),
                widget.Sep(
                         linewidth = 0,
                         padding = 5,
                         foreground = colors[0],
-                        background = colors[9]
+                        background = colors[5]
                         ),
               ]
     return widgets_list

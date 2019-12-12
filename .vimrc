@@ -1,4 +1,3 @@
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vundle For Managing Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -17,6 +16,7 @@ Plugin 'vim-airline/vim-airline-themes'				" Airline Themes
 Plugin 'scrooloose/nerdtree'						" added nerdtree
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'ryanoasis/vim-devicons'
+Plugin 'dracula/vim', { 'name': 'dracula' }
 Plugin 'vim-python/python-syntax'
 Plugin 'jreybert/vimagit'
 Plugin 'severin-lemaignan/vim-minimap'
@@ -70,7 +70,7 @@ set laststatus=2
 " Use 256 colours (Use this setting only if your terminal supports 256 colours)
 " set t_Co=256
 
-syntax on   
+syntax enable
 set relativenumber
 let g:rehash256 = 1
 let g:Powerline_symbols='unicode'
@@ -149,3 +149,8 @@ syntax on
 
 au! BufRead,BufWrite,BufWritePost,BufNewFile *.org 
 au BufEnter *.org            call org#SetOrgFileType()
+
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar

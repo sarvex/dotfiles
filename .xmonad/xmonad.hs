@@ -73,7 +73,7 @@ import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1
 myFont          = "xft:Mononoki Nerd Font:regular:pixelsize=12"
 myModMask       = mod4Mask  -- Sets modkey to super/windows key
 myTerminal      = "st"      -- Sets default terminal
-myTextEditor    = "vim"     -- Sets default text editor
+myTextEditor    = "emacsclient -c"     -- Sets default text editor
 myBorderWidth   = 2         -- Sets border width for windows
 windowCount     = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
