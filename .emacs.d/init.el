@@ -46,6 +46,9 @@
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
 (require 'mu4e)
 
+(setq mu4e-get-mail-command "mbsync -c ~/.emacs.d/mu4e/.mbsyncrc -a"
+      mu4e-update-interval  300)
+
 ;; Fields that are auto-filled in email
 (setq
    user-mail-address "derek@distrotube.com"
