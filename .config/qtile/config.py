@@ -83,13 +83,13 @@ def init_keys():
                 lazy.shutdown()                         # Shutdown Qtile
                 ),
             Key([mod], "w",
-                lazy.to_screen(2)                       # Keyboard focus screen(0)
+                lazy.to_screen(0)                       # Keyboard focus screen(0)
                 ),
             Key([mod], "e",
-                lazy.to_screen(0)                       # Keyboard focus screen(1)
+                lazy.to_screen(1)                       # Keyboard focus screen(1)
                 ),
             Key([mod], "r",
-                lazy.to_screen(1)                       # Keyboard focus screen(2)
+                lazy.to_screen(2)                       # Keyboard focus screen(2)
                 ),
             Key([mod, "control"], "k",
                 lazy.layout.section_up()                # Move up a section in treetab
@@ -261,13 +261,14 @@ def init_colors():
 ##### GROUPS #####
 
 def init_group_names():
-    return [("DEV", {'layout': 'max'}),
-            ("WWW", {'layout': 'max'}),
+    return [("WWW", {'layout': 'monadtall'}),
+            ("DEV", {'layout': 'monadtall'}),
             ("SYS", {'layout': 'monadtall'}),
             ("DOC", {'layout': 'monadtall'}),
-            ("VBOX", {'layout': 'floating'}),
-            ("CHAT", {'layout': 'bsp'}),
-            ("MEDIA", {'layout': 'monadtall'}),
+            ("VBOX", {'layout': 'monadtall'}),
+            ("CHAT", {'layout': 'monadtall'}),
+            ("MUS", {'layout': 'monadtall'}),
+            ("VID", {'layout': 'monadtall'}),
             ("GFX", {'layout': 'floating'})]
 
 def init_groups():
@@ -290,10 +291,17 @@ def init_border_args():
     return {"border_width": 2}
 
 def init_layouts():
-    return [layout.Max(**layout_theme),
+    return [#layout.MonadWide(**layout_theme),
+            #layout.Bsp(**layout_theme),
+            #layout.Stack(stacks=2, **layout_theme),
+            #layout.Columns(**layout_theme),
+            #layout.RatioTile(**layout_theme),
+            #layout.VerticalTile(**layout_theme),
+            #layout.Tile(shift_windows=True, **layout_theme),
+            #layout.Matrix(**layout_theme),
+            #layout.Zoomy(**layout_theme),
             layout.MonadTall(**layout_theme),
-            layout.MonadWide(**layout_theme),
-            layout.Bsp(**layout_theme),
+            layout.Max(**layout_theme),
             layout.TreeTab(
                 font = "Ubuntu",
                 fontsize = 10,
@@ -309,16 +317,6 @@ def init_layouts():
                 panel_width = 320,
                 **layout_theme
                 ),
-            layout.Slice(side="left", width=192, name="gimp", role="gimp-toolbox",
-                fallback=layout.Slice(side="right", width=256, role="gimp-dock",
-                fallback=layout.Stack(num_stacks=1, **border_args))),
-            #layout.Stack(stacks=2, **layout_theme),
-            #layout.Columns(**layout_theme),
-            #layout.RatioTile(**layout_theme),
-            #layout.VerticalTile(**layout_theme),
-            #layout.Tile(shift_windows=True, **layout_theme),
-            #layout.Matrix(**layout_theme),
-            #layout.Zoomy(**layout_theme),
             layout.Floating(**layout_theme)]
 
 ##### WIDGETS #####
