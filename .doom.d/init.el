@@ -8,6 +8,9 @@
 ;; More information about these modules (and what flags they support) can be
 ;; found in modules/README.org.
 
+        
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+
 (doom! :input
        ;;chinese
        ;;japanese
@@ -29,7 +32,7 @@
        indent-guides   ; highlighted indent columns
        modeline          ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink the current line after jumping
-       ;;neotree           ; a project drawer, like NERDTree for vim
+       neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup            ; tame sudden yet inevitable temporary windows
         +all             ; catch all popups that start with an asterix
@@ -155,7 +158,7 @@
        web                 ; the tubes
 
        :email
-       (mu4e +gmail)
+       ;;(mu4e +gmail)
        ;;notmuch
        ;;(wanderlust +gmail)
 

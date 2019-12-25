@@ -11,8 +11,10 @@
 declare options=("awesome
 bash
 bspwm
+doom.d/config.el
+doom.d/init.el
 dwm
-emacs
+emacs.d/init.el
 herbstluftwm
 i3
 polybar
@@ -41,10 +43,16 @@ case "$choice" in
 	bspwm)
 		choice="$HOME/.config/bspwm/bspwmrc"
 	;;
+    doom.d/config.el)
+		choice="$HOME/.doom.d/config.el"
+	;;
+    doom.d/init.el)
+		choice="$HOME/.doom.d/init.el"
+	;;
 	dwm)
 		choice="$HOME/dwm/config.h"
 	;;
-	emacs)
+	emacs.d/init.el)
 		choice="$HOME/.emacs.d/init.el"
 	;;
 	herbstluftwm)

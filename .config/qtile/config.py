@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 #  ____ _____ 
 # |  _ \_   _|  Derek Taylor (DistroTube)
-# | | | || |  	http://www.youtube.com/c/DistroTube
-# | |_| || |  	http://www.gitlab.com/dwt1/ 
-# |____/ |_|  	
+# | | | || |    http://www.youtube.com/c/DistroTube
+# | |_| || |    http://www.gitlab.com/dwt1/
+# |____/ |_|
 #        
 # A customized config.py for Qtile window manager (http://www.qtile.org)     
 # Modified by Derek Taylor (http://www.gitlab.com/dwt1/ )
