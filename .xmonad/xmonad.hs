@@ -254,6 +254,7 @@ myKeys =
         , ("M1-C-m", spawn "./.dmenu/dmenu-sysmon.sh")
         , ("M1-C-p", spawn "passmenu")
         , ("M1-C-s", spawn "./.dmenu/dmenu-surfraw.sh")
+        , ("M1-C-/", spawn "./.dmenu/dmenu-scrot.sh")
 
     --- My Applications (Super+Alt+Key)
         , ("M-M1-a", spawn (myTerminal ++ " -e ncpamixer"))

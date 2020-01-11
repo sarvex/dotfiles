@@ -190,6 +190,10 @@ def init_keys():
                 ["mod1", "control"], "t",
                 lazy.spawn("./.dmenu/dmenu-trading.sh")
                 ),
+            Key(
+                ["mod1", "control"], "i",
+                lazy.spawn("./.dmenu/dmenu-scrot.sh")
+                ),
                 
             ### My applications launched with SUPER + ALT + KEY
             Key(
@@ -380,10 +384,6 @@ def init_widgets_list():
                         padding=0,
                         fontsize=37
                         ),
-               widget.Systray(
-                        background=colors[10],
-                        padding = 5
-                        ),
                widget.TextBox(
                         text=" ↯",
                         foreground=colors[2],
@@ -462,8 +462,9 @@ def init_widgets_list():
                widget.Cmus(
                         max_chars = 40,
                         update_interval = 0.5,
-                        foreground=colors[2],
-                        background = colors[7]
+                        background=colors[7],
+                        play_color = colors[2],
+                        noplay_color = colors[2]
                         ),
                widget.TextBox(
                         text='',
@@ -490,6 +491,10 @@ def init_widgets_list():
                         padding = 5,
                         foreground = colors[0],
                         background = colors[5]
+                        ),
+               widget.Systray(
+                        background=colors[0],
+                        padding = 5
                         ),
               ]
     return widgets_list
