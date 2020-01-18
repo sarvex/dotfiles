@@ -82,7 +82,6 @@ if ${use_color} ; then
 		PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
 	fi
 
-	alias ls='ls -lah' \
 		grep='grep --colour=auto' \
 		egrep='egrep --colour=auto' \
 		fgrep='fgrep --colour=auto'
@@ -140,9 +139,10 @@ ex ()
 # navigation
 alias	..='cd ..' \
 		...='cd ../..'
+alias ls="ls -lah"
 
 # Changing "ls" to "exa"
-alias ls='exa -al --color=always --group-directories-first' # my preferred listing
+# alias ls='exa -al --color=always --group-directories-first' # my preferred listing
 alias la='exa -a --color=always --group-directories-first'  # all files and dirs
 alias ll='exa -l --color=always --group-directories-first'  # long format
 alias lt='exa -aT --color=always --group-directories-first' # tree listing
