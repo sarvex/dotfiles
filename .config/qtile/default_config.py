@@ -30,7 +30,7 @@ from libqtile import layout, bar, widget
 
 from typing import List  # noqa: F401
 
-mod = "mod4"
+mod = "mod1"
 
 keys = [
     # Switch between windows in current stack pane
