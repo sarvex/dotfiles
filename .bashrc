@@ -7,7 +7,7 @@
 # My bash config. Not much to see here.  Some pretty standard stuff.
 
 EDITOR="emacsclient -c"
-export TERM="st-256color"
+export TERM="xterm-256color"
 
 [[ $- != *i* ]] && return
 

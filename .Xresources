@@ -15,7 +15,7 @@ Xft.lcdfilter: lcdfilter
 
 XTerm*renderFont: true
 XTerm*faceName: xft:Mononoki Nerd Font
-XTerm*faceSize: 12
+XTerm*faceSize: 11
 XTerm*utf8: 2
 XTerm*locale: true
 
@@ -83,7 +83,8 @@ XTerm*background: #292d3e
 XTerm*cursorColor: #bbc5ff
 
 ! black
-*.color0:       #101010  !! originally #292d3e
+!! color0 was originally #292d3e
+*.color0:       #101010  
 *.color8:       #434758
 
 ! red

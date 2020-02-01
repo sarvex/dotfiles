@@ -120,7 +120,7 @@ let g:minimap_toggle='<leader>mt'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" colorscheme nord
+colorscheme default
 hi LineNr ctermfg=242
 hi CursorLineNr ctermfg=15
 hi VertSplit ctermfg=8 ctermbg=0
@@ -154,3 +154,9 @@ set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Fixes mouse issues using Alacritty terminal
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set ttymouse=sgr

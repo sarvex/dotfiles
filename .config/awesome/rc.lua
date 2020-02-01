@@ -49,7 +49,7 @@ local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
                      title = "Oops, there were errors during startup!",
-                     text = awesome.startup_errors })
+                     text = awesome.startup_errors })((
 end
 
 -- Handle runtime errors after startup

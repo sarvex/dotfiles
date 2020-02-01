@@ -534,7 +534,7 @@ def init_mouse():
 
 if __name__ in ["config", "__main__"]:
     mod = "mod4"                                     # Sets mod key to SUPER/WINDOWS
-    myTerm = "st"                                    # My terminal of choice
+    myTerm = "alacritty"                             # My terminal of choice
     myConfig = "/home/dt/.config/qtile/config.py"    # Qtile config file location 
 
     colors = init_colors()
