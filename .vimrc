@@ -16,7 +16,6 @@ Plugin 'vim-airline/vim-airline-themes'				" Airline Themes
 Plugin 'scrooloose/nerdtree'						" added nerdtree
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'ryanoasis/vim-devicons'
-Plugin 'dracula/vim', { 'name': 'dracula' }
 Plugin 'vim-python/python-syntax'
 Plugin 'jreybert/vimagit'
 Plugin 'severin-lemaignan/vim-minimap'

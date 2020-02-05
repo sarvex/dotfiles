@@ -154,3 +154,5 @@ bindkey '^R' history-incremental-search-backward
 
 export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+source /home/dt/.config/broot/launcher/bash/br

@@ -8,7 +8,8 @@
 # Dmenu script for editing some of my more frequently edited config files.
 
 
-declare options=("awesome
+declare options=("alacritty
+awesome
 bash
 bspwm
 doom.d/config.el
@@ -33,6 +34,9 @@ choice=$(echo -e "${options[@]}" | dmenu -i -p 'Edit a config file: ')
 case "$choice" in
 	quit)
 		echo "Program terminated." && exit 1
+	;;
+	alacritty)
+		choice="$HOME/.config/alacritty/alacritty.yml"
 	;;
 	awesome)
 		choice="$HOME/.config/awesome/rc.lua"

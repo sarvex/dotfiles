@@ -140,6 +140,10 @@ ex ()
 alias	..='cd ..' \
 		...='cd ../..'
 
+# broot
+alias br='br -dhp'
+alias bs='br --sizes'
+
 # Changing "ls" to "exa"
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
 alias la='exa -a --color=always --group-directories-first'  # all files and dirs
@@ -163,10 +167,13 @@ alias config="/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME"
 alias tb="nc termbin.com 9999"
 
 ### ENABLE VI MODE ###
-#set -o vi
+set -o vi
 
 ### SET VIM AS MANPAGER ###
 export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
 
 ### BASH POWERLINE ###
 source ~/.bash-powerline.sh
+
+### BROOT ###
+source /home/dt/.config/broot/launcher/bash/br
