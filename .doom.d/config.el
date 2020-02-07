@@ -29,7 +29,11 @@
         highlight-indent-guides-delay 0.01
         highlight-indent-guides-responsive 'top
         highlight-indent-guides-auto-enabled nil))
-        
+
+(require 'emms-setup)
+(emms-standard)
+(emms-default-players)
+
 ;; Setting up mu4e which is an email client that works within emacs.
 ;; You must install mu4e and mbsync through your Linux distribution's
 ;; package manager.

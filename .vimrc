@@ -109,17 +109,8 @@ let NERDTreeMinimalUI = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Minimap
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:minimap_show='<leader>mm'
-let g:minimap_update='<leader>mu'
-let g:minimap_close='<leader>mc'
-let g:minimap_toggle='<leader>mt'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme default
 hi LineNr ctermfg=242
 hi CursorLineNr ctermfg=15
 hi VertSplit ctermfg=8 ctermbg=0
