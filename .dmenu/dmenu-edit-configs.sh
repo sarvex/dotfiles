@@ -11,9 +11,12 @@
 declare options=("alacritty
 awesome
 bash
+broot
 bspwm
+compton
 doom.d/config.el
 doom.d/init.el
+dunst
 dwm
 emacs.d/init.el
 herbstluftwm
@@ -23,13 +26,16 @@ qtile
 st
 stumpwm
 sxhkd
+termite
+vifm
 vim
 xmobar
 xmonad
+xresources
 zsh
 quit")
 
-choice=$(echo -e "${options[@]}" | dmenu -i -p 'Edit a config file: ')
+choice=$(echo -e "${options[@]}" | dmenu -i -p 'Edit config file: ')
 
 case "$choice" in
 	quit)
@@ -44,14 +50,23 @@ case "$choice" in
 	bash)
 		choice="$HOME/.bashrc"
 	;;
+	broot)
+		choice="$HOME/.config/broot/conf.toml"
+	;;
 	bspwm)
 		choice="$HOME/.config/bspwm/bspwmrc"
+	;;
+	compton)
+		choice="$HOME/.config/compton/compton.conf"
 	;;
     doom.d/config.el)
 		choice="$HOME/.doom.d/config.el"
 	;;
     doom.d/init.el)
 		choice="$HOME/.doom.d/init.el"
+	;;
+	dunst)
+		choice="$HOME/.config/dunst/dunstrc"
 	;;
 	dwm)
 		choice="$HOME/dwm/config.h"
@@ -80,6 +95,12 @@ case "$choice" in
 	sxhkd)
 		choice="$HOME/.config/sxhkd/sxhkdrc"
 	;;
+	termite)
+		choice="$HOME/.config/termite/config"
+	;;
+	vifm)
+		choice="$HOME/.config/vifm/vifmrc"
+	;;
 	vim)
 		choice="$HOME/.vimrc"
 	;;
@@ -88,6 +109,9 @@ case "$choice" in
 	;;
 	xmonad)
 		choice="$HOME/.xmonad/xmonad.hs"
+	;;
+	xresources)
+		choice="$HOME/.Xresources"
 	;;
 	zsh)
 		choice="$HOME/.zshrc"
