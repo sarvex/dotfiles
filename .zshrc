@@ -1,3 +1,9 @@
+#  ____ _____ 
+# |  _ \_   _|  Derek Taylor (DistroTube)
+# | | | || |    http://www.youtube.com/c/DistroTube
+# | |_| || |    http://www.gitlab.com/dwt1/ 
+# |____/ |_| 
+
 export TERM="st-256color"
 
 # If you come from bash you might have to change your $PATH.
@@ -11,7 +17,6 @@ ZSH=/usr/share/oh-my-zsh/
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="powerlevel9k"
-POWERLEVEL9K_COLOR_SCHEME='dark'
 POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND='5'
 POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND='0'
 POWERLEVEL9K_STATUS_OK_BACKGROUND='8'
@@ -21,6 +26,9 @@ POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='10'
 POWERLEVEL9K_VCS_MAX_SYNC_LATENCY_SECONDS='0.05'
 POWERLEVEL9K_VI_INSERT_MODE_STRING='INSERT' 
 POWERLEVEL9K_VI_COMMAND_MODE_STRING='NORMAL'﻿
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history time)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+ZLE_RPROMPT_INDENT=0
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -132,7 +140,20 @@ alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias grep='grep --colour=auto'
 
+#alias lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys'
+
 zstyle ':completion:*' completer _expand_alias _complete _ignored
 alias tb="nc termbin.com 9999"
+# alt+<- | alt+->  
+bindkey "^[f" forward-word      # deletes everything right of the prompt.
+bindkey "^[b" backward-word     # deletes characters one at a time, backwards.
+
+# bindkey -v
+bindkey '^R' history-incremental-search-backward
+
+export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+source /home/dt/.config/broot/launcher/bash/br
 
 bindkey -v

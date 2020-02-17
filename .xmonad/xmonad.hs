@@ -37,7 +37,7 @@ import XMonad.Actions.CopyWindow (kill1, copyToAll, killAllOtherCopies, runOrCop
 import XMonad.Actions.WindowGo (runOrRaise, raiseMaybe)
 import XMonad.Actions.WithAll (sinkAll, killAll)
 import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), shiftNextScreen, shiftPrevScreen) 
-import XMonad.Actions.GridSelect (GSConfig(..), goToSelected, bringSelected, colorRangeFromClassName, buildDefaultGSConfig)
+import XMonad.Actions.GridSelect
 import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, removeEmptyWorkspace)
 import XMonad.Actions.MouseResize
 import qualified XMonad.Actions.ConstrainedResize as Sqr
@@ -70,16 +70,20 @@ import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1
 ------------------------------------------------------------------------
 ---CONFIG
 ------------------------------------------------------------------------
+myFont          = "xft:Mononoki Nerd Font:regular:pixelsize=12"
 myModMask       = mod4Mask  -- Sets modkey to super/windows key
-myTerminal      = "st"      -- Sets default terminal
-myTextEditor    = "vim"     -- Sets default text editor
+myTerminal      = "alacritty"      -- Sets default terminal
+myTextEditor    = "emacsclient -c"     -- Sets default text editor
 myBorderWidth   = 2         -- Sets border width for windows
 windowCount     = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 main = do
-    xmproc0 <- spawnPipe "xmobar -x 0 /home/dt/.config/xmobar/xmobarrc2" -- xmobar mon 2
-    xmproc1 <- spawnPipe "xmobar -x 1 /home/dt/.config/xmobar/xmobarrc1" -- xmobar mon 1
-    xmproc2 <- spawnPipe "xmobar -x 2 /home/dt/.config/xmobar/xmobarrc0" -- xmobar mon 0
+    -- Launching three instances of xmobar on their monitors.
+    xmproc0 <- spawnPipe "xmobar -x 0 /home/dt/.config/xmobar/xmobarrc0"
+    xmproc1 <- spawnPipe "xmobar -x 1 /home/dt/.config/xmobar/xmobarrc2"
+    xmproc2 <- spawnPipe "xmobar -x 2 /home/dt/.config/xmobar/xmobarrc1"
+    -- the xmonad, ya know...what the WM is named after!
+
     xmonad $ ewmh desktopConfig
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageHook desktopConfig <+> manageDocks
         , logHook = dynamicLogWithPP xmobarPP
@@ -108,12 +112,38 @@ main = do
 ---AUTOSTART
 ------------------------------------------------------------------------
 myStartupHook = do
-          spawnOnce "urxvtd &" 
+          --spawnOnce "emacs --daemon &" 
           spawnOnce "nitrogen --restore &" 
           spawnOnce "compton --config /home/dt/.config/compton/compton.conf &" 
           setWMName "LG3D"
           --spawnOnce "exec /usr/bin/trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 15 --transparent true --alpha 0 --tint 0x292d3e --height 19 &"
           --spawnOnce "/home/dt/.xmonad/xmonad.start" -- Sets our wallpaper
+
+------------------------------------------------------------------------
+---GRID SELECT
+------------------------------------------------------------------------
+
+myColorizer :: Window -> Bool -> X (String, String)
+myColorizer = colorRangeFromClassName
+                  (0x31,0x2e,0x39) -- lowest inactive bg
+                  (0x31,0x2e,0x39) -- highest inactive bg
+                  (0x61,0x57,0x72) -- active bg
+                  (0xc0,0xa7,0x9a) -- inactive fg
+                  (0xff,0xff,0xff) -- active fg
+                  
+-- gridSelect menu layout
+mygridConfig colorizer = (buildDefaultGSConfig myColorizer)
+    { gs_cellheight   = 30
+    , gs_cellwidth    = 200
+    , gs_cellpadding  = 8
+    , gs_originFractX = 0.5
+    , gs_originFractY = 0.5
+    , gs_font         = myFont
+    }
+    
+spawnSelected' :: [(String, String)] -> X ()
+spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
+    where conf = defaultGSConfig
 
 ------------------------------------------------------------------------
 ---KEYBINDINGS
@@ -131,6 +161,29 @@ myKeys =
     -- Floating windows
         , ("M-<Delete>", withFocused $ windows . W.sink)  -- Push floating window back to tile.
         , ("M-S-<Delete>", sinkAll)                  -- Push ALL floating windows back to tile.
+		
+    -- Grid Select
+        , (("M-S-t"), spawnSelected'
+          [ ("Audacity", "audacity")
+          , ("Deadbeef", "deadbeef")
+          , ("Emacs", "emacs")
+          , ("Firefox", "firefox")
+          , ("Geany", "geany")
+          , ("Geary", "geary")
+          , ("Gimp", "gimp")
+          , ("Kdenlive", "kdenlive")
+          , ("LibreOffice Impress", "loimpress")
+          , ("LibreOffice Writer", "lowriter")
+          , ("OBS", "obs")
+          , ("PCManFM", "pcmanfm")
+          , ("Simple Terminal", "st")
+          , ("Steam", "steam")
+          , ("Surf Browser",    "surf suckless.org")
+          , ("Xonotic", "xonotic-glx")
+          ])
+
+        , ("M-S-g", goToSelected $ mygridConfig myColorizer)
+        , ("M-S-b", bringSelected $ mygridConfig myColorizer)
 
     -- Windows navigation
         , ("M-m", windows W.focusMaster)             -- Move focus to the master window
@@ -163,7 +216,7 @@ myKeys =
     -- Layouts
         , ("M-<Space>", sendMessage NextLayout)                              -- Switch to next layout
         , ("M-S-<Space>", sendMessage ToggleStruts)                          -- Toggles struts
-        , ("M-S-b", sendMessage $ Toggle NOBORDERS)                          -- Toggles noborder
+        , ("M-S-n", sendMessage $ Toggle NOBORDERS)                          -- Toggles noborder
         , ("M-S-=", sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
         , ("M-S-f", sendMessage (T.Toggle "float"))
         , ("M-S-x", sendMessage $ Toggle REFLECTX)
@@ -191,47 +244,34 @@ myKeys =
         , ("M-C-<Return>", namedScratchpadAction myScratchPads "terminal")
         , ("M-C-c", namedScratchpadAction myScratchPads "cmus")
         
-    -- Main Run Apps
+    -- Open Terminal
         , ("M-<Return>", spawn myTerminal)
-        , ("M-<KP_Insert>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
-        
-    -- Command Line Apps  (MOD + KEYPAD 1-9)
-        , ("M-<KP_End>", spawn (myTerminal ++ " -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com"))  -- Keypad 1
-        , ("M-<KP_Down>", spawn (myTerminal ++ " -e sh ./scripts/googler-script.sh"))  -- Keypad 2
-        , ("M-<KP_Page_Down>", spawn (myTerminal ++ " -e newsboat"))                   -- Keypad 3
-        , ("M-<KP_Left>", spawn (myTerminal ++ " -e rtv"))                             -- Keypad 4
-        , ("M-<KP_Begin>", spawn (myTerminal ++ " -e neomutt"))                        -- Keypad 5
-        , ("M-<KP_Right>", spawn (myTerminal ++ " -e twitch-curses"))                  -- Keypad 6
-        , ("M-<KP_Home>", spawn (myTerminal ++ " -e sh ./scripts/haxor-news.sh"))      -- Keypad 7
-        , ("M-<KP_Up>", spawn (myTerminal ++ " -e toot curses"))                       -- Keypad 8
-        , ("M-<KP_Page_Up>", spawn (myTerminal ++ " -e sh ./scripts/tig-script.sh"))   -- Keypad 9
-        
-    -- Command Line Apps  (MOD + SHIFT + KEYPAD 1-9)
-        , ("M-S-<KP_End>", spawn (myTerminal ++ " -e ~/.config/vifm/scripts/vifmrun"))                           -- Keypad 1
-        , ("M-S-<KP_Down>", spawn (myTerminal ++ " -e joplin"))                          -- Keypad 2
-        , ("M-S-<KP_Page_Down>", spawn (myTerminal ++ " -e cmus"))                     -- Keypad 3
-        , ("M-S-<KP_Left>", spawn (myTerminal ++ " -e irssi"))                         -- Keypad 4
-        , ("M-S-<KP_Begin>", spawn (myTerminal ++ " -e rtorrent"))                     -- Keypad 5
-        , ("M-S-<KP_Right>", spawn (myTerminal ++ " -e youtube-viewer"))               -- Keypad 6
-        , ("M-S-<KP_Home>", spawn (myTerminal ++ " -e ncpamixer"))                     -- Keypad 7
-        , ("M-S-<KP_Up>", spawn (myTerminal ++ " -e calcurse"))                        -- Keypad 8
-        , ("M-S-<KP_Page_Up>", spawn (myTerminal ++ " -e vim ~/.xmonad/xmonad.hs"))    -- Keypad 9
-        
-    -- Command Line Apps  (MOD + CTRL + KEYPAD 1-9)
-        , ("M-C-<KP_End>", spawn (myTerminal ++ " -e htop"))                           -- Keypad 1
-        , ("M-C-<KP_Down>", spawn (myTerminal ++ " -e gtop"))                       -- Keypad 2
-        , ("M-C-<KP_Page_Down>", spawn (myTerminal ++ " -e nmon"))                     -- Keypad 3
-        , ("M-C-<KP_Left>", spawn (myTerminal ++ " -e glances"))  -- Keypad 4
-        , ("M-C-<KP_Begin>", spawn (myTerminal ++ " -e s-tui"))                        -- Keypad 5
-        , ("M-C-<KP_Right>", spawn (myTerminal ++ " -e httping -KY --draw-phase localhost"))                     -- Keypad 6
-        , ("M-C-<KP_Home>", spawn (myTerminal ++ " -e cmatrix -C cyan"))               -- Keypad 7
-        , ("M-C-<KP_Up>", spawn (myTerminal ++ " -e pianobar"))                          -- Keypad 8
-        , ("M-C-<KP_Page_Up>", spawn (myTerminal ++ " -e wopr report.xml"))            -- Keypad 9
-        
-    -- GUI Apps
-        , ("M-b", spawn "surf http://www.youtube.com/c/DistroTube/")
-        , ("M-f", spawn "pcmanfm")
-        , ("M-g", runOrRaise "geany" (resource =? "geany"))
+		
+    --- Dmenu Scripts (Alt+Ctr+Key)
+        , ("M1-C-<Return>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
+        , ("M1-C-e", spawn "./.dmenu/dmenu-edit-configs.sh")
+        , ("M1-C-h", spawn "./.dmenu/dmenu-hugo.sh")
+        , ("M1-C-m", spawn "./.dmenu/dmenu-sysmon.sh")
+        , ("M1-C-p", spawn "passmenu")
+        , ("M1-C-s", spawn "./.dmenu/dmenu-surfraw.sh")
+        , ("M1-C-/", spawn "./.dmenu/dmenu-scrot.sh")
+
+    --- My Applications (Super+Alt+Key)
+        , ("M-M1-a", spawn (myTerminal ++ " -e ncpamixer"))
+        , ("M-M1-b", spawn ("surf www.youtube.com/c/DistroTube/"))
+        , ("M-M1-c", spawn (myTerminal ++ " -e cmus"))
+        , ("M-M1-e", spawn (myTerminal ++ " -e neomutt"))
+        , ("M-M1-f", spawn (myTerminal ++ " -e sh ./.config/vifm/scripts/vifmrun"))
+        , ("M-M1-i", spawn (myTerminal ++ " -e irssi"))
+        , ("M-M1-j", spawn (myTerminal ++ " -e joplin"))
+        , ("M-M1-l", spawn (myTerminal ++ " -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube"))
+        , ("M-M1-m", spawn (myTerminal ++ " -e toot curses"))
+        , ("M-M1-n", spawn (myTerminal ++ " -e newsboat"))
+        , ("M-M1-p", spawn (myTerminal ++ " -e pianobar"))
+        , ("M-M1-r", spawn (myTerminal ++ " -e rtv"))
+        , ("M-M1-w", spawn (myTerminal ++ " -e wopr report.xml"))
+        , ("M-M1-y", spawn (myTerminal ++ " -e youtube-viewer"))
+
 
     -- Multimedia Keys
         , ("<XF86AudioPlay>", spawn "cmus toggle")
@@ -260,10 +300,10 @@ xmobarEscape = concatMap doubleLts
         
 myWorkspaces :: [String]   
 myWorkspaces = clickable . (map xmobarEscape) 
-               $ ["dev", "www", "sys", "doc", "vbox", "chat", "media", "gfx"]
+               $ ["dev", "www", "sys", "doc", "vbox", "chat", "mus", "vid", "gfx"]
   where                                                                      
         clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
-                      (i,ws) <- zip [1..8] l,                                        
+                      (i,ws) <- zip [1..9] l,                                        
                       let n = i ] 
 myManageHook :: Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
