@@ -2,10 +2,12 @@
 # |  _ \_   _|  Derek Taylor (DistroTube)
 # | | | || |    http://www.youtube.com/c/DistroTube
 # | |_| || |    http://www.gitlab.com/dwt1/ 
-# |____/ |_|  	
-  
-EDITOR=vim
-export TERM="st-256color"
+# |____/ |_|
+#
+# My bash config. Not much to see here.  Some pretty standard stuff.
+
+EDITOR="emacsclient -c"
+export TERM="xterm-256color"
 
 [[ $- != *i* ]] && return
 
@@ -80,10 +82,9 @@ if ${use_color} ; then
 		PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
 	fi
 
-	alias ls='ls --color=auto'
-	alias grep='grep --colour=auto'
-	alias egrep='egrep --colour=auto'
-	alias fgrep='fgrep --colour=auto'
+		grep='grep --colour=auto' \
+		egrep='egrep --colour=auto' \
+		fgrep='fgrep --colour=auto'
 else
 	if [[ ${EUID} == 0 ]] ; then
 		# show root@ when we don't have colors
@@ -94,16 +95,6 @@ else
 fi
 
 unset use_color safe_term match_lhs sh
-
-alias cp="cp -i"                          # confirm before overwriting something
-alias df='df -h'                          # human-readable sizes
-alias free='free -m'                      # show sizes in MB
-alias np='nano -w PKGBUILD'
-alias more=less
-
-# terminal rickroll!
-alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
-
 
 xhost +local:root > /dev/null 2>&1
 
@@ -147,12 +138,50 @@ ex ()
   fi
 }
 
-# better yaourt colors
-export YAOURT_COLORS="nb=1:pkg=1:ver=1;32:lver=1;45:installed=1;42:grp=1;34:od=1;41;5:votes=1;44:dsc=0:other=1;35"
+### ALIASES ###
+# navigation
+alias	..='cd ..' \
+		...='cd ../..'
 
-neofetch
+# broot
+alias br='br -dhp'
+alias bs='br --sizes'
 
-alias config='/usr/bin/git --git-dir=/home/dt/dotfiles --work-tree=/home/dt'
+# Changing "ls" to "exa"
+alias ls='exa -al --color=always --group-directories-first' # my preferred listing
+alias la='exa -a --color=always --group-directories-first'  # all files and dirs
+alias ll='exa -l --color=always --group-directories-first'  # long format
+alias lt='exa -aT --color=always --group-directories-first' # tree listing
+
+# adding flags
+alias cp="cp -i"                          # confirm before overwriting something
+alias df='df -h'                          # human-readable sizes
+alias free='free -m'                      # show sizes in MB
+alias lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys'
+alias vifm='./.config/vifm/scripts/vifmrun'
+
+# the terminal rickroll
+alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
+
+# bare git repo alias for dotfiles
+alias config="/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME"
+
+# termbin
 alias tb="nc termbin.com 9999"
 
+### SET VI MODE IN BASH SHELL
 set -o vi
+
+### SET VIM AS MANPAGER ###
+export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
+
+### BASH POWERLINE ###
+source ~/.bash-powerline.sh
+
+### BROOT ###
+source /home/dt/.config/broot/launcher/bash/br
+
+### BASH INSULTER ###
+if [ -f /etc/bash.command-not-found ]; then
+    . /etc/bash.command-not-found
+fi
