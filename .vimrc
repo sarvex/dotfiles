@@ -1,3 +1,4 @@
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vundle For Managing Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -22,7 +23,7 @@ Plugin 'severin-lemaignan/vim-minimap'
 Plugin 'vimwiki/vimwiki'                            " Vim wiki
 Plugin 'ap/vim-css-color'                           " Color previews for CSS
 Plugin 'tpope/vim-surround'                         " Change surrounding marks
-Plugin 'hsitz/VimOrganizer'							" Org Mode
+"Plugin 'klen/python-mode'                          " Python Mode
 
 call vundle#end()		" required, all plugins must appear before this line.
 
@@ -69,7 +70,7 @@ set laststatus=2
 " Use 256 colours (Use this setting only if your terminal supports 256 colours)
 " set t_Co=256
 
-syntax enable
+syntax on   
 set relativenumber
 let g:rehash256 = 1
 let g:Powerline_symbols='unicode'
@@ -107,11 +108,13 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=1
 let NERDTreeMinimalUI = 1
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-colo default
+hi LineNr ctermfg=242
+hi CursorLineNr ctermfg=15
+hi VertSplit ctermfg=8 ctermbg=0
+hi Statement ctermfg=3
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mouse Scrolling
@@ -134,16 +137,4 @@ let g:minimap_highlight='Visual'
 let g:python_highlight_all = 1
 syntax on
 
-au! BufRead,BufWrite,BufWritePost,BufNewFile *.org 
-au BufEnter *.org            call org#SetOrgFileType()
 
-set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove toolbar
-set guioptions-=r  "remove right-hand scroll bar
-set guioptions-=L  "remove left-hand scroll bar
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Fixes mouse issues using Alacritty terminal
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set ttymouse=sgr

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 #  ____ _____ 
 # |  _ \_   _|  Derek Taylor (DistroTube)
-# | | | || |    http://www.youtube.com/c/DistroTube
-# | |_| || |    http://www.gitlab.com/dwt1/
-# |____/ |_|
+# | | | || |  	http://www.youtube.com/c/DistroTube
+# | |_| || |  	http://www.gitlab.com/dwt1/ 
+# |____/ |_|  	
 #        
 # A customized config.py for Qtile window manager (http://www.qtile.org)     
 # Modified by Derek Taylor (http://www.gitlab.com/dwt1/ )
@@ -83,13 +83,13 @@ def init_keys():
                 lazy.shutdown()                         # Shutdown Qtile
                 ),
             Key([mod], "w",
-                lazy.to_screen(0)                       # Keyboard focus screen(0)
+                lazy.to_screen(2)                       # Keyboard focus screen(0)
                 ),
             Key([mod], "e",
-                lazy.to_screen(1)                       # Keyboard focus screen(1)
+                lazy.to_screen(0)                       # Keyboard focus screen(1)
                 ),
             Key([mod], "r",
-                lazy.to_screen(2)                       # Keyboard focus screen(2)
+                lazy.to_screen(1)                       # Keyboard focus screen(2)
                 ),
             Key([mod, "control"], "k",
                 lazy.layout.section_up()                # Move up a section in treetab
@@ -97,7 +97,7 @@ def init_keys():
             Key([mod, "control"], "j",
                 lazy.layout.section_down()              # Move down a section in treetab
                 ),
-            ### Window controls
+            # Window controls
             Key(
                 [mod], "k",
                 lazy.layout.down()                      # Switch between windows in current stack pane
@@ -149,7 +149,7 @@ def init_keys():
                 lazy.layout.rotate(),                   # Swap panes of split stack (Stack)
                 lazy.layout.flip()                      # Switch which side main pane occupies (XmonadTall)
                 ),
-            ### Stack controls
+            # Stack controls
             Key(
                 [mod], "space",
                 lazy.layout.next()                      # Switch window focus to other pane(s) of stack
@@ -158,91 +158,136 @@ def init_keys():
                 [mod, "control"], "Return",
                 lazy.layout.toggle_split()              # Toggle between split and unsplit sides of stack
                 ),
-                
-            ### Dmenu Run Launcher
+            # GUI Apps
+
             Key(
-                ["mod1", "control"], "Return",
-                lazy.spawn("dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#282a36' -nf '#ffffff' -sb '#bd93f9' -sf '#282a36' -p 'dmenu:'")
-                ),
-                
-            ### Dmenu scripts launched with ALT + CTRL + KEY
-            Key(
-                ["mod1", "control"], "e",
-                lazy.spawn("./.dmenu/dmenu-edit-configs.sh")
+                [mod], "b",
+                lazy.function(app_or_group("WWW", "firefox"))
                 ),
             Key(
-                ["mod1", "control"], "m",
-                lazy.spawn("./.dmenu/dmenu-sysmon.sh")
+                [mod], "f",
+                lazy.spawn("pcmanfm")
                 ),
             Key(
-                ["mod1", "control"], "p",
-                lazy.spawn("passmenu")
+                [mod], "g",
+                lazy.spawn("geany")
+                ),
+            # Apps Launched with <SUPER> + <KEYPAD 0-9>
+            Key(
+                [mod], "KP_Insert",                                  # Keypad 0
+                # lazy.spawncmd()                                    # Qtile Run Dialog
+                lazy.spawn("dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
                 ),
             Key(
-                ["mod1", "control"], "r",
-                lazy.spawn("./.dmenu/dmenu-reddio.sh")
+                [mod], "KP_End",                                     # Keypad 1
+                lazy.spawn(myTerm+" -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com")
+                # lazy.spawn(myTerm+" -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com")
                 ),
             Key(
-                ["mod1", "control"], "s",
-                lazy.spawn("./.dmenu/dmenu-surfraw.sh")
+                [mod], "KP_Down",                                    # Keypad 2
+                lazy.spawn(myTerm+" -e sh ./scripts/googler-script.sh")
                 ),
             Key(
-                ["mod1", "control"], "t",
-                lazy.spawn("./.dmenu/dmenu-trading.sh")
-                ),
-            Key(
-                ["mod1", "control"], "i",
-                lazy.spawn("./.dmenu/dmenu-scrot.sh")
-                ),
-                
-            ### My applications launched with SUPER + ALT + KEY
-            Key(
-                [mod, "mod1"], "l",
-                lazy.spawn(myTerm+" -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube")
-                ),
-            Key(
-                [mod, "mod1"], "n",
+                [mod], "KP_Page_Down",                               # Keypad 3
                 lazy.spawn(myTerm+" -e newsboat")
                 ),
             Key(
-                [mod, "mod1"], "r",
+                [mod], "KP_Left",                                    # Keypad 4
                 lazy.spawn(myTerm+" -e rtv")
                 ),
             Key(
-                [mod, "mod1"], "e",
+                [mod], "KP_Begin",                                   # Keypad 5
                 lazy.spawn(myTerm+" -e neomutt")
                 ),
             Key(
-                [mod, "mod1"], "m",
+                [mod], "KP_Right",                                   # Keypad 6
+                lazy.spawn(myTerm+" -e twitch-curses")
+                ),
+            Key(
+                [mod], "KP_Home",                                    # Keypad 7
+                lazy.spawn(myTerm+" -e sh ./scripts/haxor-news.sh")
+                ),
+            Key(
+                [mod], "KP_Up",                                      # Keypad 8
                 lazy.spawn(myTerm+" -e sh ./scripts/toot.sh")
                 ),
             Key(
-                [mod, "mod1"], "t",
+                [mod], "KP_Page_Up",                                 # Keypad 9
                 lazy.spawn(myTerm+" -e sh ./scripts/tig-script.sh")
                 ),
+            # Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 0-9>
             Key(
-                [mod, "mod1"], "f",
+                [mod, "shift"], "KP_End",                            # Keypad 1
                 lazy.spawn(myTerm+" -e sh ./.config/vifm/scripts/vifmrun")
                 ),
             Key(
-                [mod, "mod1"], "j",
+                [mod, "shift"], "KP_Down",                           # Keypad 2
                 lazy.spawn(myTerm+" -e joplin")
                 ),
             Key(
-                [mod, "mod1"], "c",
+                [mod, "shift"], "KP_Page_Down",                      # Keypad 3
                 lazy.spawn(myTerm+" -e cmus")
                 ),
             Key(
-                [mod, "mod1"], "i",
+                [mod, "shift"], "KP_Left",                           # Keypad 4
                 lazy.spawn(myTerm+" -e irssi")
                 ),
             Key(
-                [mod, "mod1"], "y",
+                [mod, "shift"], "KP_Begin",                          # Keypad 5
+                lazy.spawn(myTerm+" -e rtorrent")
+                ),
+            Key(
+                [mod, "shift"], "KP_Right",                          # Keypad 6
                 lazy.spawn(myTerm+" -e youtube-viewer")
                 ),
             Key(
-                [mod, "mod1"], "a",
+                [mod, "shift"], "KP_Home",                           # Keypad 7
                 lazy.spawn(myTerm+" -e ncpamixer")
+                ),
+            Key(
+                [mod, "shift"], "KP_Up",                             # Keypad 8
+                lazy.spawn(myTerm+" -e calcurse")
+                ),
+            Key(
+                [mod, "shift"], "KP_Page_Up",                        # Keypad 9
+                lazy.spawn(myTerm+" -e vim /home/dt/.config/qtile/config.py")
+                ),
+            # Apps Launched with <SUPER> + <CONTROL> + <KEYPAD 0-9>
+            Key(
+                [mod, "control"], "KP_End",                            # Keypad 1
+                lazy.spawn(myTerm+" -e htop")
+                ),
+            Key(
+                [mod, "control"], "KP_Down",                           # Keypad 2
+                lazy.spawn(myTerm+" -e gtop")
+                ),
+            Key(
+                [mod, "control"], "KP_Page_Down",                      # Keypad 3
+                lazy.spawn(myTerm+" -e nmon")
+                ),
+            Key(
+                [mod, "control"], "KP_Left",                           # Keypad 4
+                lazy.spawn(myTerm+" -e glances")
+                ),
+            Key(
+                [mod, "control"], "KP_Begin",                          # Keypad 5
+                lazy.spawn(myTerm+" -e s-tui")
+                ),
+            Key(
+                [mod, "control"], "KP_Right",                          # Keypad 6
+                lazy.spawn(myTerm+" -e httping -KY --draw-phase localhost")
+                ),
+            Key(
+                [mod, "control"], "KP_Home",                           # Keypad 7
+                lazy.spawn(myTerm+" -e cmatrix -C cyan")
+                ),
+            Key(
+                [mod, "control"], "KP_Up",                             # Keypad 8
+                lazy.spawn(myTerm+" -e pianobar")
+                ),
+            Key(
+                [mod, "control"], "KP_Page_Up",                        # Keypad 9
+                lazy.spawn(myTerm+" -e wopr report.xml")
                 ),
         ]
     return keys
@@ -250,29 +295,28 @@ def init_keys():
 ##### BAR COLORS #####
 
 def init_colors():
-    return [["#282a36", "#282a36"], # panel background
+    return [["#292D3E", "#292D3E"], # panel background
             ["#434758", "#434758"], # background for current screen tab
-            ["#ffffff", "#ffffff"], # font color for group names
-            ["#ff5555", "#ff5555"], # background color for layout widget
+            ["#D0D0D0", "#D0D0D0"], # font color for group names
+            ["#F07178", "#F07178"], # background color for layout widget
             ["#000000", "#000000"], # background for other screen tabs
-            ["#A77AC4", "#A77AC4"], # dark green gradiant for other screen tabs
-            ["#50fa7b", "#50fa7b"], # background color for network widget
-            ["#7197E7", "#7197E7"], # background color for pacman widget
-            ["#9AEDFE", "#9AEDFE"], # background color for cmus widget
+            ["#AD69AF", "#AD69AF"], # dark green gradiant for other screen tabs
+            ["#C3E88D", "#C3E88D"], # background color for network widget
+            ["#C792EA", "#C792EA"], # background color for pacman widget
+            ["#9CC4FF", "#9CC4FF"], # background color for cmus widget
             ["#000000", "#000000"], # background color for clock widget
             ["#434758", "#434758"]] # background color for systray widget
 
 ##### GROUPS #####
 
 def init_group_names():
-    return [("WWW", {'layout': 'monadtall'}),
-            ("DEV", {'layout': 'monadtall'}),
+    return [("DEV", {'layout': 'max'}),
+            ("WWW", {'layout': 'max'}),
             ("SYS", {'layout': 'monadtall'}),
             ("DOC", {'layout': 'monadtall'}),
-            ("VBOX", {'layout': 'monadtall'}),
-            ("CHAT", {'layout': 'monadtall'}),
-            ("MUS", {'layout': 'monadtall'}),
-            ("VID", {'layout': 'monadtall'}),
+            ("VBOX", {'layout': 'floating'}),
+            ("CHAT", {'layout': 'bsp'}),
+            ("MEDIA", {'layout': 'monadtall'}),
             ("GFX", {'layout': 'floating'})]
 
 def init_groups():
@@ -286,7 +330,7 @@ def init_floating_layout():
 
 def init_layout_theme():
     return {"border_width": 2,
-            "margin": 4,
+            "margin": 10,
             "border_focus": "AD69AF",
             "border_normal": "1D2330"
            }
@@ -295,17 +339,10 @@ def init_border_args():
     return {"border_width": 2}
 
 def init_layouts():
-    return [#layout.MonadWide(**layout_theme),
-            #layout.Bsp(**layout_theme),
-            #layout.Stack(stacks=2, **layout_theme),
-            #layout.Columns(**layout_theme),
-            #layout.RatioTile(**layout_theme),
-            #layout.VerticalTile(**layout_theme),
-            #layout.Tile(shift_windows=True, **layout_theme),
-            #layout.Matrix(**layout_theme),
-            #layout.Zoomy(**layout_theme),
+    return [layout.Max(**layout_theme),
             layout.MonadTall(**layout_theme),
-            layout.Max(**layout_theme),
+            layout.MonadWide(**layout_theme),
+            layout.Bsp(**layout_theme),
             layout.TreeTab(
                 font = "Ubuntu",
                 fontsize = 10,
@@ -321,13 +358,23 @@ def init_layouts():
                 panel_width = 320,
                 **layout_theme
                 ),
+            layout.Slice(side="left", width=192, name="gimp", role="gimp-toolbox",
+                fallback=layout.Slice(side="right", width=256, role="gimp-dock",
+                fallback=layout.Stack(num_stacks=1, **border_args))),
+            #layout.Stack(stacks=2, **layout_theme),
+            #layout.Columns(**layout_theme),
+            #layout.RatioTile(**layout_theme),
+            #layout.VerticalTile(**layout_theme),
+            #layout.Tile(shift_windows=True, **layout_theme),
+            #layout.Matrix(**layout_theme),
+            #layout.Zoomy(**layout_theme),
             layout.Floating(**layout_theme)]
 
 ##### WIDGETS #####
 
 def init_widgets_defaults():
     return dict(font="Ubuntu Mono",
-                fontsize = 12,
+                fontsize = 11,
                 padding = 2,
                 background=colors[2])
 
@@ -344,15 +391,15 @@ def init_widgets_list():
                         fontsize = 9,
                         margin_y = 0,
                         margin_x = 0,
-                        padding_y = 5,
+                        padding_y = 9,
                         padding_x = 5,
                         borderwidth = 1,
                         active = colors[2],
                         inactive = colors[2],
                         rounded = False,
                         highlight_method = "block",
-                        this_current_screen_border = colors[5],
-                        this_screen_border = colors [1],
+                        this_current_screen_border = colors[1],
+                        this_screen_border = colors [4],
                         other_current_screen_border = colors[0],
                         other_screen_border = colors[0],
                         foreground = colors[2],
@@ -375,126 +422,120 @@ def init_widgets_list():
                         fontsize = 11,
                         foreground = colors[5],
                         background = colors[0],
-                        padding = 5
+                        padding = 6
                         ),
-               widget.TextBox(
-                        text='',
-                        background = colors[0],
-                        foreground = colors[5],
-                        padding=0,
-                        fontsize=37
+               widget.Image(
+                        scale = True,
+                        filename = "~/.config/qtile/bar06.png",
+                        background = colors[6]
+                        ),
+               widget.Systray(
+                        background=colors[10],
+                        padding = 6
+                        ),
+               widget.Image(
+                        scale = True,
+                        filename = "~/.config/qtile/bar02-b.png",
+                        background = colors[6]
                         ),
                widget.TextBox(
                         text=" ↯",
-                        foreground=colors[2],
-                        background=colors[5],
+                        foreground=colors[0],
+                        background=colors[6],
                         padding = 0,
                         fontsize=14
                         ),
                widget.Net(
-                        interface = "enp4s0",
-                        foreground = colors[2],
-                        background = colors[5],
-                        padding = 5
+                        interface = "enp3s0",
+                        foreground = colors[0],
+                        background = colors[6],
+                        padding = 6
                         ),
-               widget.TextBox(
-                        text='',
-                        background = colors[5],
-                        foreground = colors[7],
-                        padding=0,
-                        fontsize=37
+               widget.Image(
+                        scale = True,
+                        filename = "~/.config/qtile/bar03.png",
+                        background = colors[3]
                         ),
                widget.TextBox(
                         font="Ubuntu Bold",
                         text=" ☵",
-                        padding = 5,
-                        foreground=colors[2],
-                        background=colors[7],
+                        padding = 6,
+                        foreground=colors[0],
+                        background=colors[3],
                         fontsize=14
                         ),
                widget.CurrentLayout(
-                        foreground = colors[2],
-                        background = colors[7],
-                        padding = 5
+                        foreground = colors[0],
+                        background = colors[3],
+                        padding = 6
                         ),
-               widget.TextBox(
-                        text='',
-                        background = colors[7],
-                        foreground = colors[5],
-                        padding=0,
-                        fontsize=37
+               widget.Image(
+                        scale = True,
+                        filename = "~/.config/qtile/bar04.png",
+                        background = colors[7]
                         ),
                widget.TextBox(
                         font="Ubuntu Bold",
                         text=" ⟳",
-                        padding = 5,
-                        foreground=colors[2],
-                        background=colors[5],
+                        padding = 6,
+                        foreground=colors[0],
+                        background=colors[7],
                         fontsize=14
                         ),
                widget.Pacman(
                         execute = "urxvtc",
                         update_interval = 1800,
-                        foreground = colors[2],
-                        background = colors[5]
+                        foreground = colors[0],
+                        background = colors[7]
                         ),
                widget.TextBox(
                         text="Updates",
-                        padding = 5,
-                        foreground=colors[2],
-                        background=colors[5]
+                        padding = 6,
+                        foreground=colors[0],
+                        background=colors[7]
                         ),
-               widget.TextBox(
-                        text='',
-                        background = colors[5],
-                        foreground = colors[7],
-                        padding=0,
-                        fontsize=37
+               widget.Image(
+                        scale = True,
+                        filename = "~/.config/qtile/bar05.png",
+                        background = colors[8]
                         ),
                widget.TextBox(
                         font="Ubuntu Bold",
                         text=" ♫",
-                        padding = 5,
-                        foreground=colors[2],
-                        background=colors[7],
+                        padding = 6,
+                        foreground=colors[0],
+                        background=colors[8],
                         fontsize=14
                         ),
                widget.Cmus(
                         max_chars = 40,
                         update_interval = 0.5,
-                        background=colors[7],
-                        play_color = colors[2],
-                        noplay_color = colors[2]
+                        foreground=colors[0],
+                        background = colors[8]
                         ),
-               widget.TextBox(
-                        text='',
-                        background = colors[7],
-                        foreground = colors[5],
-                        padding=0,
-                        fontsize=37
+               widget.Image(
+                        scale = True,
+                        filename = "~/.config/qtile/bar07.png",
+                        background = colors[9]
                         ),
                widget.TextBox(
                         font="Ubuntu Bold",
                         text=" 🕒",
                         foreground=colors[2],
-                        background=colors[5],
-                        padding = 5,
+                        background=colors[9],
+                        padding = 6,
                         fontsize=14
                         ),
                widget.Clock(
                         foreground = colors[2],
-                        background = colors[5],
+                        background = colors[9],
                         format="%A, %B %d - %H:%M"
                         ),
                widget.Sep(
                         linewidth = 0,
-                        padding = 5,
+                        padding = 6,
                         foreground = colors[0],
-                        background = colors[5]
-                        ),
-               widget.Systray(
-                        background=colors[0],
-                        padding = 5
+                        background = colors[9]
                         ),
               ]
     return widgets_list
@@ -510,9 +551,9 @@ def init_widgets_screen2():
     return widgets_screen2                       # Monitor 2 will display all widgets in widgets_list
 
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.95, size=20)),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=0.95, size=20)),
-            Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.95, size=20))]
+    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.95, size=25)),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=0.95, size=25)),
+            Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=0.95, size=25))]
 
 ##### FLOATING WINDOWS #####
 
@@ -534,7 +575,7 @@ def init_mouse():
 
 if __name__ in ["config", "__main__"]:
     mod = "mod4"                                     # Sets mod key to SUPER/WINDOWS
-    myTerm = "alacritty"                             # My terminal of choice
+    myTerm = "st"                                    # My terminal of choice
     myConfig = "/home/dt/.config/qtile/config.py"    # Qtile config file location 
 
     colors = init_colors()

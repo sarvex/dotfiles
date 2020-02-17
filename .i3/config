@@ -31,42 +31,54 @@ bindsym $mod+n border normal
 # is used in the bar {} block below.
 font xft:URWGothic-Book 11
 
-# USE MOUSE + MODKEY TO DRAG FLOATING WINDOWS
+# Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 
-# OPENING A TERMINAL
+# start a $myTerm
 set $myTerm st
 bindsym $mod+Return exec $myTerm
 
-# KILL FOCUSED WINDOW
+# kill focused window
 bindsym $mod+Shift+c kill
 
-# MY PROGRAM LAUNCHER (DMENU)
-bindsym $mod+Shift+Return exec dmenu_run -i  -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -fn 'UbuntuMono Nerd Font:bold:pixelsize=14'
+# start program launcher
+bindsym $mod+KP_Insert exec --no-startup-id rofi -show run
 
-# MY DMENU SCRIPTS
-bindsym Mod1+Control+e exec ./.dmenu/dmenu-edit-configs.sh
-bindsym Mod1+Control+m exec ./.dmenu/dmenu-sysmon.sh
-bindsym Mod1+Control+p exec passmenu
-bindsym Mod1+Control+r exec ./.dmenu/dmenu-reddio.sh
-bindsym Mod1+Control+s exec ./.dmenu/dmenu-surfraw.sh
-bindsym Mod1+Control+t exec ./.dmenu/dmenu-trading.sh
+# launch categorized menu
+bindsym $mod+' exec --no-startup-id morc_menu
 
-# MY APPLICATIONS
-bindsym $mod+Mod1+a exec $myTerm -e ncpamixer
-bindsym $mod+Mod1+b exec surf www.youtube.com/c/DistroTube
-bindsym $mod+Mod1+c exec $myTerm -e cmus
-bindsym $mod+Mod1+e exec $myTerm -e neomutt
-bindsym $mod+Mod1+f exec $myTerm -e sh ./.config/vifm/scripts/vifmrun
-bindsym $mod+Mod1+i exec $myTerm -e irssi
-bindsym $mod+Mod1+j exec $myTerm -e joplin
-bindsym $mod+Mod1+l exec $myTerm -e lynx --cfg=~/.lynx/lynx.cfg --lss=~/.lynx/lynx.lss -vikeys gopher://distro.tube
-bindsym $mod+Mod1+m exec $myTerm -e sh ./scripts/toot.sh
-bindsym $mod+Mod1+n exec $myTerm -e newsboat
-bindsym $mod+Mod1+p exec $myTerm -e pianobar
-bindsym $mod+Mod1+r exec $myTerm -e rtv
-bindsym $mod+Mod1+w exec $myTerm -e wopr report.xml
-bindsym $mod+Mod1+y exec $myTerm -e youtube-viewer
+# Apps Launched with <SUPER> + <KEYPAD 1-9>
+bindsym $mod+KP_End exec $myTerm -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com
+bindsym $mod+KP_Down exec $myTerm -e sh ./scripts/googler-script.sh
+bindsym $mod+KP_Page_Down exec $myTerm -e newsboat
+bindsym $mod+KP_Left exec $myTerm -e rtv
+bindsym $mod+KP_Begin exec $myTerm -e neomutt
+bindsym $mod+KP_Right exec $myTerm -e twitch-curses
+bindsym $mod+KP_Home exec $myTerm -e sh ./scripts/haxor-news.sh
+bindsym $mod+KP_Up exec $myTerm -e toot curses
+bindsym $mod+KP_Page_Up exec $myTerm -e sh ./scripts/tig-script.sh
+
+# Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 1-9>
+bindsym $mod+Shift+KP_1 exec $myTerm -e vifm
+bindsym $mod+Shift+KP_2 exec $myTerm -e joplin
+bindsym $mod+Shift+KP_3 exec $myTerm -e cmus
+bindsym $mod+Shift+KP_4 exec $myTerm -e irssi
+bindsym $mod+Shift+KP_5 exec $myTerm -e rtorrent
+bindsym $mod+Shift+KP_6 exec $myTerm -e youtube-viewer
+bindsym $mod+Shift+KP_7 exec $myTerm -e ncpamixer
+bindsym $mod+Shift+KP_8 exec $myTerm -e calcurse
+bindsym $mod+Shift+KP_9 exec $myTerm -e vim /home/dt/.i3/config
+
+# Apps Launched with <SUPER> + <CTRL> + <KEYPAD 1-9>
+bindsym $mod+Ctrl+KP_End exec $myTerm -e htop
+bindsym $mod+Ctrl+KP_Down exec $myTerm -e gtop
+bindsym $mod+Ctrl+KP_Page_Down exec $myTerm -e nmon
+bindsym $mod+Ctrl+KP_Left exec $myTerm -e glances
+bindsym $mod+Ctrl+KP_Begin exec $myTerm -e s-tui
+bindsym $mod+Ctrl+KP_Right exec $myTerm -e httping -KY --draw-phase localhost
+bindsym $mod+Ctrl+KP_Home exec $myTerm -e cmatrix -C cyan
+bindsym $mod+Ctrl+KP_Up exec $myTerm -e pianobar
+bindsym $mod+Ctrl+KP_Page_Up exec $myTerm -e wopr report.xml
 
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
@@ -147,7 +159,7 @@ bindsym $mod+space focus mode_toggle
 
 # toggle sticky
 # bindsym $mod+Shift+s sticky toggle
-bindsym $mod+Shift+d exec ~/.i3/i3-display-swap.sh
+bindsym $mod+Shift+s exec ~/.i3/i3-display-swap.sh
 
 # focus the parent container
 bindsym $mod+a focus parent
