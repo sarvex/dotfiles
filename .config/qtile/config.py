@@ -106,12 +106,12 @@ keys = [
                 lazy.layout.shuffle_up()                # Move windows up in current stack
                 ),
             Key(
-                [mod, "shift"], "l",
+                [mod], "h",
                 lazy.layout.grow(),                     # Grow size of current window (XmonadTall)
                 lazy.layout.increase_nmaster(),         # Increase number in master pane (Tile)
                 ),
             Key(
-                [mod, "shift"], "h",
+                [mod], "l",
                 lazy.layout.shrink(),                   # Shrink size of current window (XmonadTall)
                 lazy.layout.decrease_nmaster(),         # Decrease number in master pane (Tile)
                 ),

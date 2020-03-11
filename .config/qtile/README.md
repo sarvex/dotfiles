@@ -23,7 +23,7 @@ keybindings consistent with all of my window managers.
 
 | Keybinding | Action |
 | :--- | :--- |
-| `MODKEY + RETURN` | opens terminal (st is the terminal but can be easily changed) |
+| `MODKEY + RETURN` | opens terminal (alacritty is the terminal but can be easily changed) |
 | `MODKEY + SHIFT + RETURN` | opens run launcher (dmenu is the run launcher but can be easily changed) |
 | `MODKEY + TAB` | rotates through the available layouts |
 | `MODKEY + SHIFT + c` | closes window with focus |
@@ -33,8 +33,8 @@ keybindings consistent with all of my window managers.
 | `MODKEY + k` | lazy layout down (switches focus between windows in the stack) |
 | `MODKEY + SHIFT + j` | lazy layout shuffle_up (rotates the windows in the stack) |
 | `MODKEY + SHIFT + k` | lazy layout shuffle_down (rotates the windows in the stack) |
-| `MODKEY + SHIFT + h` | Shrink size of window (MondadTall layout) |
-| `MODKEY + SHIFT + l` | Shrink size of window (MondadTall layout) |
+| `MODKEY + h` | Shrink size of window (MondadTall layout) |
+| `MODKEY + l` | Shrink size of window (MondadTall layout) |
 | `MODKEY + w` | switch focus to monitor 1 |
 | `MODKEY + e` | switch focus to monitor 2 |
 | `MODKEY + r` | switch focus to monitor 3 |

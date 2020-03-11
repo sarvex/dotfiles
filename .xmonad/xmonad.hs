@@ -36,7 +36,7 @@ import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
 import XMonad.Actions.CopyWindow (kill1, copyToAll, killAllOtherCopies, runOrCopy)
 import XMonad.Actions.WindowGo (runOrRaise, raiseMaybe)
 import XMonad.Actions.WithAll (sinkAll, killAll)
-import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), shiftNextScreen, shiftPrevScreen) 
+import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), nextScreen, prevScreen, shiftNextScreen, shiftPrevScreen)
 import XMonad.Actions.GridSelect
 import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, removeEmptyWorkspace)
 import XMonad.Actions.MouseResize
@@ -161,7 +161,7 @@ myKeys =
     -- Floating windows
         , ("M-<Delete>", withFocused $ windows . W.sink)  -- Push floating window back to tile.
         , ("M-S-<Delete>", sinkAll)                  -- Push ALL floating windows back to tile.
-		
+
     -- Grid Select
         , (("M-S-t"), spawnSelected'
           [ ("Audacity", "audacity")
@@ -214,7 +214,7 @@ myKeys =
         , ("M-C-<Left>", sendMessage (DecreaseLeft 10))   --  Decrease size of focused window left
 
     -- Layouts
-        , ("M-<Space>", sendMessage NextLayout)                              -- Switch to next layout
+        , ("M-<Tab>", sendMessage NextLayout)                              -- Switch to next layout
         , ("M-S-<Space>", sendMessage ToggleStruts)                          -- Toggles struts
         , ("M-S-n", sendMessage $ Toggle NOBORDERS)                          -- Toggles noborder
         , ("M-S-=", sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
@@ -227,16 +227,16 @@ myKeys =
         , ("M-S-<KP_Multiply>", increaseLimit)              -- Increase number of windows that can be shown
         , ("M-S-<KP_Divide>", decreaseLimit)                -- Decrease number of windows that can be shown
 
-        , ("M-C-h", sendMessage Shrink)
-        , ("M-C-l", sendMessage Expand)
+        , ("M-h", sendMessage Shrink)
+        , ("M-l", sendMessage Expand)
         , ("M-C-j", sendMessage MirrorShrink)
         , ("M-C-k", sendMessage MirrorExpand)
         , ("M-S-;", sendMessage zoomReset)
         , ("M-;", sendMessage ZoomFullToggle)
 
     -- Workspaces
-        , ("M-<KP_Add>", moveTo Next nonNSP)                                -- Go to next workspace
-        , ("M-<KP_Subtract>", moveTo Prev nonNSP)                           -- Go to previous workspace
+        , ("M-.", nextScreen)                           -- Switch focus to next monitor
+        , ("M-,", prevScreen)                           -- Switch focus to prev monitor
         , ("M-S-<KP_Add>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next workspace
         , ("M-S-<KP_Subtract>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to previous workspace
 
@@ -248,7 +248,7 @@ myKeys =
         , ("M-<Return>", spawn myTerminal)
 		
     --- Dmenu Scripts (Alt+Ctr+Key)
-        , ("M1-C-<Return>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
+        , ("M-S-<Return>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
         , ("M1-C-e", spawn "./.dmenu/dmenu-edit-configs.sh")
         , ("M1-C-h", spawn "./.dmenu/dmenu-hugo.sh")
         , ("M1-C-m", spawn "./.dmenu/dmenu-sysmon.sh")
