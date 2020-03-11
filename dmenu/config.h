@@ -8,7 +8,7 @@ static int min_width = 600;                    /* minimum width when centered */
 static const char *fonts[] = {
 	"Mononoki Nerd Font:size=10"
 };
-static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
+static const char *prompt      = NULL;      /* -p option; prompt to the left of input field */
 static const char *colors[SchemeLast][2] = {
 	/*     fg         bg       */
 	[SchemeNorm] = { "#bbc5ff", "#282a36" },
@@ -29,4 +29,4 @@ static unsigned int lineheight = 22;         /* -h option; minimum height of a m
 static const char worddelimiters[] = " ";
 
 /* Size of the window border */
-static unsigned int border_width = 1;
+static unsigned int border_width = 0;  /* -bw option; to add border width */
