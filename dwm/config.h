@@ -18,7 +18,7 @@ static const char dmenufont[]         = "Mononoki Nerd Font:size=9";
 static const char col_gray1[]         = "#282a36";
 static const char col_gray2[]         = "#000000"; /* border color unfocused windows */
 static const char col_gray3[]         = "#96b5b4";
-static const char col_gray4[]         = "#c0c5ce";
+static const char col_gray4[]         = "#d7d7d7";
 static const char col_cyan[]          = "#924441"; /* border color focused windows and tags */
 static const unsigned int baralpha    = 0xff; /* 0xee adds a wee bit transparency */
 static const unsigned int borderalpha = OPAQUE;

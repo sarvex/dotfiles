@@ -18,13 +18,16 @@ A full-featured, pure-Python tiling window manager
 
 # My Keybindings
 
-The MODKEY is set to the Super key (aka the Windows key).
+The MODKEY is set to the Super key (aka the Windows key).  I try to keep the
+keybindings consistent with all of my window managers.
 
 | Keybinding | Action |
 | :--- | :--- |
-| `ALT + CRTL + Enter` | opens run launcher (dmenu is the run launcher but can be easily changed) |
-| `MODKEY + Enter` | opens terminal (st is the terminal but can be easily changed) |
+| `MODKEY + RETURN` | opens terminal (st is the terminal but can be easily changed) |
+| `MODKEY + SHIFT + RETURN` | opens run launcher (dmenu is the run launcher but can be easily changed) |
+| `MODKEY + TAB` | rotates through the available layouts |
 | `MODKEY + SHIFT + c` | closes window with focus |
+| `MODKEY + SHIFT + r` | restarts qtile |
 | `MODKEY + SHIFT + q` | quits qtile |
 | `MODKEY + j` | lazy layout up (switches focus between windows in the stack) |
 | `MODKEY + k` | lazy layout down (switches focus between windows in the stack) |
@@ -32,15 +35,11 @@ The MODKEY is set to the Super key (aka the Windows key).
 | `MODKEY + SHIFT + k` | lazy layout shuffle_down (rotates the windows in the stack) |
 | `MODKEY + SHIFT + h` | Shrink size of window (MondadTall layout) |
 | `MODKEY + SHIFT + l` | Shrink size of window (MondadTall layout) |
-| `MODKEY + i` | switch focus to monitor 1 |
-| `MODKEY + o` | switch focus to monitor 2 |
-| `MODKEY + p` | switch focus to monitor 3 |
-
-# Current Release
-
-The current stable version of qtile is 0.13.0, released 2018-12-23. See the
-`documentation <http://docs.qtile.org/en/latest/manual/install/index.html>`
-for installation instructions.
+| `MODKEY + w` | switch focus to monitor 1 |
+| `MODKEY + e` | switch focus to monitor 2 |
+| `MODKEY + r` | switch focus to monitor 3 |
+| `MODKEY + period` | switch focus to next monitor |
+| `MODKEY + comma` | switch focus to prev monitor |
 
 # Community
 
