@@ -4,7 +4,7 @@ nitrogen --restore &
 urxvtd -q -o -f &
 
 dte(){
-  dte="$(date +"%A, %B %d - %l:%M%p")"
+  dte="$(date +"%A, %B %d %l:%M%p")"
   echo -e "🕒 $dte"
 }
 
