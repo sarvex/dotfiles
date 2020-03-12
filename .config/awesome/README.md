@@ -2,19 +2,14 @@
 
 ![Screenshot of my desktop](https://www.gitlab.com/dwt1/dotfiles/raw/master/.screenshots/dotfiles09.png)
 
-Awesome is a highly configurable, next generation framework window manager for X.
+Awesome is a highly configurable, tiling window manager for X. It is very fast, extensible and licensed under the GNU GPLv2 license.  Awesome is a perfect "first" tiling window manager for those who want to try out tiling, but the extreme customization that you can achieve with awesome makes it a power user's dream.  Awesome is configured with Lua.
 
 # Features
 
-* Simple, small and extensible. It's easy to write your own layouts,
-  widgets and commands.
-* Configured in Python.
-* Command shell that allows all aspects of Qtile to be managed and
-  inspected.
-* Complete remote scriptability - write scripts to set up workspaces,
-  manipulate windows, update status bar widgets and more.
-* Qtile's remote scriptability makes it one of the most thoroughly
-  unit-tested window managers around.
+* Simple enough for beginner's but flexible enough for the power user.
+* Extremely customizable, maybe more so than any other window manager.
+* Configured in Lua.
+* A documented API to configure and define the behavior of your window manager.
 
 # My Keybindings
 
