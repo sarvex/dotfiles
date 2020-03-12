@@ -18,21 +18,28 @@ Awesome is a highly configurable, next generation framework window manager for X
 
 # My Keybindings
 
-The MODKEY is set to the Super key (aka the Windows key).
+The MODKEY is set to the Super key (aka the Windows key).  I try to keep the
+keybindings consistent with all of my window managers.
 
 | Keybinding | Action |
 | :--- | :--- |
-| `ALT + CRTL + Enter` | opens run launcher (dmenu is the run launcher but can be easily changed) |
-| `MODKEY + Enter` | opens terminal (st is the terminal but can be easily changed) |
+| `MODKEY + RETURN` | opens terminal (alacritty is the terminal but can be easily changed) |
+| `MODKEY + SHIFT + RETURN` | opens run launcher (dmenu is the run launcher but can be easily changed) |
 | `MODKEY + SHIFT + c` | closes window with focus |
 | `MODKEY + SHIFT + r` | restarts awesome |
 | `MODKEY + SHIFT + q` | quits awesome |
+| `MODKEY + 1-9` | switch focus to workspace (1-9) |
+| `MODKEY + SHIFT + 1-9` | send focused window to workspace (1-9) |
 | `MODKEY + j` | switches focus between windows in the stack, going down |
 | `MODKEY + k` | switches focus between windows in the stack, going up |
+| `MODKEY + h` | switches focus between windows in the stack, going left |
+| `MODKEY + l` | switches focus between windows in the stack, going right |
 | `MODKEY + SHIFT + j` | rotates the windows in the stack, going down|
 | `MODKEY + SHIFT + k` | rotates the windows in the stack, going up |
-| `MODKEY + 1-9` | switch focus to workspace (1-9) |
-| `MODKEY + SHIFT + 1-9` | sends focused window to workspace (1-9) |
+| `MODKEY + SHIFT + h` | rotates the windows in the stack, going left|
+| `MODKEY + SHIFT + l` | rotates the windows in the stack, going right |
+| `MODKEY + period` | switch focus to next monitor |
+| `MODKEY + comma` | switch focus to prev monitor |
 
 ## Getting Help With Awesome
 

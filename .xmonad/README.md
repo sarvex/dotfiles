@@ -27,6 +27,8 @@ keybindings consistent with all of my window managers.
 | `MODKEY + SHIFT + c` | closes window with focus |
 | `MODKEY + SHIFT + r` | restarts xmonad |
 | `MODKEY + SHIFT + q` | quits xmonad |
+| `MODKEY + 1-9` | switch focus to workspace (1-9) |
+| `MODKEY + SHIFT + 1-9` | send focused window to workspace (1-9) |
 | `MODKEY + j` | windows focus down (switches focus between windows in the stack) |
 | `MODKEY + k` | windows focus up (switches focus between windows in the stack) |
 | `MODKEY + SHIFT + j` | windows swap down (swap windows in the stack) |

@@ -14,7 +14,9 @@ keybindings consistent with all of my window managers.
 | `MODKEY + SHIFT + RETURN` | opens run launcher (dmenu is the run launcher but can be easily changed) |
 | `MODKEY + SHIFT + c` | closes window with focus |
 | `MODKEY + SHIFT + r` | restarts dwm |
-| `MODKEY + SHIFT + q` | quits ddwm |
+| `MODKEY + SHIFT + q` | quits dwm |
+| `MODKEY + 1-9` | switch focus to workspace (1-9) |
+| `MODKEY + SHIFT + 1-9` | send focused window to workspace (1-9) |
 | `MODKEY + j` | focus stack +1 (switches focus between windows in the stack) |
 | `MODKEY + k` | focus stack -1 (switches focus between windows in the stack) |
 | `MODKEY + SHIFT + j` | rotate stack +1 (rotates the windows in the stack) |

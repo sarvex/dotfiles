@@ -49,7 +49,7 @@ local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
                      title = "Oops, there were errors during startup!",
-                     text = awesome.startup_errors })((
+                     text = awesome.startup_errors })
 end
 
 -- Handle runtime errors after startup
@@ -106,11 +106,11 @@ local modkey1      = "Control"
 local browser           = "firefox"
 local editor            = os.getenv("EDITOR") or "vim"
 local editorgui         = "geany"
-local filemanager       = "pcmanfm"
+local filemanager       = "thunar"
 local mailclient        = "geary"
 local mediaplayer       = "vlc"
 local scrlocker         = "slimlock"
-local terminal          = "st"
+local terminal          = "alacritty"
 local virtualmachine    = "virtualbox"
 
 -- awesome variables
@@ -118,7 +118,7 @@ awful.util.terminal = terminal
 --awful.util.tagnames = {  " ", " ", " ", " ", " ", " ", " ", " ", " ", " "  }
 --awful.util.tagnames = { "⠐", "⠡", "⠲", "⠵", "⠻", "⠿" }
 --awful.util.tagnames = { "⌘", "♐", "⌥", "ℵ" }
-awful.util.tagnames = { " DEV ", " WWW ", " SYS ", " DOC ", " VBOX ", " CHAT ", " MEDIA ", " GFX " }
+awful.util.tagnames = { " DEV ", " WWW ", " SYS ", " DOC ", " VBOX ", " CHAT ", " MUS ", " VID ", " GFX " }
 -- Use this : https://fontawesome.com/cheatsheet
 --awful.util.tagnames = { "", "", "", "", "" }
 awful.layout.suit.tile.left.mirror = true
@@ -267,7 +267,7 @@ globalkeys = my_table.join(
 
     -- {{{ Personal keybindings
     -- dmenu
-    awful.key({ altkey, "Control" }, "Return",
+    awful.key({ modkey, "Shift" }, "Return",
     function ()
         awful.spawn(string.format("dmenu_run -i  -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -fn 'Mononoki Nerd Font:bold:pixelsize=14'",
         beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
@@ -275,7 +275,7 @@ globalkeys = my_table.join(
     {description = "show dmenu", group = "hotkeys"}),
 
     -- My dmenu scripts (Alt+Ctrl+Key)
-    awful.key({ altkey, "Control"  }, "e", function () awful.util.spawn( "./.dmenu/dmenu-edit-configs.sh" ) end,
+    awful.key({ altkey, "Control" }, "e", function () awful.util.spawn( "./.dmenu/dmenu-edit-configs.sh" ) end,
         {description = "edit config files" , group = "dmenu scripts" }),
     awful.key({ altkey, "Control" }, "m", function () awful.util.spawn( "./.dmenu/dmenu-sysmon.sh" ) end,
         {description = "system monitoring apps" , group = "dmenu scripts" }),
@@ -287,7 +287,7 @@ globalkeys = my_table.join(
         {description = "trading programs" , group = "dmenu scripts" }),
         
     -- My applications (Super+Alt+Key)
-    awful.key({ modkey, altkey  }, "a", function () awful.util.spawn( "st -e ncpamixer" ) end,
+    awful.key({ modkey, altkey }, "a", function () awful.util.spawn( "st -e ncpamixer" ) end,
         {description = "ncpamixer" , group = "terminal apps" }),
     awful.key({ modkey, altkey }, "b", function () awful.util.spawn( "surf www.youtube.com/c/DistroTube" ) end,
         {description = "surf web browser" , group = "gui apps" }),
@@ -436,9 +436,9 @@ globalkeys = my_table.join(
               {description = "swap with next client by index", group = "client"}),
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
               {description = "swap with previous client by index", group = "client"}),
-    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end,
+    awful.key({ modkey }, ".", function () awful.screen.focus_relative( 1) end,
               {description = "focus the next screen", group = "screen"}),
-    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
+    awful.key({ modkey }, ",", function () awful.screen.focus_relative(-1) end,
               {description = "focus the previous screen", group = "screen"}),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),

@@ -72,7 +72,6 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 #define CMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
-
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
