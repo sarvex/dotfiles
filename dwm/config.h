@@ -8,7 +8,7 @@
 /* appearance */
 static const unsigned int borderpx    = 2;        /* border pixel of windows */
 static const unsigned int snap        = 32;       /* snap pixel */
-static const unsigned int gappx       = 5;        /* pixel gap between clients */
+static const unsigned int gappx       = 6;        /* pixel gap between clients */
 static const int showbar              = 1;        /* 0 means no bar */
 static const int topbar               = 1;        /* 0 means bottom bar */
 static const int horizpadbar          = 6;        /* horizontal padding for statusbar */
@@ -16,7 +16,7 @@ static const int vertpadbar           = 7;        /* vertical padding for status
 static const char *fonts[]            = { "Mononoki Nerd Font:size=9" };
 static const char dmenufont[]         = "Mononoki Nerd Font:size=9";
 static const char col_gray1[]         = "#282a36";
-static const char col_gray2[]         = "#000000"; /* border color unfocused windows */
+static const char col_gray2[]         = "#282a36"; /* border color unfocused windows */
 static const char col_gray3[]         = "#96b5b4";
 static const char col_gray4[]         = "#d7d7d7";
 static const char col_cyan[]          = "#924441"; /* border color focused windows and tags */
@@ -83,6 +83,7 @@ static const char *termcmd[]  = { "alacritty", NULL };
 
 static Key keys[] = {
 	/* modifier             key        function        argument */
+	{ MODKEY|ShiftMask,     XK_Return, spawn,          {.v = dmenucmd } },
 	{ MODKEY,               XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,               XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,     XK_j,      rotatestack,    {.i = +1 } },
@@ -93,7 +94,7 @@ static Key keys[] = {
 	{ MODKEY,               XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,               XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,               XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY|ShiftMask,     XK_Return, zoom,           {0} },
+	{ MODKEY|ControlMask,   XK_Return, zoom,           {0} },
 	{ MODKEY,               XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,     XK_c,      killclient,     {0} },
 
@@ -117,7 +118,6 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,     XK_period, tagmon,         {.i = +1 } },
 	
     /* Dmenu scripts launched with ALT + CTRL + KEY */
-	{ Mod1Mask|ControlMask, XK_Return, spawn,          {.v = dmenucmd } },
 	{ Mod1Mask|ControlMask, XK_e,      spawn,          CMD("./.dmenu/dmenu-edit-configs.sh") },
 	{ Mod1Mask|ControlMask, XK_m,      spawn,          CMD("./.dmenu/dmenu-sysmon.sh") },
 	{ Mod1Mask|ControlMask, XK_p,      spawn,          CMD("passmenu") },

@@ -1,36 +1,28 @@
 # My dwm (Dynamic Window Manager) build
 
 ![Screenshot of my desktop](https://gitlab.com/dwt1/dotfiles/raw/master/.screenshots/dotfiles04.png) 
-dwm is an extremely fast, small, and dynamic window manager for X.
+Dwm is an extremely fast, small, and dynamic window manager for X.  This is my personal build of dwm.  I used a number of patches in this build to make dwm more "sensible" rather than "suckless."  
 
 # My Keybindings
 
-The MODKEY is set to the `Super` key (aka the `Windows` key)
+The MODKEY is set to the Super key (aka the Windows key).  I try to keep the
+keybindings consistent with all of my window managers.
 
 | Keybinding | Action |
 | :--- | :--- |
-| `MODKEY + Keypad Insert` | opens run launcher (dmenu is the run launcher but can be easily changed) |
-| `MODKEY + Enter` | opens terminal (st is the terminal but can be easily changed) |
+| `MODKEY + RETURN` | opens terminal (alacritty is the terminal but can be easily changed) |
+| `MODKEY + SHIFT + RETURN` | opens run launcher (dmenu is the run launcher but can be easily changed) |
 | `MODKEY + SHIFT + c` | closes window with focus |
-| `MODKEY + SHIFT + q` | quits dwm |
+| `MODKEY + SHIFT + r` | restarts dwm |
+| `MODKEY + SHIFT + q` | quits ddwm |
 | `MODKEY + j` | focus stack +1 (switches focus between windows in the stack) |
 | `MODKEY + k` | focus stack -1 (switches focus between windows in the stack) |
 | `MODKEY + SHIFT + j` | rotate stack +1 (rotates the windows in the stack) |
 | `MODKEY + SHIFT + k` | rotate stack -1 (rotates the windows in the stack) |
-| `MODKEY + h` | setmfact -0.05 (decreases window width) |
-| `MODKEY + l` | setmfact +0.05 (increases window width) |
-| `MODKEY + ,` | focusmon -1 (switches focus between monitors) |
-| `MODKEY + .` | focusmon +1 (switches focus between monitors) |
-
-# Requirements
-
-In order to build dwm you need the Xlib header files.
-
-
-# Installation
-
-Edit config.mk to match your local setup (dwm is installed into
-the /usr/local namespace by default).
+| `MODKEY + h` | setmfact -0.05 (expands size of window) |
+| `MODKEY + l` | setmfact +0.05 (shrinks size of window) |
+| `MODKEY + .` | focusmon +1 (switches focus next monitors) |
+| `MODKEY + ,` | focusmon -1 (switches focus to prev monitors) |
 
 Afterwards enter the following command to build and install dwm (if
 necessary as root):
