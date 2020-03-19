@@ -6,7 +6,7 @@
 /* macros */
 #define MIN(a, b)		((a) < (b) ? (a) : (b))
 #define MAX(a, b)		((a) < (b) ? (b) : (a))
-#define LEN(a)			    (sizeof(a) / sizeof(a)[0])
+#define LEN(a)			(sizeof(a) / sizeof(a)[0])
 #define BETWEEN(x, a, b)	((a) <= (x) && (x) <= (b))
 #define DIVCEIL(n, d)		(((n) + ((d) - 1)) / (d))
 #define DEFAULT(a, b)		(a) = (a) ? (a) : (b)
@@ -74,14 +74,8 @@ typedef union {
 	uint ui;
 	float f;
 	const void *v;
+	const char *s;
 } Arg;
-
-typedef struct {
-	uint b;
-	uint mask;
-	void (*func)(const Arg *);
-	const Arg arg;
-} MouseKey;
 
 void die(const char *, ...);
 void redraw(void);
@@ -124,11 +118,10 @@ char *xstrdup(char *);
 extern char *utmp;
 extern char *stty_args;
 extern char *vtiden;
-extern char *worddelimiters;
+extern wchar_t *worddelimiters;
 extern int allowaltscreen;
 extern char *termname;
 extern unsigned int tabspaces;
 extern unsigned int alpha;
 extern unsigned int defaultfg;
 extern unsigned int defaultbg;
-extern MouseKey mkeys[];

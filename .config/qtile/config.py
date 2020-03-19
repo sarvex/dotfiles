@@ -339,8 +339,7 @@ def init_widgets_list():
                         foreground = colors[2],
                         background = colors[0]
                         ),
-               widget.WindowName(font="Ubuntu",
-                        fontsize = 11,
+               widget.WindowName(
                         foreground = colors[4],
                         background = colors[0],
                         padding = 5
@@ -353,7 +352,6 @@ def init_widgets_list():
                         fontsize=37
                         ),
                widget.TextBox(
-                        font="Ubuntu Bold",
                         text=" ⟳",
                         padding = 5,
                         foreground=colors[2],
@@ -419,7 +417,6 @@ def init_widgets_list():
                         fontsize=37
                         ),
                widget.TextBox(
-                        font="Ubuntu Bold",
                         text=" ♫",
                         padding = 5,
                         foreground=colors[2],
@@ -460,7 +457,6 @@ def init_widgets_list():
                         fontsize=37
                         ),
                widget.TextBox(
-                        font="Ubuntu Bold",
                         text=" ☵",
                         padding = 5,
                         foreground=colors[2],
@@ -480,7 +476,6 @@ def init_widgets_list():
                         fontsize=37
                         ),
                widget.TextBox(
-                        font="Ubuntu Bold",
                         text=" 🕒",
                         foreground=colors[2],
                         background=colors[4],

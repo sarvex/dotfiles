@@ -1,11 +1,16 @@
-/* See LICENSE file for copyright and license details. */
+/*  ____ _____  */
+/* |  _ \_   _|  Derek Taylor (DistroTube) */
+/* | | | || |  	 http://www.youtube.com/c/DistroTube */
+/* | |_| || |  	 http://www.gitlab.com/dwt1/ */
+/* |____/ |_|  	 */ 
 
-/*
- * appearance
- *
- * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
- */
-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+/* See LICENSE file for copyright and license details. */
+/* appearance */
+static char *font = "Mononoki Nerd Font:pixelsize=14:antialias=true:autohint=true";
+static char *font2[] = {
+	"Inconsolata for Powerline:pixelsize=12:antialias=true:autohint=true",
+	"Hack Nerd Font Mono:pixelsize=11:antialias=true:autohint=true",
+};
 static int borderpx = 2;
 
 /*
@@ -30,9 +35,9 @@ static float chscale = 1.0;
 /*
  * word delimiter string
  *
- * More advanced example: " `'\"()[]{}"
+ * More advanced example: L" `'\"()[]{}"
  */
-char *worddelimiters = " ";
+wchar_t *worddelimiters = L" ";
 
 /* selection timeouts (in milliseconds) */
 static unsigned int doubleclicktimeout = 300;
@@ -82,48 +87,51 @@ char *termname = "st-256color";
  */
 unsigned int tabspaces = 8;
 
-/* bg opacity */
-unsigned int alpha = 0xcc;
+/* bg opacity 
+ * 0xff is no transparency.
+ * 0xee adds wee bit of transparency.
+ * Play with the value to get desired transparency.
+ */
+unsigned int alpha = 0xff; 
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
+    "#282a36",
+	"#f07178",
+	"#c3e88d",
+	"#ffcb6b",
+	"#82aaff",
+	"#c792ea",
+	"#89ddff",
+	"#d0d0d0",
 
 	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
+	"#434758",
+	"#ff8b92",
+	"#ddffa7",
+	"#ffe585",
+	"#9cc4ff",
+	"#e1acff",
+	"#a3f7ff",
+	"#ffffff",
 
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
-	"#cccccc",
-	"#555555",
-	"black",
+	"#282a36",
+	"#bbc5ff",
+	"#d7d7d7",
 };
-
 
 /*
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 7;
-unsigned int defaultbg = 257;
-static unsigned int defaultcs = 256;
-static unsigned int defaultrcs = 257;
+unsigned int defaultbg = 256;
+unsigned int defaultfg = 257;
+static unsigned int defaultcs = 258;
+static unsigned int defaultrcs = 258;
 
 /*
  * Default shape of cursor
@@ -155,19 +163,23 @@ static unsigned int mousebg = 0;
 static unsigned int defaultattr = 11;
 
 /*
+ * Force mouse select/shortcuts while mask is active (when MODE_MOUSE is set).
+ * Note that if you want to use ShiftMask with selmasks, set this to an other
+ * modifier, set to 0 to not use it.
+ */
+static uint forcemousemod = ShiftMask;
+
+/*
  * Internal mouse shortcuts.
  * Beware that overloading Button1 will disable the selection.
  */
 static MouseShortcut mshortcuts[] = {
-	/* button               mask            string */
-	{ Button4,              XK_NO_MOD,      "\031" },
-	{ Button5,              XK_NO_MOD,      "\005" },
-};
-
-MouseKey mkeys[] = {
-	/* button               mask            function        argument */
-	{ Button4,              XK_NO_MOD,      kscrollup,      {.i =  1} },
-	{ Button5,              XK_NO_MOD,      kscrolldown,    {.i =  1} },
+	/* mask                 button   function        argument       release */
+	{ XK_ANY_MOD,           Button4, kscrollup,      {.i = 3},      0, /* !alt */ -1 },
+	{ XK_ANY_MOD,           Button5, kscrolldown,    {.i = 3},      0, /* !alt */ -1 },
+	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
+	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
+	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
 };
 
 /* Internal keyboard shortcuts. */
@@ -180,16 +192,14 @@ static Shortcut shortcuts[] = {
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
-	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
-	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
+	{ TERMMOD,              XK_K,           zoom,           {.f = +1} },
+	{ TERMMOD,              XK_J,           zoom,           {.f = -1} },
+	{ TERMMOD,              XK_U,           zoomreset,      {.f =  0} },
 	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
-	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
 };
 
 /*
@@ -207,10 +217,6 @@ static Shortcut shortcuts[] = {
  * * 0: no value
  * * > 0: cursor application mode enabled
  * * < 0: cursor application mode disabled
- * crlf value
- * * 0: no value
- * * > 0: crlf mode is enabled
- * * < 0: crlf mode is disabled
  *
  * Be careful with the order of the definitions because st searches in
  * this table sequentially, so any XK_ANY_MOD must be in the last
@@ -228,13 +234,6 @@ static KeySym mappedkeys[] = { -1 };
  * numlock (Mod2Mask) and keyboard layout (XK_SWITCH_MOD) are ignored.
  */
 static uint ignoremod = Mod2Mask|XK_SWITCH_MOD;
-
-/*
- * Override mouse-select while mask is active (when MODE_MOUSE is set).
- * Note that if you want to use ShiftMask with selmasks, set this to an other
- * modifier, set to 0 to not use it.
- */
-static uint forceselmod = ShiftMask;
 
 /*
  * This is the huge key array which defines all compatibility to the Linux
