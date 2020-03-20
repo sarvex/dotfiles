@@ -9,13 +9,15 @@
 
 
 declare -a options=("r/archlinux
+r/bash
 r/commandline
 r/DistroTube
-r/GopherHoles
 r/linux
-r/linuxmasterrace
-r/unixporn
 r/linux4noobs
+r/linuxmasterrace
+r/linuxquestions
+r/suckless
+r/unixporn
 r/vim
 quit")
 
