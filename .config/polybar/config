@@ -871,7 +871,7 @@ format-padding = 2
 ;   %percentage-cores% - load percentage for each core
 ;   %percentage-core[1-9]% - load percentage for specific core
 label-font = 3
-label = Cpu %percentage:3%%
+label = CPU: %percentage%%
 ramp-coreload-0 = ▁
 ramp-coreload-0-font = 3
 ramp-coreload-0-foreground = #aaff77
