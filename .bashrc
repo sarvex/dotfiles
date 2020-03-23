@@ -140,6 +140,7 @@ ex ()
 }
 
 ### ALIASES ###
+
 # navigation
 alias	..='cd ..' \
 		...='cd ../..'

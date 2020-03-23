@@ -1,3 +1,9 @@
+/*  ____ _____  */
+/* |  _ \_   _|  Derek Taylor (DistroTube) */
+/* | | | || |  	http://www.youtube.com/c/DistroTube */
+/* | |_| || |  	http://www.gitlab.com/dwt1/ */
+/* |____/ |_|  	*/ 
+
 /* See LICENSE file for copyright and license details. */
 /* Default settings; can be overriden by command line. */
 
@@ -6,17 +12,17 @@ static int centered = 0;                    /* -c option; centers dmenu on scree
 static int min_width = 600;                    /* minimum width when centered */
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
-	"Mononoki Nerd Font:size=10"
+	"Mononoki Nerd Font:size=9"
 };
 static const char *prompt      = NULL;      /* -p option; prompt to the left of input field */
 static const char *colors[SchemeLast][2] = {
 	/*     fg         bg       */
-	[SchemeNorm] = { "#bbc5ff", "#282a36" },
-	[SchemeSel] = { "#282a36", "#82aaff" },
-	[SchemeSelHighlight] = { "#82aaff", "#000000" },
-	[SchemeNormHighlight] = { "#f1fa8c", "#000000" },
+	[SchemeNorm] = { "#cccccc", "#282a36" },
+	[SchemeSel] = { "#ffffff", "#924441" },
+	[SchemeSelHighlight] = { "#d7d7d7", "#000000" },
+	[SchemeNormHighlight] = { "#e78481", "#000000" },
 	[SchemeOut] = { "#000000", "#00ffff" },
-	[SchemeMid] = { "#eeeeee", "#770000" },
+	[SchemeMid] = { "#d7d7d7", "#1f2026" },
 };
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
 static unsigned int lines      = 0;

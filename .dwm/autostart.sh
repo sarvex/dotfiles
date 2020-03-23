@@ -2,3 +2,4 @@
 compton &
 nitrogen --restore &
 dwmblocks &
+lxsession &
