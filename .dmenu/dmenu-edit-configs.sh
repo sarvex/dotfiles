@@ -120,4 +120,4 @@ case "$choice" in
 		exit 1
 	;;
 esac
-emacsclient -c "$choice"
+st -e vim "$choice"

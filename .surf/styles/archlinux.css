@@ -82,7 +82,7 @@ dd a{
 }
 #toc, .toc, .mw-warning, .toccolours {
     background-color: #000000 !important;
-    border: 1px solid #d7dfe3 !important;
+    border: 1px solid #666666 !important;
     color: #d0d0d0 !important;
 }
 .tocnumber, .toctogglelabel {
@@ -96,7 +96,7 @@ div#mw-head {
 }
 div.vectorTabs li.selected {
     border: 1px solid #666666 !important;
-    border-bottom-color: #000000 !important;
+    border-bottom-color: #666666 !important;
     background-color: #000000 !important;
     padding-bottom: 20px !important;
 }
@@ -107,7 +107,10 @@ div.vectorTabs li.selected {
     border: 1px solid #666666 !important;
     background-color: #000000 !important;
 }
-
+.mw-body, .parsoid-body {
+    color: #d0d0d0 !important;
+    font-size: 1.2em !important;
+}
 
 
 /* AUR */
@@ -152,4 +155,32 @@ tr.roweven {
 }
 .pun .blocktable td {
     border-color: #444444 !important;
+}
+.pun .blockpost {
+    background: #282a36 !important;
+    border-color: #444444 !important;
+}
+.pun .blockpost h2 {
+    background: #000000 !important;
+    border: none !important;
+    color: #82aaff !important;
+}
+.pun .blockpost .postbody, .pun .blockpost .postfoot {
+    background: #282a36 !important;
+    border-color: #444444 !important;
+}
+#punviewtopic .blockpost dt, #punmoderate .blockpost dt {
+    top: -1.8em !important;
+    color: #ff8b92 !important;
+}
+.pun .postmsg, #punhelp code, #punhelp samp {
+    color: #d0d0d0 !important;
+}
+.pun .codebox {
+    border-color: #444444 !important;
+    background: #9cc4ff !important;
+    color: #000000 !important;
+}
+.pun .codebox pre {
+    border: none !important;
 }

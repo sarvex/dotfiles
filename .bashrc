@@ -7,8 +7,8 @@
 # My bash config. Not much to see here.  Some pretty standard stuff.
 
 PATH="$HOME/.local/bin${PATH:+:${PATH}}"
-EDITOR="emacsclient -c"
-export TERM="xterm-256color"
+EDITOR="vim"
+export TERM="st"
 
 [[ $- != *i* ]] && return
 
@@ -140,6 +140,9 @@ ex ()
 }
 
 ### ALIASES ###
+
+# root privileges
+alias doas="doas --"
 
 # navigation
 alias	..='cd ..' \

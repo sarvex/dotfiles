@@ -12,8 +12,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()		" required, all plugins must appear after this line.
 
 Plugin 'gmarik/Vundle.vim'							" Vundle
-Plugin 'vim-airline/vim-airline'					" Airline
-Plugin 'vim-airline/vim-airline-themes'				" Airline Themes
+Plugin 'itchyny/lightline.vim'                      " Lightline statusbar
 Plugin 'scrooloose/nerdtree'						" added nerdtree
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'ryanoasis/vim-devicons'
@@ -46,39 +45,22 @@ filetype plugin indent on    " required
 "Remap ESC to ii
 :imap ii <Esc>
 
-"Disable arrow keys in Normal mode
-no <Up> <Nop>
-no <Down> <Nop>
-no <Left> <Nop>
-no <Right> <Nop>
-
-"Disable arrow keys in Insert mode
-ino <Up> <Nop>
-ino <Down> <Nop>
-ino <Left> <Nop>
-ino <Right> <Nop>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Powerline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Powerline
-set rtp+=/usr/share/powerline/bindings/vim/
+let g:lightline = {
+      \ 'colorscheme': 'darcula',
+      \ }
 
 " Always show statusline
 set laststatus=2
 
 " Use 256 colours (Use this setting only if your terminal supports 256 colours)
-" set t_Co=256
+set t_Co=256
 
 syntax enable   
 set relativenumber
 let g:rehash256 = 1
-let g:Powerline_symbols='unicode'
-let g:Powerline_theme='long'
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline_theme='angr'
 
 " Uncomment to prevent non-normal modes showing in powerline and below powerline.
 set noshowmode
@@ -148,4 +130,7 @@ set guioptions-=L  "remove left-hand scroll bar
 set ttymouse=sgr
 
 
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Removes pipes | that act as seperators on splits
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+:set fillchars+=vert:\ 

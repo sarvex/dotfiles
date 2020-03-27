@@ -34,7 +34,7 @@ from typing import List  # noqa: F401
 
 ##### DEFINING SOME VARIABLES #####
 mod = "mod4"                                     # Sets mod key to SUPER/WINDOWS
-myTerm = "alacritty"                             # My terminal of choice
+myTerm = "st"                                    # My terminal of choice
 myConfig = "/home/dt/.config/qtile/config.py"    # The Qtile config file location
 
 ##### KEYBINDINGS #####
@@ -46,7 +46,7 @@ keys = [
                 ),
             Key(
                 [mod, "shift"], "Return",              # Dmenu Run Launcher
-                lazy.spawn("dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#282a36' -nf '#ffffff' -sb '#bd93f9' -sf '#282a36' -p 'dmenu:'")
+                lazy.spawn("dmenu_run -p 'Run: '")
                 ),
             Key(
                 [mod], "Tab",
