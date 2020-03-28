@@ -192,4 +192,4 @@ if [ -f /etc/bash.command-not-found ]; then
 fi
 
 ### RANDOM COLOR SCRIPT ###
-/opt/shell-color-scripts/randomcolors.sh
+/opt/shell-color-scripts/colorscript.sh random
