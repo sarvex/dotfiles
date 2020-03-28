@@ -7,7 +7,7 @@
 # My bash config. Not much to see here.  Some pretty standard stuff.
 
 PATH="$HOME/.local/bin${PATH:+:${PATH}}"
-EDITOR="vim"
+EDITOR="nvim"
 export TERM="st"
 
 [[ $- != *i* ]] && return
@@ -147,6 +147,9 @@ alias doas="doas --"
 # navigation
 alias	..='cd ..' \
 		...='cd ../..'
+
+# vim
+alias vim=nvim
 
 # broot
 alias br='br -dhp'

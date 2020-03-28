@@ -110,7 +110,7 @@ local filemanager       = "thunar"
 local mailclient        = "geary"
 local mediaplayer       = "vlc"
 local scrlocker         = "slimlock"
-local terminal          = "alacritty"
+local terminal          = "st"
 local virtualmachine    = "virtualbox"
 
 -- awesome variables
