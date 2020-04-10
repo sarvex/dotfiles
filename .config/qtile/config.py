@@ -240,8 +240,8 @@ for i, (name, kwargs) in enumerate(group_names, 1):
 
 ##### DEFAULT THEME SETTINGS FOR LAYOUTS #####
 layout_theme = {"border_width": 2,
-                "margin": 4,
-                "border_focus": "AD69AF",
+                "margin": 6,
+                "border_focus": "e1acff",
                 "border_normal": "1D2330"
                 }
 
@@ -344,15 +344,12 @@ def init_widgets_list():
                         background = colors[0],
                         padding = 0
                         ),
-               widget.Systray(
-                        background=colors[0],
-                        padding = 5
-                        ),
-               widget.Image(
-                        filename='/home/dt/.config/qtile/black-purple.png',
+               widget.TextBox(
+                        text='',
                         background = colors[0],
+                        foreground = colors[4],
                         padding=0,
-                        scale=0.7
+                        fontsize=37
                         ),
                widget.TextBox(
                         text=" ₿",
@@ -366,11 +363,12 @@ def init_widgets_list():
                         background=colors[4],
                         padding = 5
                         ),
-               widget.Image(
-                        filename='/home/dt/.config/qtile/purple-blue.png',
-                        background = colors[0],
+               widget.TextBox(
+                        text='',
+                        background = colors[4],
+                        foreground = colors[5],
                         padding=0,
-                        scale=0.7
+                        fontsize=37
                         ),
                widget.TextBox(
                         text=" 🌡",
@@ -384,11 +382,12 @@ def init_widgets_list():
                         background=colors[5],
                         padding = 5
                         ),
-               widget.Image(
-                        filename='/home/dt/.config/qtile/blue-purple.png',
-                        background = colors[0],
+               widget.TextBox(
+                        text='',
+                        background = colors[5],
+                        foreground = colors[4],
                         padding=0,
-                        scale=0.7
+                        fontsize=37
                         ),
                widget.TextBox(
                         text=" ⟳",
@@ -409,11 +408,12 @@ def init_widgets_list():
                         foreground=colors[2],
                         background=colors[4]
                         ),
-               widget.Image(
-                        filename='/home/dt/.config/qtile/purple-blue.png',
-                        background = colors[0],
+               widget.TextBox(
+                        text='',
+                        background = colors[4],
+                        foreground = colors[5],
                         padding=0,
-                        scale=0.7
+                        fontsize=37
                         ),
                widget.TextBox(
                         text=" 🖬",
@@ -427,11 +427,12 @@ def init_widgets_list():
                         background = colors[5],
                         padding = 5
                         ),
-               widget.Image(
-                        filename='/home/dt/.config/qtile/blue-purple.png',
-                        background = colors[0],
+               widget.TextBox(
+                        text='',
+                        background = colors[5],
+                        foreground = colors[4],
                         padding=0,
-                        scale=0.7
+                        fontsize=37
                         ),
                widget.Net(
                         interface = "enp6s0",
@@ -439,11 +440,12 @@ def init_widgets_list():
                         background = colors[4],
                         padding = 5
                         ),
-               widget.Image(
-                        filename='/home/dt/.config/qtile/purple-blue.png',
-                        background = colors[0],
+               widget.TextBox(
+                        text='',
+                        background = colors[4],
+                        foreground = colors[5],
                         padding=0,
-                        scale=0.7
+                        fontsize=37
                         ),
                widget.TextBox(
                        text=" Vol:",
@@ -456,11 +458,12 @@ def init_widgets_list():
                         background = colors[5],
                         padding = 5
                         ),
-               widget.Image(
-                        filename='/home/dt/.config/qtile/blue-purple.png',
-                        background = colors[0],
+               widget.TextBox(
+                        text='',
+                        background = colors[5],
+                        foreground = colors[4],
                         padding=0,
-                        scale=0.7
+                        fontsize=37
                         ),
                widget.CurrentLayoutIcon(
                         custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
@@ -474,28 +477,27 @@ def init_widgets_list():
                         background = colors[4],
                         padding = 5
                         ),
-               widget.Image(
-                        filename='/home/dt/.config/qtile/purple-black.png',
-                        background = colors[0],
+               widget.TextBox(
+                        text='',
+                        background = colors[4],
+                        foreground = colors[5],
                         padding=0,
-                        scale=0.7
-                        ),
-               widget.Sep(
-                        linewidth = 0,
-                        padding = 8,
-                        foreground = colors[0],
-                        background = colors[0]
+                        fontsize=37
                         ),
                widget.Clock(
                         foreground = colors[2],
-                        background = colors[0],
+                        background = colors[5],
                         format="%A, %B %d - [ %H:%M ]"
                         ),
                widget.Sep(
                         linewidth = 0,
                         padding = 10,
                         foreground = colors[0],
-                        background = colors[0]
+                        background = colors[5]
+                        ),
+               widget.Systray(
+                        background=colors[0],
+                        padding = 5
                         ),
               ]
     return widgets_list
