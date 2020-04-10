@@ -8,7 +8,7 @@
 
 PATH="$HOME/.local/bin${PATH:+:${PATH}}"
 EDITOR="nvim"
-export TERM="st"
+export TERM="st-256color"
 
 [[ $- != *i* ]] && return
 
@@ -145,8 +145,8 @@ ex ()
 alias doas="doas --"
 
 # navigation
-alias	..='cd ..' \
-		...='cd ../..'
+alias ..='cd ..' 
+alias ...='cd ../..'
 
 # vim
 alias vim=nvim

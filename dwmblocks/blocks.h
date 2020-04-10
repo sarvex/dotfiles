@@ -3,7 +3,7 @@ static const Block blocks[] = {
 	/*Icon*/	/*Command*/	 	/*Update Interval*/	/*Update Signal*/
     {" 🐧 ", "kernel",		    360,		        2},
 
-	{" ▲ ", "upt",		        60,		            2},
+	{" 🔺 ", "upt",		        60,		            2},
 
 	{" 📦 ", "pacupdate",		360,		        9},
 	

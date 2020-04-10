@@ -4,6 +4,8 @@
 # | |_| || |    http://www.gitlab.com/dwt1/ 
 # |____/ |_| 
 
+PATH="$HOME/.local/bin${PATH:+:${PATH}}"
+EDITOR="nvim"
 export TERM="st-256color"
 
 # If you come from bash you might have to change your $PATH.
@@ -16,18 +18,18 @@ ZSH=/usr/share/oh-my-zsh/
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="powerlevel9k"
-POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND='5'
-POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND='0'
-POWERLEVEL9K_STATUS_OK_BACKGROUND='8'
-POWERLEVEL9K_VCS_CLEAN_BACKGROUND='11'
-POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='8'
-POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='10'
-POWERLEVEL9K_VCS_MAX_SYNC_LATENCY_SECONDS='0.05'
-POWERLEVEL9K_VI_INSERT_MODE_STRING='INSERT' 
-POWERLEVEL9K_VI_COMMAND_MODE_STRING='NORMAL'﻿
+ZSH_THEME="distrotube"
+# POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND='5'
+# POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND='0'
+# POWERLEVEL9K_STATUS_OK_BACKGROUND='8'
+# POWERLEVEL9K_VCS_CLEAN_BACKGROUND='11'
+# POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='8'
+# POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='10'
+# POWERLEVEL9K_VCS_MAX_SYNC_LATENCY_SECONDS='0.05'
+# POWERLEVEL9K_VI_INSERT_MODE_STRING='INSERT' 
+# POWERLEVEL9K_VI_COMMAND_MODE_STRING='NORMAL'﻿
 # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history time)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 ZLE_RPROMPT_INDENT=0
 
 # Set list of themes to pick from when loading at random
@@ -122,13 +124,23 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
 fi
 
 source $ZSH/oh-my-zsh.sh
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+# source ~/powerlevel10k/powerlevel10k.zsh-theme
 
-# terminal rickroll!
-alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
+### ALIASES ###
 
-# dotfile git alias
-alias config='/usr/bin/git --git-dir=/home/dt/dotfiles --work-tree=/home/dt'
+# root privileges
+alias doas="doas --"
+
+# navigation
+alias ..='cd ..' 
+alias ...='cd ../..'
+
+# vim
+alias vim=nvim
+
+# broot
+alias br='br -dhp'
+alias bs='br --sizes'
 
 # Changing "ls" to "exa"
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
@@ -136,24 +148,41 @@ alias la='exa -a --color=always --group-directories-first'  # all files and dirs
 alias ll='exa -l --color=always --group-directories-first'  # long format
 alias lt='exa -aT --color=always --group-directories-first' # tree listing
 
+# adding flags
 alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
-alias grep='grep --colour=auto'
+alias free='free -m'                      # show sizes in MB
+alias lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys'
+alias vifm='./.config/vifm/scripts/vifmrun'
 
-#alias lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys'
+# the terminal rickroll
+alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
 
-zstyle ':completion:*' completer _expand_alias _complete _ignored
+# bare git repo alias for dotfiles
+alias config="/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME"
+
+# termbin
 alias tb="nc termbin.com 9999"
-# alt+<- | alt+->  
-bindkey "^[f" forward-word      # deletes everything right of the prompt.
-bindkey "^[b" backward-word     # deletes characters one at a time, backwards.
 
-# bindkey -v
-bindkey '^R' history-incremental-search-backward
+### SET VI MODE IN BASH SHELL
+set -o vi
 
+### SET VIM AS MANPAGER ###
 export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+### BASH POWERLINE ###
+source ~/.bash-powerline.sh
+
+### BROOT ###
 source /home/dt/.config/broot/launcher/bash/br
 
+### BASH INSULTER ###
+if [ -f /etc/bash.command-not-found ]; then
+    . /etc/bash.command-not-found
+fi
+
+### RANDOM COLOR SCRIPT ###
+/opt/shell-color-scripts/colorscript.sh random
+
+### SETS VI MODE ###
 bindkey -v

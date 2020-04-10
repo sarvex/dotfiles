@@ -21,14 +21,18 @@ dwm
 emacs.d/init.el
 herbstluftwm
 i3
+neovim
 polybar
 qtile
 st
 stumpwm
+surf
 sxhkd
+tabbed
 termite
 vifm
 vim
+vimb
 xmobar
 xmonad
 xresources
@@ -69,7 +73,7 @@ case "$choice" in
 		choice="$HOME/.config/dunst/dunstrc"
 	;;
 	dwm)
-		choice="$HOME/dwm/config.h"
+		choice="$HOME/dwm-distrotube/config.h"
 	;;
 	emacs.d/init.el)
 		choice="$HOME/.emacs.d/init.el"
@@ -80,6 +84,9 @@ case "$choice" in
 	i3)
 		choice="$HOME/.i3/config"
 	;;
+	neovim)
+		choice="$HOME/.config/nvim/init.vim"
+	;;
 	polybar)
 		choice="$HOME/.config/polybar/config"
 	;;
@@ -87,13 +94,19 @@ case "$choice" in
 		choice="$HOME/.config/qtile/config.py"
 	;;
 	st)
-		choice="$HOME/st/config.h"
+		choice="$HOME/st-distrotube/config.h"
 	;;
 	stumpwm)
 		choice="$HOME/.config/stumpwm/config"
 	;;
+	surf)
+		choice="$HOME/surf-distrotube/config.h"
+	;;
 	sxhkd)
 		choice="$HOME/.config/sxhkd/sxhkdrc"
+	;;
+	tabbed)
+		choice="$HOME/tabbed-distrotube/config.h"
 	;;
 	termite)
 		choice="$HOME/.config/termite/config"
@@ -103,6 +116,9 @@ case "$choice" in
 	;;
 	vim)
 		choice="$HOME/.vimrc"
+	;;
+	vimb)
+		choice="$HOME/.config/vimb/config"
 	;;
 	xmobar)
 		choice="$HOME/.config/xmobar/xmobarrc2"

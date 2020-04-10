@@ -1,34 +1,52 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vundle For Managing Plugins
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  ____ _____ 
+" |  _ \_   _|  Derek Taylor (DistroTube)
+" | | | || |    http://www.youtube.com/c/DistroTube
+" | |_| || |    http://www.gitlab.com/dwt1/
+" |____/ |_|
+"        
+" A customized init.vim for neovim (https://neovim.io/)     
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vundle For Managing Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()		" required, all plugins must appear after this line.
-
-Plugin 'gmarik/Vundle.vim'							" Vundle
-Plugin 'itchyny/lightline.vim'                      " Lightline statusbar
-Plugin 'vifm/vifm.vim'
-Plugin 'vimwiki/vimwiki'                            " Vim wiki
-Plugin 'scrooloose/nerdtree'						" added nerdtree
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plugin 'ryanoasis/vim-devicons'
-Plugin 'frazrepo/vim-rainbow'
-Plugin 'vim-python/python-syntax'
-Plugin 'jreybert/vimagit'
-Plugin 'severin-lemaignan/vim-minimap'
-Plugin 'ap/vim-css-color'                           " Color previews for CSS
-Plugin 'tpope/vim-surround'                         " Change surrounding marks
+"{{ The Basics }}
+    Plugin 'gmarik/Vundle.vim'                           " Vundle
+    Plugin 'itchyny/lightline.vim'                       " Lightline statusbar
+    Plugin 'suan/vim-instant-markdown', {'rtp': 'after'} " Markdown Preview
+    Plugin 'frazrepo/vim-rainbow'
+"{{ File management }}
+    Plugin 'vifm/vifm.vim'                               " Vifm
+    Plugin 'scrooloose/nerdtree'                         " Nerdtree
+    Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'     " Highlighting Nerdtree
+    Plugin 'ryanoasis/vim-devicons'                      " Icons for Nerdtree
+"{{ Productivity }}
+    Plugin 'vimwiki/vimwiki'                             " VimWiki 
+    Plugin 'jreybert/vimagit'                            " Magit-like plugin for vim
+"{{ Tim Pope Plugins }}
+    Plugin 'tpope/vim-surround'                          " Change surrounding marks
+"{{ Syntax Highlighting and Colors }}
+    Plugin 'PotatoesMaster/i3-vim-syntax'                " i3 config highlighting
+    Plugin 'kovetskiy/sxhkd-vim'                         " sxhkd highlighting
+    Plugin 'vim-python/python-syntax'                    " Python highlighting
+    Plugin 'ap/vim-css-color'                            " Color previews for CSS
+"{{ Junegunn Choi Plugins }}
+    Plugin 'junegunn/goyo.vim'                           " Distraction-free viewing
+    Plugin 'junegunn/limelight.vim'                      " Hyperfocus on a range
+    Plugin 'junegunn/vim-emoji'                          " Vim needs emojis!
 
 call vundle#end()		" required, all plugins must appear before this line.
 
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
-"filetype plugin on
+" filetype plugin on
 
 " Brief help
 " :PluginList       - lists configured plugins
@@ -46,8 +64,9 @@ filetype plugin indent on    " required
 :imap ii <Esc>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Powerline
+" => Status Line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" The lightline.vim theme
 let g:lightline = {
       \ 'colorscheme': 'darcula',
       \ }
@@ -92,25 +111,25 @@ let NERDTreeMinimalUI = 1
 let g:NERDTreeWinSize=38
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors
+" => Colors and Theming
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-  highlight LineNr           ctermfg=8    ctermbg=none    cterm=none
-  highlight CursorLineNr     ctermfg=7    ctermbg=8       cterm=none
-  highlight VertSplit        ctermfg=0    ctermbg=8       cterm=none
-  highlight Statement        ctermfg=2    ctermbg=none    cterm=none
-  highlight Directory        ctermfg=4    ctermbg=none    cterm=none
-  highlight StatusLine       ctermfg=7    ctermbg=8       cterm=none
-  highlight StatusLineNC     ctermfg=7    ctermbg=8       cterm=none
-  highlight NERDTreeClosable ctermfg=2
-  highlight NERDTreeOpenable ctermfg=8
-  highlight Comment          ctermfg=4    ctermbg=none    cterm=none
-  highlight Constant         ctermfg=12   ctermbg=none    cterm=none
-  highlight Special          ctermfg=4    ctermbg=none    cterm=none
-  highlight Identifier       ctermfg=6    ctermbg=none    cterm=none
-  highlight PreProc          ctermfg=5    ctermbg=none    cterm=none
-  highlight String           ctermfg=12   ctermbg=none    cterm=none
-  highlight Number           ctermfg=1    ctermbg=none    cterm=none
-  highlight Function         ctermfg=1    ctermbg=none    cterm=none
+highlight LineNr           ctermfg=8    ctermbg=none    cterm=none
+highlight CursorLineNr     ctermfg=7    ctermbg=8       cterm=none
+highlight VertSplit        ctermfg=0    ctermbg=8       cterm=none
+highlight Statement        ctermfg=2    ctermbg=none    cterm=none
+highlight Directory        ctermfg=4    ctermbg=none    cterm=none
+highlight StatusLine       ctermfg=7    ctermbg=8       cterm=none
+highlight StatusLineNC     ctermfg=7    ctermbg=8       cterm=none
+highlight NERDTreeClosable ctermfg=2
+highlight NERDTreeOpenable ctermfg=8
+highlight Comment          ctermfg=4    ctermbg=none    cterm=none
+highlight Constant         ctermfg=12   ctermbg=none    cterm=none
+highlight Special          ctermfg=4    ctermbg=none    cterm=none
+highlight Identifier       ctermfg=6    ctermbg=none    cterm=none
+highlight PreProc          ctermfg=5    ctermbg=none    cterm=none
+highlight String           ctermfg=12   ctermbg=none    cterm=none
+highlight Number           ctermfg=1    ctermbg=none    cterm=none
+highlight Function         ctermfg=1    ctermbg=none    cterm=none
 " highlight WildMenu         ctermfg=0       ctermbg=80      cterm=none
 " highlight Folded           ctermfg=103     ctermbg=234     cterm=none
 " highlight FoldColumn       ctermfg=103     ctermbg=234     cterm=none
@@ -138,6 +157,8 @@ let g:NERDTreeWinSize=38
 " highlight htmlEndTag       ctermfg=114     ctermbg=none    cterm=none
 " highlight xmlEndTag        ctermfg=114     ctermbg=none    cterm=none
 
+" Removes pipes | that act as seperators on splits
+set fillchars+=vert:\ 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vifm
@@ -155,6 +176,19 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vim-Instant-Markdown
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:instant_markdown_autostart = 0         " Turns off auto preview
+let g:instant_markdown_browser = "surf"      " Uses surf for preview
+map <Leader>md :InstantMarkdownPreview<CR>   " Previews .md file
+map <Leader>ms :InstantMarkdownStop<CR>      " Kills the preview
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Open terminal inside Vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <Leader>tt :vnew term://bash<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mouse Scrolling
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set mouse=nicr
@@ -170,8 +204,6 @@ set incsearch
 set nobackup
 set noswapfile
 
-let g:minimap_highlight='Visual'
-
 let g:python_highlight_all = 1
 
 au! BufRead,BufWrite,BufWritePost,BufNewFile *.org 
@@ -181,10 +213,4 @@ set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Removes pipes | that act as seperators on splits
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set fillchars+=vert:\ 
 
