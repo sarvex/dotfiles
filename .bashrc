@@ -4,7 +4,7 @@
 # | |_| || |    http://www.gitlab.com/dwt1/ 
 # |____/ |_|
 #
-# My bash config. Not much to see here.  Some pretty standard stuff.
+# My bash config. Not much to see here. Some pretty standard stuff.
 
 PATH="$HOME/.local/bin${PATH:+:${PATH}}"
 EDITOR="nvim"
