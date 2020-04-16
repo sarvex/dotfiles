@@ -9,6 +9,7 @@
 PATH="$HOME/.local/bin${PATH:+:${PATH}}"
 EDITOR="nvim"
 export TERM="st-256color"
+export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 
 [[ $- != *i* ]] && return
 
@@ -143,6 +144,7 @@ ex ()
 
 # root privileges
 alias doas="doas --"
+alias sudo='sudo '
 
 # navigation
 alias ..='cd ..' 

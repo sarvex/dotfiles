@@ -204,6 +204,11 @@ keys = [
              ),
          ### My applications launched with SUPER + ALT + KEY
          Key(
+             [mod, "mod1"], "b",
+             lazy.spawn("tabbed -r 2 surf -pe x '.surf/html/homepage.html'"),
+             desc='lynx browser'
+             ),
+         Key(
              [mod, "mod1"], "l",
              lazy.spawn(myTerm+" -e lynx gopher://distro.tube"),
              desc='lynx browser'
