@@ -16,7 +16,7 @@ hdd() {
 ## RAM
 mem() {
   mem=`free | awk '/Mem/ {printf "%d MiB/%d MiB\n", $3 / 1024.0, $2 / 1024.0 }'`
-  echo -e "MEM: $mem"
+  echo -e "$mem"
 }
 
 ## CPU
@@ -39,6 +39,6 @@ vol() {
 SLEEP_SEC=5
 #loops forever outputting a line every SLEEP_SEC secs
 while :; do
-    echo "$(cpu) | $(mem) | $(hdd) | $(vol) | $(dte)"
+    echo "+@fg=1; +@fn=1;💻+@fn=0; $(cpu) +@fg=0; | +@fg=2;  +@fn=1;💾+@fn=0; $(mem) +@fg=0; | +@fg=3; +@fn=1;💿+@fn=0; $(hdd) +@fg=0; | +@fg=4; +@fn=1;🔈+@fn=0; $(vol) +@fg=0; |"
 	sleep $SLEEP_SEC
 done

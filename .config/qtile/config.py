@@ -42,182 +42,226 @@ keys = [
          ### The essentials
          Key(
              [mod], "Return",
-             lazy.spawn(myTerm)                      # Open terminal
+             lazy.spawn(myTerm),
+             desc='Launches Terminal'
              ),
          Key(
-             [mod, "shift"], "Return",              # Dmenu Run Launcher
-             lazy.spawn("dmenu_run -p 'Run: '")
+             [mod, "shift"], "Return",
+             lazy.spawn("dmenu_run -p 'Run: '"),
+             desc='Dmenu Run Launcher'
              ),
          Key(
              [mod], "Tab",
-             lazy.next_layout()                      # Toggle through layouts
+             lazy.next_layout(),
+             desc='Toggle through layouts'
              ),
          Key(
              [mod, "shift"], "c",
-             lazy.window.kill()                      # Kill active window
+             lazy.window.kill(),
+             desc='Kill active window'
              ),
          Key(
              [mod, "shift"], "r",
-             lazy.restart()                          # Restart Qtile
+             lazy.restart(),
+             desc='Restart Qtile'
              ),
          Key(
              [mod, "shift"], "q",
-             lazy.shutdown()                         # Shutdown Qtile
+             lazy.shutdown(),
+             desc='Shutdown Qtile'
              ),
          ### Switch focus to specific monitor (out of three)
          Key([mod], "w",
-             lazy.to_screen(0)                       # Keyboard focus to screen(0)
+             lazy.to_screen(0),
+             desc='Keyboard focus to monitor 1'
              ),
          Key([mod], "e",
-             lazy.to_screen(1)                       # Keyboard focus to screen(1)
+             lazy.to_screen(1),
+             desc='Keyboard focus to monitor 2'
              ),
          Key([mod], "r",
-             lazy.to_screen(2)                       # Keyboard focus to screen(2)
+             lazy.to_screen(2),
+             desc='Keyboard focus to monitor 3'
              ),
          ### Switch focus of monitors
          Key([mod], "period",
-             lazy.next_screen()                      # Move monitor focus to next screen
+             lazy.next_screen(),
+             desc='Move focus to next monitor'
              ),
          Key([mod], "comma",
-             lazy.prev_screen()                      # Move monitor focus to prev screen
+             lazy.prev_screen(),
+             desc='Move focus to prev monitor'
              ),
          ### Treetab controls
          Key([mod, "control"], "k",
-             lazy.layout.section_up()                # Move up a section in treetab
+             lazy.layout.section_up(),
+             desc='Move up a section in treetab'
              ),
          Key([mod, "control"], "j",
-             lazy.layout.section_down()              # Move down a section in treetab
+             lazy.layout.section_down(),
+             desc='Move down a section in treetab'
              ),
          ### Window controls
          Key(
              [mod], "k",
-             lazy.layout.down()                      # Switch between windows in current stack pane
+             lazy.layout.down(),
+             desc='Move focus down in current stack pane'
              ),
          Key(
              [mod], "j",
-             lazy.layout.up()                        # Switch between windows in current stack pane
+             lazy.layout.up(),
+             desc='Move focus up in current stack pane'
              ),
          Key(
              [mod, "shift"], "k",
-             lazy.layout.shuffle_down()              # Move windows down in current stack
+             lazy.layout.shuffle_down(),
+             desc='Move windows down in current stack'
              ),
          Key(
              [mod, "shift"], "j",
-             lazy.layout.shuffle_up()                # Move windows up in current stack
+             lazy.layout.shuffle_up(),
+             desc='Move windows up in current stack'
              ),
          Key(
              [mod], "h",
-             lazy.layout.grow(),                     # Grow size of current window (XmonadTall)
-             lazy.layout.increase_nmaster(),         # Increase number in master pane (Tile)
+             lazy.layout.grow(),
+             lazy.layout.increase_nmaster(),
+             desc='Expand window (MonadTall), increase number in master pane (Tile)'
              ),
          Key(
              [mod], "l",
-             lazy.layout.shrink(),                   # Shrink size of current window (XmonadTall)
-             lazy.layout.decrease_nmaster(),         # Decrease number in master pane (Tile)
+             lazy.layout.shrink(),
+             lazy.layout.decrease_nmaster(),
+             desc='Shrink window (MonadTall), decrease number in master pane (Tile)'
              ),
          Key(
              [mod], "n",
-             lazy.layout.normalize()                 # Restore all windows to default size ratios 
+             lazy.layout.normalize(),
+             desc='normalize window size ratios'
              ),
          Key(
              [mod], "m",
-             lazy.layout.maximize()                  # Toggle a window between minimum and maximum sizes
+             lazy.layout.maximize(),
+             desc='toggle window between minimum and maximum sizes'
              ),
          Key(
              [mod, "shift"], "f",
-             lazy.window.toggle_floating()           # Toggle floating
+             lazy.window.toggle_floating(),
+             desc='toggle floating'
              ),
          ### Stack controls
          Key(
              [mod, "shift"], "space",
-             lazy.layout.rotate(),                   # Swap panes of split stack (Stack)
-             lazy.layout.flip()                      # Switch which side main pane occupies (XmonadTall)
+             lazy.layout.rotate(),
+             lazy.layout.flip(),
+             desc='Switch which side main pane occupies (XmonadTall)'
              ),
          Key(
              [mod], "space",
-             lazy.layout.next()                      # Switch window focus to other pane(s) of stack
+             lazy.layout.next(),
+             desc='Switch window focus to other pane(s) of stack'
              ),
          Key(
              [mod, "control"], "Return",
-             lazy.layout.toggle_split()              # Toggle between split and unsplit sides of stack
+             lazy.layout.toggle_split(),
+             desc='Toggle between split and unsplit sides of stack'
              ),
          ### Dmenu scripts launched with ALT + CTRL + KEY
          Key(
              ["mod1", "control"], "e",
-             lazy.spawn("./.dmenu/dmenu-edit-configs.sh")
+             lazy.spawn("./.dmenu/dmenu-edit-configs.sh"),
+             desc='Dmenu script for editing config files'
              ),
          Key(
              ["mod1", "control"], "m",
-             lazy.spawn("./.dmenu/dmenu-sysmon.sh")
+             lazy.spawn("./.dmenu/dmenu-sysmon.sh"),
+             desc='Dmenu system monitor script'
              ),
          Key(
              ["mod1", "control"], "p",
-             lazy.spawn("passmenu")
+             lazy.spawn("passmenu"),
+             desc='Passmenu'
              ),
          Key(
              ["mod1", "control"], "r",
-             lazy.spawn("./.dmenu/dmenu-reddio.sh")
+             lazy.spawn("./.dmenu/dmenu-reddio.sh"),
+             desc='Dmenu reddio script'
              ),
          Key(
              ["mod1", "control"], "s",
-             lazy.spawn("./.dmenu/dmenu-surfraw.sh")
+             lazy.spawn("./.dmenu/dmenu-surfraw.sh"),
+             desc='Dmenu surfraw script'
              ),
          Key(
              ["mod1", "control"], "t",
-             lazy.spawn("./.dmenu/dmenu-trading.sh")
+             lazy.spawn("./.dmenu/dmenu-trading.sh"),
+             desc='Dmenu trading programs script'
              ),
          Key(
              ["mod1", "control"], "i",
-             lazy.spawn("./.dmenu/dmenu-scrot.sh")
+             lazy.spawn("./.dmenu/dmenu-scrot.sh"),
+             desc='Dmenu scrot script'
              ),
          ### My applications launched with SUPER + ALT + KEY
          Key(
              [mod, "mod1"], "l",
-             lazy.spawn(myTerm+" -e lynx gopher://distro.tube")
+             lazy.spawn(myTerm+" -e lynx gopher://distro.tube"),
+             desc='lynx browser'
              ),
          Key(
              [mod, "mod1"], "n",
-             lazy.spawn(myTerm+" -e newsboat")
+             lazy.spawn(myTerm+" -e newsboat"),
+             desc='newsboat'
              ),
          Key(
              [mod, "mod1"], "r",
-             lazy.spawn(myTerm+" -e rtv")
+             lazy.spawn(myTerm+" -e rtv"),
+             desc='reddit terminal viewer'
              ),
          Key(
              [mod, "mod1"], "e",
-             lazy.spawn(myTerm+" -e neomutt")
+             lazy.spawn(myTerm+" -e neomutt"),
+             desc='neomutt'
              ),
          Key(
              [mod, "mod1"], "m",
-             lazy.spawn(myTerm+" -e sh ./scripts/toot.sh")
+             lazy.spawn(myTerm+" -e sh ./scripts/toot.sh"),
+             desc='toot mastodon cli'
              ),
          Key(
              [mod, "mod1"], "t",
-             lazy.spawn(myTerm+" -e sh ./scripts/tig-script.sh")
+             lazy.spawn(myTerm+" -e sh ./scripts/tig-script.sh"),
+             desc='tig'
              ),
          Key(
              [mod, "mod1"], "f",
-             lazy.spawn(myTerm+" -e sh ./.config/vifm/scripts/vifmrun")
+             lazy.spawn(myTerm+" -e sh ./.config/vifm/scripts/vifmrun"),
+             desc='vifm'
              ),
          Key(
              [mod, "mod1"], "j",
-             lazy.spawn(myTerm+" -e joplin")
+             lazy.spawn(myTerm+" -e joplin"),
+             desc='joplin'
              ),
          Key(
              [mod, "mod1"], "c",
-             lazy.spawn(myTerm+" -e cmus")
+             lazy.spawn(myTerm+" -e cmus"),
+             desc='cmus'
              ),
          Key(
              [mod, "mod1"], "i",
-             lazy.spawn(myTerm+" -e irssi")
+             lazy.spawn(myTerm+" -e irssi"),
+             desc='irssi'
              ),
          Key(
              [mod, "mod1"], "y",
-             lazy.spawn(myTerm+" -e youtube-viewer")
+             lazy.spawn(myTerm+" -e youtube-viewer"),
+             desc='youtube-viewer'
              ),
          Key(
              [mod, "mod1"], "a",
-             lazy.spawn(myTerm+" -e ncpamixer")
+             lazy.spawn(myTerm+" -e ncpamixer"),
+             desc='ncpamixer'
              ),
 ]
 
@@ -309,7 +353,7 @@ def init_widgets_list():
                         ),
                widget.GroupBox(font="Ubuntu Bold",
                         fontsize = 9,
-                        margin_y = 1,
+                        margin_y = 3,
                         margin_x = 0,
                         padding_y = 5,
                         padding_x = 5,
@@ -436,6 +480,7 @@ def init_widgets_list():
                         ),
                widget.Net(
                         interface = "enp6s0",
+                        format = '{down} ↓↑ {up}',
                         foreground = colors[2],
                         background = colors[4],
                         padding = 5
@@ -487,7 +532,7 @@ def init_widgets_list():
                widget.Clock(
                         foreground = colors[2],
                         background = colors[5],
-                        format="%A, %B %d - [ %H:%M ]"
+                        format="%A, %B %d  [ %H:%M ]"
                         ),
                widget.Sep(
                         linewidth = 0,

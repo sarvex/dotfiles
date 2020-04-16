@@ -24,6 +24,7 @@ i3
 neovim
 polybar
 qtile
+spectrwm
 st
 stumpwm
 surf
@@ -92,6 +93,9 @@ case "$choice" in
 	;;
 	qtile)
 		choice="$HOME/.config/qtile/config.py"
+	;;
+	spectrwm)
+		choice="$HOME/.spectrwm.conf"
 	;;
 	st)
 		choice="$HOME/st-distrotube/config.h"
