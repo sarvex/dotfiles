@@ -75,7 +75,7 @@ let g:lightline = {
 set laststatus=2
 
 " Use 256 colours (Use this setting only if your terminal supports 256 colours)
-set t_Co=256
+"set t_Co=256
 
 syntax enable   
 set number relativenumber
