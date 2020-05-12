@@ -34,7 +34,7 @@ from typing import List  # noqa: F401
 
 ##### DEFINING SOME VARIABLES #####
 mod = "mod4"                                     # Sets mod key to SUPER/WINDOWS
-myTerm = "st"                                    # My terminal of choice
+myTerm = "alacritty"                             # My terminal of choice
 myConfig = "/home/dt/.config/qtile/config.py"    # The Qtile config file location
 
 ##### KEYBINDINGS #####
@@ -42,8 +42,8 @@ keys = [
          ### The essentials
          Key(
              [mod], "Return",
-             lazy.spawn(myTerm),
-             desc='Launches Terminal'
+             lazy.spawn(myTerm+" -e fish"),
+             desc='Launches My Terminal With Fish Shell'
              ),
          Key(
              [mod, "shift"], "Return",

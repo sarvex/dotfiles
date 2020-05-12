@@ -8,9 +8,10 @@
 # Dmenu script for launching system monitoring programs.
 
 
-declare -a options=("htop
+declare -a options=("bashtop
 glances
 gtop
+htop
 iftop
 iotop
 iptraf-ng
@@ -24,9 +25,10 @@ case $choice in
 	quit)
 		echo "Program terminated." && exit 1
 	;;
-	htop| \
+	bashtop| \
 	glances| \
 	gtop| \
+	htop| \
 	nmon| \
 	s-tui)
         exec st -e $choice

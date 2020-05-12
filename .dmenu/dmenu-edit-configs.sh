@@ -24,6 +24,8 @@ i3
 neovim
 polybar
 qtile
+quickmarks
+qutebrowser
 spectrwm
 st
 stumpwm
@@ -93,6 +95,12 @@ case "$choice" in
 	;;
 	qtile)
 		choice="$HOME/.config/qtile/config.py"
+	;;
+	quickmarks)
+		choice="$HOME/.config/qutebrowser/quickmarks"
+	;;
+	qutebrowser)
+		choice="$HOME/.config/qutebrowser/autoconfig.yml"
 	;;
 	spectrwm)
 		choice="$HOME/.spectrwm.conf"
