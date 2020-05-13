@@ -248,7 +248,7 @@ myKeys =
         , ("M-<Return>", spawn (myTerminal ++ " -e fish"))
 		
     --- Dmenu Scripts (Alt+Ctr+Key)
-        , ("M-S-<Return>", spawn "dmenu_run -fn 'UbuntuMono Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'")
+        , ("M-S-<Return>", spawn "dmenu_run")
         , ("M1-C-e", spawn "./.dmenu/dmenu-edit-configs.sh")
         , ("M1-C-h", spawn "./.dmenu/dmenu-hugo.sh")
         , ("M1-C-m", spawn "./.dmenu/dmenu-sysmon.sh")
