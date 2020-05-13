@@ -11,7 +11,7 @@
 
 #### AUTOSTART ####
 sxhkd &
-compton &
+picom &
 nitrogen --restore &
 ./.config/bspwm/panel.sh &
 

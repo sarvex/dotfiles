@@ -1,4 +1,4 @@
 tint2 &
-compton &
+picom &
 nitrogen --restore &
 rofi -show run &

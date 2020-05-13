@@ -15,7 +15,7 @@ hc() {
 hc emit_hook reload
 
 xsetroot -solid '#5A8E3A'
-compton -C ~/.config/compton/compton.conf &
+picom &
 nitrogen --restore &
 
 # Uncomment the following lines to use xmobar as the panel
