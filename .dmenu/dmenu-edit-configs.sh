@@ -13,7 +13,6 @@ awesome
 bash
 broot
 bspwm
-compton
 doom.d/config.el
 doom.d/init.el
 dunst
@@ -22,6 +21,7 @@ emacs.d/init.el
 herbstluftwm
 i3
 neovim
+picom
 polybar
 qtile
 quickmarks
@@ -63,9 +63,6 @@ case "$choice" in
 	bspwm)
 		choice="$HOME/.config/bspwm/bspwmrc"
 	;;
-	compton)
-		choice="$HOME/.config/compton/compton.conf"
-	;;
     doom.d/config.el)
 		choice="$HOME/.doom.d/config.el"
 	;;
@@ -89,6 +86,9 @@ case "$choice" in
 	;;
 	neovim)
 		choice="$HOME/.config/nvim/init.vim"
+	;;
+	picom)
+		choice="$HOME/.config/picom/picom.conf"
 	;;
 	polybar)
 		choice="$HOME/.config/polybar/config"

@@ -9,7 +9,7 @@ allow_bold = true
 #audible_bell = false
 clickable_url = true
 #dynamic_title = true
-font = Cascadia Code 13
+font = Mononoki Nerd Font 12
 #fullscreen = true
 geometry = 700x520
 icon_name = terminal
@@ -50,32 +50,32 @@ browser = lynx
 #cursor_foreground = #dcdccc
 
 [colors]
-foreground = #c0c5ce
-foreground_bold = #eee8d5
-cursor = #c0c5ce
+foreground = #bbc5ff
+foreground_bold = #bbc5ff
+cursor = #bbc5ff
 # background transparency (requires a compositor)
-background = rgba(29, 35, 48, 0.95)
+background = rgba(40, 42, 54, 0.95)
 
 # if unset, will reverse foreground and background
 #highlight = #839496
 
 # colors from color0 to color254 can be set
-color0 = #1D2330
-color1 = #645377
-color2 = #AD69AF
-color3 = #B1B5C8
-color4 = #92969d
-color5 = #645377
-color6 = #AD69AF
-color7 = #B1B5C8
-color8 = #4B5665
-color9 = #84598D
-color10 = #7B8290
-color11 = #d1d7e1
-color12 = #4B5665
-color13 = #84598D
-color14 = #7B8290
-color15 = #d1d7e1
+color0 = #101010
+color1 = #f07178
+color2 = #c3e88d
+color3 = #ffcb6b
+color4 = #82aaff
+color5 = #c792ea
+color6 = #89ddff
+color7 = #d0d0d0
+color8 = #434758
+color9 = #ff8b92
+color10 = #ddffa7
+color11 = #ffe585
+color12 = #9cc4ff
+color13 = #e1acff
+color14 = #a3f7ff
+color15 = #ffffff
 
 [hints]
 #font = Monospace 12

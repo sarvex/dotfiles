@@ -14,7 +14,8 @@
 ;;; Startup Programs
 ;;; Set Background
 (run-shell-command "nitrogen --restore")
-(run-shell-command "compton")
+(run-shell-command "picom")
+(run-shell-command "xmodmap ~/.Xmodmap")
 
 (defun show-kernel ()
   (let ((ip (run-shell-command "uname -r" t)))
@@ -68,13 +69,13 @@
     (when cmd
       (eval-command cmd t))))
 
-(define-key *root-map* (kbd "C-q") "quit")
+(define-key *root-map* (kbd "q") "quit")
 (define-key *root-map* (kbd "C-m") "mode-line")
 ;; Launch My Terminal (st)
-(define-key *root-map* (kbd "c") "exec st")
+(define-key *root-map* (kbd "RET") "exec alacritty")
 (define-key *root-map* (kbd "C-c") "exec st") 
 ;; Launch Emacs
-(define-key *root-map* (kbd "C-e") "exec emacsclient -c")
+(define-key *root-map* (kbd "S-RET") "exec emacsclient -c")
 ;; Launch Dmenu
 (define-key *root-map* (kbd "d") "exec dmenu_run")
 ;; My Dmenu Scripts
