@@ -1,6 +1,7 @@
 -- The xmonad configuration of Derek Taylor (DistroTube)
 -- http://www.youtube.com/c/DistroTube
 -- http://www.gitlab.com/dwt1/
+-- For more information on Xmonad, visit: https://xmonad.org
 
 ------------------------------------------------------------------------
 ---IMPORTS
@@ -68,7 +69,7 @@ import XMonad.Layout.IM (withIM, Property(Role))
 import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1D(..))
 
 ------------------------------------------------------------------------
----CONFIG
+---VARIABLES
 ------------------------------------------------------------------------
 myFont          = "xft:Mononoki Nerd Font:regular:pixelsize=12"
 myModMask       = mod4Mask  -- Sets modkey to super/windows key
@@ -77,6 +78,9 @@ myTextEditor    = "nvim"     -- Sets default text editor
 myBorderWidth   = 2         -- Sets border width for windows
 windowCount     = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
+------------------------------------------------------------------------
+---MAIN
+------------------------------------------------------------------------
 main = do
     -- Launching three instances of xmobar on their monitors.
     xmproc0 <- spawnPipe "xmobar -x 0 /home/dt/.config/xmobar/xmobarrc0"
@@ -122,7 +126,6 @@ myStartupHook = do
 ------------------------------------------------------------------------
 ---GRID SELECT
 ------------------------------------------------------------------------
-
 myColorizer :: Window -> Bool -> X (String, String)
 myColorizer = colorRangeFromClassName
                   (0x31,0x2e,0x39) -- lowest inactive bg
@@ -273,7 +276,6 @@ myKeys =
         , ("M-M1-w", spawn (myTerminal ++ " -e wopr report.xml"))
         , ("M-M1-y", spawn (myTerminal ++ " -e youtube-viewer"))
 
-
     -- Multimedia Keys
         , ("<XF86AudioPlay>", spawn "cmus toggle")
         , ("<XF86AudioPrev>", spawn "cmus prev")
@@ -293,6 +295,8 @@ myKeys =
 ------------------------------------------------------------------------
 ---WORKSPACES
 ------------------------------------------------------------------------
+-- My workspaces are clickable meaning that the mouse can be used to switch
+-- workspaces. This requires xdotool.
 
 xmobarEscape = concatMap doubleLts
   where
@@ -306,24 +310,32 @@ myWorkspaces = clickable . (map xmobarEscape)
         clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
                       (i,ws) <- zip [1..9] l,                                        
                       let n = i ] 
+
+------------------------------------------------------------------------
+-- MANAGEHOOK
+------------------------------------------------------------------------
+-- Sets some rules for certain programs. Examples include forcing certain
+-- programs to always float, or to always appear on a certain workspace.
+-- Forcing programs to a certain workspace with a doShift requires xdotool.
+-- You need the className or title of the program. Use xprop to get this info.
+
 myManageHook :: Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
-     [
-        className =? "Firefox"     --> doShift "<action=xdotool key super+2>www</action>"
-      , title =? "Vivaldi"         --> doShift "<action=xdotool key super+2>www</action>"
+     [  className =? "firefox"     --> doShift "<action=xdotool key super+2>www</action>"
+      , title =? "qutebrowser"     --> doShift "<action=xdotool key super+2>www</action>"
       , title =? "irssi"           --> doShift "<action=xdotool key super+6>chat</action>"
-      , className =? "cmus"        --> doShift "<action=xdotool key super+7>media</action>"
-      , className =? "vlc"         --> doShift "<action=xdotool key super+7>media</action>"
-      , className =? "Virtualbox"  --> doFloat
+      , className =? "mpv"         --> doShift "<action=xdotool key super+8>vid</action>"
+      , className =? "vlc"         --> doShift "<action=xdotool key super+8>vid</action>"
+      , title =? "Oracle VM VirtualBox Manager"  --> doFloat
+      , className =? "Oracle VM VirtualBox Manager"  --> doShift "<action=xdotool key super+5>vbox</action>"
       , className =? "Gimp"        --> doFloat
-      , className =? "Gimp"        --> doShift "<action=xdotool key super+8>gfx</action>"
-      , (className =? "Firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
+      , className =? "Gimp"        --> doShift "<action=xdotool key super+9>gfx</action>"
+      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads
 
 ------------------------------------------------------------------------
----LAYOUTS
+-- LAYOUTS
 ------------------------------------------------------------------------
-
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats $ 
                mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ myDefaultLayout
              where 
@@ -340,13 +352,11 @@ space      = renamed [Replace "space"]    $ limitWindows 4  $ spacing 12 $ Mirro
 floats     = renamed [Replace "floats"]   $ limitWindows 20 $ simplestFloat
 
 ------------------------------------------------------------------------
----SCRATCHPADS
+-- SCRATCHPADS
 ------------------------------------------------------------------------
-
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "cmus" spawnCmus findCmus manageCmus  
                 ]
-
     where
     spawnTerm  = myTerminal ++  " -n scratchpad"
     findTerm   = resource =? "scratchpad"
