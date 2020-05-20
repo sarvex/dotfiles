@@ -9,11 +9,22 @@
     -- Base
 import XMonad
 import XMonad.Config.Desktop
-import Data.Monoid
-import Data.Maybe (isJust)
 import System.IO (hPutStrLn)
 import System.Exit (exitSuccess)
 import qualified XMonad.StackSet as W
+
+    -- Prompt
+import XMonad.Prompt
+import XMonad.Prompt.Shell (shellPrompt)
+import XMonad.Prompt.Man
+import XMonad.Prompt.Ssh
+import Control.Arrow ((&&&),first)
+
+    -- Data
+import Data.List
+import Data.Monoid
+import Data.Maybe (isJust)
+import qualified Data.Map        as M
 
     -- Utilities
 import XMonad.Util.Loggers
@@ -65,51 +76,16 @@ import XMonad.Layout.ResizableTile
 import XMonad.Layout.ZoomRow (zoomRow, zoomIn, zoomOut, zoomReset, ZoomMessage(ZoomFullToggle))
 import XMonad.Layout.IM (withIM, Property(Role))
 
-    -- Prompts
-import XMonad.Prompt (defaultXPConfig, XPConfig(..), XPPosition(Top), Direction1D(..))
-
 ------------------------------------------------------------------------
 ---VARIABLES
 ------------------------------------------------------------------------
 myFont          = "xft:Mononoki Nerd Font:regular:pixelsize=12"
-myModMask       = mod4Mask  -- Sets modkey to super/windows key
-myTerminal      = "alacritty"      -- Sets default terminal
-myTextEditor    = "nvim"     -- Sets default text editor
-myBorderWidth   = 2         -- Sets border width for windows
+myModMask       = mod4Mask     -- Sets modkey to super/windows key
+altMask         = mod4Mask     --this is the super key, but I have it remapped
+myTerminal      = "alacritty"  -- Sets default terminal
+myTextEditor    = "nvim"       -- Sets default text editor
+myBorderWidth   = 2            -- Sets border width for windows
 windowCount     = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
-
-------------------------------------------------------------------------
----MAIN
-------------------------------------------------------------------------
-main = do
-    -- Launching three instances of xmobar on their monitors.
-    xmproc0 <- spawnPipe "xmobar -x 0 /home/dt/.config/xmobar/xmobarrc0"
-    xmproc1 <- spawnPipe "xmobar -x 1 /home/dt/.config/xmobar/xmobarrc2"
-    xmproc2 <- spawnPipe "xmobar -x 2 /home/dt/.config/xmobar/xmobarrc1"
-    -- the xmonad, ya know...what the WM is named after!
-    xmonad $ ewmh desktopConfig
-        { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageHook desktopConfig <+> manageDocks
-        , logHook = dynamicLogWithPP xmobarPP
-                        { ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
-                        , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
-                        , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
-                        , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#F07178" ""        -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#d0d0d0" "" . shorten 60     -- Title of active window in xmobar
-                        , ppSep =  "<fc=#666666> | </fc>"                     -- Separators in xmobar
-                        , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
-                        , ppExtras  = [windowCount]                           -- # of windows current workspace
-                        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
-                        }
-        , modMask            = myModMask
-        , terminal           = myTerminal
-        , startupHook        = myStartupHook
-        , layoutHook         = myLayoutHook 
-        , workspaces         = myWorkspaces
-        , borderWidth        = myBorderWidth
-        , normalBorderColor  = "#292d3e"
-        , focusedBorderColor = "#bbc5ff"
-        } `additionalKeysP`         myKeys 
 
 ------------------------------------------------------------------------
 ---AUTOSTART
@@ -149,6 +125,71 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
     where conf = defaultGSConfig
 
 ------------------------------------------------------------------------
+-- XPROMPT KEYMAP (emacs-like key bindings)
+------------------------------------------------------------------------
+dtXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
+dtXPKeymap = M.fromList $
+  map (first $ (,) controlMask)   -- control + <key>
+  [ (xK_z, killBefore)            -- kill line backwards
+  , (xK_k, killAfter)             -- kill line fowards
+  , (xK_a, startOfLine)           -- move to the beginning of the line
+  , (xK_e, endOfLine)             -- move to the end of the line
+  , (xK_m, deleteString Next)     -- delete a character foward
+  , (xK_b, moveCursor Prev)       -- move cursor forward
+  , (xK_f, moveCursor Next)       -- move cursor backward
+  , (xK_BackSpace, killWord Prev) -- kill the previous word
+  , (xK_y, pasteString)           -- paste a string
+  , (xK_g, quit)                  -- quit out of prompt
+  , (xK_bracketleft, quit)
+  ] ++
+  map (first $ (,) altMask)       -- meta key + <key>
+  [ (xK_BackSpace, killWord Prev) -- kill the prev word
+  , (xK_f, moveWord Next)         -- move a word forward
+  , (xK_b, moveWord Prev)         -- move a word backward
+  , (xK_d, killWord Next)         -- kill the next word
+  , (xK_n, moveHistory W.focusUp')
+  , (xK_p, moveHistory W.focusDown')
+  ]
+  ++
+  map (first $ (,) 0) -- <key>
+  [ (xK_Return, setSuccess True >> setDone True)
+  , (xK_KP_Enter, setSuccess True >> setDone True)
+  , (xK_BackSpace, deleteString Prev)
+  , (xK_Delete, deleteString Next)
+  , (xK_Left, moveCursor Prev)
+  , (xK_Right, moveCursor Next)
+  , (xK_Home, startOfLine)
+  , (xK_End, endOfLine)
+  , (xK_Down, moveHistory W.focusUp')
+  , (xK_Up, moveHistory W.focusDown')
+  , (xK_Escape, quit)
+  ]
+
+------------------------------------------------------------------------
+-- XPROMPT SETTINGS
+------------------------------------------------------------------------
+dtXPConfig = def
+      {   font              = "xft:Mononoki Nerd Font:size=9"
+        , bgColor           = "#292d3e"
+        , fgColor           = "#d0d0d0"
+        , bgHLight          = "#c792ea"
+        , fgHLight          = "#000000"
+        , borderColor       = "#535974"
+        , promptBorderWidth = 1
+        , promptKeymap      = dtXPKeymap
+        , position          = Top
+        , height            = 20
+        , historySize       = 256
+        , historyFilter     = id
+        , defaultText       = []
+        , autoComplete      = Just 100000    -- set Just 100000 for .1 sec
+        , showCompletionOnTab = True
+        , searchPredicate   = isPrefixOf
+        , alwaysHighlight   = True
+        , maxComplRows      = Just 5    -- set to Just 5 for 5 rows
+        }
+
+------------------------------------------------------------------------
 ---KEYBINDINGS
 ------------------------------------------------------------------------
 myKeys =
@@ -156,14 +197,19 @@ myKeys =
         [ ("M-C-r", spawn "xmonad --recompile")      -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")        -- Restarts xmonad
         , ("M-S-q", io exitSuccess)                  -- Quits xmonad
+
+    -- Prompts
+        , ("M-S-<Return>", shellPrompt dtXPConfig)   -- Shell Prompt
+        , ("M-S-s", sshPrompt dtXPConfig)            -- Ssh Prompt
+        , ("M-S-m", manPrompt dtXPConfig)            -- Manpage Prompt
     
     -- Windows
         , ("M-S-c", kill1)                           -- Kill the currently focused client
         , ("M-S-a", killAll)                         -- Kill all the windows on current workspace
 
     -- Floating windows
-        , ("M-<Delete>", withFocused $ windows . W.sink)  -- Push floating window back to tile.
-        , ("M-S-<Delete>", sinkAll)                  -- Push ALL floating windows back to tile.
+        , ("M-<Delete>", withFocused $ windows . W.sink) -- Push floating window back to tile.
+        , ("M-S-<Delete>", sinkAll)                      -- Push ALL floating windows back to tile.
 
     -- Grid Select
         , (("M-S-t"), spawnSelected'
@@ -192,13 +238,13 @@ myKeys =
         , ("M-m", windows W.focusMaster)             -- Move focus to the master window
         , ("M-j", windows W.focusDown)               -- Move focus to the next window
         , ("M-k", windows W.focusUp)                 -- Move focus to the prev window
-        , ("M-S-m", windows W.swapMaster)            -- Swap the focused window and the master window
+        --, ("M-S-m", windows W.swapMaster)            -- Swap the focused window and the master window
         , ("M-S-j", windows W.swapDown)              -- Swap the focused window with the next window
         , ("M-S-k", windows W.swapUp)                -- Swap the focused window with the prev window
         , ("M-<Backspace>", promote)                 -- Moves focused window to master, all others maintain order
         , ("M1-S-<Tab>", rotSlavesDown)              -- Rotate all windows except master and keep focus in place
         , ("M1-C-<Tab>", rotAllDown)                 -- Rotate all the windows in the current stack
-        , ("M-S-s", windows copyToAll)  
+        --, ("M-S-s", windows copyToAll)  
         , ("M-C-s", killAllOtherCopies) 
         
         , ("M-C-M1-<Up>", sendMessage Arrange)
@@ -217,14 +263,14 @@ myKeys =
         , ("M-C-<Left>", sendMessage (DecreaseLeft 10))   --  Decrease size of focused window left
 
     -- Layouts
-        , ("M-<Tab>", sendMessage NextLayout)                              -- Switch to next layout
+        , ("M-<Tab>", sendMessage NextLayout)                                -- Switch to next layout
         , ("M-S-<Space>", sendMessage ToggleStruts)                          -- Toggles struts
         , ("M-S-n", sendMessage $ Toggle NOBORDERS)                          -- Toggles noborder
         , ("M-S-=", sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
         , ("M-S-f", sendMessage (T.Toggle "float"))
         , ("M-S-x", sendMessage $ Toggle REFLECTX)
         , ("M-S-y", sendMessage $ Toggle REFLECTY)
-        , ("M-S-m", sendMessage $ Toggle MIRROR)
+        --, ("M-S-m", sendMessage $ Toggle MIRROR)
         , ("M-<KP_Multiply>", sendMessage (IncMasterN 1))   -- Increase number of clients in the master pane
         , ("M-<KP_Divide>", sendMessage (IncMasterN (-1)))  -- Decrease number of clients in the master pane
         , ("M-S-<KP_Multiply>", increaseLimit)              -- Increase number of windows that can be shown
@@ -252,7 +298,7 @@ myKeys =
         , ("M-<Return>", spawn (myTerminal ++ " -e fish"))
 		
     --- Dmenu Scripts (Alt+Ctr+Key)
-        , ("M-S-<Return>", spawn "dmenu_run")
+        --, ("M-S-<Return>", spawn "dmenu_run")
         , ("M1-C-e", spawn "./.dmenu/dmenu-edit-configs.sh")
         , ("M1-C-h", spawn "./.dmenu/dmenu-hugo.sh")
         , ("M1-C-m", spawn "./.dmenu/dmenu-sysmon.sh")
@@ -374,3 +420,37 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.9
                  t = 0.95 -h
                  l = 0.95 -w
+
+------------------------------------------------------------------------
+---MAIN
+------------------------------------------------------------------------
+main = do
+    -- Launching three instances of xmobar on their monitors.
+    xmproc0 <- spawnPipe "xmobar -x 0 /home/dt/.config/xmobar/xmobarrc0"
+    xmproc1 <- spawnPipe "xmobar -x 1 /home/dt/.config/xmobar/xmobarrc2"
+    xmproc2 <- spawnPipe "xmobar -x 2 /home/dt/.config/xmobar/xmobarrc1"
+    -- the xmonad, ya know...what the WM is named after!
+    xmonad $ ewmh desktopConfig
+        { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageHook desktopConfig <+> manageDocks
+        , logHook = dynamicLogWithPP xmobarPP
+                        { ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
+                        , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
+                        , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
+                        , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+                        , ppHiddenNoWindows = xmobarColor "#F07178" ""        -- Hidden workspaces (no windows)
+                        , ppTitle = xmobarColor "#d0d0d0" "" . shorten 60     -- Title of active window in xmobar
+                        , ppSep =  "<fc=#666666> | </fc>"                     -- Separators in xmobar
+                        , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
+                        , ppExtras  = [windowCount]                           -- # of windows current workspace
+                        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+                        }
+        , modMask            = myModMask
+        , terminal           = myTerminal
+        , startupHook        = myStartupHook
+        , layoutHook         = myLayoutHook 
+        , workspaces         = myWorkspaces
+        , borderWidth        = myBorderWidth
+        , normalBorderColor  = "#292d3e"
+        , focusedBorderColor = "#bbc5ff"
+        } `additionalKeysP`         myKeys 
+
