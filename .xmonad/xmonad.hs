@@ -362,8 +362,9 @@ myWorkspaces = clickable . (map xmobarEscape)
 ------------------------------------------------------------------------
 -- Sets some rules for certain programs. Examples include forcing certain
 -- programs to always float, or to always appear on a certain workspace.
--- Forcing programs to a certain workspace with a doShift requires xdotool.
--- You need the className or title of the program. Use xprop to get this info.
+-- Forcing programs to a certain workspace with a doShift requires xdotool
+-- if you are using clickable workspaces. You need the className or title 
+-- of the program. Use xprop to get this info.
 
 myManageHook :: Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
