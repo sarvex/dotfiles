@@ -15,8 +15,9 @@ import qualified XMonad.StackSet as W
 
     -- Prompt
 import XMonad.Prompt
-import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.Man
+import XMonad.Prompt.Pass
+import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.Ssh
 import Control.Arrow ((&&&),first)
 
@@ -24,7 +25,7 @@ import Control.Arrow ((&&&),first)
 import Data.List
 import Data.Monoid
 import Data.Maybe (isJust)
-import qualified Data.Map        as M
+import qualified Data.Map as M
 
     -- Utilities
 import XMonad.Util.Loggers
@@ -169,24 +170,24 @@ dtXPKeymap = M.fromList $
 -- XPROMPT SETTINGS
 ------------------------------------------------------------------------
 dtXPConfig = def
-      {   font              = "xft:Mononoki Nerd Font:size=9"
-        , bgColor           = "#292d3e"
-        , fgColor           = "#d0d0d0"
-        , bgHLight          = "#c792ea"
-        , fgHLight          = "#000000"
-        , borderColor       = "#535974"
-        , promptBorderWidth = 1
-        , promptKeymap      = dtXPKeymap
-        , position          = Top
-        , height            = 20
-        , historySize       = 256
-        , historyFilter     = id
-        , defaultText       = []
-        , autoComplete      = Just 100000    -- set Just 100000 for .1 sec
+      { font                  = "xft:Mononoki Nerd Font:size=9"
+        , bgColor             = "#292d3e"
+        , fgColor             = "#d0d0d0"
+        , bgHLight            = "#c792ea"
+        , fgHLight            = "#000000"
+        , borderColor         = "#535974"
+        , promptBorderWidth   = 1
+        , promptKeymap        = dtXPKeymap
+        , position            = Top
+        , height              = 20
+        , historySize         = 256
+        , historyFilter       = id
+        , defaultText         = []
+        , autoComplete        = Just 100000    -- set Just 100000 for .1 sec
         , showCompletionOnTab = True
-        , searchPredicate   = isPrefixOf
-        , alwaysHighlight   = True
-        , maxComplRows      = Just 5    -- set to Just 5 for 5 rows
+        , searchPredicate     = isPrefixOf
+        , alwaysHighlight     = True
+        , maxComplRows        = Nothing        -- set to Just 5 for 5 rows
         }
 
 ------------------------------------------------------------------------
@@ -202,6 +203,10 @@ myKeys =
         , ("M-S-<Return>", shellPrompt dtXPConfig)   -- Shell Prompt
         , ("M-S-s", sshPrompt dtXPConfig)            -- Ssh Prompt
         , ("M-S-m", manPrompt dtXPConfig)            -- Manpage Prompt
+        -- Requires pass to be installed
+        , ("M1-C-p", passPrompt dtXPConfig)          -- Get Passwords Prompt
+        , ("M1-C-g", passGeneratePrompt dtXPConfig)  -- Generate Passwords Prompt
+        , ("M1-C-r", passRemovePrompt dtXPConfig)    -- Remove Passwords Prompt
     
     -- Windows
         , ("M-S-c", kill1)                           -- Kill the currently focused client
@@ -302,7 +307,7 @@ myKeys =
         , ("M1-C-e", spawn "./.dmenu/dmenu-edit-configs.sh")
         , ("M1-C-h", spawn "./.dmenu/dmenu-hugo.sh")
         , ("M1-C-m", spawn "./.dmenu/dmenu-sysmon.sh")
-        , ("M1-C-p", spawn "passmenu")
+        --, ("M1-C-p", spawn "passmenu")
         , ("M1-C-s", spawn "./.dmenu/dmenu-surfraw.sh")
         , ("M1-C-/", spawn "./.dmenu/dmenu-scrot.sh")
 
@@ -388,15 +393,14 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
              where 
                  myDefaultLayout = tall ||| grid ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
 
-
-tall       = renamed [Replace "tall"]     $ limitWindows 12 $ spacing 6 $ ResizableTall 1 (3/100) (1/2) []
-grid       = renamed [Replace "grid"]     $ limitWindows 12 $ spacing 6 $ mkToggle (single MIRROR) $ Grid (16/10)
-threeCol   = renamed [Replace "threeCol"] $ limitWindows 3  $ ThreeCol 1 (3/100) (1/2) 
-threeRow   = renamed [Replace "threeRow"] $ limitWindows 3  $ Mirror $ mkToggle (single MIRROR) zoomRow
-oneBig     = renamed [Replace "oneBig"]   $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
-monocle    = renamed [Replace "monocle"]  $ limitWindows 20 $ Full
-space      = renamed [Replace "space"]    $ limitWindows 4  $ spacing 12 $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (2/3) (2/3)
-floats     = renamed [Replace "floats"]   $ limitWindows 20 $ simplestFloat
+tall     = renamed [Replace "tall"]     $ limitWindows 12 $ spacing 6 $ ResizableTall 1 (3/100) (1/2) []
+grid     = renamed [Replace "grid"]     $ limitWindows 12 $ spacing 6 $ mkToggle (single MIRROR) $ Grid (16/10)
+threeCol = renamed [Replace "threeCol"] $ limitWindows 3  $ ThreeCol 1 (3/100) (1/2) 
+threeRow = renamed [Replace "threeRow"] $ limitWindows 3  $ Mirror $ mkToggle (single MIRROR) zoomRow
+oneBig   = renamed [Replace "oneBig"]   $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
+monocle  = renamed [Replace "monocle"]  $ limitWindows 20 $ Full
+space    = renamed [Replace "space"]    $ limitWindows 4  $ spacing 12 $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (2/3) (2/3)
+floats   = renamed [Replace "floats"]   $ limitWindows 20 $ simplestFloat
 
 ------------------------------------------------------------------------
 -- SCRATCHPADS
