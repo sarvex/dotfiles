@@ -19,6 +19,7 @@ import XMonad.Prompt.Man
 import XMonad.Prompt.Pass
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.Ssh
+import XMonad.Prompt.XMonad
 import Control.Arrow ((&&&),first)
 
     -- Data
@@ -179,12 +180,13 @@ dtXPConfig = def
         , promptBorderWidth   = 1
         , promptKeymap        = dtXPKeymap
         , position            = Top
+--        , position            = CenteredAt { xpCenterY = 0.3, xpWidth = 0.3 }
         , height              = 20
         , historySize         = 256
         , historyFilter       = id
         , defaultText         = []
         , autoComplete        = Just 100000    -- set Just 100000 for .1 sec
-        , showCompletionOnTab = True
+        , showCompletionOnTab = False
         , searchPredicate     = isPrefixOf
         , alwaysHighlight     = True
         , maxComplRows        = Nothing        -- set to Just 5 for 5 rows
@@ -201,9 +203,10 @@ myKeys =
 
     -- Prompts
         , ("M-S-<Return>", shellPrompt dtXPConfig)   -- Shell Prompt
+        , ("M-S-o", xmonadPrompt dtXPConfig)         -- Xmonad Prompt
         , ("M-S-s", sshPrompt dtXPConfig)            -- Ssh Prompt
         , ("M-S-m", manPrompt dtXPConfig)            -- Manpage Prompt
-        -- Requires pass to be installed
+        -- The next three bindings require pass to be installed
         , ("M1-C-p", passPrompt dtXPConfig)          -- Get Passwords Prompt
         , ("M1-C-g", passGeneratePrompt dtXPConfig)  -- Generate Passwords Prompt
         , ("M1-C-r", passRemovePrompt dtXPConfig)    -- Remove Passwords Prompt
@@ -437,6 +440,14 @@ main = do
     -- the xmonad, ya know...what the WM is named after!
     xmonad $ ewmh desktopConfig
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageHook desktopConfig <+> manageDocks
+        , modMask            = myModMask
+        , terminal           = myTerminal
+        , startupHook        = myStartupHook
+        , layoutHook         = myLayoutHook 
+        , workspaces         = myWorkspaces
+        , borderWidth        = myBorderWidth
+        , normalBorderColor  = "#292d3e"
+        , focusedBorderColor = "#bbc5ff"
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
                         , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
@@ -449,13 +460,5 @@ main = do
                         , ppExtras  = [windowCount]                           -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                         }
-        , modMask            = myModMask
-        , terminal           = myTerminal
-        , startupHook        = myStartupHook
-        , layoutHook         = myLayoutHook 
-        , workspaces         = myWorkspaces
-        , borderWidth        = myBorderWidth
-        , normalBorderColor  = "#292d3e"
-        , focusedBorderColor = "#bbc5ff"
         } `additionalKeysP`         myKeys 
 
