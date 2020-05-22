@@ -1,10 +1,10 @@
 -- The xmonad configuration of Derek Taylor (DistroTube)
--- http://www.youtube.com/c/DistroTube
--- http://www.gitlab.com/dwt1/
+-- My YouTube: http://www.youtube.com/c/DistroTube
+-- My GitLab:  http://www.gitlab.com/dwt1/
 -- For more information on Xmonad, visit: https://xmonad.org
 
 ------------------------------------------------------------------------
----IMPORTS
+-- IMPORTS
 ------------------------------------------------------------------------
     -- Base
 import XMonad
@@ -79,18 +79,20 @@ import XMonad.Layout.ZoomRow (zoomRow, zoomIn, zoomOut, zoomReset, ZoomMessage(Z
 import XMonad.Layout.IM (withIM, Property(Role))
 
 ------------------------------------------------------------------------
----VARIABLES
+-- VARIABLES
 ------------------------------------------------------------------------
-myFont          = "xft:Mononoki Nerd Font:regular:pixelsize=12"
-myModMask       = mod4Mask     -- Sets modkey to super/windows key
-altMask         = mod4Mask     --this is the super key, but I have it remapped
-myTerminal      = "alacritty"  -- Sets default terminal
-myTextEditor    = "nvim"       -- Sets default text editor
-myBorderWidth   = 2            -- Sets border width for windows
-windowCount     = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+myFont        = "xft:Mononoki Nerd Font:regular:pixelsize=11"
+myModMask     = mod4Mask     -- Sets modkey to super/windows key
+myTerminal    = "alacritty"  -- Sets default terminal
+myTextEditor  = "nvim"       -- Sets default text editor
+myBorderWidth = 2            -- Sets border width for windows
+myNormColor   = "#292d3e"    -- Border color of normal windows
+myFocusColor  = "#bbc5ff"    -- Border color of focused windows
+altMask       = mod1Mask     -- Setting this for use in xprompts
+windowCount   = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 ------------------------------------------------------------------------
----AUTOSTART
+-- AUTOSTART
 ------------------------------------------------------------------------
 myStartupHook = do
           spawnOnce "nitrogen --restore &" 
@@ -102,7 +104,7 @@ myStartupHook = do
           setWMName "LG3D"
 
 ------------------------------------------------------------------------
----GRID SELECT
+-- GRID SELECT
 ------------------------------------------------------------------------
 myColorizer :: Window -> Bool -> X (String, String)
 myColorizer = colorRangeFromClassName
@@ -131,69 +133,70 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
 ------------------------------------------------------------------------
 dtXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
 dtXPKeymap = M.fromList $
-  map (first $ (,) controlMask)   -- control + <key>
-  [ (xK_z, killBefore)            -- kill line backwards
-  , (xK_k, killAfter)             -- kill line fowards
-  , (xK_a, startOfLine)           -- move to the beginning of the line
-  , (xK_e, endOfLine)             -- move to the end of the line
-  , (xK_m, deleteString Next)     -- delete a character foward
-  , (xK_b, moveCursor Prev)       -- move cursor forward
-  , (xK_f, moveCursor Next)       -- move cursor backward
-  , (xK_BackSpace, killWord Prev) -- kill the previous word
-  , (xK_y, pasteString)           -- paste a string
-  , (xK_g, quit)                  -- quit out of prompt
-  , (xK_bracketleft, quit)
-  ] ++
-  map (first $ (,) altMask)       -- meta key + <key>
-  [ (xK_BackSpace, killWord Prev) -- kill the prev word
-  , (xK_f, moveWord Next)         -- move a word forward
-  , (xK_b, moveWord Prev)         -- move a word backward
-  , (xK_d, killWord Next)         -- kill the next word
-  , (xK_n, moveHistory W.focusUp')
-  , (xK_p, moveHistory W.focusDown')
-  ]
-  ++
-  map (first $ (,) 0) -- <key>
-  [ (xK_Return, setSuccess True >> setDone True)
-  , (xK_KP_Enter, setSuccess True >> setDone True)
-  , (xK_BackSpace, deleteString Prev)
-  , (xK_Delete, deleteString Next)
-  , (xK_Left, moveCursor Prev)
-  , (xK_Right, moveCursor Next)
-  , (xK_Home, startOfLine)
-  , (xK_End, endOfLine)
-  , (xK_Down, moveHistory W.focusUp')
-  , (xK_Up, moveHistory W.focusDown')
-  , (xK_Escape, quit)
-  ]
+     map (first $ (,) controlMask)   -- control + <key>
+     [ (xK_z, killBefore)            -- kill line backwards
+     , (xK_k, killAfter)             -- kill line fowards
+     , (xK_a, startOfLine)           -- move to the beginning of the line
+     , (xK_e, endOfLine)             -- move to the end of the line
+     , (xK_m, deleteString Next)     -- delete a character foward
+     , (xK_b, moveCursor Prev)       -- move cursor forward
+     , (xK_f, moveCursor Next)       -- move cursor backward
+     , (xK_BackSpace, killWord Prev) -- kill the previous word
+     , (xK_y, pasteString)           -- paste a string
+     , (xK_g, quit)                  -- quit out of prompt
+     , (xK_bracketleft, quit)
+     ] 
+     ++
+     map (first $ (,) altMask)       -- meta key + <key>
+     [ (xK_BackSpace, killWord Prev) -- kill the prev word
+     , (xK_f, moveWord Next)         -- move a word forward
+     , (xK_b, moveWord Prev)         -- move a word backward
+     , (xK_d, killWord Next)         -- kill the next word
+     , (xK_n, moveHistory W.focusUp')   -- move up thru history
+     , (xK_p, moveHistory W.focusDown') -- move down thru history
+     ]
+     ++
+     map (first $ (,) 0) -- <key>
+     [ (xK_Return, setSuccess True >> setDone True)
+     , (xK_KP_Enter, setSuccess True >> setDone True)
+     , (xK_BackSpace, deleteString Prev)
+     , (xK_Delete, deleteString Next)
+     , (xK_Left, moveCursor Prev)
+     , (xK_Right, moveCursor Next)
+     , (xK_Home, startOfLine)
+     , (xK_End, endOfLine)
+     , (xK_Down, moveHistory W.focusUp')
+     , (xK_Up, moveHistory W.focusDown')
+     , (xK_Escape, quit)
+     ]
 
 ------------------------------------------------------------------------
 -- XPROMPT SETTINGS
 ------------------------------------------------------------------------
 dtXPConfig = def
       { font                  = "xft:Mononoki Nerd Font:size=9"
-        , bgColor             = "#292d3e"
-        , fgColor             = "#d0d0d0"
-        , bgHLight            = "#c792ea"
-        , fgHLight            = "#000000"
-        , borderColor         = "#535974"
-        , promptBorderWidth   = 1
-        , promptKeymap        = dtXPKeymap
-        , position            = Top
---        , position            = CenteredAt { xpCenterY = 0.3, xpWidth = 0.3 }
-        , height              = 20
-        , historySize         = 256
-        , historyFilter       = id
-        , defaultText         = []
-        , autoComplete        = Just 100000    -- set Just 100000 for .1 sec
-        , showCompletionOnTab = False
-        , searchPredicate     = isPrefixOf
-        , alwaysHighlight     = True
-        , maxComplRows        = Nothing        -- set to Just 5 for 5 rows
-        }
+      , bgColor             = "#292d3e"
+      , fgColor             = "#d0d0d0"
+      , bgHLight            = "#c792ea"
+      , fgHLight            = "#000000"
+      , borderColor         = "#535974"
+      , promptBorderWidth   = 1
+      , promptKeymap        = dtXPKeymap
+      , position            = Top
+--    , position            = CenteredAt { xpCenterY = 0.3, xpWidth = 0.3 }
+      , height              = 20
+      , historySize         = 256
+      , historyFilter       = id
+      , defaultText         = []
+      , autoComplete        = Just 100000    -- set Just 100000 for .1 sec
+      , showCompletionOnTab = False
+      , searchPredicate     = isPrefixOf
+      , alwaysHighlight     = True
+      , maxComplRows        = Nothing        -- set to Just 5 for 5 rows
+      }
 
 ------------------------------------------------------------------------
----KEYBINDINGS
+-- KEYBINDINGS
 ------------------------------------------------------------------------
 myKeys =
     -- Xmonad
@@ -238,9 +241,8 @@ myKeys =
           , ("Surf Browser",    "surf suckless.org")
           , ("Xonotic", "xonotic-glx")
           ])
-
-        , ("M-S-g", goToSelected $ mygridConfig myColorizer)
-        , ("M-S-b", bringSelected $ mygridConfig myColorizer)
+        , ("M-S-g", goToSelected $ mygridConfig myColorizer)  -- goto selected
+        , ("M-S-b", bringSelected $ mygridConfig myColorizer) -- bring selected
 
     -- Windows navigation
         , ("M-m", windows W.focusMaster)             -- Move focus to the master window
@@ -347,7 +349,7 @@ myKeys =
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "nsp"))
                 
 ------------------------------------------------------------------------
----WORKSPACES
+-- WORKSPACES
 ------------------------------------------------------------------------
 -- My workspaces are clickable meaning that the mouse can be used to switch
 -- workspaces. This requires xdotool.
@@ -430,7 +432,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  l = 0.95 -w
 
 ------------------------------------------------------------------------
----MAIN
+-- MAIN
 ------------------------------------------------------------------------
 main = do
     -- Launching three instances of xmobar on their monitors.
@@ -446,8 +448,8 @@ main = do
         , layoutHook         = myLayoutHook 
         , workspaces         = myWorkspaces
         , borderWidth        = myBorderWidth
-        , normalBorderColor  = "#292d3e"
-        , focusedBorderColor = "#bbc5ff"
+        , normalBorderColor  = myNormColor
+        , focusedBorderColor = myFocusColor
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
                         , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
@@ -460,5 +462,5 @@ main = do
                         , ppExtras  = [windowCount]                           -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                         }
-        } `additionalKeysP`         myKeys 
+        } `additionalKeysP` myKeys 
 
