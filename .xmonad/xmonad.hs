@@ -381,7 +381,7 @@ myManageHook = composeAll
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
      -- I'm doing it this way because otherwise I would have to write out 
      -- the full name of my clickable workspaces, which would look like:
-     -- doShift "<action xdotool super+n>n</action>"
+     -- doShift "<action xdotool super+8>gfx</action>"
      [ className =? "obs"     --> doShift ( myWorkspaces !! 7)
      , title =? "firefox"     --> doShift ( myWorkspaces !! 1)
      , title =? "qutebrowser" --> doShift ( myWorkspaces !! 1)
