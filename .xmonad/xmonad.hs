@@ -378,16 +378,20 @@ myWorkspaces = clickable . (map xmobarEscape)
 
 myManageHook :: Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
-     [  className =? "firefox"     --> doShift "<action=xdotool key super+2>www</action>"
-      , title =? "qutebrowser"     --> doShift "<action=xdotool key super+2>www</action>"
-      , title =? "irssi"           --> doShift "<action=xdotool key super+6>chat</action>"
-      , className =? "mpv"         --> doShift "<action=xdotool key super+8>vid</action>"
-      , className =? "vlc"         --> doShift "<action=xdotool key super+8>vid</action>"
-      , title =? "Oracle VM VirtualBox Manager"  --> doFloat
-      , className =? "Oracle VM VirtualBox Manager"  --> doShift "<action=xdotool key super+5>vbox</action>"
-      , className =? "Gimp"        --> doFloat
-      , className =? "Gimp"        --> doShift "<action=xdotool key super+9>gfx</action>"
-      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
+     -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
+     -- I'm doing it this way because otherwise I would have to write out 
+     -- the full name of my clickable workspaces, which would look like:
+     -- doShift "<action xdotool super+n>n</action>"
+     [ className =? "obs"     --> doShift ( myWorkspaces !! 7)
+     , title =? "firefox"     --> doShift ( myWorkspaces !! 1)
+     , title =? "qutebrowser" --> doShift ( myWorkspaces !! 1)
+     , className =? "mpv"     --> doShift ( myWorkspaces !! 7)
+     , className =? "vlc"     --> doShift ( myWorkspaces !! 7)
+     , className =? "Gimp"    --> doShift ( myWorkspaces !! 8)
+     , className =? "Gimp"    --> doFloat
+     , title =? "Oracle VM VirtualBox Manager"     --> doFloat
+     , className =? "Oracle VM VirtualBox Manager" --> doShift  ( myWorkspaces !! 6)
+     , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads
 
 ------------------------------------------------------------------------
