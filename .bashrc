@@ -7,7 +7,7 @@
 # My bash config. Not much to see here. Some pretty standard stuff.
 
 PATH="$HOME/.local/bin${PATH:+:${PATH}}"
-EDITOR="nvim"
+EDITOR="kak"
 export TERM="st-256color"
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 
@@ -195,6 +195,9 @@ source /home/dt/.config/broot/launcher/bash/br
 if [ -f /etc/bash.command-not-found ]; then
     . /etc/bash.command-not-found
 fi
+
+### FORCE ALL KAKOUNE WINDOWS TO BE IN ONE SESSION
+alias kak="kak -c mysession"
 
 ### RANDOM COLOR SCRIPT ###
 /opt/shell-color-scripts/colorscript.sh random

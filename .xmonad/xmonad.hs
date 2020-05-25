@@ -20,7 +20,7 @@ import XMonad.Prompt.Pass
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.Ssh
 import XMonad.Prompt.XMonad
-import Control.Arrow ((&&&),first)
+import Control.Arrow (first)
 
     -- Data
 import Data.List
@@ -29,42 +29,35 @@ import Data.Maybe (isJust)
 import qualified Data.Map as M
 
     -- Utilities
-import XMonad.Util.Loggers
-import XMonad.Util.EZConfig (additionalKeysP, additionalMouseBindings)  
+import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
-import XMonad.Util.Run (safeSpawn, unsafeSpawn, runInTerm, spawnPipe)
+import XMonad.Util.Run (safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
     -- Hooks
-import XMonad.Hooks.DynamicLog (dynamicLogWithPP, defaultPP, wrap, pad, xmobarPP, xmobarColor, shorten, PP(..))
-import XMonad.Hooks.ManageDocks (avoidStruts, docksStartupHook, manageDocks, ToggleStruts(..))
-import XMonad.Hooks.ManageHelpers (isFullscreen, isDialog,  doFullFloat, doCenterFloat) 
-import XMonad.Hooks.Place (placeHook, withGaps, smart)
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
+import XMonad.Hooks.ManageDocks (avoidStruts, manageDocks, ToggleStruts(..))
+import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.EwmhDesktops   -- required for xcomposite in obs to work
 
     -- Actions
-import XMonad.Actions.Minimize (minimizeWindow)
 import XMonad.Actions.Promote
 import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
-import XMonad.Actions.CopyWindow (kill1, copyToAll, killAllOtherCopies, runOrCopy)
-import XMonad.Actions.WindowGo (runOrRaise, raiseMaybe)
+import XMonad.Actions.CopyWindow (kill1, killAllOtherCopies)
+import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Actions.WithAll (sinkAll, killAll)
-import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), nextScreen, prevScreen, shiftNextScreen, shiftPrevScreen)
+import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
 import XMonad.Actions.GridSelect
-import XMonad.Actions.DynamicWorkspaces (addWorkspacePrompt, removeEmptyWorkspace)
 import XMonad.Actions.MouseResize
-import qualified XMonad.Actions.ConstrainedResize as Sqr
 
     -- Layouts modifiers
-import XMonad.Layout.PerWorkspace (onWorkspace) 
-import XMonad.Layout.Renamed (renamed, Rename(CutWordsLeft, Replace))
-import XMonad.Layout.WorkspaceDir
+import XMonad.Layout.Renamed (renamed, Rename(Replace))
 import XMonad.Layout.Spacing (spacing) 
 import XMonad.Layout.NoBorders
 import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
-import XMonad.Layout.Reflect (reflectVert, reflectHoriz, REFLECTX(..), REFLECTY(..))
+import XMonad.Layout.Reflect (REFLECTX(..), REFLECTY(..))
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), Toggle(..), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
@@ -75,21 +68,34 @@ import XMonad.Layout.SimplestFloat
 import XMonad.Layout.OneBig
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.ResizableTile
-import XMonad.Layout.ZoomRow (zoomRow, zoomIn, zoomOut, zoomReset, ZoomMessage(ZoomFullToggle))
-import XMonad.Layout.IM (withIM, Property(Role))
+import XMonad.Layout.ZoomRow (zoomRow, zoomReset, ZoomMessage(ZoomFullToggle))
 
 ------------------------------------------------------------------------
 -- VARIABLES
 ------------------------------------------------------------------------
-myFont        = "xft:Mononoki Nerd Font:regular:pixelsize=11"
-myModMask     = mod4Mask     -- Sets modkey to super/windows key
-myTerminal    = "alacritty"  -- Sets default terminal
-myTextEditor  = "nvim"       -- Sets default text editor
-myBorderWidth = 2            -- Sets border width for windows
-myNormColor   = "#292d3e"    -- Border color of normal windows
-myFocusColor  = "#bbc5ff"    -- Border color of focused windows
-altMask       = mod1Mask     -- Setting this for use in xprompts
-windowCount   = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+myFont :: [Char]
+myFont = "xft:Mononoki Nerd Font:regular:pixelsize=11"
+
+myModMask :: KeyMask
+myModMask = mod4Mask       -- Sets modkey to super/windows key
+
+myTerminal :: [Char]
+myTerminal = "alacritty"   -- Sets default terminal
+
+myBorderWidth :: Dimension
+myBorderWidth = 2          -- Sets border width for windows
+
+myNormColor :: [Char]
+myNormColor   = "#292d3e"  -- Border color of normal windows
+
+myFocusColor :: [Char]
+myFocusColor  = "#bbc5ff"  -- Border color of focused windows
+
+altMask :: KeyMask
+altMask = mod1Mask         -- Setting this for use in xprompts
+
+windowCount :: X (Maybe String)
+windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 ------------------------------------------------------------------------
 -- AUTOSTART
@@ -101,6 +107,7 @@ myStartupHook = do
           spawnOnce "volumeicon &"
           spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x292d3e --height 18 &"
           --spawnOnce "emacs --daemon &" 
+          spawnOnce "kak -d -s mysession &"
           setWMName "LG3D"
 
 ------------------------------------------------------------------------
@@ -115,6 +122,7 @@ myColorizer = colorRangeFromClassName
                   (0xff,0xff,0xff) -- active fg
                   
 -- gridSelect menu layout
+mygridConfig :: p -> GSConfig Window
 mygridConfig colorizer = (buildDefaultGSConfig myColorizer)
     { gs_cellheight   = 30
     , gs_cellwidth    = 200
@@ -123,10 +131,9 @@ mygridConfig colorizer = (buildDefaultGSConfig myColorizer)
     , gs_originFractY = 0.5
     , gs_font         = myFont
     }
-    
 spawnSelected' :: [(String, String)] -> X ()
 spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
-    where conf = defaultGSConfig
+    where conf = def
 
 ------------------------------------------------------------------------
 -- XPROMPT KEYMAP (emacs-like key bindings)
@@ -173,6 +180,7 @@ dtXPKeymap = M.fromList $
 ------------------------------------------------------------------------
 -- XPROMPT SETTINGS
 ------------------------------------------------------------------------
+dtXPConfig :: XPConfig
 dtXPConfig = def
       { font                  = "xft:Mononoki Nerd Font:size=9"
       , bgColor             = "#292d3e"
@@ -198,6 +206,7 @@ dtXPConfig = def
 ------------------------------------------------------------------------
 -- KEYBINDINGS
 ------------------------------------------------------------------------
+myKeys :: [([Char], X ())]
 myKeys =
     -- Xmonad
         [ ("M-C-r", spawn "xmonad --recompile")      -- Recompiles xmonad
@@ -306,7 +315,7 @@ myKeys =
     -- Open My Preferred Terminal. I also run the FISH shell. Setting FISH as my default shell 
     -- breaks some things so I prefer to just launch "fish" when I open a terminal.
         , ("M-<Return>", spawn (myTerminal ++ " -e fish"))
-		
+
     --- Dmenu Scripts (Alt+Ctr+Key)
         --, ("M-S-<Return>", spawn "dmenu_run")
         , ("M1-C-e", spawn "./.dmenu/dmenu-edit-configs.sh")
@@ -354,6 +363,7 @@ myKeys =
 -- My workspaces are clickable meaning that the mouse can be used to switch
 -- workspaces. This requires xdotool.
 
+xmobarEscape :: [Char] -> [Char]
 xmobarEscape = concatMap doubleLts
   where
         doubleLts '<' = "<<"
@@ -414,6 +424,7 @@ floats   = renamed [Replace "floats"]   $ limitWindows 20 $ simplestFloat
 ------------------------------------------------------------------------
 -- SCRATCHPADS
 ------------------------------------------------------------------------
+myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "cmus" spawnCmus findCmus manageCmus  
                 ]
@@ -438,6 +449,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
 ------------------------------------------------------------------------
 -- MAIN
 ------------------------------------------------------------------------
+main :: IO ()
 main = do
     -- Launching three instances of xmobar on their monitors.
     xmproc0 <- spawnPipe "xmobar -x 0 /home/dt/.config/xmobar/xmobarrc0"

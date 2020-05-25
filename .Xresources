@@ -80,7 +80,7 @@ XTerm*background: #282a36
 XTerm*cursorColor: #bbc5ff
 
 ! black
-*.color0:       #101010  !! originally #282a36
+*.color0:       #101010  !! originally #292d3e
 *.color8:       #434758
 
 ! red
