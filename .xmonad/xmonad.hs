@@ -15,6 +15,7 @@ import qualified XMonad.StackSet as W
 
     -- Prompt
 import XMonad.Prompt
+import XMonad.Prompt.Input
 import XMonad.Prompt.Man
 import XMonad.Prompt.Pass
 import XMonad.Prompt.Shell (shellPrompt)
@@ -23,6 +24,7 @@ import XMonad.Prompt.XMonad
 import Control.Arrow (first)
 
     -- Data
+import Data.Char (isSpace)
 import Data.List
 import Data.Monoid
 import Data.Maybe (isJust)
@@ -31,7 +33,7 @@ import qualified Data.Map as M
     -- Utilities
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
-import XMonad.Util.Run (safeSpawn, spawnPipe)
+import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
     -- Hooks
@@ -52,6 +54,7 @@ import XMonad.Actions.GridSelect
 import XMonad.Actions.MouseResize
 
     -- Layouts modifiers
+import XMonad.Layout.Gaps
 import XMonad.Layout.Renamed (renamed, Rename(Replace))
 import XMonad.Layout.Spacing (spacing) 
 import XMonad.Layout.NoBorders
@@ -90,6 +93,9 @@ myNormColor   = "#292d3e"  -- Border color of normal windows
 
 myFocusColor :: [Char]
 myFocusColor  = "#bbc5ff"  -- Border color of focused windows
+
+myGaps :: Int
+myGaps = 5                 -- Sets layout gaps and window spacing
 
 altMask :: KeyMask
 altMask = mod1Mask         -- Setting this for use in xprompts
@@ -182,13 +188,13 @@ dtXPKeymap = M.fromList $
 ------------------------------------------------------------------------
 dtXPConfig :: XPConfig
 dtXPConfig = def
-      { font                  = "xft:Mononoki Nerd Font:size=9"
+      { font                = "xft:Mononoki Nerd Font:size=9"
       , bgColor             = "#292d3e"
       , fgColor             = "#d0d0d0"
       , bgHLight            = "#c792ea"
       , fgHLight            = "#000000"
       , borderColor         = "#535974"
-      , promptBorderWidth   = 1
+      , promptBorderWidth   = 0
       , promptKeymap        = dtXPKeymap
       , position            = Top
 --    , position            = CenteredAt { xpCenterY = 0.3, xpWidth = 0.3 }
@@ -202,6 +208,14 @@ dtXPConfig = def
       , alwaysHighlight     = True
       , maxComplRows        = Nothing        -- set to Just 5 for 5 rows
       }
+
+calcPrompt :: XPConfig -> String -> X () 
+calcPrompt c ans =
+    inputPrompt c (trim ans) ?+ \input -> 
+        liftIO(runProcessWithInput "qalc" [input] "") >>= calcPrompt c 
+    where
+        trim  = f . f
+            where f = reverse . dropWhile isSpace
 
 ------------------------------------------------------------------------
 -- KEYBINDINGS
@@ -218,10 +232,12 @@ myKeys =
         , ("M-S-o", xmonadPrompt dtXPConfig)         -- Xmonad Prompt
         , ("M-S-s", sshPrompt dtXPConfig)            -- Ssh Prompt
         , ("M-S-m", manPrompt dtXPConfig)            -- Manpage Prompt
-        -- The next three bindings require pass to be installed
+        -- Require pass to be installed
         , ("M1-C-p", passPrompt dtXPConfig)          -- Get Passwords Prompt
         , ("M1-C-g", passGeneratePrompt dtXPConfig)  -- Generate Passwords Prompt
         , ("M1-C-r", passRemovePrompt dtXPConfig)    -- Remove Passwords Prompt
+        -- Calculator prompt
+        , ("M1-C-c", calcPrompt dtXPConfig "qalc")   -- Requires qalculate-gtk
     
     -- Windows
         , ("M-S-c", kill1)                           -- Kill the currently focused client
@@ -412,8 +428,8 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
              where 
                  myDefaultLayout = tall ||| grid ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
 
-tall     = renamed [Replace "tall"]     $ limitWindows 12 $ spacing 6 $ ResizableTall 1 (3/100) (1/2) []
-grid     = renamed [Replace "grid"]     $ limitWindows 12 $ spacing 6 $ mkToggle (single MIRROR) $ Grid (16/10)
+tall     = renamed [Replace "tall"]     $ limitWindows 12 $ gaps [(U,myGaps), (D,myGaps), (L,myGaps), (R,myGaps)] $ spacing myGaps $ ResizableTall 1 (3/100) (1/2) []
+grid     = renamed [Replace "grid"]     $ limitWindows 12 $ spacing myGaps $ mkToggle (single MIRROR) $ Grid (16/10)
 threeCol = renamed [Replace "threeCol"] $ limitWindows 3  $ ThreeCol 1 (3/100) (1/2) 
 threeRow = renamed [Replace "threeRow"] $ limitWindows 3  $ Mirror $ mkToggle (single MIRROR) zoomRow
 oneBig   = renamed [Replace "oneBig"]   $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
