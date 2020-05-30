@@ -322,7 +322,7 @@ layouts = [
          section_top = 10,
          panel_width = 320
          ),
-     layout.Floating(**layout_theme)
+    layout.Floating(**layout_theme)
 ]
 
 ##### COLORS #####

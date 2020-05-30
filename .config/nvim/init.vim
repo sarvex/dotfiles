@@ -125,7 +125,7 @@ highlight StatusLine       ctermfg=7    ctermbg=8       cterm=none
 highlight StatusLineNC     ctermfg=7    ctermbg=8       cterm=none
 highlight NERDTreeClosable ctermfg=2
 highlight NERDTreeOpenable ctermfg=8
-highlight Comment          ctermfg=4    ctermbg=none    cterm=none
+highlight Comment          ctermfg=4    ctermbg=none    cterm=italic
 highlight Constant         ctermfg=12   ctermbg=none    cterm=none
 highlight Special          ctermfg=4    ctermbg=none    cterm=none
 highlight Identifier       ctermfg=6    ctermbg=none    cterm=none

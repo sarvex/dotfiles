@@ -54,10 +54,10 @@ import XMonad.Actions.GridSelect
 import XMonad.Actions.MouseResize
 
     -- Layouts modifiers
-import XMonad.Layout.Gaps
 import XMonad.Layout.Renamed (renamed, Rename(Replace))
-import XMonad.Layout.Spacing (spacing) 
+import XMonad.Layout.Spacing
 import XMonad.Layout.NoBorders
+import XMonad.Layout.LayoutModifier
 import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import XMonad.Layout.Reflect (REFLECTX(..), REFLECTY(..))
@@ -94,9 +94,6 @@ myNormColor   = "#292d3e"  -- Border color of normal windows
 myFocusColor :: [Char]
 myFocusColor  = "#bbc5ff"  -- Border color of focused windows
 
-myGaps :: Int
-myGaps = 5                 -- Sets layout gaps and window spacing
-
 altMask :: KeyMask
 altMask = mod1Mask         -- Setting this for use in xprompts
 
@@ -106,6 +103,7 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 ------------------------------------------------------------------------
 -- AUTOSTART
 ------------------------------------------------------------------------
+myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "nitrogen --restore &" 
           spawnOnce "picom &"
@@ -423,19 +421,63 @@ myManageHook = composeAll
 ------------------------------------------------------------------------
 -- LAYOUTS
 ------------------------------------------------------------------------
-myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats $ 
-               mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ myDefaultLayout
-             where 
-                 myDefaultLayout = tall ||| grid ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
+-- Makes setting the spacingRaw simpler to write. The spacingRaw
+-- module adds a configurable amount of space around windows.
+mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
+-- This is a variation of the above except no borders are applied
+-- if fewer than two windows. So a single window has no gaps.
+mySpacing' i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
-tall     = renamed [Replace "tall"]     $ limitWindows 12 $ gaps [(U,myGaps), (D,myGaps), (L,myGaps), (R,myGaps)] $ spacing myGaps $ ResizableTall 1 (3/100) (1/2) []
-grid     = renamed [Replace "grid"]     $ limitWindows 12 $ spacing myGaps $ mkToggle (single MIRROR) $ Grid (16/10)
-threeCol = renamed [Replace "threeCol"] $ limitWindows 3  $ ThreeCol 1 (3/100) (1/2) 
-threeRow = renamed [Replace "threeRow"] $ limitWindows 3  $ Mirror $ mkToggle (single MIRROR) zoomRow
-oneBig   = renamed [Replace "oneBig"]   $ limitWindows 6  $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (5/9) (8/12)
-monocle  = renamed [Replace "monocle"]  $ limitWindows 20 $ Full
-space    = renamed [Replace "space"]    $ limitWindows 4  $ spacing 12 $ Mirror $ mkToggle (single MIRROR) $ mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $ OneBig (2/3) (2/3)
-floats   = renamed [Replace "floats"]   $ limitWindows 20 $ simplestFloat
+tall     = renamed [Replace "tall"]
+           $ limitWindows 12
+           $ mySpacing 8
+           $ ResizableTall 1 (3/100) (1/2) []
+
+grid     = renamed [Replace "grid"]
+           $ limitWindows 12
+           $ mySpacing 8
+           $ mkToggle (single MIRROR)
+           $ Grid (16/10)
+
+threeCol = renamed [Replace "threeCol"]
+           $ limitWindows 3
+           $ mySpacing' 8
+           $ ThreeCol 1 (3/100) (1/3)
+
+threeRow = renamed [Replace "threeRow"]
+           $ limitWindows 3
+           $ Mirror
+           $ mkToggle (single MIRROR) zoomRow
+
+oneBig   = renamed [Replace "oneBig"]
+           $ limitWindows 6
+           $ Mirror
+           $ mkToggle (single MIRROR)
+           $ mkToggle (single REFLECTX)
+           $ mkToggle (single REFLECTY)
+           $ OneBig (5/9) (8/12)
+
+monocle  = renamed [Replace "monocle"]
+           $ limitWindows 20
+           $ Full
+
+space    = renamed [Replace "space"]
+           $ limitWindows 4
+           $ Mirror
+           $ mkToggle (single MIRROR)
+           $ mkToggle (single REFLECTX)
+           $ mkToggle (single REFLECTY)
+           $ OneBig (2/3) (2/3)
+          
+floats   = renamed [Replace "floats"]
+           $ limitWindows 20
+           $ simplestFloat
+
+myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats $
+               mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ myDefaultLayout
+             where
+               myDefaultLayout = tall ||| grid ||| threeCol ||| threeRow ||| oneBig ||| noBorders monocle ||| space ||| floats
 
 ------------------------------------------------------------------------
 -- SCRATCHPADS
