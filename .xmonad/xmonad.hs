@@ -218,7 +218,7 @@ dtXPConfig = def
 calcPrompt :: XPConfig -> String -> X () 
 calcPrompt c ans =
     inputPrompt c (trim ans) ?+ \input -> 
-        liftIO(runProcessWithInput "whereis" [input] "") >>= calcPrompt c 
+        liftIO(runProcessWithInput "qalc" [input] "") >>= calcPrompt c 
     where
         trim  = f . f
             where f = reverse . dropWhile isSpace
