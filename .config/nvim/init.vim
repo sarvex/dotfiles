@@ -13,36 +13,35 @@ filetype off                  " required
 " => Vundle For Managing Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+call plug#begin('~/.vim/plugged')
 
-call vundle#begin()		" required, all plugins must appear after this line.
 "{{ The Basics }}
-    Plugin 'gmarik/Vundle.vim'                           " Vundle
-    Plugin 'itchyny/lightline.vim'                       " Lightline statusbar
-    Plugin 'suan/vim-instant-markdown', {'rtp': 'after'} " Markdown Preview
-    Plugin 'frazrepo/vim-rainbow'
+    Plug 'gmarik/Vundle.vim'                           " Vundle
+    Plug 'itchyny/lightline.vim'                       " Lightline statusbar
+    Plug 'suan/vim-instant-markdown', {'rtp': 'after'} " Markdown Preview
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'frazrepo/vim-rainbow'
 "{{ File management }}
-    Plugin 'vifm/vifm.vim'                               " Vifm
-    Plugin 'scrooloose/nerdtree'                         " Nerdtree
-    Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'     " Highlighting Nerdtree
-    Plugin 'ryanoasis/vim-devicons'                      " Icons for Nerdtree
+    Plug 'vifm/vifm.vim'                               " Vifm
+    Plug 'scrooloose/nerdtree'                         " Nerdtree
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'     " Highlighting Nerdtree
+    Plug 'ryanoasis/vim-devicons'                      " Icons for Nerdtree
 "{{ Productivity }}
-    Plugin 'vimwiki/vimwiki'                             " VimWiki 
-    Plugin 'jreybert/vimagit'                            " Magit-like plugin for vim
+    Plug 'vimwiki/vimwiki'                             " VimWiki 
+    Plug 'jreybert/vimagit'                            " Magit-like plugin for vim
 "{{ Tim Pope Plugins }}
-    Plugin 'tpope/vim-surround'                          " Change surrounding marks
+    Plug 'tpope/vim-surround'                          " Change surrounding marks
 "{{ Syntax Highlighting and Colors }}
-    Plugin 'PotatoesMaster/i3-vim-syntax'                " i3 config highlighting
-    Plugin 'kovetskiy/sxhkd-vim'                         " sxhkd highlighting
-    Plugin 'vim-python/python-syntax'                    " Python highlighting
-    Plugin 'ap/vim-css-color'                            " Color previews for CSS
+    Plug 'PotatoesMaster/i3-vim-syntax'                " i3 config highlighting
+    Plug 'kovetskiy/sxhkd-vim'                         " sxhkd highlighting
+    Plug 'vim-python/python-syntax'                    " Python highlighting
+    Plug 'ap/vim-css-color'                            " Color previews for CSS
 "{{ Junegunn Choi Plugins }}
-    Plugin 'junegunn/goyo.vim'                           " Distraction-free viewing
-    Plugin 'junegunn/limelight.vim'                      " Hyperfocus on a range
-    Plugin 'junegunn/vim-emoji'                          " Vim needs emojis!
+    Plug 'junegunn/goyo.vim'                           " Distraction-free viewing
+    Plug 'junegunn/limelight.vim'                      " Hyperfocus on a range
+    Plug 'junegunn/vim-emoji'                          " Vim needs emojis!
 
-call vundle#end()		" required, all plugins must appear before this line.
+call plug#end()
 
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:

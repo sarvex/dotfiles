@@ -20,6 +20,9 @@
 ;; Setting the neotree width to be adjustable.
 (setq neo-window-fixed-size nil)
 
+;; Sets binding to toggle line wrap on/off.
+(global-set-key "\C-x\ t" 'toggle-truncate-lines)
+
 ;; Sets transparency for focuses and unfocused frames.
 ;; (set-frame-parameter (selected-frame) 'alpha '(95 . 80))
 ;; (add-to-list 'default-frame-alist '(alpha . (95 . 80)))

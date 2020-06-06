@@ -199,5 +199,8 @@ fi
 ### FORCE ALL KAKOUNE WINDOWS TO BE IN ONE SESSION
 alias kak="kak -c mysession"
 
+### CLEAR THE  TERMINAL
+# alias clear='[ $[$RANDOM % 10] = 0 ] && cd /home/dt/vt100 && ./slowcat.pl $(/bin/ls | grep .vt | shuf -n 1) || clear'
+
 ### RANDOM COLOR SCRIPT ###
 /opt/shell-color-scripts/colorscript.sh random
