@@ -1,161 +1,134 @@
-set nocompatible
-set shell=/bin/bash
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#begin()
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-" plugin management
-Plugin 'gmarik/Vundle.vim'
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-" file tree
-Plugin 'scrooloose/nerdtree'
-" file tree and tabs interaction
-Plugin 'jistr/vim-nerdtree-tabs'
-" commenting
-Plugin 'scrooloose/nerdcommenter'
-" fuzzy file open
-Plugin 'kien/ctrlp.vim'
-" popup completion menu
-Plugin 'AutoComplPop'
-" tags list navigation
-Plugin 'taglist.vim'
-" yank history
-Plugin 'YankRing.vim'
-" git integration
-Plugin 'tpope/vim-fugitive'
-" syntax checking on save
-Plugin 'scrooloose/syntastic'
-" TextMate-style snippets
-Plugin 'msanders/snipmate.vim'
-" manipulation of surraunding parens, quotes, etc.
-Plugin 'tpope/vim-surround'
-" vertical alignment tool
-Plugin 'tsaleh/vim-align'
-" 'ag' searching integration
-Plugin 'rking/ag.vim'
-" text object based on indent level (ai, ii)
-Plugin 'austintaylor/vim-indentobject'
-" global search & replace
-Plugin 'greplace.vim'
-" better looking statusline
-Plugin 'bling/vim-airline'
-" plugin for resolving three-way merge conflicts
-Plugin 'sjl/splice.vim'
-" plugin for visually displaying indent levels
-Plugin 'Indent-Guides'
-" end certain structures automatically, e.g. begin/end etc.
-Plugin 'tpope/vim-endwise'
-" automatic closing of quotes, parenthesis, brackets, etc.
-Plugin 'Raimondi/delimitMate'
-" calendar, duh!
-Plugin 'calendar.vim--Matsumoto'
-" A Narrow Region Plugin (similar to Emacs)
-Plugin 'chrisbra/NrrwRgn'
-" url based hyperlinks for text files
-Plugin 'utl.vim'
-" A clone of Emacs' Org-mode for Vim
-Plugin 'hsitz/VimOrganizer'
-" visual undo tree
-Plugin 'sjl/gundo.vim'
-" switch segments of text with predefined replacements. e.g. '' -> ""
-Plugin 'AndrewRadev/switch.vim'
-" async external commands with output in vim
-Plugin 'tpope/vim-dispatch'
-" git diff in the gutter (sign column) and stages/reverts hunks
-Plugin 'airblade/vim-gitgutter'
+call plug#begin('~/.vim/plugged')
 
-" Ruby/Rails
+Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-rooter'
+Plug 'Blackrush/vim-gocode'
+Plug 'brookhong/cscope.vim'
+Plug 'chrisbra/NrrwRgn'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'conradirwin/vim-bracketed-paste'
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'dense-analysis/ale'
+Plug 'ecomba/vim-ruby-refactoring'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'elixir-lang/vim-elixir'
+Plug 'elzr/vim-json'
+Plug 'ervandew/supertab'
+Plug 'fatih/vim-go'
+Plug 'frazrepo/vim-rainbow'
+Plug 'godlygeek/tabular'
+Plug 'honza/vim-snippets'
+Plug 'hsitz/VimOrganizer'
+Plug 'itchyny/lightline.vim'
+Plug 'janko-m/vim-test'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'jimenezrick/vimerl'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'josemarluedke/vim-rspec'
+Plug 'junegunn/fzf'
+Plug 'junegunn/gv.vim'
+Plug 'kana/vim-textobj-user'
+Plug 'kchmck/vim-coffee-script'
+Plug 'kien/ctrlp.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'majutsushi/tagbar'
+Plug 'mattn/calendar-vim'
+Plug 'mattn/emmet-vim'
+Plug 'mattn/gist-vim'
+Plug 'mattn/webapi-vim'
+Plug 'mbbill/undotree'
+Plug 'mhinz/vim-signify'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'mileszs/apidock.vim'
+Plug 'mxw/vim-jsx'
+Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'plasticboy/vim-markdown'
+Plug 'raimondi/delimitMate'
+Plug 'Rigellute/shades-of-purple.vim'
+Plug 'rking/ag.vim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'rust-lang/rust.vim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/vim-space'
+Plug 'sheerun/vim-polyglot'
+Plug 'Shougo/defx.nvim'
+Plug 'Shougo/denite.nvim'
+Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/vimproc'
+Plug 'sjl/gundo.vim'
+Plug 'sjl/splice.vim'
+Plug 'slim-template/vim-slim'
+Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+Plug 'terryma/vim-multiple-cursors'
+Plug 'thosakwe/vim-flutter'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-cucumber'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fireplace'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-haml'
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
+Plug 'tsaleh/vim-align'
+Plug 'tsaleh/vim-tmux'
+Plug 'udalov/kotlin-vim'
+Plug 'unblevable/quick-scope'
+Plug 'valloric/vim-indent-guides'
+Plug 'vim-ruby/vim-ruby'
+Plug 'vim-scripts/a.vim'
+Plug 'vim-scripts/blockle.vim'
+Plug 'vim-scripts/c.vim'
+Plug 'vim-scripts/FuzzyFinder'
+Plug 'vim-scripts/greplace.vim'
+Plug 'vim-scripts/Guardian'
+Plug 'vim-scripts/jade.vim'
+Plug 'vim-scripts/L9'
+Plug 'vim-scripts/openssl.vim'
+Plug 'vim-scripts/python.vim'
+Plug 'vim-scripts/taglist.vim'
+Plug 'vim-scripts/utl.vim'
+Plug 'vim-scripts/YankRing.vim'
+Plug 'vim-syntastic/syntastic'
+Plug 'vimwiki/vimwiki'
+Plug 'vitaly/vim-gitignore'
+Plug 'vitaly/vim-syntastic-coffee'
+Plug 'wakatime/vim-wakatime'
+Plug 'wavded/vim-stylus'
+Plug 'wincent/command-t'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-notes'
+Plug 'xuyuanp/nerdtree-git-plugin'
+Plug 'yuttie/comfortable-motion.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'Lokaltog/vim-distinguished'
+Plug 'nanotech/jellybeans.vim'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'tpope/vim-vividchalk'
 
-" rails support
-Plugin 'tpope/vim-rails'
-" bundler integration (e.g. :Bopen)
-Plugin 'tpope/vim-bundler'
-" rake integration
-Plugin 'tpope/vim-rake'
-" A custom text object for selecting ruby blocks (ar/ir)
-Plugin 'nelstrom/vim-textobj-rubyblock'
-" ruby refactoring
-Plugin 'ecomba/vim-ruby-refactoring'
-" apidock.com docs integration
-Plugin 'apidock.vim'
-" toggle ruby blocks style
-Plugin 'vim-scripts/blockle.vim'
-" lightweight Rspec runner for Vim
-Plugin 'josemarluedke/vim-rspec'
+call plug#end()
 
-" color themes
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'tpope/vim-vividchalk'
-Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
-Plugin 'Lokaltog/vim-distinguished'
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'candy.vim'
-Plugin 'kristijanhusak/vim-hybrid-material'
-
-" syntax support
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'tsaleh/vim-tmux'
-Plugin 'Puppet-Syntax-Highlighting'
-Plugin 'JSON.vim'
-Plugin 'tpope/vim-cucumber'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-markdown'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'vitaly/vim-syntastic-coffee'
-Plugin 'vim-scripts/jade.vim'
-Plugin 'wavded/vim-stylus'
-Plugin 'tpope/vim-fireplace'
-Plugin 'slim-template/vim-slim'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'Blackrush/vim-gocode'
-Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'Buffergator'
-Plugin 'Guardian'
-Plugin 'github-theme'
-Plugin 'Solarized'
-Plugin 'cscope.vim'
-" Support and minor
-
-" Support for user-defined text objects
-Plugin 'kana/vim-textobj-user'
-" replacement for the repeat mapping (.) to support plugins
-Plugin 'tpope/vim-repeat'
-" hide .gitignore-d files from vim
-Plugin 'vitaly/vim-gitignore'
-" repeat motion with <Space>
-Plugin 'scrooloose/vim-space'
-" Github's gist support
-Plugin 'mattn/gist-vim'
-" web APIs support
-Plugin 'mattn/webapi-vim'
-
-Plugin 'Shougo/vimproc'
-Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/unite-outline'
-Plugin 'ujihisa/unite-colorscheme'
-Plugin 'jimenezrick/vimerl'
-
-Plugin 'OmniCppComplete'
-Plugin 'c.vim'
-Plugin 'python.vim'
-Plugin 'SuperTab'
-Plugin 'a.vim'
-Plugin 'L9'
-Plugin 'FuzzyFinder'
-Plugin 'pyflakes.vim'
-Plugin 'airblade/vim-rooter'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'openssl.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'maksimr/vim-jsbeautify'
-Plugin 'majutsushi/tagbar'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'OrangeT/vim-csharp.git'
-Plugin 'mhinz/vim-signify'
-
-call vundle#end()            " required
-
-filetype plugin indent on    " required
+filetype plugin indent on
 
 hi SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
 set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
@@ -179,16 +152,6 @@ set ofu=syntaxcomplete#Complete
 let g:rubycomplete_buffer_loading = 0
 let g:rubycomplete_classes_in_global = 1
 
-" let g:Powerline_symbols = 'fancy'
-set t_Co=256
-" let g:Powerline_mode_V="V·LINE"
-" let g:Powerline_mode_cv="V·BLOCK"
-" let g:Powerline_mode_S="S·LINE"
-" let g:Powerline_mode_cs="S·BLOCK"
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-
-
 " showmarks
 let g:showmarks_enable = 0 " disabled by default by populardemand ;)
 hi! link ShowMarksHLl LineNr
@@ -197,11 +160,13 @@ hi! link ShowMarksHLo LineNr
 hi! link ShowMarksHLm LineNr
 
 " syntastic
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=2
-let g:syntastic_check_on_wq=0
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_enable_signs = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
 
 " delimitMate
 let g:delimitMate_expand_space = 1 " Turns on/off the expansion of <Space>
@@ -333,55 +298,59 @@ let g:blockle_mapping = '<Leader>B'
 " vim-dispatch
 autocmd FileType ruby let b:dispatch = 'rspec %'
 
-let g:unite_source_history_yank_enable = 1
-let g:unite_enable_start_insert = 1
-let g:unite_source_file_mru_long_limit = 100
-let g:unite_source_directory_mru_long_limit = 100
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-
 " vim-rspec
 map <Leader>r :call RunNearestSpec()<CR>
 " Fast saving
 nmap <leader>w :w!<cr>
 
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-set wrapscan
-set incsearch
-set magic
-set cursorline
-set splitright
-set foldmethod=syntax
-set foldlevelstart=10
-set shiftwidth=2
-set softtabstop=2
+augroup BWCCreateDir
+  autocmd!
+  autocmd BufWritePre * if expand("<afile>")!~#'^\w\+:/' && !isdirectory(expand("%:h")) | execute "silent! !mkdir -p ".shellescape(expand('%:h'), 1) | redraw! | endif
+augroup END
+
 set autoindent
-set smartindent
-set expandtab
-set laststatus=2
+set clipboard=unnamedplus
+set cursorline
 set encoding=utf-8
-set number
-set nowritebackup
-set nobackup
-set noswapfile
-set numberwidth=3
-set textwidth=0
-set nowrap
-set showcmd
-set showmatch
-set ruler
-set wildmenu
+set expandtab
+set fileformats=unix,dos
+set foldlevelstart=10
+set foldmethod=syntax
+set hlsearch
+set ignorecase
+set incsearch
 set laststatus=2
 set listchars=tab:▷⋅,trail:·
+set macligatures
 set magic
-set clipboard=unnamedplus
-set fileformat=unix
-set fileformats=unix,dos
+set nobackup
+set noswapfile
+set nowrap
+set nowritebackup
+set number relativenumber
+set numberwidth=3
+set ruler
+set shiftwidth=2
+set showcmd
+set showmatch
+set smartcase
+set smartindent
+set softtabstop=2
+set splitright
+set textwidth=0
+set wildmenu
+set wrapscan
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+if (has("termguicolors"))
+  set termguicolors
+endif
 
 let g:enable_bold_font = 1
 set background=dark
-colorscheme hybrid_material
-filetype on
-syntax on
+colorscheme shades_of_purple
+let g:shades_of_purple_lightline = 1
+set guifont=NotoMonoForPowerline:h13
