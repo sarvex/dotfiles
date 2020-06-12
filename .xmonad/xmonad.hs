@@ -44,14 +44,15 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
 
     -- Actions
-import XMonad.Actions.Promote
-import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
 import XMonad.Actions.CopyWindow (kill1, killAllOtherCopies)
-import XMonad.Actions.WindowGo (runOrRaise)
-import XMonad.Actions.WithAll (sinkAll, killAll)
 import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
 import XMonad.Actions.GridSelect
 import XMonad.Actions.MouseResize
+import XMonad.Actions.Promote
+import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
+import XMonad.Actions.WindowGo (runOrRaise)
+import XMonad.Actions.WithAll (sinkAll, killAll)
+import qualified XMonad.Actions.Search as S
 
     -- Layouts modifiers
 import XMonad.Layout.Decoration
@@ -79,7 +80,7 @@ import XMonad.Layout.ZoomRow (zoomReset, ZoomMessage(ZoomFullToggle))
 -- VARIABLES
 ------------------------------------------------------------------------
 myFont :: [Char]
-myFont = "xft:Mononoki Nerd Font:regular:pixelsize=11"
+myFont = "xft:Mononoki Nerd Font:bold:pixelsize=13"
 
 myModMask :: KeyMask
 myModMask = mod4Mask       -- Sets modkey to super/windows key
@@ -112,8 +113,8 @@ myStartupHook = do
           spawnOnce "nm-applet &"
           spawnOnce "volumeicon &"
           spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x292d3e --height 18 &"
-          --spawnOnce "emacs --daemon &" 
-          spawnOnce "kak -d -s mysession &"
+          spawnOnce "emacs --daemon &"
+          -- spawnOnce "kak -d -s mysession &"
           setWMName "LG3D"
 
 ------------------------------------------------------------------------
@@ -121,17 +122,17 @@ myStartupHook = do
 ------------------------------------------------------------------------
 myColorizer :: Window -> Bool -> X (String, String)
 myColorizer = colorRangeFromClassName
-                  (0x31,0x2e,0x39) -- lowest inactive bg
-                  (0x31,0x2e,0x39) -- highest inactive bg
-                  (0x61,0x57,0x72) -- active bg
+                  (0x29,0x2d,0x3e) -- lowest inactive bg
+                  (0x29,0x2d,0x3e) -- highest inactive bg
+                  (0xc7,0x92,0xea) -- active bg
                   (0xc0,0xa7,0x9a) -- inactive fg
-                  (0xff,0xff,0xff) -- active fg
+                  (0x29,0x2d,0x3e) -- active fg
                   
 -- gridSelect menu layout
 mygridConfig :: p -> GSConfig Window
 mygridConfig colorizer = (buildDefaultGSConfig myColorizer)
-    { gs_cellheight   = 30
-    , gs_cellwidth    = 200
+    { gs_cellheight   = 40
+    , gs_cellwidth    = 250
     , gs_cellpadding  = 8
     , gs_originFractX = 0.5
     , gs_originFractY = 0.5
@@ -142,47 +143,25 @@ spawnSelected' :: [(String, String)] -> X ()
 spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
     where conf = def
 
-------------------------------------------------------------------------
--- XPROMPT KEYMAP (emacs-like key bindings)
-------------------------------------------------------------------------
-dtXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
-dtXPKeymap = M.fromList $
-     map (first $ (,) controlMask)   -- control + <key>
-     [ (xK_z, killBefore)            -- kill line backwards
-     , (xK_k, killAfter)             -- kill line fowards
-     , (xK_a, startOfLine)           -- move to the beginning of the line
-     , (xK_e, endOfLine)             -- move to the end of the line
-     , (xK_m, deleteString Next)     -- delete a character foward
-     , (xK_b, moveCursor Prev)       -- move cursor forward
-     , (xK_f, moveCursor Next)       -- move cursor backward
-     , (xK_BackSpace, killWord Prev) -- kill the previous word
-     , (xK_y, pasteString)           -- paste a string
-     , (xK_g, quit)                  -- quit out of prompt
-     , (xK_bracketleft, quit)
-     ] 
-     ++
-     map (first $ (,) altMask)       -- meta key + <key>
-     [ (xK_BackSpace, killWord Prev) -- kill the prev word
-     , (xK_f, moveWord Next)         -- move a word forward
-     , (xK_b, moveWord Prev)         -- move a word backward
-     , (xK_d, killWord Next)         -- kill the next word
-     , (xK_n, moveHistory W.focusUp')   -- move up thru history
-     , (xK_p, moveHistory W.focusDown') -- move down thru history
-     ]
-     ++
-     map (first $ (,) 0) -- <key>
-     [ (xK_Return, setSuccess True >> setDone True)
-     , (xK_KP_Enter, setSuccess True >> setDone True)
-     , (xK_BackSpace, deleteString Prev)
-     , (xK_Delete, deleteString Next)
-     , (xK_Left, moveCursor Prev)
-     , (xK_Right, moveCursor Next)
-     , (xK_Home, startOfLine)
-     , (xK_End, endOfLine)
-     , (xK_Down, moveHistory W.focusUp')
-     , (xK_Up, moveHistory W.focusDown')
-     , (xK_Escape, quit)
-     ]
+-- Set favorite apps for the spawnSelected'
+myAppGrid :: [([Char], [Char])]
+myAppGrid = [ ("Audacity", "audacity")
+            , ("Deadbeef", "deadbeef")
+            , ("Emacs", "emacs")
+            , ("Firefox", "firefox")
+            , ("Geany", "geany")
+            , ("Geary", "geary")
+            , ("Gimp", "gimp")
+            , ("Kdenlive", "kdenlive")
+            , ("LibreOffice Impress", "loimpress")
+            , ("LibreOffice Writer", "lowriter")
+            , ("OBS", "obs")
+            , ("PCManFM", "pcmanfm")
+            , ("Simple Terminal", "st")
+            , ("Steam", "steam")
+            , ("Surf Browser", "surf suckless.org")
+            , ("Xonotic", "xonotic-glx")
+            ]
 
 ------------------------------------------------------------------------
 -- XPROMPT SETTINGS
@@ -210,9 +189,32 @@ dtXPConfig = def
       , maxComplRows        = Nothing      -- set to Just 5 for 5 rows
       }
 
+-- The same config minus the autocomplete feature which is annoying on
+-- certain Xprompts, like the search engine prompts.
+dtXPConfig' :: XPConfig
+dtXPConfig' = dtXPConfig
+      { autoComplete = Nothing
+      }
+
+-- A list of all of the standard Xmonad prompts
+promptList :: [(String, XPConfig -> X ())]
+promptList = [ ("m", manPrompt)          -- manpages prompt
+             , ("p", passPrompt)         -- get passwords (requires 'pass')
+             , ("g", passGeneratePrompt) -- generate passwords (requires 'pass')
+             , ("r", passRemovePrompt)   -- remove passwords (requires 'pass')
+             , ("s", sshPrompt)          -- ssh prompt
+             , ("x", xmonadPrompt)       -- xmonad prompt
+             ]
+
+-- A list of my custom prompts
+promptList' :: [(String, XPConfig -> String -> X (), String)]
+promptList' = [ ("c", calcPrompt, "qalc")         -- requires qalculate-gtk
+              ]
+
 ------------------------------------------------------------------------
--- CALCPROMPT requires qalculate-gtk to be installed
+-- CUSTOM PROMPTS
 ------------------------------------------------------------------------
+-- calcPrompt requires a cli calculator called qalcualte-gtk.
 -- You could use this as a template for other custom prompts that 
 -- use command line programs that return a single line of output.
 calcPrompt :: XPConfig -> String -> X () 
@@ -224,8 +226,87 @@ calcPrompt c ans =
             where f = reverse . dropWhile isSpace
 
 ------------------------------------------------------------------------
+-- XPROMPT KEYMAP (emacs-like key bindings)
+------------------------------------------------------------------------
+dtXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
+dtXPKeymap = M.fromList $
+     map (first $ (,) controlMask)   -- control + <key>
+     [ (xK_z, killBefore)            -- kill line backwards
+     , (xK_k, killAfter)             -- kill line fowards
+     , (xK_a, startOfLine)           -- move to the beginning of the line
+     , (xK_e, endOfLine)             -- move to the end of the line
+     , (xK_m, deleteString Next)     -- delete a character foward
+     , (xK_b, moveCursor Prev)       -- move cursor forward
+     , (xK_f, moveCursor Next)       -- move cursor backward
+     , (xK_BackSpace, killWord Prev) -- kill the previous word
+     , (xK_y, pasteString)           -- paste a string
+     , (xK_g, quit)                  -- quit out of prompt
+     , (xK_bracketleft, quit)
+     ]
+     ++
+     map (first $ (,) altMask)       -- meta key + <key>
+     [ (xK_BackSpace, killWord Prev) -- kill the prev word
+     , (xK_f, moveWord Next)         -- move a word forward
+     , (xK_b, moveWord Prev)         -- move a word backward
+     , (xK_d, killWord Next)         -- kill the next word
+     , (xK_n, moveHistory W.focusUp')   -- move up thru history
+     , (xK_p, moveHistory W.focusDown') -- move down thru history
+     ]
+     ++
+     map (first $ (,) 0) -- <key>
+     [ (xK_Return, setSuccess True >> setDone True)
+     , (xK_KP_Enter, setSuccess True >> setDone True)
+     , (xK_BackSpace, deleteString Prev)
+     , (xK_Delete, deleteString Next)
+     , (xK_Left, moveCursor Prev)
+     , (xK_Right, moveCursor Next)
+     , (xK_Home, startOfLine)
+     , (xK_End, endOfLine)
+     , (xK_Down, moveHistory W.focusUp')
+     , (xK_Up, moveHistory W.focusDown')
+     , (xK_Escape, quit)
+     ]
+
+------------------------------------------------------------------------
+-- SEARCH ENGINES
+------------------------------------------------------------------------
+-- Xmonad has several search engines available to use located in
+-- XMonad.Actions.Search. Additionally, you can add other search engines
+-- such as those listed below.
+archwiki, ebay, news, reddit, urban :: S.SearchEngine
+
+archwiki = S.searchEngine "archwiki" "https://wiki.archlinux.org/index.php?search="
+ebay     = S.searchEngine "ebay" "https://www.ebay.com/sch/i.html?_nkw="
+news     = S.searchEngine "news" "https://news.google.com/search?q="
+reddit   = S.searchEngine "reddit" "https://www.reddit.com/search/?q="
+urban    = S.searchEngine "urban" "https://www.urbandictionary.com/define.php?term="
+
+-- This is the list of search engines that I want to use. Some are from
+-- XMonad.Actions.Search, and some are the ones that I added above.
+searchList :: [(String, S.SearchEngine)]
+searchList = [ ("a", archwiki)
+             , ("d", S.duckduckgo)
+             , ("e", ebay)
+             , ("g", S.google)
+             , ("h", S.hoogle)
+             , ("i", S.images)
+             , ("n", news)
+             , ("r", reddit)
+             , ("s", S.stackage)
+             , ("t", S.thesaurus)
+             , ("v", S.vocabulary)
+             , ("b", S.wayback)
+             , ("u", urban)
+             , ("w", S.wikipedia)
+             , ("y", S.youtube)
+             , ("z", S.amazon)
+             ]
+
+------------------------------------------------------------------------
 -- KEYBINDINGS
 ------------------------------------------------------------------------
+-- I am using the Xmonad.Util.EZConfig module which allows keybindings
+-- to be written in simpler, emacs-like format.
 myKeys :: [([Char], X ())]
 myKeys =
     -- Xmonad
@@ -233,18 +314,9 @@ myKeys =
         , ("M-S-r", spawn "xmonad --restart")        -- Restarts xmonad
         , ("M-S-q", io exitSuccess)                  -- Quits xmonad
 
-    -- Prompts
+    -- Run Prompt
         , ("M-S-<Return>", shellPrompt dtXPConfig)   -- Shell Prompt
-        , ("M-S-o", xmonadPrompt dtXPConfig)         -- Xmonad Prompt
-        , ("M-S-s", sshPrompt dtXPConfig)            -- Ssh Prompt
-        , ("M-S-m", manPrompt dtXPConfig)            -- Manpage Prompt
-        -- Require pass to be installed
-        , ("M1-C-p", passPrompt dtXPConfig)          -- Get Passwords Prompt
-        , ("M1-C-g", passGeneratePrompt dtXPConfig)  -- Generate Passwords Prompt
-        , ("M1-C-r", passRemovePrompt dtXPConfig)    -- Remove Passwords Prompt
-        -- Calculator prompt
-        , ("M1-C-c", calcPrompt dtXPConfig "qalc")   -- Requires qalculate-gtk
-    
+
     -- Windows
         , ("M-S-c", kill1)                           -- Kill the currently focused client
         , ("M-S-a", killAll)                         -- Kill all windows on current workspace
@@ -255,24 +327,7 @@ myKeys =
         , ("M-S-<Delete>", sinkAll)                      -- Push ALL floating windows to tile
 
     -- Grid Select
-        , (("M-S-t"), spawnSelected'
-          [ ("Audacity", "audacity")
-          , ("Deadbeef", "deadbeef")
-          , ("Emacs", "emacs")
-          , ("Firefox", "firefox")
-          , ("Geany", "geany")
-          , ("Geary", "geary")
-          , ("Gimp", "gimp")
-          , ("Kdenlive", "kdenlive")
-          , ("LibreOffice Impress", "loimpress")
-          , ("LibreOffice Writer", "lowriter")
-          , ("OBS", "obs")
-          , ("PCManFM", "pcmanfm")
-          , ("Simple Terminal", "st")
-          , ("Steam", "steam")
-          , ("Surf Browser", "surf suckless.org")
-          , ("Xonotic", "xonotic-glx")
-          ])
+        , ("M-S-t", spawnSelected' myAppGrid)                 -- grid select favorite apps
         , ("M-S-g", goToSelected $ mygridConfig myColorizer)  -- goto selected
         , ("M-S-b", bringSelected $ mygridConfig myColorizer) -- bring selected
 
@@ -332,19 +387,24 @@ myKeys =
 
     -- Scratchpads
         , ("M-C-<Return>", namedScratchpadAction myScratchPads "terminal")
-        , ("M-C-c", namedScratchpadAction myScratchPads "cmus")
+        , ("M-C-c", namedScratchpadAction myScratchPads "mocp")
         
-    -- Open My Preferred Terminal. I also run the FISH shell. Setting FISH as my default shell 
+    -- Controls for mocp music player.
+        , ("M-u p", spawn "mocp --play")
+        , ("M-u l", spawn "mocp --next")
+        , ("M-u h", spawn "mocp --previous")
+        , ("M-u <Space>", spawn "mocp --toggle-pause")
+
+        -- Open My Preferred Terminal. I also run the FISH shell. Setting FISH as my default shell
     -- breaks some things so I prefer to just launch "fish" when I open a terminal.
         , ("M-<Return>", spawn (myTerminal ++ " -e fish"))
 
     --- Dmenu Scripts (Alt+Ctr+Key)
         --, ("M-S-<Return>", spawn "dmenu_run")
         , ("M1-C-e", spawn "./.dmenu/dmenu-edit-configs.sh")
-        , ("M1-C-h", spawn "./.dmenu/dmenu-hugo.sh")
         , ("M1-C-m", spawn "./.dmenu/dmenu-sysmon.sh")
         --, ("M1-C-p", spawn "passmenu")
-        , ("M1-C-s", spawn "./.dmenu/dmenu-surfraw.sh")
+        --, ("M1-C-s", spawn "./.dmenu/dmenu-surfraw.sh")
         , ("M1-C-/", spawn "./.dmenu/dmenu-scrot.sh")
 
     --- My Applications (Super+Alt+Key)
@@ -376,7 +436,14 @@ myKeys =
         , ("<XF86Calculator>", runOrRaise "gcalctool" (resource =? "gcalctool"))
         , ("<XF86Eject>", spawn "toggleeject")
         , ("<Print>", spawn "scrotd 0")
-        ] where nonNSP          = WSIs (return (\ws -> W.tag ws /= "nsp"))
+        ]
+        -- Appending search engines to keybindings list
+        ++ [("M-s " ++ k, S.promptSearch dtXPConfig' f) | (k,f) <- searchList ]
+        ++ [("M-S-s " ++ k, S.selectSearch f) | (k,f) <- searchList ]
+        ++ [("M-p " ++ k, f dtXPConfig') | (k,f) <- promptList ]
+        ++ [("M-p " ++ k, f dtXPConfig' g) | (k,f,g) <- promptList' ]
+        -- Appending named scratchpads to keybindings list
+          where nonNSP          = WSIs (return (\ws -> W.tag ws /= "nsp"))
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "nsp"))
                 
 ------------------------------------------------------------------------
@@ -408,7 +475,7 @@ myWorkspaces = clickable . (map xmobarEscape)
 -- if you are using clickable workspaces. You need the className or title 
 -- of the program. Use xprop to get this info.
 
-myManageHook :: Query (Data.Monoid.Endo WindowSet)
+myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
      -- I'm doing it this way because otherwise I would have to write out 
@@ -494,7 +561,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
 ------------------------------------------------------------------------
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
-                , NS "mocp" spawnCmus findCmus manageCmus
+                , NS "mocp" spawnMocp findMocp manageMocp
                 ]
     where
     spawnTerm  = myTerminal ++ " -n scratchpad"
@@ -505,9 +572,9 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.9
                  t = 0.95 -h
                  l = 0.95 -w
-    spawnCmus  = myTerminal ++ " -n mocp 'mocp'"
-    findCmus   = resource =? "mocp"
-    manageCmus = customFloating $ W.RationalRect l t w h
+    spawnMocp  = myTerminal ++ " -n mocp 'mocp'"
+    findMocp   = resource =? "mocp"
+    manageMocp = customFloating $ W.RationalRect l t w h
                  where
                  h = 0.9
                  w = 0.9

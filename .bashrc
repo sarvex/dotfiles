@@ -7,7 +7,7 @@
 # My bash config. Not much to see here. Some pretty standard stuff.
 
 PATH="$HOME/.local/bin${PATH:+:${PATH}}"
-EDITOR="kak"
+EDITOR="nvim"
 export TERM="st-256color"
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 
