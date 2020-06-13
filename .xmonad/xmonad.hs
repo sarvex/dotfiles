@@ -58,15 +58,16 @@ import qualified XMonad.Actions.Search as S
 import XMonad.Layout.Decoration
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
-import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), Toggle(..), (??))
+import XMonad.Layout.Magnifier
+import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Reflect (REFLECTX(..), REFLECTY(..))
 import XMonad.Layout.Renamed (renamed, Rename(Replace))
 import XMonad.Layout.Spacing
 import XMonad.Layout.Tabbed
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
+import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 
     -- Layouts
 import XMonad.Layout.GridVariants (Grid(Grid))
@@ -74,7 +75,6 @@ import XMonad.Layout.SimplestFloat
 import XMonad.Layout.Spiral
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.ThreeColumns
-import XMonad.Layout.ZoomRow (zoomReset, ZoomMessage(ZoomFullToggle))
 
 ------------------------------------------------------------------------
 -- VARIABLES
@@ -314,6 +314,9 @@ myKeys =
         , ("M-S-r", spawn "xmonad --restart")        -- Restarts xmonad
         , ("M-S-q", io exitSuccess)                  -- Quits xmonad
 
+    -- Open my preferred terminal and the FISH shell.
+        , ("M-<Return>", spawn (myTerminal ++ " -e fish"))
+
     -- Run Prompt
         , ("M-S-<Return>", shellPrompt dtXPConfig)   -- Shell Prompt
 
@@ -361,23 +364,18 @@ myKeys =
 
     -- Layouts
         , ("M-<Tab>", sendMessage NextLayout)                                    -- Switch to next layout
-        , ("M-<Space>", sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
+        , ("M-<Space>", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
         , ("M-S-<Space>", sendMessage ToggleStruts)                              -- Toggles struts
-        , ("M-S-n", sendMessage $ Toggle NOBORDERS)                              -- Toggles noborder
-        , ("M-S-x", sendMessage $ Toggle REFLECTX)
-        , ("M-S-y", sendMessage $ Toggle REFLECTY)
-        --, ("M-S-m", sendMessage $ Toggle MIRROR)
+        , ("M-S-n", sendMessage $ MT.Toggle NOBORDERS)                              -- Toggles noborder
         , ("M-<KP_Multiply>", sendMessage (IncMasterN 1))   -- Increase number of clients in master pane
         , ("M-<KP_Divide>", sendMessage (IncMasterN (-1)))  -- Decrease number of clients in master pane
         , ("M-S-<KP_Multiply>", increaseLimit)              -- Increase number of windows
         , ("M-S-<KP_Divide>", decreaseLimit)                -- Decrease number of windows
 
-        , ("M-h", sendMessage Shrink)
-        , ("M-l", sendMessage Expand)
-        , ("M-C-j", sendMessage MirrorShrink)
-        , ("M-C-k", sendMessage MirrorExpand)
-        , ("M-S-;", sendMessage zoomReset)
-        , ("M-;", sendMessage ZoomFullToggle)
+        , ("M-h", sendMessage Shrink)                       -- Shrink horiz window width
+        , ("M-l", sendMessage Expand)                       -- Expand horiz window width
+        , ("M-C-j", sendMessage MirrorShrink)               -- Shrink vert window width
+        , ("M-C-k", sendMessage MirrorExpand)               -- Exoand vert window width
 
     -- Workspaces
         , ("M-.", nextScreen)  -- Switch focus to next monitor
@@ -394,18 +392,6 @@ myKeys =
         , ("M-u l", spawn "mocp --next")
         , ("M-u h", spawn "mocp --previous")
         , ("M-u <Space>", spawn "mocp --toggle-pause")
-
-        -- Open My Preferred Terminal. I also run the FISH shell. Setting FISH as my default shell
-    -- breaks some things so I prefer to just launch "fish" when I open a terminal.
-        , ("M-<Return>", spawn (myTerminal ++ " -e fish"))
-
-    --- Dmenu Scripts (Alt+Ctr+Key)
-        --, ("M-S-<Return>", spawn "dmenu_run")
-        , ("M1-C-e", spawn "./.dmenu/dmenu-edit-configs.sh")
-        , ("M1-C-m", spawn "./.dmenu/dmenu-sysmon.sh")
-        --, ("M1-C-p", spawn "passmenu")
-        --, ("M1-C-s", spawn "./.dmenu/dmenu-surfraw.sh")
-        , ("M1-C-/", spawn "./.dmenu/dmenu-scrot.sh")
 
     --- My Applications (Super+Alt+Key)
         , ("M-M1-a", spawn (myTerminal ++ " -e ncpamixer"))
@@ -506,8 +492,13 @@ mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
--- The layouts that I use
+-- Defining a bunch of layouts, many that I don't use.
 tall     = renamed [Replace "tall"]
+           $ limitWindows 12
+           $ mySpacing 8
+           $ ResizableTall 1 (3/100) (1/2) []
+magnify  = renamed [Replace "magnify"]
+           $ magnifier
            $ limitWindows 12
            $ mySpacing 8
            $ ResizableTall 1 (3/100) (1/2) []
@@ -554,7 +545,16 @@ tabs     = renamed [Replace "tabs"]
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats $
                mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ myDefaultLayout
              where
-               myDefaultLayout = tall ||| noBorders monocle ||| floats ||| grid ||| noBorders tabs ||| spirals ||| threeCol ||| threeRow
+               -- I've commented out the layouts I don't use.
+               myDefaultLayout =     tall
+                                 ||| magnify
+                                 ||| noBorders monocle
+                                 ||| floats
+                                 -- ||| grid
+                                 ||| noBorders tabs
+                                 -- ||| spirals
+                                 -- ||| threeCol
+                                 -- ||| threeRow
 
 ------------------------------------------------------------------------
 -- SCRATCHPADS
