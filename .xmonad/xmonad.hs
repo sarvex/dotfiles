@@ -12,6 +12,55 @@ import System.IO (hPutStrLn)
 import System.Exit (exitSuccess)
 import qualified XMonad.StackSet as W
 
+    -- Actions
+import XMonad.Actions.CopyWindow (kill1, killAllOtherCopies)
+import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
+import XMonad.Actions.GridSelect
+import XMonad.Actions.MouseResize
+import XMonad.Actions.Promote
+import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
+import qualified XMonad.Actions.TreeSelect as TS
+import XMonad.Actions.WindowGo (runOrRaise)
+import XMonad.Actions.WithAll (sinkAll, killAll)
+import qualified XMonad.Actions.Search as S
+
+    -- Data
+import Data.Char (isSpace)
+import Data.List
+import Data.Monoid
+import Data.Maybe (isJust)
+import Data.Tree
+import qualified Data.Map as M
+
+    -- Hooks
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
+import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
+import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
+import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
+import XMonad.Hooks.ServerMode
+import XMonad.Hooks.SetWMName
+
+    -- Layouts
+import XMonad.Layout.GridVariants (Grid(Grid))
+import XMonad.Layout.SimplestFloat
+import XMonad.Layout.Spiral
+import XMonad.Layout.ResizableTile
+import XMonad.Layout.Tabbed
+import XMonad.Layout.ThreeColumns
+
+    -- Layouts modifiers
+import XMonad.Layout.LayoutModifier
+import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
+import XMonad.Layout.Magnifier
+import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
+import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Renamed (renamed, Rename(Replace))
+import XMonad.Layout.Spacing
+import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
+import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
+import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
+
     -- Prompt
 import XMonad.Prompt
 import XMonad.Prompt.Input
@@ -22,79 +71,31 @@ import XMonad.Prompt.Ssh
 import XMonad.Prompt.XMonad
 import Control.Arrow (first)
 
-    -- Data
-import Data.Char (isSpace)
-import Data.List
-import Data.Monoid
-import Data.Maybe (isJust)
-import qualified Data.Map as M
-
     -- Utilities
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
-    -- Hooks
-import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
-import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
-import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
-import XMonad.Hooks.ServerMode
-import XMonad.Hooks.SetWMName
-import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
-
-    -- Actions
-import XMonad.Actions.CopyWindow (kill1, killAllOtherCopies)
-import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
-import XMonad.Actions.GridSelect
-import XMonad.Actions.MouseResize
-import XMonad.Actions.Promote
-import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
-import XMonad.Actions.WindowGo (runOrRaise)
-import XMonad.Actions.WithAll (sinkAll, killAll)
-import qualified XMonad.Actions.Search as S
-
-    -- Layouts modifiers
-import XMonad.Layout.Decoration
-import XMonad.Layout.LayoutModifier
-import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
-import XMonad.Layout.Magnifier
-import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
-import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
-import XMonad.Layout.NoBorders
-import XMonad.Layout.Renamed (renamed, Rename(Replace))
-import XMonad.Layout.Spacing
-import XMonad.Layout.Tabbed
-import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
-import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
-import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
-
-    -- Layouts
-import XMonad.Layout.GridVariants (Grid(Grid))
-import XMonad.Layout.SimplestFloat
-import XMonad.Layout.Spiral
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.ThreeColumns
-
 ------------------------------------------------------------------------
 -- VARIABLES
 ------------------------------------------------------------------------
-myFont :: [Char]
+myFont :: String
 myFont = "xft:Mononoki Nerd Font:bold:pixelsize=13"
 
 myModMask :: KeyMask
 myModMask = mod4Mask       -- Sets modkey to super/windows key
 
-myTerminal :: [Char]
+myTerminal :: String
 myTerminal = "alacritty"   -- Sets default terminal
 
 myBorderWidth :: Dimension
 myBorderWidth = 2          -- Sets border width for windows
 
-myNormColor :: [Char]
+myNormColor :: String
 myNormColor   = "#292d3e"  -- Border color of normal windows
 
-myFocusColor :: [Char]
+myFocusColor :: String
 myFocusColor  = "#bbc5ff"  -- Border color of focused windows
 
 altMask :: KeyMask
@@ -144,7 +145,7 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
     where conf = def
 
 -- Set favorite apps for the spawnSelected'
-myAppGrid :: [([Char], [Char])]
+myAppGrid :: [(String, String)]
 myAppGrid = [ ("Audacity", "audacity")
             , ("Deadbeef", "deadbeef")
             , ("Emacs", "emacs")
@@ -210,7 +211,6 @@ promptList = [ ("m", manPrompt)          -- manpages prompt
 promptList' :: [(String, XPConfig -> String -> X (), String)]
 promptList' = [ ("c", calcPrompt, "qalc")         -- requires qalculate-gtk
               ]
-
 ------------------------------------------------------------------------
 -- CUSTOM PROMPTS
 ------------------------------------------------------------------------
@@ -303,11 +303,69 @@ searchList = [ ("a", archwiki)
              ]
 
 ------------------------------------------------------------------------
+-- TREE SELECT
+------------------------------------------------------------------------
+treeselectAction :: TS.TSConfig (X ()) -> X ()
+treeselectAction tsDefaultConfig = TS.treeselectAction tsDefaultConfig
+   [ Node (TS.TSNode "hello"    "displays hello"      (spawn "xmessage hello!")) []
+   , Node (TS.TSNode "shutdown" "poweroff the system" (spawn "shutdown")) []
+   , Node (TS.TSNode "xmonad" "working with xmonad" (return ()))
+     [ Node (TS.TSNode "edit xmonad" "edit xmonad" (spawn (myTerminal ++ " -e vim ~/.xmonad/xmonad.hs"))) []
+     , Node (TS.TSNode "recompile xmonad" "recompile xmonad" (spawn "xmonad --recompile")) []
+     , Node (TS.TSNode "restart xmonad" "restart xmonad" (spawn "xmonad --restart")) []
+     ]
+   , Node (TS.TSNode "brightness" "Sets screen brightness using xbacklight" (return ()))
+       [ Node (TS.TSNode "bright" "full power"            (spawn "xbacklight -set 100")) []
+       , Node (TS.TSNode "normal" "normal brightness (50%)" (spawn "xbacklight -set 50"))  []
+       , Node (TS.TSNode "dim"    "quite dark"              (spawn "xbacklight -set 10"))  []
+       ]
+   , Node (TS.TSNode "system monitors" "system monitoring applications" (return ()))
+       [ Node (TS.TSNode "htop"    "a much better top"     (spawn (myTerminal ++ " -e htop"))) []
+       , Node (TS.TSNode "glances" "an eye on your system" (spawn (myTerminal ++ " -e glances"))) []
+       , Node (TS.TSNode "gtop"    "a more graphical top"  (spawn (myTerminal ++ " -e gtop"))) []
+       , Node (TS.TSNode "nmon"    "network monitor"       (spawn (myTerminal ++ " -e nmon"))) []
+       , Node (TS.TSNode "s-tui"   "stress your system"    (spawn (myTerminal ++ " -e s-tui"))) []
+       ]
+   ]
+
+tsDefaultConfig :: TS.TSConfig a
+tsDefaultConfig = TS.TSConfig { TS.ts_hidechildren = True
+                              , TS.ts_background   = 0xdd292d3e
+                              , TS.ts_font         = "xft:Mononoki Nerd Font:bold:pixelsize=13"
+                              , TS.ts_node         = (0xffd0d0d0, 0xff202331)
+                              , TS.ts_nodealt      = (0xffd0d0d0, 0xff292d3e)
+                              , TS.ts_highlight    = (0xffffffff, 0xff755999)
+                              , TS.ts_extra        = 0xffd0d0d0
+                              , TS.ts_node_width   = 200
+                              , TS.ts_node_height  = 20
+                              , TS.ts_originX      = 0
+                              , TS.ts_originY      = 0
+                              , TS.ts_indent       = 80
+                              , TS.ts_navigate     = myTreeNavigation
+                              }
+
+myTreeNavigation = M.fromList
+    [ ((0, xK_Escape), TS.cancel)
+    , ((0, xK_Return), TS.select)
+    , ((0, xK_space),  TS.select)
+    , ((0, xK_Up),     TS.movePrev)
+    , ((0, xK_Down),   TS.moveNext)
+    , ((0, xK_Left),   TS.moveParent)
+    , ((0, xK_Right),  TS.moveChild)
+    , ((0, xK_k),      TS.movePrev)
+    , ((0, xK_j),      TS.moveNext)
+    , ((0, xK_h),      TS.moveParent)
+    , ((0, xK_l),      TS.moveChild)
+    , ((0, xK_o),      TS.moveHistBack)
+    , ((0, xK_i),      TS.moveHistForward)
+    ]
+
+------------------------------------------------------------------------
 -- KEYBINDINGS
 ------------------------------------------------------------------------
 -- I am using the Xmonad.Util.EZConfig module which allows keybindings
 -- to be written in simpler, emacs-like format.
-myKeys :: [([Char], X ())]
+myKeys :: [(String, X ())]
 myKeys =
     -- Xmonad
         [ ("M-C-r", spawn "xmonad --recompile")      -- Recompiles xmonad
@@ -330,9 +388,12 @@ myKeys =
         , ("M-S-<Delete>", sinkAll)                      -- Push ALL floating windows to tile
 
     -- Grid Select
-        , ("M-S-t", spawnSelected' myAppGrid)                 -- grid select favorite apps
-        , ("M-S-g", goToSelected $ mygridConfig myColorizer)  -- goto selected
-        , ("M-S-b", bringSelected $ mygridConfig myColorizer) -- bring selected
+        , ("C-g g", spawnSelected' myAppGrid)                 -- grid select favorite apps
+        , ("C-g t", goToSelected $ mygridConfig myColorizer)  -- goto selected
+        , ("C-g b", bringSelected $ mygridConfig myColorizer) -- bring selected
+
+    -- Tree Select
+        , ("M-S-t", treeselectAction tsDefaultConfig)  -- tree select actions menu
 
     -- Windows navigation
         , ("M-m", windows W.focusMaster)     -- Move focus to the master window
@@ -345,28 +406,15 @@ myKeys =
         , ("M1-S-<Tab>", rotSlavesDown)      -- Rotate all windows except master and keep focus in place
         , ("M1-C-<Tab>", rotAllDown)         -- Rotate all the windows in the current stack
         --, ("M-S-s", windows copyToAll)  
-        , ("M-C-s", killAllOtherCopies) 
-        
+        , ("M-C-s", killAllOtherCopies)
+
+        -- Layouts
+        , ("M-<Tab>", sendMessage NextLayout)                -- Switch to next layout
         , ("M-C-M1-<Up>", sendMessage Arrange)
         , ("M-C-M1-<Down>", sendMessage DeArrange)
-        , ("M-<Up>", sendMessage (MoveUp 10))             --  Move focused window to up
-        , ("M-<Down>", sendMessage (MoveDown 10))         --  Move focused window to down
-        , ("M-<Right>", sendMessage (MoveRight 10))       --  Move focused window to right
-        , ("M-<Left>", sendMessage (MoveLeft 10))         --  Move focused window to left
-        , ("M-S-<Up>", sendMessage (IncreaseUp 10))       --  Increase size of focused window up
-        , ("M-S-<Down>", sendMessage (IncreaseDown 10))   --  Increase size of focused window down
-        , ("M-S-<Right>", sendMessage (IncreaseRight 10)) --  Increase size of focused window right
-        , ("M-S-<Left>", sendMessage (IncreaseLeft 10))   --  Increase size of focused window left
-        , ("M-C-<Up>", sendMessage (DecreaseUp 10))       --  Decrease size of focused window up
-        , ("M-C-<Down>", sendMessage (DecreaseDown 10))   --  Decrease size of focused window down
-        , ("M-C-<Right>", sendMessage (DecreaseRight 10)) --  Decrease size of focused window right
-        , ("M-C-<Left>", sendMessage (DecreaseLeft 10))   --  Decrease size of focused window left
-
-    -- Layouts
-        , ("M-<Tab>", sendMessage NextLayout)                                    -- Switch to next layout
         , ("M-<Space>", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
-        , ("M-S-<Space>", sendMessage ToggleStruts)                              -- Toggles struts
-        , ("M-S-n", sendMessage $ MT.Toggle NOBORDERS)                              -- Toggles noborder
+        , ("M-S-<Space>", sendMessage ToggleStruts)         -- Toggles struts
+        , ("M-S-n", sendMessage $ MT.Toggle NOBORDERS)      -- Toggles noborder
         , ("M-<KP_Multiply>", sendMessage (IncMasterN 1))   -- Increase number of clients in master pane
         , ("M-<KP_Divide>", sendMessage (IncMasterN (-1)))  -- Decrease number of clients in master pane
         , ("M-S-<KP_Multiply>", increaseLimit)              -- Increase number of windows
@@ -395,7 +443,7 @@ myKeys =
 
     --- My Applications (Super+Alt+Key)
         , ("M-M1-a", spawn (myTerminal ++ " -e ncpamixer"))
-        , ("M-M1-b", spawn ("surf www.youtube.com/c/DistroTube/"))
+        , ("M-M1-b", spawn "surf www.youtube.com/c/DistroTube/")
         , ("M-M1-e", spawn (myTerminal ++ " -e neomutt"))
         , ("M-M1-f", spawn (myTerminal ++ " -e sh ./.config/vifm/scripts/vifmrun"))
         , ("M-M1-i", spawn (myTerminal ++ " -e irssi"))
@@ -438,7 +486,7 @@ myKeys =
 -- My workspaces are clickable meaning that the mouse can be used to switch
 -- workspaces. This requires xdotool.
 
-xmobarEscape :: [Char] -> [Char]
+xmobarEscape :: String -> String
 xmobarEscape = concatMap doubleLts
   where
         doubleLts '<' = "<<"
