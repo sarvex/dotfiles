@@ -43,7 +43,7 @@ Plug 'jeetsukumaran/vim-buffergator'
 Plug 'jimenezrick/vimerl'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'josemarluedke/vim-rspec'
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/gv.vim'
@@ -153,6 +153,13 @@ Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'Yggdroot/leaderf'
 Plug 'Yggdroot/indentline'
 Plug 'yuttie/comfortable-motion.vim'
+if has('nvim')
+  Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/denite.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 call plug#end()
 
 filetype plugin indent on
@@ -196,7 +203,8 @@ set wildmenu
 set wrapscan
 
 let g:airline#extensions#tabline#enabled = 1
-"let g:deoplete#enable_at_startup = 1
+
+let g:coc_global_extensions = [ 'coc-emoji', 'coc-eslint', 'coc-prettier', 'coc-tsserver', 'coc-tslint', 'coc-tslint-plugin', 'coc-css', 'coc-json', 'coc-pyls', 'coc-yaml' ] 
 
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr><TAB>  pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : coc#refresh()
@@ -208,46 +216,34 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1] =~# '\s'
 endfunction
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+" Use `lp` and `ln` for navigate diagnostics
+nmap <silent> <leader>lp <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>ln <Plug>(coc-diagnostic-next)
 
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" Remap keys for gotos
+nmap <silent> <leader>ld <Plug>(coc-definition)
+nmap <silent> <leader>lt <Plug>(coc-type-definition)
+nmap <silent> <leader>li <Plug>(coc-implementation)
+nmap <silent> <leader>lf <Plug>(coc-references)
 
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" Remap for rename current word
+nmap <leader>lr <Plug>(coc-rename)
 
-" Use K to show documentation in preview window.
+" Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
+  if &filetype == 'vim'
     execute 'h '.expand('<cword>')
   else
     call CocAction('doHover')
   endif
 endfunction
 
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 augroup mygroup
   autocmd!
   autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 augroup end
-
