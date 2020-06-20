@@ -114,7 +114,7 @@ myStartupHook = do
           spawnOnce "nm-applet &"
           spawnOnce "volumeicon &"
           spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x292d3e --height 18 &"
-          spawnOnce "emacs --daemon &"
+          spawnOnce "/usr/bin/emacs --daemon &"
           -- spawnOnce "kak -d -s mysession &"
           setWMName "LG3D"
 
@@ -306,7 +306,7 @@ searchList = [ ("a", archwiki)
 -- TREE SELECT
 ------------------------------------------------------------------------
 treeselectAction :: TS.TSConfig (X ()) -> X ()
-treeselectAction tsDefaultConfig = TS.treeselectAction tsDefaultConfig
+treeselectAction a = TS.treeselectAction a
    [ Node (TS.TSNode "hello"    "displays hello"      (spawn "xmessage hello!")) []
    , Node (TS.TSNode "shutdown" "poweroff the system" (spawn "shutdown")) []
    , Node (TS.TSNode "xmonad" "working with xmonad" (return ()))
@@ -372,8 +372,8 @@ myKeys =
         , ("M-S-r", spawn "xmonad --restart")        -- Restarts xmonad
         , ("M-S-q", io exitSuccess)                  -- Quits xmonad
 
-    -- Open my preferred terminal and the FISH shell.
-        , ("M-<Return>", spawn (myTerminal ++ " -e fish"))
+    -- Open my preferred terminal
+        , ("M-<Return>", spawn (myTerminal))
 
     -- Run Prompt
         , ("M-S-<Return>", shellPrompt dtXPConfig)   -- Shell Prompt
@@ -441,16 +441,26 @@ myKeys =
         , ("M-u h", spawn "mocp --previous")
         , ("M-u <Space>", spawn "mocp --toggle-pause")
 
+    -- Emacs
+        , ("C-e e", spawn "emacsclient -c -a ''")                           -- start emacs
+        , ("C-e a", spawn "emacsclient -c -a '' --eval '(emms)'")           -- emms emacs audio player
+        , ("C-e b", spawn "emacsclient -c -a '' --eval '(ibuffer)'")        -- list emacs buffers
+        , ("C-e d", spawn "emacsclient -c -a '' --eval '(dired nil)'")      -- dired emacs file manager
+        , ("C-e m", spawn "emacsclient -c -a '' --eval '(mu4e)'")           -- mu4e emacs email client
+        , ("C-e n", spawn "emacsclient -c -a '' --eval '(elfeed)'")         -- elfeed emacs rss client
+        , ("C-e s", spawn "emacsclient -c -a '' --eval '(eshell)'")         -- eshell within emacs
+
     --- My Applications (Super+Alt+Key)
         , ("M-M1-a", spawn (myTerminal ++ " -e ncpamixer"))
         , ("M-M1-b", spawn "surf www.youtube.com/c/DistroTube/")
-        , ("M-M1-e", spawn (myTerminal ++ " -e neomutt"))
+        --, ("M-M1-e", spawn (myTerminal ++ " -e neomutt"))
+        , ("M-M1-e", spawn "emacsclient -c -a '' --eval '(mu4e)'")
         , ("M-M1-f", spawn (myTerminal ++ " -e sh ./.config/vifm/scripts/vifmrun"))
         , ("M-M1-i", spawn (myTerminal ++ " -e irssi"))
         , ("M-M1-j", spawn (myTerminal ++ " -e joplin"))
         , ("M-M1-l", spawn (myTerminal ++ " -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube"))
         , ("M-M1-m", spawn (myTerminal ++ " -e mocp"))
-        , ("M-M1-n", spawn (myTerminal ++ " -e newsboat"))
+        , ("M-M1-n", spawn "emacsclient -c -a '' --eval '(elfeed)'")
         , ("M-M1-p", spawn (myTerminal ++ " -e pianobar"))
         , ("M-M1-r", spawn (myTerminal ++ " -e rtv"))
         , ("M-M1-t", spawn (myTerminal ++ " -e toot curses"))
@@ -493,10 +503,10 @@ xmobarEscape = concatMap doubleLts
         doubleLts x   = [x]
         
 myWorkspaces :: [String]   
-myWorkspaces = clickable . (map xmobarEscape) 
+myWorkspaces = clickable . map xmobarEscape
                $ ["dev", "www", "sys", "doc", "vbox", "chat", "mus", "vid", "gfx"]
   where                                                                      
-        clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
+        clickable l = [ "<action=xdotool key super+" ++ show n ++ ">" ++ ws ++ "</action>" |
                       (i,ws) <- zip [1..9] l,                                        
                       let n = i ] 
 
@@ -551,11 +561,9 @@ magnify  = renamed [Replace "magnify"]
            $ mySpacing 8
            $ ResizableTall 1 (3/100) (1/2) []
 monocle  = renamed [Replace "monocle"]
-           $ limitWindows 20
-           $ Full
+           $ limitWindows 20 Full
 floats   = renamed [Replace "floats"]
-           $ limitWindows 20
-           $ simplestFloat
+           $ limitWindows 20 simplestFloat
 grid     = renamed [Replace "grid"]
            $ limitWindows 12
            $ mySpacing 8
@@ -591,7 +599,7 @@ tabs     = renamed [Replace "tabs"]
           
 -- The layout hook
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats $
-               mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ myDefaultLayout
+               mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
              where
                -- I've commented out the layouts I don't use.
                myDefaultLayout =     tall
@@ -611,11 +619,11 @@ myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "mocp" spawnMocp findMocp manageMocp
                 ]
-    where
+  where
     spawnTerm  = myTerminal ++ " -n scratchpad"
     findTerm   = resource =? "scratchpad"
     manageTerm = customFloating $ W.RationalRect l t w h
-                 where
+               where
                  h = 0.9
                  w = 0.9
                  t = 0.95 -h
@@ -623,7 +631,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
     spawnMocp  = myTerminal ++ " -n mocp 'mocp'"
     findMocp   = resource =? "mocp"
     manageMocp = customFloating $ W.RationalRect l t w h
-                 where
+               where
                  h = 0.9
                  w = 0.9
                  t = 0.95 -h

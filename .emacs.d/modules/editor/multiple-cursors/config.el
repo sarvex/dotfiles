@@ -1,5 +1,15 @@
 ;;; editor/multiple-cursors/config.el -*- lexical-binding: t; -*-
 
+(defvar +multiple-cursors-evil-mc-ex-global t
+  "TODO")
+
+(defvar +multiple-cursors-evil-mc-ex-case nil
+  "TODO")
+
+
+;;
+;;; Packages
+
 (use-package! evil-multiedit
   :when (featurep! :editor evil)
   :defer t
@@ -57,7 +67,7 @@
                 (company-complete-common . evil-mc-execute-default-complete)
                 (doom/backward-to-bol-or-indent . evil-mc-execute-default-call)
                 (doom/forward-to-last-non-comment-or-eol . evil-mc-execute-default-call)
-                (doom/backward-kill-to-bol-and-indent . evil-mc-execute-default-call)
+                (evil-delete-back-to-indentation . evil-mc-execute-default-call)
                 ;; Have evil-mc work with explicit `evil-escape' (on C-g)
                 (evil-escape . evil-mc-execute-default-evil-normal-state)
                 ;; Add `evil-org' support
@@ -72,12 +82,32 @@
                 :test #'eq
                 :key #'car))
 
+  ;; HACK Allow these commands to be repeated by prefixing them with a numerical
+  ;;      argument. See gabesoft/evil-mc#110
+  (defadvice! +multiple-cursors--make-repeatable-a (orig-fn)
+    :around '(evil-mc-make-and-goto-first-cursor
+              evil-mc-make-and-goto-last-cursor
+              evil-mc-make-and-goto-prev-cursor
+              evil-mc-make-and-goto-next-cursor
+              evil-mc-skip-and-goto-prev-cursor
+              evil-mc-skip-and-goto-next-cursor
+              evil-mc-make-and-goto-prev-match
+              evil-mc-make-and-goto-next-match
+              evil-mc-skip-and-goto-prev-match
+              evil-mc-skip-and-goto-next-match)
+    (dotimes (i (if (integerp current-prefix-arg) current-prefix-arg 1))
+      (funcall orig-fn)))
+
   ;; If we're entering insert mode, it's a good bet that we want to start using
   ;; our multiple cursors
   (add-hook 'evil-insert-state-entry-hook #'evil-mc-resume-cursors)
 
   ;; evil-escape's escape key sequence leaves behind extraneous characters
   (cl-pushnew 'evil-escape-mode evil-mc-incompatible-minor-modes)
+  ;; Lispy commands don't register on more than 1 cursor. Lispyville is fine
+  ;; though.
+  (when (featurep! :editor lispy)
+    (cl-pushnew 'lispy-mode evil-mc-incompatible-minor-modes))
 
   (add-hook! 'doom-escape-hook
     (defun +multiple-cursors-escape-multiple-cursors-h ()

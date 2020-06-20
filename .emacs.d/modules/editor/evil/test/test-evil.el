@@ -1,7 +1,7 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; editor/evil/test/test-evil.el
 
-(describe "feature/evil"
+(describe "editor/evil"
   :var (resv project-root)
 
   (require! :editor evil)
@@ -9,10 +9,10 @@
   (load! "../autoload/evil")
 
   (before-each
-    (fset 'resv #'+evil-resolve-vim-path-a)
+    (fset 'resv #'+evil-replace-filename-modifiers-a)
     (spy-on 'doom-project-root :and-call-fake (lambda () project-root)))
 
-  ;; `evil-ex-replace-special-filenames' / `+evil-resolve-vim-path-a'
+  ;; `evil-ex-replace-special-filenames' / `+evil-replace-filename-modifiers-a'
   (describe "file modifiers"
     (it "supports basic vim file modifiers"
       (let ((buffer-file-name  "~/.emacs.d/test/modules/feature/test-evil.el")

@@ -108,12 +108,13 @@ g   Repeat alignment on all matches in each line"
 If BANG is non-nil, open compilation output in a comint buffer.
 
 If BANG, then run ARGUMENTS as a full command. This command understands vim file
-modifiers (like %:p:h). See `+evil-resolve-vim-path-a' for details."
+modifiers (like %:p:h). See `+evil-replace-filename-modifiers-a' for details."
   (interactive "<sh><!>")
-  (+evil:compile (format "make %s"
-                        (evil-ex-replace-special-filenames
-                         arguments))
-                bang))
+  (let ((compile-command "make"))
+    (+evil:compile (if (stringp arguments)
+                       (evil-ex-replace-special-filenames arguments)
+                     "")
+                   bang)))
 
 ;;;###autoload (autoload '+evil:compile "editor/evil/autoload/ex" nil t)
 (evil-define-command +evil:compile (arguments &optional bang)
@@ -121,7 +122,7 @@ modifiers (like %:p:h). See `+evil-resolve-vim-path-a' for details."
 If BANG is non-nil, open compilation output in a comint buffer.
 
 This command understands vim file modifiers (like %:p:h). See
-`+evil-resolve-vim-path-a' for details."
+`+evil-replace-filename-modifiers-a' for details."
   (interactive "<sh><!>")
   (compile (evil-ex-replace-special-filenames
             (format "%s %s"
@@ -168,10 +169,11 @@ function and open its documentation with `helpful-function'. Otherwise, it will
 search for it with `apropos'.
 
 If QUERY is empty, this runs the equivalent of 'M-x apropos'. If BANG is
-non-nil, a search is preformed against Doom's manual (with `doom/help-search')."
+non-nil, a search is preformed against Doom's manual (with
+`doom/help-search-headings')."
   (interactive "<!><a>")
   (if bang
-      (doom/help-search query)
+      (doom/help-search-headings query)
     (save-match-data
       (cond ((or (null query) (string-empty-p (string-trim query)))
              (call-interactively

@@ -1,52 +1,28 @@
 ;;; tools/debugger/config.el -*- lexical-binding: t; -*-
 
 (defvar +debugger--realgud-alist
-  '((realgud:zshdb     :modes (sh-mode))
-    (realgud:kshdb     :modes (sh-mode))
-    (realgud:rdebug    :modes (ruby-mode enh-ruby-mode))
-    (realgud:pdb       :modes (python-mode))
-    (realgud:trepan2   :modes (python-mode))
-    (realgud:gub       :modes (go-mode))
+  '((realgud:bashdb    :modes (sh-mode))
     (realgud:gdb)
-    (realgud:trepan    :modes (perl-mode perl6-mode))
-    (realgud:trepanpl  :modes (perl-mode perl6-mode))
-    (realgud:trepanjs  :modes (javascript-mode js2-mode js3-mode))
+    (realgud:gub       :modes (go-mode))
+    (realgud:kshdb     :modes (sh-mode))
+    (realgud:pdb       :modes (python-mode))
+    (realgud:perldb    :modes (perl-mode perl6-mode))
+    (realgud:rdebug    :modes (ruby-mode))
     (realgud:remake)
+    (realgud:trepan    :modes (perl-mode perl6-mode))
+    (realgud:trepan2   :modes (python-mode))
     (realgud:trepan3k  :modes (python-mode))
-    (realgud:bashdb    :modes (sh-mode))
-    (realgud:perldb    :modes (perl-mode perl6-mode))))
+    (realgud:trepanjs  :modes (javascript-mode js2-mode js3-mode))
+    (realgud:trepanpl  :modes (perl-mode perl6-mode))
+    (realgud:zshdb     :modes (sh-mode))))
 
 
 ;;
 ;;; Packages
 
-(use-package! dap-mode
-  :when (featurep! :tools lsp)
-  :hook (dap-mode . dap-ui-mode)
-  :after lsp-mode
-  :init
-  (setq dap--breakpoints-file (concat doom-etc-dir "dap-breakpoints"))
-  :config
-  (dap-mode 1)
-  (dolist (module '(((:lang . cc) ccls dap-lldb dap-gdb-lldb)
-                    ((:lang . elixir) elixir-mode dap-elixir)
-                    ((:lang . go) go-mode dap-go)
-                    ((:lang . java) lsp-java dap-java)
-                    ((:lang . php) php-mode dap-php)
-                    ((:lang . python) python dap-python)
-                    ((:lang . ruby) enh-ruby-mode dap-ruby)
-                    ((:lang . rust) rust-mode dap-lldb)))
-    (when (doom-module-p (caar module) (cdar module) '+lsp)
-      (with-eval-after-load (nth 1 module)
-        (mapc #'require (cddr module)))))
-
-  (when (featurep! :lang javascript +lsp)
-    (with-eval-after-load 'js2-mode
-      (require 'dap-node)
-      (require 'dap-chrome)
-      (require 'dap-firefox)
-      (when IS-WINDOWS
-        (require 'dap-edge)))))
+;;;###package gdb
+(setq gdb-show-main t
+      gdb-many-windows t)
 
 
 (use-package! realgud
@@ -104,9 +80,47 @@
                    (if (boundp 'starting-directory)
                        (realgud-cmdbuf-info-starting-directory= starting-directory))
                    (set minibuffer-history-var
-                        (cl-remove-duplicates (cons cmd-str minibuffer-history)
+                        (cl-remove-duplicates (cons cmd-str (eval minibuffer-history-var))
                                               :from-end t))))))
             (t
              (if cmd-buf (switch-to-buffer cmd-buf))
              (message "Error running command: %s" (mapconcat #'identity cmd-args " "))))
       cmd-buf)))
+
+
+(use-package! dap-mode
+  :when (and (featurep! +lsp) (not (featurep! :tools lsp +eglot)))
+  :hook (dap-mode . dap-tooltip-mode)
+  :after lsp-mode
+  :demand t
+  :preface
+  (setq dap-breakpoints-file (concat doom-etc-dir "dap-breakpoints")
+        dap-utils-extension-path (concat doom-etc-dir "dap-extension/"))
+  :config
+  (dolist (module '(((:lang . cc) ccls dap-lldb dap-gdb-lldb)
+                    ((:lang . elixir) elixir-mode dap-elixir)
+                    ((:lang . go) go-mode dap-go)
+                    ((:lang . java) lsp-java dap-java)
+                    ((:lang . php) php-mode dap-php)
+                    ((:lang . python) python dap-python)
+                    ((:lang . ruby) ruby-mode dap-ruby)
+                    ((:lang . rust) rust-mode dap-lldb)))
+    (when (doom-module-p (caar module) (cdar module) '+lsp)
+      (with-eval-after-load (nth 1 module)
+        (mapc #'require (cddr module)))))
+
+  (when (featurep! :lang javascript +lsp)
+    (after! (:or js2-mode typescript-mode)
+      (require 'dap-node)
+      (require 'dap-chrome)
+      (require 'dap-firefox)
+      (when IS-WINDOWS
+        (require 'dap-edge))))
+
+  (dap-mode 1))
+
+
+(use-package! dap-ui-mode
+  :when (featurep! +lsp)
+  :hook (dap-mode . dap-ui-mode)
+  :hook (dap-ui-mode . dap-ui-controls-mode))

@@ -14,16 +14,6 @@
          (+workspace-contains-buffer-p buffer))))
 
 ;;;###autoload
-(defun +ivy-standard-search (str)
-  "TODO"
-  (funcall +ivy-standard-search-fn str))
-
-;;;###autoload
-(defun +ivy-alternative-search (str)
-  "TODO"
-  (funcall +ivy-alternative-search-fn str))
-
-;;;###autoload
 (defun +ivy-rich-buffer-name (candidate)
   "Display the buffer name.
 
@@ -188,7 +178,7 @@ If ARG (universal argument), open selection in other-window."
         (user-error "%S doesn't support wgrep" caller)))))
 
 ;;;###autoload
-(defun +ivy-yas-prompt (prompt choices &optional display-fn)
+(defun +ivy-yas-prompt-fn (prompt choices &optional display-fn)
   (yas-completing-prompt prompt choices display-fn #'ivy-completing-read))
 
 ;;;###autoload
@@ -217,28 +207,33 @@ If ARG (universal argument), open selection in other-window."
 ;;;###autoload
 (defun +ivy/projectile-find-file ()
   "A more sensible `counsel-projectile-find-file', which will revert to
-`counsel-find-file' if invoked from $HOME, `counsel-file-jump' if invoked from a
-non-project, `projectile-find-file' if in a big project (more than
+`counsel-find-file' if invoked from $HOME or /, `counsel-file-jump' if invoked
+from a non-project, `projectile-find-file' if in a big project (more than
 `ivy-sort-max-size' files), or `counsel-projectile-find-file' otherwise.
 
 The point of this is to avoid Emacs locking up indexing massive file trees."
   (interactive)
-  (call-interactively
-   (cond ((or (file-equal-p default-directory "~")
-              (when-let (proot (doom-project-root))
-                (file-equal-p proot "~")))
-          #'counsel-find-file)
+  ;; Spoof the command so that ivy/counsel will display the (well fleshed-out)
+  ;; actions list for `counsel-find-file' on C-o. The actions list for the other
+  ;; commands aren't as well configured or are empty.
+  (let ((this-command 'counsel-find-file))
+    (call-interactively
+     (cond ((or (file-equal-p default-directory "~")
+                (file-equal-p default-directory "/")
+                (when-let (proot (doom-project-root))
+                  (file-equal-p proot "~")))
+            #'counsel-find-file)
 
-         ((doom-project-p)
-          (let ((files (projectile-current-project-files)))
-            (if (<= (length files) ivy-sort-max-size)
-                #'counsel-projectile-find-file
-              #'projectile-find-file)))
+           ((doom-project-p)
+            (let ((files (projectile-current-project-files)))
+              (if (<= (length files) ivy-sort-max-size)
+                  #'counsel-projectile-find-file
+                #'projectile-find-file)))
 
-         (#'counsel-file-jump))))
+           (#'counsel-file-jump)))))
 
 ;;;###autoload
-(cl-defun +ivy-file-search (&key query in all-files (recursive t))
+(cl-defun +ivy-file-search (&key query in all-files (recursive t) prompt args)
   "Conduct a file search using ripgrep.
 
 :query STRING
@@ -252,36 +247,34 @@ The point of this is to avoid Emacs locking up indexing massive file trees."
   (unless (executable-find "rg")
     (user-error "Couldn't find ripgrep in your PATH"))
   (require 'counsel)
-  (let* ((ivy-more-chars-alist '((t . 1)))
+  (let* ((this-command 'counsel-rg)
          (project-root (or (doom-project-root) default-directory))
          (directory (or in project-root))
-         (default-directory directory)
          (args (concat (if all-files " -uu")
-                       (unless recursive " --maxdepth 1"))))
+                       (unless recursive " --maxdepth 1")
+                       " " (mapconcat #'shell-quote-argument args " "))))
+    (setq deactivate-mark t)
     (counsel-rg
-     (or (if query query)
-         (when (use-region-p)
-           (let ((beg (or (bound-and-true-p evil-visual-beginning) (region-beginning)))
-                 (end (or (bound-and-true-p evil-visual-end) (region-end))))
-             (when (> (abs (- end beg)) 1)
-               (let ((query (buffer-substring-no-properties beg end)))
-                 ;; Escape characters that are special to ivy searches
-                 (replace-regexp-in-string "[! |]" (lambda (substr)
-                                                     (cond ((and (string= substr " ")
-                                                                 (not (featurep! +fuzzy)))
-                                                            "  ")
-                                                           ((string= substr "|")
-                                                            "\\\\\\\\|")
-                                                           ((concat "\\\\" substr))))
-                                           (rxt-quote-pcre query)))))))
+     (or query
+         (when (doom-region-active-p)
+           (replace-regexp-in-string
+            "[! |]" (lambda (substr)
+                      (cond ((and (string= substr " ")
+                                  (not (featurep! +fuzzy)))
+                             "  ")
+                            ((string= substr "|")
+                             "\\\\\\\\|")
+                            ((concat "\\\\" substr))))
+            (rxt-quote-pcre (doom-thing-at-point-or-region)))))
      directory args
-     (format "rg%s %s"
-             args
-             (cond ((equal directory default-directory)
-                    "./")
-                   ((equal directory project-root)
-                    (projectile-project-name))
-                   ((file-relative-name directory project-root)))))))
+     (or prompt
+         (format "rg%s [%s]: "
+                 args
+                 (cond ((equal directory default-directory)
+                        "./")
+                       ((equal directory project-root)
+                        (projectile-project-name))
+                       ((file-relative-name directory project-root))))))))
 
 ;;;###autoload
 (defun +ivy/project-search (&optional arg initial-query directory)

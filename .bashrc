@@ -6,10 +6,12 @@
 #
 # My bash config. Not much to see here. Some pretty standard stuff.
 
-PATH="$HOME/.local/bin${PATH:+:${PATH}}"
-EDITOR="nvim"
-export TERM="st-256color"
-export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
+PATH="$HOME/.local/bin${PATH:+:${PATH}}"  # adding .local/bin to $PATH
+export TERM="xterm-256color"              # getting proper colors
+export HISTCONTROL=ignoredups:erasedups   # no duplicate entries
+export ALTERNATE_EDITOR=""                # setting for emacsclient
+export EDITOR="emacsclient -t -a ''"      # $EDITOR use Emacs in terminal
+export VISUAL="emacsclient -c -a emacs"   # $VISUAL use Emacs in GUI mode
 
 [[ $- != *i* ]] && return
 
@@ -150,8 +152,15 @@ alias sudo='sudo '
 alias ..='cd ..' 
 alias ...='cd ../..'
 
-# vim
+# vim and emacs
 alias vim=nvim
+alias em="/usr/bin/emacs -nw"
+alias emacs="emacsclient -c -a ''"
+
+# devour windows
+alias mpv="devour mpv"
+alias sxiv="devour sxiv"
+alias zathura="devour zathura"
 
 # broot
 alias br='br -dhp'

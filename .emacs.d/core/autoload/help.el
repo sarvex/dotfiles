@@ -3,9 +3,6 @@
 (defvar doom--help-major-mode-module-alist
   '((dockerfile-mode :tools docker)
     (agda2-mode      :lang agda)
-    (haxor-mode      :lang assembly)
-    (mips-mode       :lang assembly)
-    (nasm-mode       :lang assembly)
     (c-mode          :lang cc)
     (c++-mode        :lang cc)
     (objc++-mode     :lang cc)
@@ -34,6 +31,7 @@
     (js2-mode        :lang javascript)
     (rjsx-mode       :lang javascript)
     (typescript-mode :lang javascript)
+    (typescript-tsx-mode :lang javascript)
     (coffee-mode     :lang javascript)
     (julia-mode      :lang julia)
     (kotlin-mode     :lang kotlin)
@@ -41,13 +39,14 @@
     (LaTeX-mode      :lang latex)
     (ledger-mode     :lang ledger)
     (lua-mode        :lang lua)
+    (moonscript-mode :lang lua)
     (markdown-mode   :lang markdown)
     (gfm-mode        :lang markdown)
     (nim-mode        :lang nim)
     (nix-mode        :lang nix)
     (taureg-mode     :lang ocaml)
     (org-mode        :lang org)
-    (perl-mode       :lang perl)
+    (raku-mode       :lang raku)
     (php-mode        :lang php)
     (hack-mode       :lang php)
     (plantuml-mode   :lang plantuml)
@@ -55,9 +54,10 @@
     (python-mode     :lang python)
     (restclient-mode :lang rest)
     (ruby-mode       :lang ruby)
-    (enh-ruby-mode   :lang ruby)
     (rust-mode       :lang rust)
+    (rustic-mode     :lang rust)
     (scala-mode      :lang scala)
+    (scheme-mode     :lang scheme)
     (sh-mode         :lang sh)
     (swift-mode      :lang swift)
     (web-mode        :lang web)
@@ -96,7 +96,7 @@ the current major-modea.")
   "Get information on an active minor mode. Use `describe-minor-mode' for a
 selection of all minor-modes, active or not."
   (interactive
-   (list (completing-read "Minor mode: " (doom-active-minor-modes))))
+   (list (completing-read "Describe active mode: " (doom-active-minor-modes))))
   (let ((symbol
          (cond ((stringp mode) (intern mode))
                ((symbolp mode) mode)
@@ -104,21 +104,6 @@ selection of all minor-modes, active or not."
     (if (fboundp symbol)
         (helpful-function symbol)
       (helpful-variable symbol))))
-
-;;;###autoload
-(defun doom/describe-symbol (symbol)
-  "Show help for SYMBOL, a variable, function or macro."
-  (interactive
-   (list (helpful--read-symbol "Symbol: " #'helpful--bound-p)))
-  (let* ((sym (intern-soft symbol))
-         (bound (boundp sym))
-         (fbound (fboundp sym)))
-    (cond ((and sym bound (not fbound))
-           (helpful-variable sym))
-          ((and sym fbound (not bound))
-           (helpful-callable sym))
-          ((apropos (format "^%s\$" symbol)))
-          ((apropos (format "%s" symbol))))))
 
 
 ;;
@@ -130,7 +115,8 @@ selection of all minor-modes, active or not."
   (require 'org)
   (let* ((default-directory doom-docs-dir)
          (org-agenda-files (mapcar #'expand-file-name (doom-enlist files)))
-         (depth (if (integerp depth) depth)))
+         (depth (if (integerp depth) depth))
+         (org-inhibit-startup t))
     (message "Loading search results...")
     (unwind-protect
         (delq
@@ -150,7 +136,8 @@ selection of all minor-modes, active or not."
                                           (list (or (+org-get-global-property "TITLE")
                                                     (file-relative-name (buffer-file-name)))))
                                         path
-                                        (list (replace-regexp-in-string org-link-any-re "\\4" text)))
+                                        (when text
+                                          (list (replace-regexp-in-string org-link-any-re "\\4" text))))
                                 " > ")
                                tags)
                          " ")
@@ -196,7 +183,7 @@ selection of all minor-modes, active or not."
   (find-file (expand-file-name "index.org" doom-docs-dir)))
 
 ;;;###autoload
-(defun doom/help-search (&optional initial-input)
+(defun doom/help-search-headings (&optional initial-input)
   "Search Doom's documentation and jump to a headline."
   (interactive)
   (doom-completing-read-org-headings
@@ -213,7 +200,26 @@ selection of all minor-modes, active or not."
            (doom--help-modules-list))))
 
 ;;;###autoload
-(defun doom/help-news-search (&optional initial-input)
+(defun doom/help-search (&optional initial-input)
+  "Preform a text search on all of Doom's documentation."
+  (interactive)
+  (funcall (cond ((fboundp '+ivy-file-search)
+                  #'+ivy-file-search)
+                 ((fboundp '+helm-file-search)
+                  #'+helm-file-search)
+                 ((rgrep
+                   (read-regexp
+                    "Search for" (or initial-input 'grep-tag-default)
+                    'grep-regexp-history)
+                   "*.org" doom-emacs-dir)
+                  #'ignore))
+           :query initial-input
+           :args '("-g" "*.org")
+           :in doom-emacs-dir
+           :prompt "Search documentation for: "))
+
+;;;###autoload
+(defun doom/help-search-news (&optional initial-input)
   "Search headlines in Doom's newsletters."
   (interactive)
   (doom-completing-read-org-headings
@@ -316,13 +322,7 @@ without needing to check if they are available."
                          readme-path)))
 
 (defun doom--help-current-module-str ()
-  (cond ((and buffer-file-name
-              (eq major-mode 'emacs-lisp-mode)
-              (file-in-directory-p buffer-file-name doom-private-dir)
-              (save-excursion (goto-char (point-min))
-                              (re-search-forward "^\\s-*(doom! " nil t))
-              (thing-at-point 'sexp t)))
-        ((save-excursion
+  (cond ((save-excursion
            (require 'smartparens)
            (ignore-errors
              (sp-beginning-of-sexp)
@@ -341,10 +341,13 @@ without needing to check if they are available."
                    (symbol-name (cadr mod)))))))
 
 ;;;###autoload
-(defun doom/help-modules (category module)
+(defun doom/help-modules (category module &optional visit-dir)
   "Open the documentation for a Doom module.
 
 CATEGORY is a keyword and MODULE is a symbol. e.g. :editor and 'evil.
+
+If VISIT-DIR is non-nil, visit the module's directory rather than its
+documentation.
 
 Automatically selects a) the module at point (in private init files), b) the
 module derived from a `featurep!' or `require!' call, c) the module that the
@@ -354,7 +357,8 @@ current file is in, or d) the module associated with the current major mode (see
    (mapcar #'intern
            (split-string
             (completing-read "Describe module: "
-                             (doom--help-modules-list) nil t nil nil
+                             (doom--help-modules-list)
+                             nil t nil nil
                              (doom--help-current-module-str))
             " " t)))
   (cl-check-type category symbol)
@@ -362,14 +366,19 @@ current file is in, or d) the module associated with the current major mode (see
   (cl-destructuring-bind (module-string path)
       (or (assoc (format "%s %s" category module) (doom--help-modules-list))
           (user-error "'%s %s' is not a valid module" category module))
+    (setq module-string (substring-no-properties module-string))
     (unless (file-readable-p path)
       (error "Can't find or read %S module at %S" module-string path))
-    (if (not (file-directory-p path))
-        (find-file path)
-      (if (y-or-n-p (format "The %S module has no README file. Explore its directory?"
-                            module-string))
-          (doom-project-browse path)
-        (user-error "Aborted module lookup")))))
+    (cond ((not (file-directory-p path))
+           (if visit-dir
+               (doom-project-browse (file-name-directory path))
+             (find-file path)))
+          (visit-dir
+           (doom-project-browse path))
+          ((y-or-n-p (format "The %S module has no README file. Explore its directory?"
+                             module-string))
+           (doom-project-browse (file-name-directory path)))
+          ((user-error "Aborted module lookup")))))
 
 
 ;;
@@ -419,8 +428,8 @@ If prefix arg is present, refresh the cache."
    (let ((guess (or (function-called-at-point)
                     (symbol-at-point))))
      (require 'finder-inf nil t)
-     (require 'core-packages)
-     (doom-initialize-packages)
+     (require 'package)
+     (require 'straight)
      (let ((packages (delete-dups
                       (append (mapcar #'car package-alist)
                               (mapcar #'car package--builtins)
@@ -432,9 +441,9 @@ If prefix arg is present, refresh the cache."
        (list
         (intern
          (completing-read (if guess
-                              (format "Select package to search for (default %s): "
+                              (format "Select Doom package to search for (default %s): "
                                       guess)
-                            "Describe package: ")
+                            "Describe Doom package: ")
                           packages nil t nil nil
                           (if guess (symbol-name guess))))))))
   (require 'core-packages)
@@ -462,27 +471,44 @@ If prefix arg is present, refresh the cache."
         (insert (symbol-name package) "\n")
 
         (package--print-help-section "Source")
-        (insert (or (pcase (doom-package-backend package)
-                      (`straight
-                       (format! "Straight (%s)\n%s"
-                                (let ((default-directory (straight--build-dir (symbol-name package))))
-                                  (cdr
-                                   (doom-call-process "git" "log" "-1" "--format=%D %h %ci")))
-                                (indent
-                                 13 (string-trim
-                                     (pp-to-string
-                                      (doom-package-build-recipe package))))))
-                      (`elpa
-                       (format "[M]ELPA %s" (doom--package-url package)))
-                      (`builtin "Built-in")
-                      (_ (abbreviate-file-name (symbol-file package))))
-                    "unknown")
-                "\n")
+        (pcase (doom-package-backend package)
+          (`straight
+           (insert "Straight\n")
+           (package--print-help-section "Pinned")
+           (insert (if-let (pin (plist-get (cdr (assq package doom-packages)) :pin))
+                       pin
+                     "unpinned")
+                   "\n")
+           (package--print-help-section "Build")
+           (insert (let ((default-directory (straight--repos-dir (symbol-name package))))
+                     (cdr
+                      (doom-call-process "git" "log" "-1" "--format=%D %h %ci")))
+                   "\n")
+           (let ((recipe (doom-package-build-recipe package)))
+             (insert (format! "%s\n"
+                              (indent 13
+                                      (string-trim (pp-to-string recipe)))))
 
-        (when (gethash (symbol-name package) straight--build-cache)
+             (package--print-help-section "Homepage")
+             (insert (doom--package-url package))))
+          (`elpa (insert "[M]ELPA " (doom--package-url package)))
+          (`builtin (insert "Built-in"))
+          (`other (insert
+                   (abbreviate-file-name
+                    (or (symbol-file package)
+                        (locate-library (symbol-name package))))))
+          (_ (insert "Not installed")))
+        (insert "\n")
+
+        (when-let
+            (modules
+             (if (gethash (symbol-name package) straight--build-cache)
+                 (doom-package-get package :modules)
+               (plist-get (cdr (assq package (doom-package-list 'all)))
+                          :modules)))
           (package--print-help-section "Modules")
           (insert "Declared by the following Doom modules:\n")
-          (dolist (m (doom-package-get package :modules))
+          (dolist (m modules)
             (insert indent)
             (doom--help-package-insert-button
               (format "%s %s" (car m) (or (cdr m) ""))
@@ -512,7 +538,7 @@ If prefix arg is present, refresh the cache."
         (insert "\n\n")))))
 
 (defvar doom--package-cache nil)
-(defun doom--package-list ()
+(defun doom--package-list (&optional prompt)
   (let* ((guess (or (function-called-at-point)
                     (symbol-at-point))))
     (require 'finder-inf nil t)
@@ -528,10 +554,11 @@ If prefix arg is present, refresh the cache."
       (setq doom--package-cache packages)
       (unless (memq guess packages)
         (setq guess nil))
-      (intern (completing-read (if guess
-                                   (format "Select package to search for (default %s): "
-                                           guess)
-                                 "Describe package: ")
+      (intern (completing-read (or prompt
+                                   (if guess
+                                       (format "Select package to search for (default %s): "
+                                               guess)
+                                     "Describe package: "))
                                packages nil t nil nil
                                (if guess (symbol-name guess)))))))
 
@@ -578,7 +605,7 @@ If prefix arg is present, refresh the cache."
 
 This only searches `doom-emacs-dir' (typically ~/.emacs.d) and does not include
 config blocks in your private config."
-  (interactive (list (doom--package-list)))
+  (interactive (list (doom--package-list "Find package config: ")))
   (cl-destructuring-bind (file line _match)
       (split-string
        (completing-read
@@ -592,55 +619,48 @@ config blocks in your private config."
     (recenter)))
 
 ;;;###autoload
-(defun doom/help-package-homepage (package)
-  "Open PACKAGE's repo or homepage in your browser."
-  (interactive (list (doom--package-list)))
-  (browse-url (doom--package-url package)))
+(defalias 'doom/help-package-homepage #'straight-visit-package-website)
+
+(defun doom--help-search-prompt (prompt)
+  (let ((query (doom-thing-at-point-or-region)))
+    (if (featurep 'counsel)
+        query
+      (read-string prompt query 'git-grep query))))
+
+(defvar counsel-rg-base-command)
+(defun doom--help-search (dirs query prompt)
+  ;; REVIEW Replace with deadgrep
+  (unless (executable-find "rg")
+    (user-error "Can't find ripgrep on your system"))
+  (if (fboundp 'counsel-rg)
+      (let ((counsel-rg-base-command (append counsel-rg-base-command dirs)))
+        (counsel-rg query nil "-Lz" prompt))
+    ;; TODO Add helm support?
+    (grep-find
+     (string-join
+      (append (list "rg" "-L" "--search-zip" "--no-heading" "--color=never"
+                    (shell-quote-argument query))
+              (mapcar #'shell-quote-argument dirs))
+      " "))))
 
 ;;;###autoload
 (defun doom/help-search-load-path (query)
   "Perform a text search on your `load-path'.
 Uses the symbol at point or the current selection, if available."
   (interactive
-   (let ((query
-          ;; TODO Generalize this later; into something the lookup module and
-          ;;      project search commands could as well
-          (if (use-region-p)
-              (buffer-substring-no-properties (region-beginning) (region-end))
-            (or (symbol-name (symbol-at-point)) ""))))
-     (list (read-string
-            (format "Search load-path (default: %s): " query)
-            nil 'git-grep query))))
-  ;; REVIEW Replace with deadgrep
-  (grep-find
-   (mapconcat
-    #'shell-quote-argument
-    (append (list "rg" "-L" "--search-zip" "--no-heading" "--color=never" query)
-            (cl-remove-if-not #'file-directory-p load-path))
-    " ")))
+   (list (doom--help-search-prompt "Search load-path: ")))
+  (doom--help-search (cl-remove-if-not #'file-directory-p load-path)
+                     query "Search load-path: "))
 
-;; TODO factor our the duplicate code between this and the above
 ;;;###autoload
 (defun doom/help-search-loaded-files (query)
   "Perform a text search on your `load-path'.
 Uses the symbol at point or the current selection, if available."
   (interactive
-   (let ((query
-          ;; TODO Generalize this later; into something the lookup module and
-          ;;      project search commands could as well.
-          (if (use-region-p)
-              (buffer-substring-no-properties (region-beginning) (region-end))
-            (or (symbol-name (symbol-at-point)) ""))))
-     (list (read-string
-            (format "Search load-path (default: %s): " query)
-            nil 'git-grep query))))
-  (unless (executable-find "rg")
-    (user-error "Can't find ripgrep on your system"))
-  (require 'elisp-refs)
-  ;; REVIEW Replace with deadgrep
-  (grep-find
-   (mapconcat
-    #'shell-quote-argument
-    (append (list "rg" "-L" "--search-zip" "--no-heading" "--color=never" query)
-            (cl-remove-if-not #'file-directory-p (elisp-refs--loaded-paths)))
-    " ")))
+   (list (doom--help-search-prompt "Search loaded files: ")))
+  (doom--help-search
+   (cl-loop for (file . _) in (cl-remove-if-not #'stringp load-history :key #'car)
+            for filebase = (file-name-sans-extension file)
+            if (file-exists-p! (format "%s.el" filebase))
+            collect it)
+   query "Search loaded files: "))
