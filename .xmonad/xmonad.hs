@@ -394,6 +394,8 @@ myKeys =
 
     -- Tree Select
         , ("M-S-t", treeselectAction tsDefaultConfig)  -- tree select actions menu
+        , ("C-t t", TS.treeselectWorkspace tsDefaultConfig myWorkspaces W.greedyView)
+        , ("C-t g", TS.treeselectWorkspace tsDefaultConfig myWorkspaces W.shift)
 
     -- Windows navigation
         , ("M-m", windows W.focusMaster)     -- Move focus to the master window
@@ -449,6 +451,7 @@ myKeys =
         , ("C-e m", spawn "emacsclient -c -a '' --eval '(mu4e)'")           -- mu4e emacs email client
         , ("C-e n", spawn "emacsclient -c -a '' --eval '(elfeed)'")         -- elfeed emacs rss client
         , ("C-e s", spawn "emacsclient -c -a '' --eval '(eshell)'")         -- eshell within emacs
+        , ("C-e t", spawn "emacsclient -c -a '' --eval '(+vterm/here nil)'")         -- eshell within emacs
 
     --- My Applications (Super+Alt+Key)
         , ("M-M1-a", spawn (myTerminal ++ " -e ncpamixer"))
@@ -502,14 +505,27 @@ xmobarEscape = concatMap doubleLts
         doubleLts '<' = "<<"
         doubleLts x   = [x]
         
-myWorkspaces :: [String]   
-myWorkspaces = clickable . map xmobarEscape
-               $ ["dev", "www", "sys", "doc", "vbox", "chat", "mus", "vid", "gfx"]
-  where                                                                      
-        clickable l = [ "<action=xdotool key super+" ++ show n ++ ">" ++ ws ++ "</action>" |
-                      (i,ws) <- zip [1..9] l,                                        
-                      let n = i ] 
+-- myWorkspaces :: [String]
+-- myWorkspaces = clickable . map xmobarEscape
+               -- $ ["dev", "www", "sys", "doc", "vbox", "chat", "mus", "vid", "gfx"]
+  -- where
+        -- clickable l = [ "<action=xdotool key super+" ++ show n ++ ">" ++ ws ++ "</action>" |
+                      -- (i,ws) <- zip [1..9] l,
+                      -- let n = i ]
 
+myWorkspaces :: Forest String
+myWorkspaces = [ Node "Browser" [] -- a workspace for your browser
+               , Node "Home"       -- for everyday activity's
+                   [ Node "1" []   --  with 4 extra sub-workspaces, for even more activity's
+                   , Node "2" []
+                   , Node "3" []
+                   , Node "4" []
+                   ]
+               , Node "Programming" -- for all your programming needs
+                   [ Node "Haskell" []
+                   , Node "Docs"    [] -- documentation
+                   ]
+               ]
 ------------------------------------------------------------------------
 -- MANAGEHOOK
 ------------------------------------------------------------------------
@@ -525,15 +541,14 @@ myManageHook = composeAll
      -- I'm doing it this way because otherwise I would have to write out 
      -- the full name of my clickable workspaces, which would look like:
      -- doShift "<action xdotool super+8>gfx</action>"
-     [ className =? "obs"     --> doShift ( myWorkspaces !! 7)
-     , title =? "firefox"     --> doShift ( myWorkspaces !! 1)
-     , title =? "qutebrowser" --> doShift ( myWorkspaces !! 1)
-     , className =? "mpv"     --> doShift ( myWorkspaces !! 7)
-     , className =? "vlc"     --> doShift ( myWorkspaces !! 7)
-     , className =? "Gimp"    --> doShift ( myWorkspaces !! 8)
+     [ className =? "obs"     --> doShift ( "Browser")
+     , title =? "firefox"     --> doShift ( "Browser")
+     , title =? "qutebrowser" --> doShift ( "Browser")
+     , className =? "vlc"     --> doShift ( "Browser")
+     , className =? "Gimp"    --> doShift ( "Browser")
      , className =? "Gimp"    --> doFloat
      , title =? "Oracle VM VirtualBox Manager"     --> doFloat
-     , className =? "Oracle VM VirtualBox Manager" --> doShift  ( myWorkspaces !! 6)
+     , className =? "Oracle VM VirtualBox Manager" --> doShift  ( "Browser")
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads
 
@@ -661,21 +676,21 @@ main = do
         , terminal           = myTerminal
         , startupHook        = myStartupHook
         , layoutHook         = myLayoutHook 
-        , workspaces         = myWorkspaces
+        , workspaces         = TS.toWorkspaces myWorkspaces
         , borderWidth        = myBorderWidth
         , normalBorderColor  = myNormColor
         , focusedBorderColor = myFocusColor
-        , logHook = dynamicLogWithPP xmobarPP
-                        { ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
-                        , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
-                        , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
-                        , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#F07178" ""        -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#d0d0d0" "" . shorten 60     -- Title of active window in xmobar
-                        , ppSep =  "<fc=#666666> | </fc>"                     -- Separators in xmobar
-                        , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
-                        , ppExtras  = [windowCount]                           -- # of windows current workspace
-                        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
-                        }
+        , logHook = dynamicLogWithPP $ xmobarPP
+                       { ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
+                       , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
+                       , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
+                       , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+                       , ppHiddenNoWindows = xmobarColor "#F07178" ""        -- Hidden workspaces (no windows)
+                       , ppTitle = xmobarColor "#d0d0d0" "" . shorten 60     -- Title of active window in xmobar
+                       , ppSep =  "<fc=#666666> | </fc>"                     -- Separators in xmobar
+                       , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
+                       , ppExtras  = [windowCount]                           -- # of windows current workspace
+                       , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+                       }
         } `additionalKeysP` myKeys 
 
