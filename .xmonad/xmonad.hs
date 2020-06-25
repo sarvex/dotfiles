@@ -226,13 +226,6 @@ myConfigs = [ ("bashrc", myEditor ++ "/home/dt/.bashrc", "the bourne again shell
             , ("zshrc", myEditor ++ "/home/dt/.zshrc", "config for the z shell")
             ]
 
--- Three functions for pulling the first, second and third items
--- from each list in the above 3-tuple named myApplications.
--- getFst, getSnd, getThd ::[[Char]]
--- getFst = [TE.fst3 $ xs !! n | n <- [0..((length xs)-1)]]
--- getSnd = [TE.snd3 $ myApplications !! n | n <- [0..((length myApplications)-1)]]
--- getThd = [TE.thd3 $ myApplications !! n | n <- [0..((length myApplications)-1)]]
-
 -- Creating two lists and then zipping them together in a 2-tuple so that
 -- GridSelect can use them. myAppGrid is the same as myApplications above,
 -- minus the third set of values (the app descriptions).
@@ -474,13 +467,13 @@ searchList = [ ("a", archwiki)
 -- workspaces. This requires xdotool. You need to use UnsafeStdInReader instead
 -- of simply StdInReader in xmobar config so you can pass actions to it.
 
+{- Commented out clickable xmobar workspaces to use TreeSelect workspaces.
+
 xmobarEscape :: String -> String
 xmobarEscape = concatMap doubleLts
   where
         doubleLts '<' = "<<"
         doubleLts x   = [x]
-
-{- Commented out clickable xmobar workspaces to use TreeSelect workspaces.
 
 myWorkspaces :: [String]
 myWorkspaces = clickable . map xmobarEscape
@@ -561,7 +554,7 @@ myManageHook = composeAll
 -- sets opacity for inactive (unfocused) windows.
 myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
-    where fadeAmount = 0.9
+    where fadeAmount = 1.0
 
 ------------------------------------------------------------------------
 -- LAYOUTS
