@@ -14,12 +14,11 @@
 ------------------------------------------------------------------------
     -- Base
 import XMonad
-import System.IO (hPutStr, hPutStrLn)
+import System.IO (hPutStrLn)
 import System.Exit (exitSuccess)
 import qualified XMonad.StackSet as W
 
     -- Actions
-import XMonad.Actions.Commands (defaultCommands, screenCommands, workspaceCommands)
 import XMonad.Actions.CopyWindow (kill1, killAllOtherCopies)
 import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
 import XMonad.Actions.GridSelect
@@ -33,7 +32,6 @@ import qualified XMonad.Actions.Search as S
 
     -- Data
 import Data.Char (isSpace)
-import Data.List
 import Data.Monoid
 import Data.Maybe (isJust)
 import Data.Tree
@@ -177,46 +175,46 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
 -- The lists below are actually 3-tuples for use with gridSelect and treeSelect.
 -- TreeSelect uses all three values in the 3-tuples but GridSelect only needs first
 -- two values in each list (see myAppGrid, myBookmarkGrid and myConfigGrid below).
-myApplications :: [([Char], [Char], [Char])]
+myApplications :: [(String, String, String)]
 myApplications = [ ("Audacity", "audacity", "Graphical cross-platform audio eidtor")
-            , ("Deadbeef", "deadbeef", "Lightweight GUI audio player")
-            , ("Emacs", "emacs", "Much more than a text editor")
-            , ("Firefox", "firefox", "The famous open source web browser")
-            , ("Geany", "geany", "A nice text editor")
-            , ("Geary", "geary", "Email client that is attractive")
-            , ("Gimp", "gimp", "Open source alternative to Photoshop")
-            , ("Kdenlive", "kdenlive", "A great open source video editor")
-            , ("LibreOffice Impress", "loimpress", "For making presentations")
-            , ("LibreOffice Writer", "lowriter", "A fully featured word processor")
-            , ("OBS", "obs", "Open broadcaster software")
-            , ("PCManFM", "pcmanfm", "Lightweight graphical file manager")
-            , ("Simple Terminal", "st", "Suckless simple terminal")
-            , ("Steam", "steam", "Proprietary gaming platform")
-            , ("Surf Browser", "surf suckless.org", "Suckless surf web browser")
-            , ("Xonotic", "xonotic-glx", "A fast-paced first person shooter")
-            ]
+                 , ("Deadbeef", "deadbeef", "Lightweight GUI audio player")
+                 , ("Emacs", "emacs", "Much more than a text editor")
+                 , ("Firefox", "firefox", "The famous open source web browser")
+                 , ("Geany", "geany", "A nice text editor")
+                 , ("Geary", "geary", "Email client that is attractive")
+                 , ("Gimp", "gimp", "Open source alternative to Photoshop")
+                 , ("Kdenlive", "kdenlive", "A great open source video editor")
+                 , ("LibreOffice Impress", "loimpress", "For making presentations")
+                 , ("LibreOffice Writer", "lowriter", "A fully featured word processor")
+                 , ("OBS", "obs", "Open broadcaster software")
+                 , ("PCManFM", "pcmanfm", "Lightweight graphical file manager")
+                 , ("Simple Terminal", "st", "Suckless simple terminal")
+                 , ("Steam", "steam", "Proprietary gaming platform")
+                 , ("Surf Browser", "surf suckless.org", "Suckless surf web browser")
+                 , ("Xonotic", "xonotic-glx", "A fast-paced first person shooter")
+                 ]
 
-myBookmarks :: [([Char], [Char], [Char])]
+myBookmarks :: [(String, String, String)]
 myBookmarks = [ ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-            ]
+              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              ]
 
-myConfigs :: [([Char], [Char], [Char])]
+myConfigs :: [(String, String, String)]
 myConfigs = [ ("bashrc", myEditor ++ "/home/dt/.bashrc", "the bourne again shell")
             , ("doom emacs config.el", myEditor ++ "/home/dt/.doom.d/config.el", "doom emacs config")
             , ("doom emacs init.el", myEditor ++ "/home/dt/.doom.d/init.el", "doom emacs init")
@@ -228,20 +226,22 @@ myConfigs = [ ("bashrc", myEditor ++ "/home/dt/.bashrc", "the bourne again shell
 
 -- Creating two lists and then zipping them together in a 2-tuple so that
 -- GridSelect can use them. myAppGrid is the same as myApplications above,
--- minus the third set of values (the app descriptions).
-myAppGrid :: [([Char], [Char])]
+-- minus the third set of values (the app descriptions). myBookmarkGrid
+-- is the same as myBookmarks, minus the third set of values. And the same
+-- thing is done with myConfigGrid, which is derived from myConfigs.
+myAppGrid :: [(String, String)]
 myAppGrid = zip
             [TE.fst3 $ xs !! n | n <- [0..(length xs - 1)]]
             [TE.snd3 $ xs !! n | n <- [0..(length xs - 1)]]
   where xs = myApplications
 
-myBookmarkGrid :: [([Char], [Char])]
+myBookmarkGrid :: [(String, String)]
 myBookmarkGrid = zip
                  [TE.fst3 $ xs !! n | n <- [0..(length xs - 1)]]
                  [TE.snd3 $ xs !! n | n <- [0..(length xs - 1)]]
   where xs = myBookmarks
 
-myConfigGrid :: [([Char], [Char])]
+myConfigGrid :: [(String, String)]
 myConfigGrid = zip
                [TE.fst3 $ xs !! n | n <- [0..(length xs - 1)]]
                [TE.snd3 $ xs !! n | n <- [0..(length xs - 1)]]
@@ -275,6 +275,7 @@ treeselectAction a = TS.treeselectAction a
      ]
    ]
 
+-- Configuration options for treeSelect
 tsDefaultConfig :: TS.TSConfig a
 tsDefaultConfig = TS.TSConfig { TS.ts_hidechildren = True
                               , TS.ts_background   = 0xdd292d3e
@@ -291,6 +292,7 @@ tsDefaultConfig = TS.TSConfig { TS.ts_hidechildren = True
                               , TS.ts_navigate     = myTreeNavigation
                               }
 
+-- Keybindings for treeSelect menus
 myTreeNavigation = M.fromList
     [ ((0, xK_Escape), TS.cancel)
     , ((0, xK_Return), TS.select)
@@ -345,8 +347,8 @@ dtXPConfig = def
       , maxComplRows        = Nothing      -- set to Just 5 for 5 rows
       }
 
--- The same config minus the autocomplete feature which is annoying on
--- certain Xprompts, like the search engine prompts.
+-- The same config above minus the autocomplete feature which is annoying
+-- on certain Xprompts, like the search engine prompts.
 dtXPConfig' :: XPConfig
 dtXPConfig' = dtXPConfig
       { autoComplete        = Nothing
@@ -383,7 +385,7 @@ calcPrompt c ans =
             where f = reverse . dropWhile isSpace
 
 ------------------------------------------------------------------------
--- XPROMPT KEYMAP (emacs-like key bindings)
+-- XPROMPT KEYMAP (emacs-like key bindings for xprompts)
 ------------------------------------------------------------------------
 dtXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
 dtXPKeymap = M.fromList $
@@ -551,7 +553,9 @@ myManageHook = composeAll
 ------------------------------------------------------------------------
 -- LOGHOOK
 ------------------------------------------------------------------------
--- sets opacity for inactive (unfocused) windows.
+-- sets opacity for inactive (unfocused) windows. I prefer to not use
+-- this feature so I've set opacity to 1.0. If you want opacity, set
+-- this to a value of less than 1 (such as 0.9 for 90% opacity).
 myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
     where fadeAmount = 1.0
