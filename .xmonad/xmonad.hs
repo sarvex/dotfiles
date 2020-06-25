@@ -103,10 +103,12 @@ myTerminal :: String
 myTerminal = "alacritty"   -- Sets default terminal
 
 myBrowser :: String
-myBrowser = myTerminal ++ " -e lynx "  -- Sets browser for tree select
+myBrowser = myTerminal ++ " -e lynx "  -- Sets lynx as browser for tree select
+-- myBrowser = "firefox "                 -- Sets firefox as browser for tree select
 
 myEditor :: String
-myEditor = "emacsclient -c -a emacs "  -- Sets editor for tree select
+myEditor = "emacsclient -c -a emacs "  -- Sets emacs as editor for tree select
+-- myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor for tree select
 
 myBorderWidth :: Dimension
 myBorderWidth = 2          -- Sets border width for windows
@@ -292,32 +294,50 @@ tsDefaultConfig = TS.TSConfig { TS.ts_hidechildren = True
                               , TS.ts_navigate     = myTreeNavigation
                               }
 
--- Keybindings for treeSelect menus
+-- Keybindings for treeSelect menus. Use h-j-k-l to navigate.
+-- Use 'o' and 'i' to move forward/back in the workspace history.
+-- Single KEY's are for top-level nodes. SUPER+KEY are for the
+-- second-level nodes. SUPER+ALT+KEY are third-level nodes.
 myTreeNavigation = M.fromList
-    [ ((0, xK_Escape), TS.cancel)
-    , ((0, xK_Return), TS.select)
-    , ((0, xK_space),  TS.select)
-    , ((0, xK_Up),     TS.movePrev)
-    , ((0, xK_Down),   TS.moveNext)
-    , ((0, xK_Left),   TS.moveParent)
-    , ((0, xK_Right),  TS.moveChild)
-    , ((0, xK_k),      TS.movePrev)
-    , ((0, xK_j),      TS.moveNext)
-    , ((0, xK_h),      TS.moveParent)
-    , ((0, xK_l),      TS.moveChild)
-    , ((0, xK_o),      TS.moveHistBack)
-    , ((0, xK_i),      TS.moveHistForward)
-    , ((0, xK_b),      TS.moveTo ["web", "browser"])
-    , ((0, xK_d),      TS.moveTo ["dev"])
-    , ((0, xK_e),      TS.moveTo ["dev", "emacs"])
-    , ((0, xK_f),      TS.moveTo ["dev", "files"])
-    , ((0, xK_t),      TS.moveTo ["dev", "terminal"])
-    , ((0, xK_g),      TS.moveTo ["graphics"])
-    , ((0, xK_m),      TS.moveTo ["music"])
-    , ((0, xK_p),      TS.moveTo ["dev", "programming", "haskell"])
-    , ((0, xK_v),      TS.moveTo ["video"])
-    , ((0, xK_1),      TS.moveTo ["video", "video editor"])
-    , ((0, xK_w),      TS.moveTo ["web"])
+    [ ((0, xK_Escape),   TS.cancel)
+    , ((0, xK_Return),   TS.select)
+    , ((0, xK_space),    TS.select)
+    , ((0, xK_Up),       TS.movePrev)
+    , ((0, xK_Down),     TS.moveNext)
+    , ((0, xK_Left),     TS.moveParent)
+    , ((0, xK_Right),    TS.moveChild)
+    , ((0, xK_k),        TS.movePrev)
+    , ((0, xK_j),        TS.moveNext)
+    , ((0, xK_h),        TS.moveParent)
+    , ((0, xK_l),        TS.moveChild)
+    , ((0, xK_o),        TS.moveHistBack)
+    , ((0, xK_i),        TS.moveHistForward)
+    , ((0, xK_d),        TS.moveTo ["dev"])
+    , ((0, xK_g),        TS.moveTo ["graphics"])
+    , ((0, xK_m),        TS.moveTo ["music"])
+    , ((0, xK_v),        TS.moveTo ["video"])
+    , ((0, xK_w),        TS.moveTo ["web"])
+    , ((mod4Mask, xK_b), TS.moveTo ["web", "browser"])
+    , ((mod4Mask, xK_c), TS.moveTo ["web", "chat"])
+    , ((mod4Mask, xK_m), TS.moveTo ["web", "email"])
+    , ((mod4Mask, xK_r), TS.moveTo ["web", "rss"])
+    , ((mod4Mask, xK_w), TS.moveTo ["web", "web conference"])
+    , ((mod4Mask, xK_d), TS.moveTo ["dev", "docs"])
+    , ((mod4Mask, xK_e), TS.moveTo ["dev", "emacs"])
+    , ((mod4Mask, xK_f), TS.moveTo ["dev", "files"])
+    , ((mod4Mask, xK_p), TS.moveTo ["dev", "programming"])
+    , ((mod4Mask, xK_t), TS.moveTo ["dev", "terminal"])
+    , ((mod4Mask, xK_z), TS.moveTo ["dev", "virtualization"])
+    , ((mod4Mask, xK_g), TS.moveTo ["graphics", "gimp"])
+    , ((mod4Mask, xK_i), TS.moveTo ["graphics", "image viewer"])
+    , ((mod4Mask, xK_a), TS.moveTo ["music", "audio editor"])
+    , ((mod4Mask, xK_u), TS.moveTo ["music", "music player"])
+    , ((mod4Mask, xK_o), TS.moveTo ["video", "obs"])
+    , ((mod4Mask, xK_v), TS.moveTo ["video", "video player"])
+    , ((mod4Mask, xK_k), TS.moveTo ["video", "kdenlive"])
+    , ((mod4Mask .|. altMask, xK_h), TS.moveTo ["dev", "programming", "haskell"])
+    , ((mod4Mask .|. altMask, xK_p), TS.moveTo ["dev", "programming", "python"])
+    , ((mod4Mask .|. altMask, xK_s), TS.moveTo ["dev", "programming", "shell"])
     ]
 
 ------------------------------------------------------------------------
@@ -506,7 +526,7 @@ myWorkspaces = [ Node "dev"
                    , Node "chat" []
                    , Node "email" []
                    , Node "rss" []
-                   , Node "video conferencing" []
+                   , Node "web conference" []
                    ]
                , Node "graphics"
                    [ Node "gimp" []
@@ -518,8 +538,8 @@ myWorkspaces = [ Node "dev"
                    ]
                , Node "video"
                    [ Node "obs" []
-                   , Node "movie player" []
-                   , Node "video editor" []
+                   , Node "kdenlive" []
+                   , Node "video player" []
                    ]
                ]
 
@@ -553,7 +573,7 @@ myManageHook = composeAll
 ------------------------------------------------------------------------
 -- LOGHOOK
 ------------------------------------------------------------------------
--- sets opacity for inactive (unfocused) windows. I prefer to not use
+-- Sets opacity for inactive (unfocused) windows. I prefer to not use
 -- this feature so I've set opacity to 1.0. If you want opacity, set
 -- this to a value of less than 1 (such as 0.9 for 90% opacity).
 myLogHook :: X ()
@@ -760,14 +780,14 @@ myKeys =
         , ("M-u <Space>", spawn "mocp --toggle-pause")
 
     -- Emacs (CTRL-e followed by a key)
-        , ("C-e e", spawn "emacsclient -c -a ''")                           -- start emacs
-        , ("C-e a", spawn "emacsclient -c -a '' --eval '(emms)'")           -- emms emacs audio player
-        , ("C-e b", spawn "emacsclient -c -a '' --eval '(ibuffer)'")        -- list emacs buffers
-        , ("C-e d", spawn "emacsclient -c -a '' --eval '(dired nil)'")      -- dired emacs file manager
-        , ("C-e m", spawn "emacsclient -c -a '' --eval '(mu4e)'")           -- mu4e emacs email client
-        , ("C-e n", spawn "emacsclient -c -a '' --eval '(elfeed)'")         -- elfeed emacs rss client
-        , ("C-e s", spawn "emacsclient -c -a '' --eval '(eshell)'")         -- eshell within emacs
-        , ("C-e t", spawn "emacsclient -c -a '' --eval '(+vterm/here nil)'")         -- eshell within emacs
+        , ("C-e e", spawn "emacsclient -c -a ''")                            -- start emacs
+        , ("C-e a", spawn "emacsclient -c -a '' --eval '(emms)'")            -- emms emacs audio player
+        , ("C-e b", spawn "emacsclient -c -a '' --eval '(ibuffer)'")         -- list emacs buffers
+        , ("C-e d", spawn "emacsclient -c -a '' --eval '(dired nil)'")       -- dired emacs file manager
+        , ("C-e m", spawn "emacsclient -c -a '' --eval '(mu4e)'")            -- mu4e emacs email client
+        , ("C-e n", spawn "emacsclient -c -a '' --eval '(elfeed)'")          -- elfeed emacs rss client
+        , ("C-e s", spawn "emacsclient -c -a '' --eval '(eshell)'")          -- eshell within emacs
+        , ("C-e t", spawn "emacsclient -c -a '' --eval '(+vterm/here nil)'") -- eshell within emacs
 
     --- My Applications (Super+Alt+Key)
         , ("M-M1-a", spawn (myTerminal ++ " -e ncpamixer"))
