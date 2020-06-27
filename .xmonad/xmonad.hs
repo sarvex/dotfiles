@@ -226,27 +226,18 @@ myConfigs = [ ("bashrc", myEditor ++ "/home/dt/.bashrc", "the bourne again shell
             , ("zshrc", myEditor ++ "/home/dt/.zshrc", "config for the z shell")
             ]
 
--- Creating two lists and then zipping them together in a 2-tuple so that
--- GridSelect can use them. myAppGrid is the same as myApplications above,
--- minus the third set of values (the app descriptions). myBookmarkGrid
--- is the same as myBookmarks, minus the third set of values. And the same
--- thing is done with myConfigGrid, which is derived from myConfigs.
+-- Let's take myApplications, myBookmarks and myConfigs and take only
+-- the first two values from those 3-tuples (for GridSelect).
 myAppGrid :: [(String, String)]
-myAppGrid = zip
-            [TE.fst3 $ xs !! n | n <- [0..(length xs - 1)]]
-            [TE.snd3 $ xs !! n | n <- [0..(length xs - 1)]]
+myAppGrid = [ (a,b) | (a,b,c) <- xs]
   where xs = myApplications
 
 myBookmarkGrid :: [(String, String)]
-myBookmarkGrid = zip
-                 [TE.fst3 $ xs !! n | n <- [0..(length xs - 1)]]
-                 [TE.snd3 $ xs !! n | n <- [0..(length xs - 1)]]
+myBookmarkGrid = [ (a,b) | (a,b,c) <- xs]
   where xs = myBookmarks
 
 myConfigGrid :: [(String, String)]
-myConfigGrid = zip
-               [TE.fst3 $ xs !! n | n <- [0..(length xs - 1)]]
-               [TE.snd3 $ xs !! n | n <- [0..(length xs - 1)]]
+myConfigGrid = [ (a,b) | (a,b,c) <- xs]
   where xs = myConfigs
 
 ------------------------------------------------------------------------
@@ -781,25 +772,25 @@ myKeys =
 
     -- Emacs (CTRL-e followed by a key)
         , ("C-e e", spawn "emacsclient -c -a ''")                            -- start emacs
-        , ("C-e a", spawn "emacsclient -c -a '' --eval '(emms)'")            -- emms emacs audio player
         , ("C-e b", spawn "emacsclient -c -a '' --eval '(ibuffer)'")         -- list emacs buffers
         , ("C-e d", spawn "emacsclient -c -a '' --eval '(dired nil)'")       -- dired emacs file manager
         , ("C-e m", spawn "emacsclient -c -a '' --eval '(mu4e)'")            -- mu4e emacs email client
         , ("C-e n", spawn "emacsclient -c -a '' --eval '(elfeed)'")          -- elfeed emacs rss client
         , ("C-e s", spawn "emacsclient -c -a '' --eval '(eshell)'")          -- eshell within emacs
         , ("C-e t", spawn "emacsclient -c -a '' --eval '(+vterm/here nil)'") -- eshell within emacs
+        -- emms is an emacs audio player. I set it to auto start playing in a specific directory.
+        , ("C-e a", spawn "emacsclient -c -a '' --eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/Non-Classical/70s-80s/\")'")
 
     --- My Applications (Super+Alt+Key)
         , ("M-M1-a", spawn (myTerminal ++ " -e ncpamixer"))
         , ("M-M1-b", spawn "surf www.youtube.com/c/DistroTube/")
-        --, ("M-M1-e", spawn (myTerminal ++ " -e neomutt"))
-        , ("M-M1-e", spawn "emacsclient -c -a '' --eval '(mu4e)'")
+        , ("M-M1-e", spawn (myTerminal ++ " -e neomutt"))
         , ("M-M1-f", spawn (myTerminal ++ " -e sh ./.config/vifm/scripts/vifmrun"))
         , ("M-M1-i", spawn (myTerminal ++ " -e irssi"))
         , ("M-M1-j", spawn (myTerminal ++ " -e joplin"))
         , ("M-M1-l", spawn (myTerminal ++ " -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube"))
         , ("M-M1-m", spawn (myTerminal ++ " -e mocp"))
-        , ("M-M1-n", spawn "emacsclient -c -a '' --eval '(elfeed)'")
+        , ("M-M1-n", spawn (myTerminal ++ " -e newsboat"))
         , ("M-M1-p", spawn (myTerminal ++ " -e pianobar"))
         , ("M-M1-r", spawn (myTerminal ++ " -e rtv"))
         , ("M-M1-t", spawn (myTerminal ++ " -e toot curses"))

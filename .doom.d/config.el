@@ -3,6 +3,19 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
+;; EMACS X WINDOW MANAGER
+;; (require 'exwm)
+;; (require 'exwm-config)
+;; (exwm-config-default)
+;; (require 'exwm-randr)
+;; (setq exwm-randr-workspace-output-plist '(0 "DisplayPort-0" 1 "DisplayPort-1" 2 "HDMI-A-0"))
+;; (add-hook 'exwm-randr-screen-change-hook
+          ;; (lambda ()
+            ;; (start-process-shell-command
+             ;; "xrandr" nil "xrandr --output DisplayPort-0 --mode 1920x1080 --pos 0x0 --rotate normal --output DisplayPort-1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI-A-0 --mode 1920x1080 --pos 3840x0 --rotate normal")))
+;; (exwm-randr-enable)
+;; (require 'exwm-systemtray)
+;; (exwm-systemtray-enable)
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -153,7 +166,7 @@
  '(elfeed-feeds
    (quote
     ("https://www.gamingonlinux.com/article_rss.php" "https://hackaday.com/blog/feed/" "https://opensource.com/feed" "https://linux.softpedia.com/backend.xml" "https://itsfoss.com/feed/" "https://www.zdnet.com/topic/linux/rss.xml" "https://www.phoronix.com/rss.php" "http://feeds.feedburner.com/d0od" "https://www.computerworld.com/index.rss" "https://www.networkworld.com/category/linux/index.rss" "https://www.techrepublic.com/rssfeeds/topic/open-source/" "https://betanews.com/feed" "http://lxer.com/module/newswire/headlines.rss" "https://distrowatch.com/news/dwd.xml")))
- '(package-selected-packages (quote (peep-dired nav-flash evil-mu4e emms elfeed))))
+ '(package-selected-packages (quote (exwm peep-dired nav-flash evil-mu4e emms elfeed))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
