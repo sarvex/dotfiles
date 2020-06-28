@@ -236,3 +236,19 @@ set wildignore+=*.jpg,*.png,*.gif,*.bmp,*.ico,*.pdf
 set wildignore+=*.tmp,*.swp
 
 "Tell NerdTree and Popup windows ignore thoses
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Set Vim Language
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let $LANG='en'
+"Setting env LANG var to english
+
+set langmenu=en
+"Setting menu language to en
+
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+"Sourcing evrything ("don't why but you need to do it)
+
