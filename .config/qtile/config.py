@@ -346,6 +346,17 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+##### MOUSE CALLBACKS ######
+
+def open_dmenu(qtile):
+    qtile.cmd_spawn('dmenu_run')
+
+def open_htop(qtile):
+    qtile.cmd_spawn('alacritty -e htop')
+
+def open_pacman(qtile):
+    qtile.cmd_spawn('alacritty -e sudo pacman -Syu')
+
 ##### WIDGETS #####
 
 def init_widgets_list():
@@ -356,12 +367,16 @@ def init_widgets_list():
                         foreground = colors[2],
                         background = colors[0]
                         ),
+               widget.Image(
+                        filename = "~/.config/qtile/icons/python.png",
+                        mouse_callbacks = {'Button1': open_dmenu} 
+                      ),
                widget.GroupBox(font="Ubuntu Bold",
                         fontsize = 9,
                         margin_y = 3,
                         margin_x = 0,
                         padding_y = 5,
-                        padding_x = 5,
+                        padding_x = 3,
                         borderwidth = 3,
                         active = colors[2],
                         inactive = colors[2],
@@ -429,6 +444,7 @@ def init_widgets_list():
               widget.ThermalSensor(
                        foreground=colors[2],
                        background=colors[5],
+                       threshold = 90,
                        padding = 5
                        ),
               widget.TextBox(
@@ -446,9 +462,9 @@ def init_widgets_list():
                         fontsize=14
                         ),
                widget.Pacman(
-                        execute = "alacritty",
                         update_interval = 1800,
                         foreground = colors[2],
+                        mouse_callbacks = {'Button1': open_pacman},
                         background = colors[4]
                         ),
                widget.TextBox(
@@ -474,6 +490,7 @@ def init_widgets_list():
                widget.Memory(
                         foreground = colors[2],
                         background = colors[5],
+                        mouse_callbacks = {'Button1': open_htop},
                         padding = 5
                         ),
                widget.TextBox(
