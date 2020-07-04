@@ -449,11 +449,26 @@ searchList = [ ("a", archwiki)
 ------------------------------------------------------------------------
 -- WORKSPACES
 ------------------------------------------------------------------------
+-- My workspaces are clickable meaning that the mouse can be used to switch
+-- workspaces. This requires xdotool. You need to use UnsafeStdInReader instead
+-- of simply StdInReader in xmobar config so you can pass actions to it. Also,
+-- you will notice I add <fn> tags to the clickable workspaces to select from
+-- the additionalFonts that I have set in my xmobar configs.
+
+xmobarEscape :: String -> String
+xmobarEscape = concatMap doubleLts
+  where
+        doubleLts '<' = "<<"
+        doubleLts x   = [x]
 
 myWorkspaces :: [String]
-myWorkspaces = ["<fn=2>dev</fn>", "<fn=2>www</fn>", "<fn=2>sys</fn>", "<fn=2>doc</fn>", "<fn=2>vbox</fn>", "<fn=2>chat</fn>", "<fn=2>mus</fn>", "<fn=2>vid</fn>", "<fn=2>gfx</fn>"]
--- myWorkspaces = ["\61612","\61899","\61947","\61635","\61502","\61501","\61705","\61564","\62150","\61872"]
--- myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+myWorkspaces = clickable . (map xmobarEscape)
+               -- $ ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+               $ ["dev", "www", "sys", "doc", "vbox", "chat", "mus", "vid", "gfx"]
+  where
+        clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ "<fn=2>" ++ ws ++ "</fn>" ++ "</action>" |
+                      (i,ws) <- zip [1..9] l,
+                      let n = i ]
 ------------------------------------------------------------------------
 -- MANAGEHOOK
 ------------------------------------------------------------------------
