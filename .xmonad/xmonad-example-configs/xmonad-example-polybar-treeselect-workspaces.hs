@@ -14,7 +14,6 @@
 ------------------------------------------------------------------------
     -- Base
 import XMonad
-import System.IO (hPutStrLn)
 import System.Exit (exitSuccess)
 import qualified XMonad.StackSet as W
 
@@ -39,14 +38,12 @@ import qualified Data.Tuple.Extra as TE
 import qualified Data.Map as M
 
     -- Hooks
-import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, PP(..))
 import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
 import XMonad.Hooks.FadeInactive
-import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
-import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
+import XMonad.Hooks.ManageDocks (avoidStruts, docks, docksEventHook, ToggleStruts(..))
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
-import XMonad.Hooks.WorkspaceHistory
 
     -- Layouts
 import XMonad.Layout.GridVariants (Grid(Grid))
@@ -84,8 +81,13 @@ import Control.Arrow (first)
     -- Utilities
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
-import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
+import XMonad.Util.Run (runProcessWithInput, safeSpawn)
 import XMonad.Util.SpawnOnce
+
+   -- For polybar
+import qualified DBus as D
+import qualified DBus.Client as D
+import qualified Codec.Binary.UTF8.String as UTF8
 
 ------------------------------------------------------------------------
 -- VARIABLES
@@ -122,8 +124,12 @@ myFocusColor  = "#bbc5ff"  -- Border color of focused windows
 altMask :: KeyMask
 altMask = mod1Mask         -- Setting this for use in xprompts
 
-windowCount :: X (Maybe String)
-windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+-- Colors for polybar
+color1, color2, color3, color4 :: String
+color1 = "#7F7F7F"
+color2 = "#c792ea"
+color3 = "#900000"
+color4 = "#2E9AFE"
 
 ------------------------------------------------------------------------
 -- AUTOSTART
@@ -132,11 +138,8 @@ myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "nitrogen --restore &"
           spawnOnce "picom &"
-          spawnOnce "nm-applet &"
-          spawnOnce "volumeicon &"
-          spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x292d3e --height 22 &"
           spawnOnce "/usr/bin/emacs --daemon &"
-          -- spawnOnce "kak -d -s mysession &"
+          spawnOnce "/home/dt/.config/polybar/launch-xmonad.sh &"
           setWMName "LG3D"
 
 ------------------------------------------------------------------------
@@ -303,6 +306,32 @@ myTreeNavigation = M.fromList
     , ((0, xK_l),        TS.moveChild)
     , ((0, xK_o),        TS.moveHistBack)
     , ((0, xK_i),        TS.moveHistForward)
+    , ((0, xK_d),        TS.moveTo ["dev"])
+    , ((0, xK_g),        TS.moveTo ["graphics"])
+    , ((0, xK_m),        TS.moveTo ["music"])
+    , ((0, xK_v),        TS.moveTo ["video"])
+    , ((0, xK_w),        TS.moveTo ["web"])
+    , ((mod4Mask, xK_b), TS.moveTo ["web", "browser"])
+    , ((mod4Mask, xK_c), TS.moveTo ["web", "chat"])
+    , ((mod4Mask, xK_m), TS.moveTo ["web", "email"])
+    , ((mod4Mask, xK_r), TS.moveTo ["web", "rss"])
+    , ((mod4Mask, xK_w), TS.moveTo ["web", "web conference"])
+    , ((mod4Mask, xK_d), TS.moveTo ["dev", "docs"])
+    , ((mod4Mask, xK_e), TS.moveTo ["dev", "emacs"])
+    , ((mod4Mask, xK_f), TS.moveTo ["dev", "files"])
+    , ((mod4Mask, xK_p), TS.moveTo ["dev", "programming"])
+    , ((mod4Mask, xK_t), TS.moveTo ["dev", "terminal"])
+    , ((mod4Mask, xK_z), TS.moveTo ["dev", "virtualization"])
+    , ((mod4Mask, xK_g), TS.moveTo ["graphics", "gimp"])
+    , ((mod4Mask, xK_i), TS.moveTo ["graphics", "image viewer"])
+    , ((mod4Mask, xK_a), TS.moveTo ["music", "audio editor"])
+    , ((mod4Mask, xK_u), TS.moveTo ["music", "music player"])
+    , ((mod4Mask, xK_o), TS.moveTo ["video", "obs"])
+    , ((mod4Mask, xK_v), TS.moveTo ["video", "video player"])
+    , ((mod4Mask, xK_k), TS.moveTo ["video", "kdenlive"])
+    , ((mod4Mask .|. altMask, xK_h), TS.moveTo ["dev", "programming", "haskell"])
+    , ((mod4Mask .|. altMask, xK_p), TS.moveTo ["dev", "programming", "python"])
+    , ((mod4Mask .|. altMask, xK_s), TS.moveTo ["dev", "programming", "shell"])
     ]
 
 ------------------------------------------------------------------------
@@ -446,14 +475,46 @@ searchList = [ ("a", archwiki)
              , ("z", S.amazon)
              ]
 
+
 ------------------------------------------------------------------------
 -- WORKSPACES
 ------------------------------------------------------------------------
+-- TreeSelect workspaces
+myWorkspaces :: Forest String
+myWorkspaces = [ Node "dev"
+                   [ Node "terminal" []
+                   , Node "emacs" []
+                   , Node "docs" []
+                   , Node "files" []
+                   , Node "programming"
+                     [ Node "haskell" []
+                     , Node "python" []
+                     , Node "shell" []
+                     ]
+                   , Node "virtualization" []
+                   ]
+               , Node "web"
+                   [ Node "browser" []
+                   , Node "chat" []
+                   , Node "email" []
+                   , Node "rss" []
+                   , Node "web conference" []
+                   ]
+               , Node "graphics"
+                   [ Node "gimp" []
+                   , Node "image viewer" []
+                   ]
+              , Node "music"
+                   [ Node "audio editor" []
+                   , Node "music player" []
+                   ]
+               , Node "video"
+                   [ Node "obs" []
+                   , Node "kdenlive" []
+                   , Node "video player" []
+                   ]
+               ]
 
-myWorkspaces :: [String]
-myWorkspaces = ["<fn=2>dev</fn>", "<fn=2>www</fn>", "<fn=2>sys</fn>", "<fn=2>doc</fn>", "<fn=2>vbox</fn>", "<fn=2>chat</fn>", "<fn=2>mus</fn>", "<fn=2>vid</fn>", "<fn=2>gfx</fn>"]
--- myWorkspaces = ["\61612","\61899","\61947","\61635","\61502","\61501","\61705","\61564","\62150","\61872"]
--- myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 ------------------------------------------------------------------------
 -- MANAGEHOOK
 ------------------------------------------------------------------------
@@ -467,27 +528,35 @@ myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
      -- I'm doing it this way because otherwise I would have to write out
-     -- the full name of my workspaces.
-     [ className =? "obs"     --> doShift ( myWorkspaces !! 7 )
-     , title =? "firefox"     --> doShift ( myWorkspaces !! 1 )
-     , className =? "mpv"     --> doShift ( myWorkspaces !! 7 )
-     , className =? "vlc"     --> doShift ( myWorkspaces !! 7 )
-     , className =? "Gimp"    --> doShift ( myWorkspaces !! 8 )
+     -- the full name of my clickable workspaces, which would look like:
+     -- doShift "<action xdotool super+8>gfx</action>"
+     [ className =? "obs"     --> doShift ( "video.obs" )
+     , title =? "firefox"     --> doShift ( "web.browser" )
+     , title =? "qutebrowser" --> doShift ( "web.browser" )
+     , className =? "mpv"     --> doShift ( "video.movie player" )
+     , className =? "vlc"     --> doShift ( "video.movie player" )
+     , className =? "Gimp"    --> doShift ( "graphics.gimp")
      , className =? "Gimp"    --> doFloat
      , title =? "Oracle VM VirtualBox Manager"     --> doFloat
-     , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
+     , className =? "VirtualBox Manager" --> doShift  ( "dev.virtualization" )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads
 
 ------------------------------------------------------------------------
 -- LOGHOOK
 ------------------------------------------------------------------------
--- Sets opacity for inactive (unfocused) windows. I prefer to not use
--- this feature so I've set opacity to 1.0. If you want opacity, set
--- this to a value of less than 1 (such as 0.9 for 90% opacity).
-myLogHook :: X ()
-myLogHook = fadeInactiveLogHook fadeAmount
-    where fadeAmount = 1.0
+-- Override the PP values as you would otherwise, adding colors etc depending
+-- on the statusbar used
+myLogHook :: D.Client -> PP
+myLogHook dbus = def
+    { ppOutput  = dbusOutput dbus
+    , ppCurrent = wrap ("%{F" ++ color4 ++ "} ") "%{F-}"
+    , ppVisible = wrap ("%{F" ++ color1 ++ "} ") "%{F-}"
+    , ppUrgent  = wrap ("%{F" ++ color3 ++ "} ") "%{F-}"
+    , ppHidden  = wrap ("%{F" ++ color1 ++ "} ") "%{F-}"
+    , ppTitle   = wrap ("%{F" ++ color2 ++ "}")"%{F-}"
+    , ppSep     = "  |  "
+    }
 
 ------------------------------------------------------------------------
 -- LAYOUTS
@@ -637,6 +706,10 @@ myKeys =
     -- Tree Select/
         -- tree select actions menu
         , ("C-t a", treeselectAction tsDefaultConfig)
+        -- tree select workspaces menu
+        , ("C-t t", TS.treeselectWorkspace tsDefaultConfig myWorkspaces W.greedyView)
+        -- tree select choose workspace to send window
+        , ("C-t g", TS.treeselectWorkspace tsDefaultConfig myWorkspaces W.shift)
 
     -- Windows navigation
         , ("M-m", windows W.focusMaster)     -- Move focus to the master window
@@ -742,39 +815,37 @@ myKeys =
 ------------------------------------------------------------------------
 main :: IO ()
 main = do
-    -- Launching three instances of xmobar on their monitors.
-    xmproc0 <- spawnPipe "xmobar -x 0 /home/dt/.config/xmobar/xmobarrc0"
-    xmproc1 <- spawnPipe "xmobar -x 1 /home/dt/.config/xmobar/xmobarrc2"
-    xmproc2 <- spawnPipe "xmobar -x 2 /home/dt/.config/xmobar/xmobarrc1"
-    -- the xmonad, ya know...what the WM is named after!
-    xmonad $ ewmh def
-        { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks
-        -- Run xmonad commands from command line with "xmonadctl command". Commands include:
-        -- shrink, expand, next-layout, default-layout, restart-wm, xterm, kill, refresh, run,
-        -- focus-up, focus-down, swap-up, swap-down, swap-master, sink, quit-wm. You can run
-        -- "xmonadctl 0" to generate full list of commands written to ~/.xsession-errors.
-        , handleEventHook    = serverModeEventHookCmd
-                               <+> serverModeEventHook
-                               <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
-                               <+> docksEventHook
-        , modMask            = myModMask
-        , terminal           = myTerminal
-        , startupHook        = myStartupHook
-        , layoutHook         = showWName' myShowWNameTheme myLayoutHook
-        , workspaces         = myWorkspaces
-        , borderWidth        = myBorderWidth
-        , normalBorderColor  = myNormColor
-        , focusedBorderColor = myFocusColor
-        , logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
-                        { ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
-                        , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
-                        , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
-                        , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#b3afc2" ""        -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#ffffff" "" . shorten 60     -- Title of active window in xmobar
-                        , ppSep =  "<fc=#666666> | </fc>"                     -- Separators in xmobar
-                        , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
-                        , ppExtras  = [windowCount]                           -- # of windows current workspace
-                        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
-                        }
-        } `additionalKeysP` myKeys
+    dbus <- D.connectSession
+    -- Request access to the DBus name
+    D.requestName dbus (D.busName_ "org.xmonad.Log")
+        [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
+    -- The xmonad, ya know...what the window manager is named after.
+    xmonad $ ewmh $ docks $ defaults { logHook = dynamicLogWithPP (myLogHook dbus) }
+
+-- Emit a DBus signal on log updates
+dbusOutput :: D.Client -> String -> IO ()
+dbusOutput dbus str = do
+    let signal = (D.signal objectPath interfaceName memberName) {
+            D.signalBody = [D.toVariant $ UTF8.decodeString str]
+        }
+    D.emit dbus signal
+  where
+    objectPath = D.objectPath_ "/org/xmonad/Log"
+    interfaceName = D.interfaceName_ "org.xmonad.Log"
+    memberName = D.memberName_ "Update"
+
+defaults = def
+    { handleEventHook     = serverModeEventHookCmd
+                            <+> serverModeEventHook
+                            <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
+                            <+> docksEventHook
+    , modMask             = myModMask
+    , terminal            = myTerminal
+    , workspaces          = TS.toWorkspaces myWorkspaces
+    , layoutHook          = showWName' myShowWNameTheme $ smartBorders $ myLayoutHook
+    , normalBorderColor   = myNormColor
+    , focusedBorderColor  = myFocusColor
+    , manageHook          = myManageHook <+> manageHook def
+    , borderWidth         = myBorderWidth
+    , startupHook         = myStartupHook
+    } `additionalKeysP` myKeys

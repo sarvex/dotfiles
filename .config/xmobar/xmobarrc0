@@ -3,10 +3,10 @@
 -- you can find weather location codes here: http://weather.noaa.gov/index.html
 
 Config { font    = "xft:Mononoki Nerd Font:pixelsize=12:antialias=true:hinting=true"
-       , additionalFonts = [ "xft:FontAwesome:pixelsize=13" ]
-       , bgColor = "#282A36"
+       , additionalFonts = [ "xft:FontAwesome:pixelsize=13", "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true" ]
+       , bgColor = "#292d3e"
        , fgColor = "#B45BCF"
-       , position = Top
+       , position = Static { xpos = 0 , ypos = 0, width = 1920, height = 24 }
        , lowerOnStart = True
        , hideOnStart = False
        , allDesktops = True

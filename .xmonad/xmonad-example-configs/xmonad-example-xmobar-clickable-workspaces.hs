@@ -134,7 +134,7 @@ myStartupHook = do
           spawnOnce "picom &"
           spawnOnce "nm-applet &"
           spawnOnce "volumeicon &"
-          spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x292d3e --height 22 &"
+          spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x292d3e --height 18 &"
           spawnOnce "/usr/bin/emacs --daemon &"
           -- spawnOnce "kak -d -s mysession &"
           setWMName "LG3D"
@@ -449,11 +449,24 @@ searchList = [ ("a", archwiki)
 ------------------------------------------------------------------------
 -- WORKSPACES
 ------------------------------------------------------------------------
+-- My workspaces are clickable meaning that the mouse can be used to switch
+-- workspaces. This requires xdotool. You need to use UnsafeStdInReader instead
+-- of simply StdInReader in xmobar config so you can pass actions to it.
+
+xmobarEscape :: String -> String
+xmobarEscape = concatMap doubleLts
+  where
+        doubleLts '<' = "<<"
+        doubleLts x   = [x]
 
 myWorkspaces :: [String]
-myWorkspaces = ["<fn=2>dev</fn>", "<fn=2>www</fn>", "<fn=2>sys</fn>", "<fn=2>doc</fn>", "<fn=2>vbox</fn>", "<fn=2>chat</fn>", "<fn=2>mus</fn>", "<fn=2>vid</fn>", "<fn=2>gfx</fn>"]
--- myWorkspaces = ["\61612","\61899","\61947","\61635","\61502","\61501","\61705","\61564","\62150","\61872"]
--- myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+myWorkspaces = clickable . map xmobarEscape
+               $ ["dev", "www", "sys", "doc", "vbox", "chat", "mus", "vid", "gfx"]
+  where
+        clickable l = [ "<action=xdotool key super+" ++ show n ++ ">" ++ ws ++ "</action>" |
+                      (i,ws) <- zip [1..9] l,
+                      let n = i ]
+
 ------------------------------------------------------------------------
 -- MANAGEHOOK
 ------------------------------------------------------------------------
@@ -467,15 +480,17 @@ myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
      -- I'm doing it this way because otherwise I would have to write out
-     -- the full name of my workspaces.
-     [ className =? "obs"     --> doShift ( myWorkspaces !! 7 )
-     , title =? "firefox"     --> doShift ( myWorkspaces !! 1 )
-     , className =? "mpv"     --> doShift ( myWorkspaces !! 7 )
-     , className =? "vlc"     --> doShift ( myWorkspaces !! 7 )
-     , className =? "Gimp"    --> doShift ( myWorkspaces !! 8 )
+     -- the full name of my clickable workspaces, which would look like:
+     -- doShift "<action xdotool super+8>gfx</action>"
+     [ className =? "obs"     --> doShift ( "video.obs" )
+     , title =? "firefox"     --> doShift ( "web.browser" )
+     , title =? "qutebrowser" --> doShift ( "web.browser" )
+     , className =? "mpv"     --> doShift ( "video.movie player" )
+     , className =? "vlc"     --> doShift ( "video.movie player" )
+     , className =? "Gimp"    --> doShift ( "graphics.gimp")
      , className =? "Gimp"    --> doFloat
      , title =? "Oracle VM VirtualBox Manager"     --> doFloat
-     , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
+     , className =? "VirtualBox Manager" --> doShift  ( "dev.virtualization" )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads
 
@@ -770,8 +785,8 @@ main = do
                         , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
                         , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
                         , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#b3afc2" ""        -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#ffffff" "" . shorten 60     -- Title of active window in xmobar
+                        , ppHiddenNoWindows = xmobarColor "#F07178" ""        -- Hidden workspaces (no windows)
+                        , ppTitle = xmobarColor "#d0d0d0" "" . shorten 60     -- Title of active window in xmobar
                         , ppSep =  "<fc=#666666> | </fc>"                     -- Separators in xmobar
                         , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras  = [windowCount]                           -- # of windows current workspace

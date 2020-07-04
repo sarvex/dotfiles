@@ -134,7 +134,7 @@ myStartupHook = do
           spawnOnce "picom &"
           spawnOnce "nm-applet &"
           spawnOnce "volumeicon &"
-          spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x292d3e --height 22 &"
+          spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x292d3e --height 18 &"
           spawnOnce "/usr/bin/emacs --daemon &"
           -- spawnOnce "kak -d -s mysession &"
           setWMName "LG3D"
@@ -303,6 +303,32 @@ myTreeNavigation = M.fromList
     , ((0, xK_l),        TS.moveChild)
     , ((0, xK_o),        TS.moveHistBack)
     , ((0, xK_i),        TS.moveHistForward)
+    , ((0, xK_d),        TS.moveTo ["dev"])
+    , ((0, xK_g),        TS.moveTo ["graphics"])
+    , ((0, xK_m),        TS.moveTo ["music"])
+    , ((0, xK_v),        TS.moveTo ["video"])
+    , ((0, xK_w),        TS.moveTo ["web"])
+    , ((mod4Mask, xK_b), TS.moveTo ["web", "browser"])
+    , ((mod4Mask, xK_c), TS.moveTo ["web", "chat"])
+    , ((mod4Mask, xK_m), TS.moveTo ["web", "email"])
+    , ((mod4Mask, xK_r), TS.moveTo ["web", "rss"])
+    , ((mod4Mask, xK_w), TS.moveTo ["web", "web conference"])
+    , ((mod4Mask, xK_d), TS.moveTo ["dev", "docs"])
+    , ((mod4Mask, xK_e), TS.moveTo ["dev", "emacs"])
+    , ((mod4Mask, xK_f), TS.moveTo ["dev", "files"])
+    , ((mod4Mask, xK_p), TS.moveTo ["dev", "programming"])
+    , ((mod4Mask, xK_t), TS.moveTo ["dev", "terminal"])
+    , ((mod4Mask, xK_z), TS.moveTo ["dev", "virtualization"])
+    , ((mod4Mask, xK_g), TS.moveTo ["graphics", "gimp"])
+    , ((mod4Mask, xK_i), TS.moveTo ["graphics", "image viewer"])
+    , ((mod4Mask, xK_a), TS.moveTo ["music", "audio editor"])
+    , ((mod4Mask, xK_u), TS.moveTo ["music", "music player"])
+    , ((mod4Mask, xK_o), TS.moveTo ["video", "obs"])
+    , ((mod4Mask, xK_v), TS.moveTo ["video", "video player"])
+    , ((mod4Mask, xK_k), TS.moveTo ["video", "kdenlive"])
+    , ((mod4Mask .|. altMask, xK_h), TS.moveTo ["dev", "programming", "haskell"])
+    , ((mod4Mask .|. altMask, xK_p), TS.moveTo ["dev", "programming", "python"])
+    , ((mod4Mask .|. altMask, xK_s), TS.moveTo ["dev", "programming", "shell"])
     ]
 
 ------------------------------------------------------------------------
@@ -446,14 +472,68 @@ searchList = [ ("a", archwiki)
              , ("z", S.amazon)
              ]
 
+
 ------------------------------------------------------------------------
 -- WORKSPACES
 ------------------------------------------------------------------------
+-- My workspaces are clickable meaning that the mouse can be used to switch
+-- workspaces. This requires xdotool. You need to use UnsafeStdInReader instead
+-- of simply StdInReader in xmobar config so you can pass actions to it.
+
+{- Commented out clickable xmobar workspaces to use TreeSelect workspaces.
+
+xmobarEscape :: String -> String
+xmobarEscape = concatMap doubleLts
+  where
+        doubleLts '<' = "<<"
+        doubleLts x   = [x]
 
 myWorkspaces :: [String]
-myWorkspaces = ["<fn=2>dev</fn>", "<fn=2>www</fn>", "<fn=2>sys</fn>", "<fn=2>doc</fn>", "<fn=2>vbox</fn>", "<fn=2>chat</fn>", "<fn=2>mus</fn>", "<fn=2>vid</fn>", "<fn=2>gfx</fn>"]
--- myWorkspaces = ["\61612","\61899","\61947","\61635","\61502","\61501","\61705","\61564","\62150","\61872"]
--- myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+myWorkspaces = clickable . map xmobarEscape
+               $ ["dev", "www", "sys", "doc", "vbox", "chat", "mus", "vid", "gfx"]
+  where
+        clickable l = [ "<action=xdotool key super+" ++ show n ++ ">" ++ ws ++ "</action>" |
+                      (i,ws) <- zip [1..9] l,
+                      let n = i ]
+
+End of comment -}
+
+-- TreeSelect workspaces
+myWorkspaces :: Forest String
+myWorkspaces = [ Node "dev"
+                   [ Node "terminal" []
+                   , Node "emacs" []
+                   , Node "docs" []
+                   , Node "files" []
+                   , Node "programming"
+                     [ Node "haskell" []
+                     , Node "python" []
+                     , Node "shell" []
+                     ]
+                   , Node "virtualization" []
+                   ]
+               , Node "web"
+                   [ Node "browser" []
+                   , Node "chat" []
+                   , Node "email" []
+                   , Node "rss" []
+                   , Node "web conference" []
+                   ]
+               , Node "graphics"
+                   [ Node "gimp" []
+                   , Node "image viewer" []
+                   ]
+              , Node "music"
+                   [ Node "audio editor" []
+                   , Node "music player" []
+                   ]
+               , Node "video"
+                   [ Node "obs" []
+                   , Node "kdenlive" []
+                   , Node "video player" []
+                   ]
+               ]
+
 ------------------------------------------------------------------------
 -- MANAGEHOOK
 ------------------------------------------------------------------------
@@ -467,15 +547,17 @@ myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
      -- I'm doing it this way because otherwise I would have to write out
-     -- the full name of my workspaces.
-     [ className =? "obs"     --> doShift ( myWorkspaces !! 7 )
-     , title =? "firefox"     --> doShift ( myWorkspaces !! 1 )
-     , className =? "mpv"     --> doShift ( myWorkspaces !! 7 )
-     , className =? "vlc"     --> doShift ( myWorkspaces !! 7 )
-     , className =? "Gimp"    --> doShift ( myWorkspaces !! 8 )
+     -- the full name of my clickable workspaces, which would look like:
+     -- doShift "<action xdotool super+8>gfx</action>"
+     [ className =? "obs"     --> doShift ( "video.obs" )
+     , title =? "firefox"     --> doShift ( "web.browser" )
+     , title =? "qutebrowser" --> doShift ( "web.browser" )
+     , className =? "mpv"     --> doShift ( "video.movie player" )
+     , className =? "vlc"     --> doShift ( "video.movie player" )
+     , className =? "Gimp"    --> doShift ( "graphics.gimp")
      , className =? "Gimp"    --> doFloat
      , title =? "Oracle VM VirtualBox Manager"     --> doFloat
-     , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
+     , className =? "VirtualBox Manager" --> doShift  ( "dev.virtualization" )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads
 
@@ -637,6 +719,10 @@ myKeys =
     -- Tree Select/
         -- tree select actions menu
         , ("C-t a", treeselectAction tsDefaultConfig)
+        -- tree select workspaces menu
+        , ("C-t t", TS.treeselectWorkspace tsDefaultConfig myWorkspaces W.greedyView)
+        -- tree select choose workspace to send window
+        , ("C-t g", TS.treeselectWorkspace tsDefaultConfig myWorkspaces W.shift)
 
     -- Windows navigation
         , ("M-m", windows W.focusMaster)     -- Move focus to the master window
@@ -761,7 +847,7 @@ main = do
         , terminal           = myTerminal
         , startupHook        = myStartupHook
         , layoutHook         = showWName' myShowWNameTheme myLayoutHook
-        , workspaces         = myWorkspaces
+        , workspaces         = TS.toWorkspaces myWorkspaces
         , borderWidth        = myBorderWidth
         , normalBorderColor  = myNormColor
         , focusedBorderColor = myFocusColor
@@ -770,8 +856,9 @@ main = do
                         , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
                         , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
                         , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#b3afc2" ""        -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#ffffff" "" . shorten 60     -- Title of active window in xmobar
+                        -- , ppHiddenNoWindows = xmobarColor "#F07178" ""        -- Hidden workspaces (no windows)
+                        , ppHiddenNoWindows= \( _ ) -> ""       -- Only shows visible workspaces. Useful for TreeSelect.
+                        , ppTitle = xmobarColor "#d0d0d0" "" . shorten 60     -- Title of active window in xmobar
                         , ppSep =  "<fc=#666666> | </fc>"                     -- Separators in xmobar
                         , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras  = [windowCount]                           -- # of windows current workspace
