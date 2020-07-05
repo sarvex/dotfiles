@@ -346,17 +346,6 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-##### MOUSE CALLBACKS ######
-
-def open_dmenu(qtile):
-    qtile.cmd_spawn('dmenu_run')
-
-def open_htop(qtile):
-    qtile.cmd_spawn('alacritty -e htop')
-
-def open_pacman(qtile):
-    qtile.cmd_spawn('alacritty -e sudo pacman -Syu')
-
 ##### WIDGETS #####
 
 def init_widgets_list():
@@ -369,7 +358,7 @@ def init_widgets_list():
                         ),
                widget.Image(
                         filename = "~/.config/qtile/icons/python.png",
-                        mouse_callbacks = {'Button1': open_dmenu} 
+                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('dmenu_run')} 
                       ),
                widget.GroupBox(font="Ubuntu Bold",
                         fontsize = 9,
@@ -464,12 +453,13 @@ def init_widgets_list():
                widget.Pacman(
                         update_interval = 1800,
                         foreground = colors[2],
-                        mouse_callbacks = {'Button1': open_pacman},
+                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},
                         background = colors[4]
                         ),
                widget.TextBox(
                         text="Updates",
                         padding = 5,
+                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},
                         foreground=colors[2],
                         background=colors[4]
                         ),
@@ -490,7 +480,7 @@ def init_widgets_list():
                widget.Memory(
                         foreground = colors[2],
                         background = colors[5],
-                        mouse_callbacks = {'Button1': open_htop},
+                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e htop')},
                         padding = 5
                         ),
                widget.TextBox(
