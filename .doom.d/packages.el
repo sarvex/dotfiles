@@ -49,6 +49,7 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 (package! exwm)
+(package! mastodon)
 (package! emms)
 (package! emojify)
 (package! elfeed)
