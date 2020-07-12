@@ -188,6 +188,8 @@ alias config="/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME"
 # termbin
 alias tb="nc termbin.com 9999"
 
+alias wp="pacwall -b '#292d3e' -e '#82aaff' -d '#c792ea' -p '#c2e88d' -f '#ffcb6b' -u '#f07178' -s '#43475866'"
+
 ### SET VI MODE IN BASH SHELL
 set -o vi
 

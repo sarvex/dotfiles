@@ -94,7 +94,7 @@ import XMonad.Util.SpawnOnce
 -- in the config. Setting values for things like font, terminal and editor
 -- means you only have to change the value here to make changes globally.
 myFont :: String
-myFont = "xft:Mononoki Nerd Font:bold:size=9"
+myFont = "xft:Mononoki Nerd Font:bold:size=9:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask       -- Sets modkey to super/windows key
@@ -103,8 +103,8 @@ myTerminal :: String
 myTerminal = "alacritty"   -- Sets default terminal
 
 myBrowser :: String
-myBrowser = myTerminal ++ " -e lynx "  -- Sets lynx as browser for tree select
--- myBrowser = "firefox "                 -- Sets firefox as browser for tree select
+myBrowser = "qutebrowser "               -- Sets firefox as browser for tree select
+-- myBrowser = myTerminal ++ " -e lynx " -- Sets lynx as browser for tree select
 
 myEditor :: String
 myEditor = "emacsclient -c -a emacs "  -- Sets emacs as editor for tree select
@@ -197,23 +197,18 @@ myApplications = [ ("Audacity", "audacity", "Graphical cross-platform audio eidt
                  ]
 
 myBookmarks :: [(String, String, String)]
-myBookmarks = [ ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
-              , ("Site Name", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+myBookmarks = [ ("DistroTube.com", myBrowser ++ "https://www.distrotube.com", "Official website for DistroTube")
+              , ("DistroWatch", myBrowser ++ "https://www.distrowatch.com", "DistroWatch Release Announcements")
+              , ("Arch Linux", myBrowser ++ "https://www.archlinux.org/", "Official website for Arch Linux")
+              , ("Arch User Repository", myBrowser ++ "https://aur.archlinux.org/", "The Arch User Repository AUR")
+              , ("Arch Wiki", myBrowser ++ "https://wiki.archlinux.org/", "The Arch Wiki")
+              , ("LBRY", myBrowser ++ "https://lbry.tv/@DistroTube:2", "DistroTube on LBRY")
+              , ("GitLab", myBrowser ++ "https://gitlab.com/dwt1", "GitLab Page for DistroTube")
+              , ("Patreon", myBrowser ++ "https://www.patreon.com/distrotube", "DT on Patreon")
+              , ("Diaspora", myBrowser ++ "https://diasp.org/stream", "DT on Diaspora")
+              , ("Mastodon", myBrowser ++ "https://mastodon.technology/web/accounts/85897", "DT on Mastodon")
+              , ("Reddit", myBrowser ++ "https://www.reddit.com/r/distrotube/", "r/DistroTube")
+              , ("YouTube", myBrowser ++ "https://www.youtube.com/c/DistroTube?view_as=subscriber", "DT on YouTube")
               ]
 
 myConfigs :: [(String, String, String)]
@@ -466,7 +461,7 @@ myWorkspaces = clickable . (map xmobarEscape)
                -- $ ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
                $ ["dev", "www", "sys", "doc", "vbox", "chat", "mus", "vid", "gfx"]
   where
-        clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ "<fn=2>" ++ ws ++ "</fn>" ++ "</action>" |
+        clickable l = [ "<action=xdotool key super+" ++ show (n) ++ "> " ++ ws ++ " </action>" |
                       (i,ws) <- zip [1..9] l,
                       let n = i ]
 
@@ -788,9 +783,9 @@ main = do
                         , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
                         , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
                         , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#b3afc2" ""        -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#ffffff" "" . shorten 60     -- Title of active window in xmobar
-                        , ppSep =  "<fc=#666666> | </fc>"                     -- Separators in xmobar
+                        , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
+                        , ppTitle = xmobarColor "#b3afc2" "" . shorten 60     -- Title of active window in xmobar
+                        , ppSep =  "<fc=#666666> <fn=2>|</fn> </fc>"                     -- Separators in xmobar
                         , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras  = [windowCount]                           -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
