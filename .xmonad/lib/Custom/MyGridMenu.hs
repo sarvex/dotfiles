@@ -40,25 +40,16 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
                    , gs_font         = myFont
                    }
 
-
-myAppsFave :: [(String, String, String)]
-myAppsFave = [ ("Audacity", "audacity", "Graphical cross-platform audio eidtor")
-                 , ("Deadbeef", "deadbeef", "Lightweight GUI audio player")
-                 , ("Emacs", "emacs", "Much more than a text editor")
-                 , ("Firefox", "firefox", "The famous open source web browser")
-                 , ("Geany", "geany", "A nice text editor")
-                 , ("Geary", "geary", "Email client that is attractive")
-                 , ("Gimp", "gimp", "Open source alternative to Photoshop")
-                 , ("Kdenlive", "kdenlive", "A great open source video editor")
-                 , ("LibreOffice Impress", "loimpress", "For making presentations")
-                 , ("LibreOffice Writer", "lowriter", "A fully featured word processor")
-                 , ("OBS", "obs", "Open broadcaster software")
-                 , ("PCManFM", "pcmanfm", "Lightweight graphical file manager")
+myAppGrid = [ ("Audacity", "audacity")
+                 , ("Deadbeef", "deadbeef")
+                 , ("Emacs", "emacsclient -c -a emacs")
+                 , ("Firefox", "firefox")
+                 , ("Geany", "geany")
+                 , ("Geary", "geary")
+                 , ("Gimp", "gimp")
+                 , ("Kdenlive", "kdenlive")
+                 , ("LibreOffice Impress", "loimpress")
+                 , ("LibreOffice Writer", "lowriter")
+                 , ("OBS", "obs")
+                 , ("PCManFM", "pcmanfm")
                  ]
- 
--- Let's take myAppsFave, myBookmarks and myConfigs and take only
--- the first two values from those 3-tuples (for GridSelect).
-myAppGrid :: [(String, String)]
-myAppGrid = [ (a,b) | (a,b,c) <- xs]
-  where xs = myAppsFave
-
