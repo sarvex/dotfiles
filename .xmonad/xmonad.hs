@@ -7,10 +7,12 @@
 
 -- This config was getting massively long, so I have made this a modular
 -- config that sources multiple config files. Look under the imports for
--- "Custom" modules. Those are my config files. Keep in mind, that my
--- configs are purposely bloated with a ton of examples of what you can
--- do with xmonad. It is written more as a study guide rather than a config
--- that you should download and use.
+-- "Custom" modules. Those are my config files and they can be found in:
+-- ~/.xmonad/lib/Custom
+
+-- Keep in mind, that my configs are purposely bloated with examples of
+-- what you can do with xmonad. It is written more as a study guide rather
+-- than a config that you should download and use.
 
 ------------------------------------------------------------------------
 -- IMPORTS
