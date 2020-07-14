@@ -68,6 +68,8 @@
 
 (setq mastodon-instance-url "https://mastodon.technology")
 
+(setq md4rd-subs-active '(archlinux commandline DistroTube DoomEmacs emacs freesoftware lbry linux linux4noobs linuxmasterrace linnuxquestions orgmode qutebrowser suckless Ubuntu unixporn UsabilityPorn vim xmonad))
+
 (custom-set-variables
  '(elfeed-feeds
    (quote

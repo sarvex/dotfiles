@@ -54,3 +54,6 @@
 (package! emojify)
 (package! elfeed)
 (package! peep-dired)
+(package! tldr)
+(package! treemacs)
+(package! md4rd)
