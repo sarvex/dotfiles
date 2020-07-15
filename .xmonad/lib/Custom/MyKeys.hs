@@ -75,15 +75,12 @@ myKeys =
 
     -- Grid Select (CTRL-g followed by a key)
         , ("C-g g", spawnSelected' myAppGrid)                 -- grid select favorite apps
+        , ("C-M1-g", spawnSelected' myAppGrid)                -- grid select favorite apps
         , ("C-g t", goToSelected $ mygridConfig myColorizer)  -- goto selected window
         , ("C-g b", bringSelected $ mygridConfig myColorizer) -- bring selected window
 
     -- Tree Select/
-        -- tree select actions menu, I have 2 keybindings for this. I do this because I prefer
-        -- to use the "C-t t" binding but I need standard binding, rather than a key chord, to
-        -- use in my xmobar config (for a clickable menu). So that's why I have 2 bindings.
         , ("C-t t", treeselectAction tsDefaultConfig)
-        , ("C-M1-t", treeselectAction tsDefaultConfig)
 
     -- Windows navigation
         , ("M-m", windows W.focusMaster)     -- Move focus to the master window
