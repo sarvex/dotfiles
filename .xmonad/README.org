@@ -2,28 +2,28 @@
 #+PROPERTY: header-args :tangle xmonad.hs
 
 * TABLE OF CONTENTS :toc:
-- [[#about-this-config][ABOUT THIS CONFIG]]
-- [[#imports][IMPORTS]]
-- [[#variables][VARIABLES]]
-- [[#autostart][AUTOSTART]]
-- [[#gridselect][GRIDSELECT]]
-- [[#treeselect][TREESELECT]]
-  - [[#treeselect-menu-entries][TREESELECT MENU ENTRIES]]
-  - [[#treeselect-settings][TREESELECT SETTINGS]]
-- [[#xprompts][XPROMPTS]]
-  - [[#xprompt-settings][XPROMPT SETTINGS]]
-  - [[#custom-prompts][CUSTOM PROMPTS]]
-  - [[#xprompt-keymap][XPROMPT KEYMAP]]
-  - [[#search-engines][SEARCH ENGINES]]
-- [[#scratchpads][SCRATCHPADS]]
-- [[#layouts][LAYOUTS]]
-- [[#workspaces][WORKSPACES]]
-- [[#managehook][MANAGEHOOK]]
-- [[#loghook][LOGHOOK]]
-- [[#keybindings][KEYBINDINGS]]
-- [[#main][MAIN]]
+- [[#about-this-config][About This Config]]
+- [[#imports][Imports]]
+- [[#variables][Variables]]
+- [[#autostart][Autostart]]
+- [[#gridselect][Gridselect]]
+- [[#treeselect][Treeselect]]
+  - [[#treeselect-menu-entries][Treeselect Menu Entries]]
+  - [[#treeselect-settings][Treeselect Settings]]
+- [[#xprompts][Xprompts]]
+  - [[#xprompt-settings][Xprompt Settings]]
+  - [[#custom-prompts][Custom Prompts]]
+  - [[#xprompt-keymap][Xprompt Keymap]]
+  - [[#search-engines][Search Engines]]
+- [[#scratchpads][Scratchpads]]
+- [[#layouts][Layouts]]
+- [[#workspaces][Workspaces]]
+- [[#managehook][Managehook]]
+- [[#loghook][Loghook]]
+- [[#keybindings][Keybindings]]
+- [[#main][Main]]
 
-* ABOUT THIS CONFIG
+* About This Config
 Xmonad is a dynamically tiling X11 window manager that is written and
 configured in Haskell. Official documentation: https://xmonad.org
 
@@ -40,7 +40,7 @@ Keep in mind, that my configs are purposely bloated with examples of
 what you can do with xmonad. It is written more as a study guide rather
 than a config that you should download and use.
 
-* IMPORTS
+* Imports
 These are Haskell modules that we must import so that we can use their functions later in the config.
 
 #+BEGIN_SRC haskell
@@ -120,7 +120,7 @@ import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 #+END_SRC
 
-* VARIABLES
+* Variables
 It's nice to assign values to stuff that you will use more than once
 in the config. Setting values for things like font, terminal and editor
 means you only have to change the value here to make changes globally.
@@ -159,7 +159,7 @@ windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 #+END_SRC
 
-* AUTOSTART
+* Autostart
 These are commands we want XMonad to execute on startup, such as running a compositor, setting our wallpaper, starting the emacs daemon, and starting our system tray and the applications that belong in it.
 
 #+BEGIN_SRC haskell
@@ -175,9 +175,7 @@ myStartupHook = do
           setWMName "LG3D"
 #+END_SRC
 
-
-
-* GRIDSELECT
+* Gridselect
 GridSelect displays items (programs, open windows, etc.) in a 2D grid
 and lets the user select from it with the cursor/hjkl keys or the mouse.
 
@@ -227,13 +225,13 @@ myAppGrid = [ ("Audacity", "audacity")
                  ]
 #+END_SRC
 
-* TREESELECT
+* Treeselect
 TreeSelect displays your workspaces or actions in a Tree-like format.
 You can select desired workspace/action with the cursor or hjkl keys.
 My TreeSelect menu is rather large and includes a mixture of applications,
 web bookmarks, configuration files and xmonad actions.
 
-** TREESELECT MENU ENTRIES
+** Treeselect Menu Entries
 #+BEGIN_SRC haskell
 treeselectAction :: TS.TSConfig (X ()) -> X ()
 treeselectAction a = TS.treeselectAction a
@@ -486,7 +484,7 @@ treeselectAction a = TS.treeselectAction a
    ]
   #+END_SRC
 
-** TREESELECT SETTINGS
+** Treeselect Settings
 Configuration options for the treeSelect menus.
 Keybindings for treeSelect menus. Use h-j-k-l to navigate.
 Use 'o' and 'i' to move forward/back in the workspace history.
@@ -527,8 +525,8 @@ myTreeNavigation = M.fromList
     ]
 #+END_SRC
 
-* XPROMPTS
-** XPROMPT SETTINGS
+* Xprompts
+** Xprompt Settings
 
 #+BEGIN_SRC haskell
 dtXPConfig :: XPConfig
@@ -579,7 +577,7 @@ promptList' = [ ("c", calcPrompt, "qalc")         -- requires qalculate-gtk
               ]
 #+END_SRC
 
-** CUSTOM PROMPTS
+** Custom Prompts
 calcPrompt requires a cli calculator called qalcualte-gtk.
 You could use this as a template for other custom prompts that
 
@@ -593,7 +591,7 @@ calcPrompt c ans =
 
 #+END_SRC
 
-** XPROMPT KEYMAP
+** Xprompt Keymap
 Emacs-like key bindings for xprompts.
 
 #+BEGIN_SRC haskell
@@ -637,7 +635,7 @@ dtXPKeymap = M.fromList $
      ]
 #+END_SRC
 
-** SEARCH ENGINES
+** Search Engines
 Xmonad has several search engines available to use located in
 XMonad.Actions.Search. Additionally, you can add other search engines
 such as those listed below.
@@ -673,7 +671,7 @@ searchList = [ ("a", archwiki)
              ]
 #+END_SRC
 
-* SCRATCHPADS
+* Scratchpads
 Allows to have several floating scratchpads running different applications.
 Import Util.NamedScratchpad.  Bind a key to namedScratchpadSpawnAction.
 
@@ -701,7 +699,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  l = 0.95 -w
 #+END_SRC
 
-* LAYOUTS
+* Layouts
 Makes setting the spacingRaw simpler to write. The spacingRaw
 module adds a configurable amount of space around windows.
 
@@ -786,7 +784,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                  -- ||| threeRow
 #+END_SRC
 
-* WORKSPACES
+* Workspaces
 My workspaces are clickable meaning that the mouse can be used to switch
 workspaces. This requires xdotool. You need to use UnsafeStdInReader instead
 of simply StdInReader in xmobar config so you can pass actions to it. Also,
@@ -810,7 +808,7 @@ myWorkspaces = clickable . (map xmobarEscape)
                       let n = i ]
 #+END_SRC
 
-* MANAGEHOOK
+* Managehook
 Sets some rules for certain programs. Examples include forcing certain
 programs to always float, or to always appear on a certain workspace.
 Forcing programs to a certain workspace with a doShift requires xdotool
@@ -835,7 +833,7 @@ myManageHook = composeAll
      ] <+> namedScratchpadManageHook myScratchPads
 #+END_SRC
 
-* LOGHOOK
+* Loghook
 Sets opacity for inactive (unfocused) windows. I prefer to not use
 this feature so I've set opacity to 1.0. If you want opacity, set
 this to a value of less than 1 (such as 0.9 for 90% opacity).
@@ -846,8 +844,7 @@ myLogHook = fadeInactiveLogHook fadeAmount
     where fadeAmount = 1.0
 #+END_SRC
 
-
-* KEYBINDINGS
+* Keybindings
 I am using the Xmonad.Util.EZConfig module which allows keybindings
 to be written in simpler, emacs-like format.
 
@@ -985,7 +982,7 @@ myKeys =
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "nsp"))
 #+END_SRC
 
-* MAIN
+* Main
 This is the "main" of XMonad. This where everything in our configs comes together and works.
 
 #+BEGIN_SRC haskell
