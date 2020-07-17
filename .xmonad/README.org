@@ -1,7 +1,16 @@
 #+TITLE: XMonad Config
 #+PROPERTY: header-args :tangle xmonad.hs
 
-* XMonad Config
+* TABLE OF CONTENTS :toc:
+- [[#about-this-config][ABOUT THIS CONFIG]]
+- [[#imports][IMPORTS]]
+- [[#autostart][AUTOSTART]]
+- [[#workspaces][WORKSPACES]]
+- [[#managehook][MANAGEHOOK]]
+- [[#loghook][LOGHOOK]]
+- [[#main][MAIN]]
+
+* ABOUT THIS CONFIG
 Xmonad is a dynamically tiling X11 window manager that is written and
 configured in Haskell. Official documentation: https://xmonad.org
 
