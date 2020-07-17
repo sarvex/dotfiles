@@ -1,23 +1,25 @@
-#+TITLE: Xmonad
+#+TITLE: XMonad Config
 #+PROPERTY: header-args :tangle xmonad.hs
 
-* TABLE OF CONTENTS :toc:
-- [[#imports][IMPORTS]]
-- [[#autostart][AUTOSTART]]
-- [[#workspaces][WORKSPACES]]
-- [[#managehook][MANAGEHOOK]]
-- [[#loghook][LOGHOOK]]
-- [[#main][MAIN]]
-
-* IMPORTS
+* XMonad Config
 Xmonad is a dynamically tiling X11 window manager that is written and
-er the imports for
+configured in Haskell. Official documentation: https://xmonad.org
+
+This is the xmonad configuration of Derek Taylor (DistroTube)
+My YouTube: http://www.youtube.com/c/DistroTube
+My GitLab:  http://www.gitlab.com/dwt1/
+
+This config was getting massively long, so I have made this a modular
+config that sources multiple config files. Look under the imports for
 "Custom" modules. Those are my config files and they can be found in:
 ~/.xmonad/lib/Custom
 
 Keep in mind, that my configs are purposely bloated with examples of
 what you can do with xmonad. It is written more as a study guide rather
 than a config that you should download and use.
+
+* IMPORTS
+These are Haskell modules that we must import so that we can use their functions later in the config.
 
 #+BEGIN_SRC haskell
     -- Custom (my personal configs)
@@ -53,7 +55,7 @@ import XMonad.Util.SpawnOnce
 #+END_SRC
 
 * AUTOSTART
-This is where your programs for auto start belong.
+These are commands we want XMonad to execute on startup, such as running a compositor, setting our wallpaper, starting the emacs daemon, and starting our system tray and the applications that belong in it.
 
 #+BEGIN_SRC haskell
 myStartupHook :: X ()
@@ -129,7 +131,8 @@ myLogHook = fadeInactiveLogHook fadeAmount
 #+END_SRC
 
 * MAIN
-This is the main of XMonad.
+This is the "main" of XMonad. This where everything in our configs comes together and works.
+
 #+BEGIN_SRC haskell
 main :: IO ()
 main = do
