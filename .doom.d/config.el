@@ -94,3 +94,4 @@
 
 (custom-set-faces
  )
+(put 'downcase-region 'disabled nil)
