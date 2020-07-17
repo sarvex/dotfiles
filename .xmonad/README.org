@@ -1,7 +1,7 @@
 #+TITLE: XMonad Config
 #+PROPERTY: header-args :tangle xmonad.hs
 
-* TABLE OF CONTENTS :toc:
+* Table Of Contents :toc:
 - [[#about-this-config][About This Config]]
 - [[#imports][Imports]]
 - [[#variables][Variables]]
