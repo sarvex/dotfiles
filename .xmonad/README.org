@@ -1,3 +1,25 @@
+#+TITLE: Xmonad
+#+PROPERTY: header-args :tangle xmonad.hs
+
+* TABLE OF CONTENTS :toc:
+- [[#imports][IMPORTS]]
+- [[#autostart][AUTOSTART]]
+- [[#workspaces][WORKSPACES]]
+- [[#managehook][MANAGEHOOK]]
+- [[#loghook][LOGHOOK]]
+- [[#main][MAIN]]
+
+* IMPORTS
+Xmonad is a dynamically tiling X11 window manager that is written and
+er the imports for
+"Custom" modules. Those are my config files and they can be found in:
+~/.xmonad/lib/Custom
+
+Keep in mind, that my configs are purposely bloated with examples of
+what you can do with xmonad. It is written more as a study guide rather
+than a config that you should download and use.
+
+#+BEGIN_SRC haskell
     -- Custom (my personal configs)
 import Custom.MyGridMenu
 import Custom.MyKeys
@@ -28,7 +50,12 @@ import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
+#+END_SRC
 
+* AUTOSTART
+This is where your programs for auto start belong.
+
+#+BEGIN_SRC haskell
 myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "nitrogen --restore &"
@@ -39,7 +66,16 @@ myStartupHook = do
           spawnOnce "/usr/bin/emacs --daemon &"
           -- spawnOnce "kak -d -s mysession &"
           setWMName "LG3D"
+#+END_SRC
 
+* WORKSPACES
+My workspaces are clickable meaning that the mouse can be used to switch
+workspaces. This requires xdotool. You need to use UnsafeStdInReader instead
+of simply StdInReader in xmobar config so you can pass actions to it. Also,
+you will notice I add <fn> tags to the clickable workspaces to select from
+the additionalFonts that I have set in my xmobar configs.
+
+#+BEGIN_SRC haskell
 xmobarEscape :: String -> String
 xmobarEscape = concatMap doubleLts
   where
@@ -54,7 +90,16 @@ myWorkspaces = clickable . (map xmobarEscape)
         clickable l = [ "<action=xdotool key super+" ++ show (n) ++ "> " ++ ws ++ " </action>" |
                       (i,ws) <- zip [1..9] l,
                       let n = i ]
+#+END_SRC
 
+* MANAGEHOOK
+Sets some rules for certain programs. Examples include forcing certain
+programs to always float, or to always appear on a certain workspace.
+Forcing programs to a certain workspace with a doShift requires xdotool
+if you are using clickable workspaces. You need the className or title
+of the program. Use xprop to get this info.
+
+#+BEGIN_SRC haskell
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
@@ -70,11 +115,22 @@ myManageHook = composeAll
      , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads
+#+END_SRC
 
+* LOGHOOK
+Sets opacity for inactive (unfocused) windows. I prefer to not use
+this feature so I've set opacity to 1.0. If you want opacity, set
+this to a value of less than 1 (such as 0.9 for 90% opacity).
+
+#+BEGIN_SRC haskell
 myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
     where fadeAmount = 1.0
+#+END_SRC
 
+* MAIN
+This is the main of XMonad.
+#+BEGIN_SRC haskell
 main :: IO ()
 main = do
     -- Launching three instances of xmobar on their monitors.
@@ -113,3 +169,5 @@ main = do
                         , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                         }
         } `additionalKeysP` myKeys
+
+#+END_SRC

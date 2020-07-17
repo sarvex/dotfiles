@@ -1,19 +1,6 @@
 #+TITLE: DT's Doom Emacs Config
 #+AUTHOR: Derek Taylor (DT)
 
-* Table of Content                                                      :TOC:
-  - [[#fonts][FONTS]]
-  - [[#doom-theme][DOOM THEME]]
-  - [[#org-mode][ORG MODE]]
-  - [[#line-settings][LINE SETTINGS]]
-  - [[#neotree][NEOTREE]]
-  - [[#browser-eww][BROWSER (eww)]]
-  - [[#splits][SPLITS]]
-  - [[#file-manager-dired][FILE MANAGER (dired)]]
-  - [[#audio-player-emms][AUDIO PLAYER (emms)]]
-  - [[#email-client-mu4e][EMAIL CLIENT (mu4e)]]
-  - [[#mastodon-client-mastodon][MASTODON CLIENT (mastodon)]]
-
 ** FONTS
 Doom exposes five (optional) variables for controlling fonts in Doom. Here
 are the three important ones:
