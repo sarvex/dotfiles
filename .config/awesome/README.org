@@ -24,7 +24,7 @@
 #+ATTR_HTML: :alt Awesome Scrot :title Awesome Scrot :align left
 [[https://gitlab.com/dwt1/dotfiles/-/raw/master/.screenshots/dotfiles09-thumb.png]]
 
-This is the xmonad configuration of Derek Taylor (DistroTube)
+This is the awesome window manager configuration of Derek Taylor (DistroTube)
 - My YouTube: http://www.youtube.com/c/DistroTube
 - My GitLab:  http://www.gitlab.com/dwt1/
 
