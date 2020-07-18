@@ -1,5 +1,6 @@
 #+TITLE: DT's Doom Emacs Config
 #+AUTHOR: Derek Taylor (DT)
+#+STARTUP: showeverything
 
 ** FONTS
 Doom exposes five (optional) variables for controlling fonts in Doom. Here

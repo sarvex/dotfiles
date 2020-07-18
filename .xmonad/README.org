@@ -33,8 +33,8 @@ Xmonad is a dynamically tiling X11 window manager that is written and
 configured in Haskell. Official documentation: https://xmonad.org
 
 This is the xmonad configuration of Derek Taylor (DistroTube)
-My YouTube: http://www.youtube.com/c/DistroTube
-My GitLab:  http://www.gitlab.com/dwt1/
+- My YouTube: http://www.youtube.com/c/DistroTube
+- My GitLab:  http://www.gitlab.com/dwt1/
 
 Keep in mind, that my configs are purposely bloated with examples of
 what you can do with xmonad. It is written more as a study guide rather
@@ -67,7 +67,6 @@ import Data.Char (isSpace)
 import Data.Monoid
 import Data.Maybe (isJust)
 import Data.Tree
-import qualified Data.Tuple.Extra as TE
 import qualified Data.Map as M
 
     -- Hooks

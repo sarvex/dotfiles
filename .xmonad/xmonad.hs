@@ -21,7 +21,6 @@ import Data.Char (isSpace)
 import Data.Monoid
 import Data.Maybe (isJust)
 import Data.Tree
-import qualified Data.Tuple.Extra as TE
 import qualified Data.Map as M
 
     -- Hooks
