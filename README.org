@@ -5,6 +5,7 @@
 - [[#my-window-manager-configs][My Window Manager Configs]]
 - [[#other-popular-configs-of-mine][Other Popular Configs Of Mine]]
 - [[#who-am-i][Who Am I?]]
+- [[#distrotube-links][DistroTube Links]]
 - [[#how-to-manage-your-own-dotfiles][How To Manage Your Own Dotfiles]]
 - [[#license][License]]
 
@@ -46,14 +47,30 @@ Dotfiles are the customization files that are used to personalize your Linux or 
 * Who Am I?
 #+CAPTION: DT Logo
 #+ATTR_HTML: :alt DT Logo :title DT Logo :align left
-https://gitlab.com/dwt1/dotfiles/raw/master/.screenshots/dotfiles02.png
+[[https://gitlab.com/dwt1/dotfiles/-/raw/master/.screenshots/dotfiles02.png]]
 
-I am Derek Taylor (DT), the creator of the DistroTube channel (also DT) on YouTube: ( https://www.youtube.com/c/DistroTube ).  In my videos, I focus a lot of my attention on minimal window managers such as openbox, qtile, i3 and xmonad.  Viewers of my channel will often ask me for my configuration files for those window managers or related programs, such as the tint2 panel or the polybar panel.  This repository serves a triple function: (1) as a place to point viewers who ask me for my configs, (2) as a learning resource for those that wish to study my configs, and (3) as a backup and restore option for myself should the need arise.
+I am Derek Taylor (DT), the creator of the DistroTube channel (also DT) on [[https://www.youtube.com/c/DistroTube][YouTube]]. In my videos, I focus a lot of my attention on minimal window managers such as openbox, dwm, qtile, i3 and xmonad. I also focus heavily on command line programs and extensible text editors such as Vim and Emacs. Viewers of my channel will often ask me for my configuration files for these programs. This repository serves a triple function:
+1) As a place to point viewers who ask me for my configs.
+2) As a learning resource for those that wish to study my configs.
+3) As a backup and restore option for myself should the need arise.
+
+* DistroTube Links
+- [[https://www.distrotube.com/][DistroTube.com]]
+- [[https://www.youtube.com/DistroTube][YouTube Channel]]
+- [[https://www.patreon.com/distrotube][Patreon]]
+- [[https://mastodon.technology/@distrotube][Mastodon]]
+- [[https://www.reddit.com/r/distrotube/][Reddit]]
+
+Want to chat?
+- Look for DistroTube's server on Discord.
+- Also, checkout out #distrotube on the Freenode network on IRC.
 
 * How To Manage Your Own Dotfiles
-There are a hundred ways to manage your dotfiles.  My first suggestion would be to read up on the subject.  A great place to start is "Your unofficial guide to dotfiles on GitHub": https://dotfiles.github.io/
+There are a hundred ways to manage your dotfiles. Personally, I use the *git bare repository method* for managing my dotfiles. Here is an article about this method of managing your dotfiles: [[https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/][https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/]]
 
-Personally, I use the git bare repository method for managing my dotfiles: https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
+Other articles discussing dotfile management are listed below:
+- [[https://www.distrotube.com/blog/rcm-guide/][Managing dotfiles with style with rcm]]
+- [[https://www.distrotube.com/blog/interactive-dotfiles-management-with-dotbare/][Interactive dotfile management with dotbare]]
 
 * License
-The files and scripts in this repository are licensed under the MIT License, which is a very permissive license allowing you to use, modify, copy, distribute, sell, give away, etc. the software.  In other words, do what you want with it.  The only requirement with the MIT License is that the license and copyright notice must be provided with the software.
+The files and scripts in this repository are licensed under the MIT License, which is a very permissive license allowing you to use, modify, copy, distribute, sell, give away, etc. the software. In other words, do what you want with it. The only requirement with the MIT License is that the license and copyright notice must be provided with the software.
