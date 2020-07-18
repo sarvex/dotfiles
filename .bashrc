@@ -4,7 +4,7 @@
 # | |_| || |    http://www.gitlab.com/dwt1/ 
 # |____/ |_|
 #
-# My bash config. Not much to see here. Some pretty standard stuff.
+# My bash config. Not much to see here; just some pretty standard stuff.
 
 PATH="$HOME/.local/bin${PATH:+:${PATH}}"  # adding .local/bin to $PATH
 export TERM="xterm-256color"              # getting proper colors
