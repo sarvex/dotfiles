@@ -1,5 +1,6 @@
 #+TITLE: XMonad Config
 #+PROPERTY: header-args :tangle xmonad.hs
+#+STARTUP: showeverything
 
 * Table Of Contents :toc:
 - [[#about-this-config][About This Config]]
@@ -34,11 +35,6 @@ configured in Haskell. Official documentation: https://xmonad.org
 This is the xmonad configuration of Derek Taylor (DistroTube)
 My YouTube: http://www.youtube.com/c/DistroTube
 My GitLab:  http://www.gitlab.com/dwt1/
-
-This config was getting massively long, so I have made this a modular
-config that sources multiple config files. Look under the imports for
-"Custom" modules. Those are my config files and they can be found in:
-~/.xmonad/lib/Custom
 
 Keep in mind, that my configs are purposely bloated with examples of
 what you can do with xmonad. It is written more as a study guide rather
@@ -431,7 +427,6 @@ treeselectAction a = TS.treeselectAction a
            , Node (TS.TSNode "MyTreeMenu.hs" "My XMonad TreeSelect menu" (spawn (myEditor ++ "/home/dt/.xmonad/lib/Custom/MyTreeMenu.hs"))) []
            , Node (TS.TSNode "MyVariables.hs" "My XMonad variables" (spawn (myEditor ++ "/home/dt/.xmonad/lib/Custom/MyVariables.hs"))) []
            ]
-
        , Node (TS.TSNode "alacritty" "alacritty terminal emulator" (spawn (myEditor ++ "/home/dt/.config/alacritty/alacritty.yml"))) []
        , Node (TS.TSNode "awesome" "awesome window manager" (spawn (myEditor ++ "/home/dt/.config/awesome/rc.lua"))) []
        , Node (TS.TSNode "bashrc" "the bourne again shell" (spawn (myEditor ++ "/home/dt/.bashrc"))) []
