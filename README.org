@@ -1,0 +1,59 @@
+#+TITLE: DT's Dotfiles
+
+* Table of Contents :toc:
+- [[#what-are-dotfiles][What Are Dotfiles?]]
+- [[#my-window-manager-configs][My Window Manager Configs]]
+- [[#other-popular-configs-of-mine][Other Popular Configs Of Mine]]
+- [[#who-am-i][Who Am I?]]
+- [[#how-to-manage-your-own-dotfiles][How To Manage Your Own Dotfiles]]
+- [[#license][License]]
+
+* What Are Dotfiles?
+#+CAPTION: Desktop Scrot
+#+ATTR_HTML: :alt Desktop Scrot :title Desktop Scrot :align left
+[[https://gitlab.com/dwt1/dotfiles/-/raw/master/.screenshots/dotfiles09-thumb.png]]
+
+Dotfiles are the customization files that are used to personalize your Linux or other Unix-based system.  You can tell that a file is a dotfile because the name of the file will begin with a period--a dot!  The period at the beginning of a filename or directory name indicates that it is a hidden file or directory.  This repository contains my personal dotfiles.  They are stored here for convenience so that I may quickly access them on new machines or new installs.  Also, others may find some of my configurations helpful in customizing their own dotfiles.
+
+* My Window Manager Configs
+- [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/awesome][Awesome]]
+- [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/bspwm][Bspwm]]
+- [[https://gitlab.com/dwt1/dwm-distrotube][Dwm]] (*)
+- [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/herbstluftwm][Hebstluftwm]]
+- [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.i3][i3-gaps]]
+- [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/openbox][Openbox]] (you may also want my [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/tint2][tint2]] panel config and [[https://gitlab.com/dwt1/dt-dark-theme][dt-dark-theme]] GTK theme)
+- [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/qtile][Qtile]]
+- [[https://gitlab.com/dwt1/dotfiles/-/blob/master/.spectrwm.conf][Spectrwm]] (you will also need this [[https://gitlab.com/dwt1/dotfiles/-/blob/master/baraction.sh][baraction.sh]] script)
+- [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.xmonad][XMonad]]
+
+(*) = /links to another repository of mine/
+
+* Other Popular Configs Of Mine
+- [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/alacritty][Alacritty]]
+- [[https://gitlab.com/dwt1/dmenu-distrotube][Dmenu]] (*)
+- [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.doom.d][Doom Emacs]]
+- [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/nvim][Neovim]]
+- [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/polybar][Polybar]]
+- [[https://gitlab.com/dwt1/st-distrotube][St]] (*)
+- [[https://gitlab.com/dwt1/shell-color-scripts][Shell Color Scripts]] (*)
+- [[https://gitlab.com/dwt1/surf-distrotube][Surf]] (*)
+- [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/sxhkd][Sxhkd]]
+- [[https://gitlab.com/dwt1/wallpapers][Wallpapers]] (*)
+- [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/xmobar][Xmobar]]
+
+(*) = /links to another repository of mine/
+
+* Who Am I?
+#+CAPTION: DT Logo
+#+ATTR_HTML: :alt DT Logo :title DT Logo :align left
+https://gitlab.com/dwt1/dotfiles/raw/master/.screenshots/dotfiles02.png
+
+I am Derek Taylor (DT), the creator of the DistroTube channel (also DT) on YouTube: ( https://www.youtube.com/c/DistroTube ).  In my videos, I focus a lot of my attention on minimal window managers such as openbox, qtile, i3 and xmonad.  Viewers of my channel will often ask me for my configuration files for those window managers or related programs, such as the tint2 panel or the polybar panel.  This repository serves a triple function: (1) as a place to point viewers who ask me for my configs, (2) as a learning resource for those that wish to study my configs, and (3) as a backup and restore option for myself should the need arise.
+
+* How To Manage Your Own Dotfiles
+There are a hundred ways to manage your dotfiles.  My first suggestion would be to read up on the subject.  A great place to start is "Your unofficial guide to dotfiles on GitHub": https://dotfiles.github.io/
+
+Personally, I use the git bare repository method for managing my dotfiles: https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
+
+* License
+The files and scripts in this repository are licensed under the MIT License, which is a very permissive license allowing you to use, modify, copy, distribute, sell, give away, etc. the software.  In other words, do what you want with it.  The only requirement with the MIT License is that the license and copyright notice must be provided with the software.
