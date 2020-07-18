@@ -25,7 +25,7 @@
 
 * About This Config
 #+CAPTION: XMonad Scrot
-#+ATTR_HTML: :alt XMonad Scrot :title XMonad Scrot :align left
+#+ATTR_HTML: :alt XMonad Scrot :title XMonad Scrot :align left :width 800px
 [[https://gitlab.com/dwt1/dotfiles/-/raw/master/.screenshots/dotfiles05.png]]
 
 Xmonad is a dynamically tiling X11 window manager that is written and
