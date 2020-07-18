@@ -24,6 +24,9 @@
 - [[#main][Main]]
 
 * About This Config
+#+ATTR_HTML: title="screenshot"
+[[https://gitlab.com/dwt1/dotfiles/-/raw/master/.screenshots/dotfiles05.png ][file: https://gitlab.com/dwt1/dotfiles/-/raw/master/.screenshots/dotfiles05.png]]
+
 Xmonad is a dynamically tiling X11 window manager that is written and
 configured in Haskell. Official documentation: https://xmonad.org
 
