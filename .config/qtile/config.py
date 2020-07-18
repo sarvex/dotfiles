@@ -1,28 +1,4 @@
 # -*- coding: utf-8 -*-
-#  ____ _____ 
-# |  _ \_   _|  Derek Taylor (DistroTube)
-# | | | || |    http://www.youtube.com/c/DistroTube
-# | |_| || |    http://www.gitlab.com/dwt1/
-# |____/ |_|
-#        
-# A customized config.py for Qtile window manager (http://www.qtile.org)     
-# Modified by Derek Taylor (http://www.gitlab.com/dwt1/ )
-#
-# The following comments are the copyright and licensing information from the default
-# qtile config. Copyright (c) 2010 Aldo Cortesi, 2010, 2014 dequis, 2012 Randall Ma,
-# 2012-2014 Tycho Andersen, 2012 Craig Barnes, 2013 horsik, 2013 Tao Sauvage
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy of this
-# software and associated documentation files (the "Software"), to deal in the Software
-# without restriction, including without limitation the rights to use, copy, modify,
-# merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
-# permit persons to whom the Software is furnished to do so, subject to the following
-# conditions:
-#
-# The above copyright notice and this permission notice shall be included in all copies
-# or substantial portions of the Software.
-
-##### IMPORTS #####
 import os
 import re
 import socket
@@ -32,12 +8,10 @@ from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 from typing import List  # noqa: F401
 
-##### DEFINING SOME VARIABLES #####
 mod = "mod4"                                     # Sets mod key to SUPER/WINDOWS
 myTerm = "alacritty"                             # My terminal of choice
 myConfig = "/home/dt/.config/qtile/config.py"    # The Qtile config file location
 
-##### KEYBINDINGS #####
 keys = [
          ### The essentials
          Key([mod], "Return",
@@ -240,7 +214,6 @@ keys = [
              ),
 ]
 
-##### GROUPS #####
 group_names = [("WWW", {'layout': 'monadtall'}),
                ("DEV", {'layout': 'monadtall'}),
                ("SYS", {'layout': 'monadtall'}),
@@ -255,16 +228,14 @@ groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
 for i, (name, kwargs) in enumerate(group_names, 1):
     keys.append(Key([mod], str(i), lazy.group[name].toscreen()))        # Switch to another group
-    keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name))) # Send current window to another group	
+    keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name))) # Send current window to another group
 
-##### DEFAULT THEME SETTINGS FOR LAYOUTS #####
 layout_theme = {"border_width": 2,
                 "margin": 6,
                 "border_focus": "e1acff",
                 "border_normal": "1D2330"
                 }
 
-##### THE LAYOUTS #####
 layouts = [
     #layout.MonadWide(**layout_theme),
     #layout.Bsp(**layout_theme),
@@ -295,7 +266,6 @@ layouts = [
     layout.Floating(**layout_theme)
 ]
 
-##### COLORS #####
 colors = [["#292d3e", "#292d3e"], # panel background
           ["#434758", "#434758"], # background for current screen tab
           ["#ffffff", "#ffffff"], # font color for group names
@@ -304,7 +274,6 @@ colors = [["#292d3e", "#292d3e"], # panel background
           ["#668bd7", "#668bd7"], # color for the even widgets
           ["#e1acff", "#e1acff"]] # window name
 
-##### PROMPT #####
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
 ##### DEFAULT WIDGET SETTINGS #####
@@ -315,8 +284,6 @@ widget_defaults = dict(
     background=colors[2]
 )
 extension_defaults = widget_defaults.copy()
-
-##### WIDGETS #####
 
 def init_widgets_list():
     widgets_list = [
@@ -530,8 +497,6 @@ def init_widgets_list():
               ]
     return widgets_list
 
-##### SCREENS ##### (TRIPLE MONITOR SETUP)
-
 def init_widgets_screen1():
     widgets_screen1 = init_widgets_list()
     return widgets_screen1                       # Slicing removes unwanted widgets on Monitors 1,3
@@ -551,7 +516,6 @@ if __name__ in ["config", "__main__"]:
     widgets_screen1 = init_widgets_screen1()
     widgets_screen2 = init_widgets_screen2()
 
-##### DRAG FLOATING WINDOWS #####
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
@@ -567,7 +531,6 @@ follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 
-##### FLOATING WINDOWS #####
 floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'confirm'},
     {'wmclass': 'dialog'},
@@ -587,7 +550,6 @@ floating_layout = layout.Floating(float_rules=[
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
-##### STARTUP APPLICATIONS #####
 @hook.subscribe.startup_once
 def start_once():
     home = os.path.expanduser('~')
