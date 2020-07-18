@@ -72,6 +72,9 @@ myTerm = "alacritty"                             # My terminal of choice
 myConfig = "/home/dt/.config/qtile/config.py"    # The Qtile config file location
 #+END_SRC
 
+* Keybindings
+These are the keybindings for qtile.
+
 | A FEW IMPORTANT KEYBINDINGS | ASSOCIATED ACTION                                                        |
 |-----------------------------+--------------------------------------------------------------------------|
 | MODKEY + RETURN             | opens terminal (alacritty is the terminal but can be easily changed)     |
@@ -93,10 +96,6 @@ myConfig = "/home/dt/.config/qtile/config.py"    # The Qtile config file locatio
 | MODKEY + r                  | switch focus to monitor 3                                                |
 | MODKEY + period             | switch focus to next monitor                                             |
 | MODKEY + comma              | switch focus to prev monitor                                             |
-
-
-* Keybindings
-These are the keybindings for qtile.
 
 #+BEGIN_SRC python
 keys = [
