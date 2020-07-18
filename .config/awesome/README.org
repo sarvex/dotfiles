@@ -3,13 +3,15 @@
 
 * Table of Contents :toc:
 - [[#about-this-config][About This Config]]
+- [[#features-of-awesome][Features of Awesome]]
 - [[#libraries][Libraries]]
 - [[#error-handling][Error Handling]]
 - [[#auto-start-windowless-processes][Auto start windowless processes]]
+- [[#setting-our-theme][Setting our theme]]
 - [[#variable-definitions][Variable definitions]]
-- [[#tags][Tags]]
+- [[#tags-and-layouts][Tags and Layouts]]
 - [[#menu][Menu]]
-- [[#screen][Screen]]
+- [[#screen-and-wallpaper][Screen and wallpaper]]
 - [[#mouse-bindings][Mouse bindings]]
 - [[#keybindings][Keybindings]]
 - [[#rules][Rules]]
@@ -22,14 +24,21 @@
 #+ATTR_HTML: :alt Awesome Scrot :title Awesome Scrot :align left
 [[https://gitlab.com/dwt1/dotfiles/-/raw/master/.screenshots/dotfiles09-thumb.png]]
 
-Derek Taylor (DistroTube)
-http://www.youtube.com/c/DistroTube
-http://www.gitlab.com/dwt1/
+This is the xmonad configuration of Derek Taylor (DistroTube)
+- My YouTube: http://www.youtube.com/c/DistroTube
+- My GitLab:  http://www.gitlab.com/dwt1/
 
-My awesome window manager configuration. Provided here for those that want to examine or use
-my config in part or in whole. Take what works for you; leave the rest!
+My awesome window manager configuration. Keep in mind, that my configs are purposely bloated with examples of what you can do with awesome. It is written more as a study guide rather than a config that you should download and use. Take what works for you; leave the rest!
+
+* Features of Awesome
+- Simple enough for beginner's but flexible enough for the power user.
+- Extremely customizable, maybe more so than any other window manager.
+- Configured in Lua.
+- A documented API to configure and define the behavior of your window manager.
 
 * Libraries
+These are Lua modules that we must import so that we can use their functions later in the config.
+
 #+BEGIN_SRC lua
 local awesome, client, mouse, screen, tag = awesome, client, mouse, screen, tag
 local ipairs, string, os, table, tostring, tonumber, type = ipairs, string, os, table, tostring, tonumber, type
@@ -96,7 +105,8 @@ end
 run_once({ "unclutter -root" }) -- entries must be comma-separated
 #+END_SRC
 
-* Variable definitions
+* Setting our theme
+We can have multiple themes available to us and set the one we want to use with chosen_theme.
 #+BEGIN_SRC lua
 local themes = {
     "powerarrow-blue", -- 1
@@ -106,10 +116,16 @@ local themes = {
 
 -- choose your theme here
 local chosen_theme = themes[1]
-
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
+#+END_SRC
 
+* Variable definitions
+It's nice to assign values to stuff that you will use more than once
+in the config. Setting values for things like font, terminal and editor
+means you only have to change the value here to make changes globally.
+
+#+BEGIN_SRC lua
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local modkey1      = "Control"
@@ -126,7 +142,9 @@ local terminal          = "alacritty"
 local virtualmachine    = "virtualbox"
 #+END_SRC
 
-* Tags
+* Tags and Layouts
+Tags are essentially our workspaces. There are a ton of layouts available in awesome. I have most of them commented out, but if you want to try them out, then simply uncomment them.
+
 #+BEGIN_SRC lua
 -- awesome variables
 awful.util.terminal = terminal
@@ -213,6 +231,8 @@ beautiful.init(string.format(gears.filesystem.get_configuration_dir() .. "/theme
 #+END_SRC
 
 * Menu
+Awesome has a menu system if you want to use it.
+
 #+BEGIN_SRC lua
 local myawesomemenu = {
     { "hotkeys", function() return false, hotkeys_popup.show_help end },
@@ -241,9 +261,9 @@ awful.util.mymainmenu = freedesktop.menu.build({
 --menubar.utils.terminal = terminal -- Set the Menubar terminal for applications that require it
 #+END_SRC
 
-* Screen
+* Screen and wallpaper
+You can set wallpaper with awesome. This is optional, of course. Otherwise, just set wallpaper with your preferred wallpaper utility (such as nitrogen or feh).
 #+BEGIN_SRC lua
-
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", function(s)
     -- Wallpaper
@@ -261,6 +281,8 @@ awful.screen.connect_for_each_screen(function(s) beautiful.at_screen_connect(s) 
 #+END_SRC
 
 * Mouse bindings
+Defining what our mouse clicks do.
+
 #+BEGIN_SRC lua
 root.buttons(my_table.join(
     awful.button({ }, 3, function () awful.util.mymainmenu:toggle() end),
@@ -270,6 +292,26 @@ root.buttons(my_table.join(
 #+END_SRC
 
 * Keybindings
+| Keybinding                | Action                                                                   |
+|---------------------------+--------------------------------------------------------------------------|
+| MODKEY + RETURN          | opens terminal (alacritty is the terminal but can be easily changed)     |
+| MODKEY + SHIFT + RETURN  | opens run launcher (dmenu is the run launcher but can be easily changed) |
+| MODKEY + SHIFT + c       | closes window with focus                                                 |
+| MODKEY + SHIFT + r       | restarts awesome                                                         |
+| MODKEY + SHIFT + q       | quits awesome                                                            |
+| MODKEY + 1-9             | switch focus to workspace (1-9)                                          |
+| MODKEY + SHIFT + 1-9     | send focused window to workspace (1-9)                                   |
+| MODKEY + j               | switches focus between windows in the stack, going down                  |
+| MODKEY + k               | switches focus between windows in the stack, going up                    |
+| MODKEY + h               | switches focus between windows in the stack, going left                  |
+| MODKEY + l               | switches focus between windows in the stack, going right                 |
+| MODKEY + SHIFT + j       | rotates the windows in the stack, going down                             |
+| MODKEY + SHIFT + k       | rotates the windows in the stack, going up                               |
+| MODKEY + SHIFT + h       | rotates the windows in the stack, going left                             |
+| MODKEY + SHIFT + l       | rotates the windows in the stack, going right                            |
+| MODKEY + period          | switch focus to next monitor                                             |
+| MODKEY + comma           | switch focus to prev monitor                                             |
+
 #+BEGIN_SRC lua
 globalkeys = my_table.join(
 
