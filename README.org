@@ -61,7 +61,7 @@ I am Derek Taylor (DT), the creator of the DistroTube channel (also DT) on [[htt
 - [[https://mastodon.technology/@distrotube][Mastodon]]
 - [[https://www.reddit.com/r/distrotube/][Reddit]]
 
-Want to chat?
+*Want to chat?*
 - Look for DistroTube's server on Discord.
 - Also, checkout out #distrotube on the Freenode network on IRC.
 
