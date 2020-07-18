@@ -1,3 +1,36 @@
+#+TITLE: Aweomsome WM Config
+#+PROPERTY: header-args :tangle rc.lua
+
+* Table of Contents :toc:
+- [[#about-this-config][About This Config]]
+- [[#libraries][Libraries]]
+- [[#error-handling][Error Handling]]
+- [[#auto-start-windowless-processes][Auto start windowless processes]]
+- [[#variable-definitions][Variable definitions]]
+- [[#tags][Tags]]
+- [[#menu][Menu]]
+- [[#screen][Screen]]
+- [[#mouse-bindings][Mouse bindings]]
+- [[#keybindings][Keybindings]]
+- [[#rules][Rules]]
+- [[#signals][Signals]]
+- [[#enable-sloppy-focus][Enable sloppy focus]]
+- [[#autostart][Autostart]]
+
+* About This Config
+#+CAPTION: Awesome Scrot
+#+ATTR_HTML: :alt Awesome Scrot :title Awesome Scrot :align left
+[[https://gitlab.com/dwt1/dotfiles/-/raw/master/.screenshots/dotfiles09-thumb.png]]
+
+Derek Taylor (DistroTube)
+http://www.youtube.com/c/DistroTube
+http://www.gitlab.com/dwt1/
+
+My awesome window manager configuration. Provided here for those that want to examine or use
+my config in part or in whole. Take what works for you; leave the rest!
+
+* Libraries
+#+BEGIN_SRC lua
 local awesome, client, mouse, screen, tag = awesome, client, mouse, screen, tag
 local ipairs, string, os, table, tostring, tonumber, type = ipairs, string, os, table, tostring, tonumber, type
 
@@ -23,7 +56,13 @@ local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
                       require("awful.hotkeys_popup.keys")
 local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
+#+END_SRC
 
+* Error Handling
+Check if awesome encountered an error during startup and fell back to
+another config (This code will only ever execute for the fallback config)
+
+#+BEGIN_SRC lua
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
                      title = "Oops, there were errors during startup!",
@@ -44,7 +83,10 @@ do
         in_error = false
     end)
 end
+#+END_SRC
 
+* Auto start windowless processes
+#+BEGIN_SRC lua
 local function run_once(cmd_arr)
     for _, cmd in ipairs(cmd_arr) do
         awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
@@ -52,7 +94,10 @@ local function run_once(cmd_arr)
 end
 
 run_once({ "unclutter -root" }) -- entries must be comma-separated
+#+END_SRC
 
+* Variable definitions
+#+BEGIN_SRC lua
 local themes = {
     "powerarrow-blue", -- 1
     "powerarrow",      -- 2
@@ -79,7 +124,10 @@ local mediaplayer       = "vlc"
 local scrlocker         = "slimlock"
 local terminal          = "alacritty"
 local virtualmachine    = "virtualbox"
+#+END_SRC
 
+* Tags
+#+BEGIN_SRC lua
 -- awesome variables
 awful.util.terminal = terminal
 --awful.util.tagnames = {  " ", " ", " ", " ", " ", " ", " ", " ", " ", " "  }
@@ -162,7 +210,10 @@ lain.layout.cascade.tile.nmaster       = 5
 lain.layout.cascade.tile.ncol          = 2
 
 beautiful.init(string.format(gears.filesystem.get_configuration_dir() .. "/themes/%s/theme.lua", chosen_theme))
+#+END_SRC
 
+* Menu
+#+BEGIN_SRC lua
 local myawesomemenu = {
     { "hotkeys", function() return false, hotkeys_popup.show_help end },
     { "manual", terminal .. " -e 'man awesome'" },
@@ -188,6 +239,10 @@ awful.util.mymainmenu = freedesktop.menu.build({
     }
 })
 --menubar.utils.terminal = terminal -- Set the Menubar terminal for applications that require it
+#+END_SRC
+
+* Screen
+#+BEGIN_SRC lua
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", function(s)
@@ -203,13 +258,19 @@ screen.connect_signal("property::geometry", function(s)
 end)
 -- Create a wibox for each screen and add it
 awful.screen.connect_for_each_screen(function(s) beautiful.at_screen_connect(s) end)
+#+END_SRC
 
+* Mouse bindings
+#+BEGIN_SRC lua
 root.buttons(my_table.join(
     awful.button({ }, 3, function () awful.util.mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
+#+END_SRC
 
+* Keybindings
+#+BEGIN_SRC lua
 globalkeys = my_table.join(
 
     -- {{{ Personal keybindings
@@ -646,7 +707,10 @@ clientbuttons = gears.table.join(
 
 -- Set keys
 root.keys(globalkeys)
+#+END_SRC
 
+* Rules
+#+BEGIN_SRC lua
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
     -- All clients will match this rule.
@@ -754,7 +818,10 @@ awful.rules.rules = {
       }, properties = { floating = true }},
 
 }
+#+END_SRC
 
+* Signals
+#+BEGIN_SRC lua
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
@@ -815,7 +882,12 @@ client.connect_signal("request::titlebars", function(c)
         layout = wibox.layout.align.horizontal
     }
 end)
+#+END_SRC
 
+* Enable sloppy focus
+Enable sloppy focus, so that focus follows mouse.
+
+#+BEGIN_SRC lua
 client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = true})
 end)
@@ -833,8 +905,12 @@ end
 client.connect_signal("focus", border_adjust)
 client.connect_signal("property::maximized", border_adjust)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+#+END_SRC
 
+* Autostart
+#+BEGIN_SRC lua
 awful.spawn.with_shell("nitrogen --restore")
 awful.spawn.with_shell("picom --config  $HOME/.config/picom/picom.conf")
 awful.spawn.with_shell("nm-applet")
 awful.spawn.with_shell("volumeicon")
+#+END_SRC
