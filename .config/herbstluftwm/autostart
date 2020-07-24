@@ -27,17 +27,18 @@ nitrogen --restore &
 hc keyunbind --all
 
 # keybindings
-# if you have a super key you will be much happier with Mod set to Mod4
-#Mod=Mod1    # Use alt as the main modifier
-Mod=Mod4   # Use the super key as the main modifier
+Mod=Mod4                            # Use the super key as the main modifier
+myTerm=alacritty                    # Set my preferred terminal
+myEditor="emacsclient -c -a emacs"  # Set my preferred editor
 
 hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
-hc keybind $Mod-Return spawn st
+hc keybind $Mod-Return spawn $myTerm
+hc keybind $Mod-e spawn $myEditor
 
 # Dmenu launcher
-hc keybind Mod1-Control-Return spawn dmenu_run -fn 'Mononoki Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'
+hc keybind $Mod-Shift-Return spawn dmenu_run -fn 'Mononoki Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'
 
 # My dmenu scripts (Alt+Ctrl+Key)
 hc keybind Mod1-Control-e spawn ./.dmenu/dmenu-edit-configs.sh
@@ -47,61 +48,57 @@ hc keybind Mod1-Control-s spawn ./.dmenu/dmenu-surfraw.sh
 hc keybind Mod1-Control-t spawn ./.dmenu/dmenu-trading.sh
 
 # My applications (Super+Alt+Key)
-hc keybind $Mod-Mod1-l spawn st -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com
-hc keybind $Mod-Mod1-n spawn st -e newsboat
-hc keybind $Mod-Mod1-r spawn st -e rtv
-hc keybind $Mod-Mod1-e spawn st -e neomutt
-hc keybind $Mod-Mod1-m spawn st -e toot curses
-hc keybind $Mod-Mod1-t spawn st -e sh ./scripts/tig-script.sh
-hc keybind $Mod-Mod1-f spawn st -e ~/.config/vifm/scripts/vifmrun
-hc keybind $Mod-Mod1-j spawn st -e joplin
-hc keybind $Mod-Mod1-c spawn st -e cmus
-hc keybind $Mod-Mod1-i spawn st -e irssi
-hc keybind $Mod-Mod1-y spawn st -e youtube-viewer
-hc keybind $Mod-Mod1-a spawn st -e ncpamixer
+hc keybind $Mod-Mod1-l spawn $myTerm -e lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com
+hc keybind $Mod-Mod1-n spawn $myTerm -e newsboat
+hc keybind $Mod-Mod1-r spawn $myTerm -e rtv
+hc keybind $Mod-Mod1-e spawn $myTerm -e neomutt
+hc keybind $Mod-Mod1-m spawn $myTerm -e toot curses
+hc keybind $Mod-Mod1-t spawn $myTerm -e sh ./scripts/tig-script.sh
+hc keybind $Mod-Mod1-f spawn $myTerm -e ~/.config/vifm/scripts/vifmrun
+hc keybind $Mod-Mod1-j spawn $myTerm -e joplin
+hc keybind $Mod-Mod1-c spawn $myTerm -e cmus
+hc keybind $Mod-Mod1-i spawn $myTerm -e irssi
+hc keybind $Mod-Mod1-y spawn $myTerm -e youtube-viewer
+hc keybind $Mod-Mod1-a spawn $myTerm -e ncpamixer
 
-# basic movement
 # focusing clients
-hc keybind $Mod-Left  focus left
-hc keybind $Mod-Down  focus down
-hc keybind $Mod-Up    focus up
-hc keybind $Mod-Right focus right
-hc keybind $Mod-h     focus left
-hc keybind $Mod-j     focus down
-hc keybind $Mod-k     focus up
-hc keybind $Mod-l     focus right
-
-# moving clients
-hc keybind $Mod-Shift-Left  shift left
-hc keybind $Mod-Shift-Down  shift down
-hc keybind $Mod-Shift-Up    shift up
-hc keybind $Mod-Shift-Right shift right
-hc keybind $Mod-Shift-h     shift left
-hc keybind $Mod-Shift-j     shift down
-hc keybind $Mod-Shift-k     shift up
-hc keybind $Mod-Shift-l     shift right
+hc keybind $Mod-Left          focus left
+hc keybind $Mod-Down          focus down
+hc keybind $Mod-Up            focus up
+hc keybind $Mod-Right         focus right
+hc keybind $Mod-h             focus left
+hc keybind $Mod-j             focus down
+hc keybind $Mod-k             focus up
+hc keybind $Mod-l             focus right
+                              
+# moving clients              
+hc keybind $Mod-Shift-Left    shift left
+hc keybind $Mod-Shift-Down    shift down
+hc keybind $Mod-Shift-Up      shift up
+hc keybind $Mod-Shift-Right   shift right
+hc keybind $Mod-Shift-h       shift left
+hc keybind $Mod-Shift-j       shift down
+hc keybind $Mod-Shift-k       shift up
+hc keybind $Mod-Shift-l       shift right
 
 # splitting frames
-# create an empty frame at the specified direction
-hc keybind $Mod-u       split   bottom  0.5
-hc keybind $Mod-o       split   right   0.5
-# let the current frame explode into subframes
+hc keybind $Mod-u             split  bottom  0.5
+hc keybind $Mod-o             split  right   0.5
 hc keybind $Mod-Control-space split explode
 
 # resizing frames
 resizestep=0.05
-hc keybind $Mod-Control-h       resize left +$resizestep
-hc keybind $Mod-Control-j       resize down +$resizestep
-hc keybind $Mod-Control-k       resize up +$resizestep
-hc keybind $Mod-Control-l       resize right +$resizestep
-hc keybind $Mod-Control-Left    resize left +$resizestep
-hc keybind $Mod-Control-Down    resize down +$resizestep
-hc keybind $Mod-Control-Up      resize up +$resizestep
-hc keybind $Mod-Control-Right   resize right +$resizestep
+hc keybind $Mod-Control-h      resize left +$resizestep
+hc keybind $Mod-Control-j      resize down +$resizestep
+hc keybind $Mod-Control-k      resize up +$resizestep
+hc keybind $Mod-Control-l      resize right +$resizestep
+hc keybind $Mod-Control-Left   resize left +$resizestep
+hc keybind $Mod-Control-Down   resize down +$resizestep
+hc keybind $Mod-Control-Up     resize up +$resizestep
+hc keybind $Mod-Control-Right  resize right +$resizestep
 
 # tags
-tag_names=( {1..9} )
-tag_icons=( {1..9} )
+tag_names=("dev" "www" "sys" "doc" "vbox" "chat" "mus" "vid" "gfx")
 tag_keys=( {1..9} 0 )
 
 hc rename default "${tag_names[0]}" || true
@@ -152,10 +149,10 @@ hc set frame_border_normal_color '#101010'
 hc set frame_bg_normal_color '#565656'
 hc set frame_bg_active_color '#345F0C'
 hc set frame_border_width 1
-hc set always_show_frame 1
+hc set always_show_frame 0
 hc set frame_bg_transparent 1
-hc set frame_transparent_width 5
-hc set frame_gap 4
+hc set frame_transparent_width 0
+hc set frame_padding 0
 hc set focus_follows_mouse 1
 
 hc attr theme.active.color '#9fbc00'
@@ -171,8 +168,7 @@ hc attr theme.active.inner_color '#3E4A00'
 hc attr theme.active.outer_color '#3E4A00'
 hc attr theme.background_color '#141414'
 
-hc set window_gap 0
-hc set frame_padding 0
+hc set window_gap 8
 hc set smart_window_surroundings 0
 hc set smart_frame_surroundings 1
 hc set mouse_recenter_gap 0
@@ -203,7 +199,7 @@ herbstclient set tree_style '╾│ ├└╼─┐'
 # hc set_monitors 1280x1024+0+0 1280x1024+1280+0
 # or simply:
 # hc detect_monitors
-hc set_monitors 1920x1058+1920+22 1920x1058+3840+22 1920x1058+0+22
+hc set_monitors 1920x1060+0+22 1920x1060+1920+22 1920x1060+3840+22
 
 # find the panel
 panel=~/.config/herbstluftwm/panel.sh
