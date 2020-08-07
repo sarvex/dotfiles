@@ -683,10 +683,10 @@ myManageHook = composeAll
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
      -- I'm doing it this way because otherwise I would have to write out
      -- the full name of my workspaces.
-     [ className =? "obs"     --> doShift ( myWorkspaces !! 7 )
+     [ className =? "htop"     --> doShift ( myWorkspaces !! 7 )
      , title =? "firefox"     --> doShift ( myWorkspaces !! 1 )
      , className =? "mpv"     --> doShift ( myWorkspaces !! 7 )
-     , className =? "vlc"     --> doShift ( myWorkspaces !! 7 )
+     -- , className =? "vlc"     --> doShift ( myWorkspaces !! 7 )
      , className =? "Gimp"    --> doShift ( myWorkspaces !! 8 )
      , className =? "Gimp"    --> doFloat
      , title =? "Oracle VM VirtualBox Manager"     --> doFloat

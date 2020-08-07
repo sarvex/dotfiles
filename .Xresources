@@ -67,7 +67,7 @@ URxvt.keysym.M-v: perl:clipboard:paste
 URxvt*depth: 32
 
 
-! Dracula Xresources palette
+! Palenight Xresources palette
 !! COLORS
 
 ! special
@@ -110,3 +110,4 @@ XTerm*cursorColor: #bbc5ff
 ! white
 *.color7:       #d0d0d0
 *.color15:      #ffffff
+

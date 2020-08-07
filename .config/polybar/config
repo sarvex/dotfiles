@@ -46,8 +46,8 @@ format-offset =
 
 [colors]
 ; Nord theme ============
-background = #292d3e
-foreground = #c0c5ce
+background = #282c34
+foreground = #abb2bf
 alert = #bd2c40
 volume-min = #a3be8c
 volume-med = #ebcb8b
@@ -409,7 +409,7 @@ font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=8;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=8;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=8;1"
 
-modules-left = ewmh xwindow
+modules-left = xmenu ewmh xwindow
 modules-center = 
 modules-right = arrow1 networkspeedup networkspeeddown arrow2 memory2 arrow3 cpu2 arrow2 pavolume arrow3 arch-aur-updates arrow2 date
 
@@ -1623,6 +1623,16 @@ label-indicator-margin = 1
 label-indicator-background = ${colors.background}
 label-indicator-underline = ${colors.foreground}
 
+
+################################################################################
+
+[module/xmenu]
+type = custom/script
+interval = 1200
+exec = echo "  "
+click-left = "sh /home/dt/xmenu/xmenu.sh"
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
 ################################################################################
 
 [module/xwindow]

@@ -8,6 +8,7 @@
 # A customized configuration for herbstluftwm (http://www.herbstluftwm.org)     
 # Modified by Derek Taylor (http://www.gitlab.com/dwt1/ )
 
+
 hc() {
     herbstclient "$@"
 }
@@ -17,6 +18,7 @@ hc emit_hook reload
 xsetroot -solid '#5A8E3A'
 picom &
 nitrogen --restore &
+lxsession &
 
 # Uncomment the following lines to use xmobar as the panel
 # Remember to comment out the last 8 lines of this config, so that
@@ -36,6 +38,7 @@ hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
 hc keybind $Mod-Return spawn $myTerm
 hc keybind $Mod-e spawn $myEditor
+hc keybind Mod1-Control-Return spawn  ./xmenu/xmenu.sh
 
 # Dmenu launcher
 hc keybind $Mod-Shift-Return spawn dmenu_run -fn 'Mononoki Nerd Font:size=10' -nb '#292d3e' -nf '#bbc5ff' -sb '#82AAFF' -sf '#292d3e' -p 'dmenu:'
@@ -199,7 +202,7 @@ herbstclient set tree_style '╾│ ├└╼─┐'
 # hc set_monitors 1280x1024+0+0 1280x1024+1280+0
 # or simply:
 # hc detect_monitors
-hc set_monitors 1920x1060+0+22 1920x1060+1920+22 1920x1060+3840+22
+hc set_monitors 1920x1060+0+20 1920x1060+1920+20 1920x1060+3840+20
 
 # find the panel
 panel=~/.config/herbstluftwm/panel.sh
