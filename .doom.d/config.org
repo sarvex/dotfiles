@@ -56,6 +56,9 @@ Force splits to open on the right
 (add-hook 'markdown-mode-hook 'prefer-horizontal-split)
 #+END_SRC
 
+#+RESULTS:
+| prefer-horizontal-split | evil-markdown-mode | doom--enable-+lua-love-mode-in-markdown-mode-h | doom--enable-+javascript-npm-mode-in-markdown-mode-h |
+
 ** FILE MANAGER (dired)
 Image previews in dired
 #+BEGIN_SRC emacs-lisp

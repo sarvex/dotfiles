@@ -57,3 +57,7 @@
 (package! tldr)
 (package! treemacs)
 (package! md4rd)
+(package! muse)
+(package! wc-mode)
+(package! writegood-mode)
+(package! writeroom-mode)

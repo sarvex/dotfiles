@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cupd=$(checkupdates | wc -l)
-printf "$cupd updates \n"
+echo "$cupd updates"

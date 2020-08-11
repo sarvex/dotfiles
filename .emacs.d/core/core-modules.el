@@ -119,7 +119,8 @@ non-nil."
       (unless no-config-p
         (maphash (doom-module-loader doom-module-config-file) doom-modules)
         (run-hook-wrapped 'doom-init-modules-hook #'doom-try-run-hook)
-        (load! "config" doom-private-dir t)))))
+        (load! "config" doom-private-dir t)
+        (load custom-file 'noerror (not doom-debug-mode))))))
 
 
 ;;
@@ -200,7 +201,7 @@ This doesn't require modules to be enabled. For enabled modules us
            for default-directory in doom-modules-dirs
            for path = (concat category "/" module "/" file)
            if (file-exists-p path)
-           return (expand-file-name path)))
+           return (file-truename path)))
 
 (defun doom-module-from-path (&optional path enabled-only)
   "Returns a cons cell (CATEGORY . MODULE) derived from PATH (a file path).
@@ -329,7 +330,9 @@ This value is cached. If REFRESH-P, then don't use the cached value."
 ;; packages with package.el, by copying over old `use-package' declarations with
 ;; an :ensure t property. Doom doesn't use package.el, so this will throw an
 ;; error that will confuse beginners, so we disable `:ensure'.
-(setq use-package-ensure-function #'ignore)
+(setq use-package-ensure-function
+      (lambda (name &rest _)
+        (message "Ignoring ':ensure t' in '%s' config" name)))
 ;; ...On the other hand, if the user has loaded `package', then we should assume
 ;; they know what they're doing and restore the old behavior:
 (add-transient-hook! 'package-initialize
@@ -463,7 +466,7 @@ to least)."
   `(unless doom-interactive-p
      (doom-module-mplist-map
       (lambda (category module &rest plist)
-        (if (plist-get plist :path)
+        (if (plist-member plist :path)
             (apply #'doom-module-set category module plist)
           (message "WARNING Couldn't find the %s %s module" category module)))
       ,@(if (keywordp (car modules))

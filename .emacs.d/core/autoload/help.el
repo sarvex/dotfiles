@@ -214,7 +214,7 @@ selection of all minor-modes, active or not."
                    "*.org" doom-emacs-dir)
                   #'ignore))
            :query initial-input
-           :args '("-g" "*.org")
+           :args '("-t" "org")
            :in doom-emacs-dir
            :prompt "Search documentation for: "))
 
@@ -633,7 +633,11 @@ config blocks in your private config."
   (unless (executable-find "rg")
     (user-error "Can't find ripgrep on your system"))
   (if (fboundp 'counsel-rg)
-      (let ((counsel-rg-base-command (append counsel-rg-base-command dirs)))
+      (let ((counsel-rg-base-command
+             (if (stringp counsel-rg-base-command)
+                 (format counsel-rg-base-command
+                         (concat "%s " (mapconcat #'shell-quote-argument dirs " ")))
+               (append counsel-rg-base-command dirs))))
         (counsel-rg query nil "-Lz" prompt))
     ;; TODO Add helm support?
     (grep-find

@@ -14,12 +14,12 @@
             :local-repo "straight.el"
             :files ("straight*.el")
             :no-build t)
-  :pin "09cfa1b344cbeeea7da2e075df7c19262fb2b9e6")
+  :pin "fc077dda27dc603c6a287d9cffe0bf0ba5018d66")
 
 ;; core-modules.el
 (package! use-package
   :type 'core
-  :pin "d2640fec376a8458a669e7526e63e5870d875118")
+  :pin "7d925367ef0857d513d62eab4cb57b7436b9ffe9")
 
 ;; core-ui.el
 (package! all-the-icons :pin "ed8e44de4fa601309d2bba902c3b37cb73e4daa0")
@@ -48,14 +48,10 @@
   ;; optimizations (the original has been abandoned).
   :recipe (:host github :repo "hlissner/ws-butler")
   :pin "2bb49d3ee7d2cba133bc7e9cdac416cd1c5e4fe0")
-(unless IS-WINDOWS
-  (package! clipetty
-    :recipe (:host github :repo "spudlyo/clipetty")
-    :pin "01b39044b9b65fa4ea7d3166f8b1ffab6f740362"))
 
 ;; core-projects.el
-(package! projectile :pin "7e552b6d876014ca5b4609318ca8a202b2a89014")
+(package! projectile :pin "bbcf781d3fddb8e00d0dc10eb68bc2528fb409b3")
 
 ;; core-keybinds.el
 (package! general :pin "a0b17d207badf462311b2eef7c065b884462cb7c")
-(package! which-key :pin "8b49ae978cceca65967f3544c236f32964ddbed0")
+(package! which-key :pin "3642c11d5ef9be3c6fb9edb8fd5ec3c370abd889")
