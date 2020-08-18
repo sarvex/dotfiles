@@ -966,7 +966,7 @@ myKeys =
         , ("M-M1-f", spawn (myTerminal ++ " -e sh ./.config/vifm/scripts/vifmrun"))
         , ("M-M1-i", spawn (myTerminal ++ " -e irssi"))
         , ("M-M1-j", spawn (myTerminal ++ " -e joplin"))
-        , ("M-M1-l", spawn (myTerminal ++ " -e lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss gopher://distro.tube"))
+        , ("M-M1-l", spawn (myTerminal ++ " -e lynx https://distrotube.com"))
         , ("M-M1-m", spawn (myTerminal ++ " -e mocp"))
         , ("M-M1-n", spawn (myTerminal ++ " -e newsboat"))
         , ("M-M1-p", spawn (myTerminal ++ " -e pianobar"))

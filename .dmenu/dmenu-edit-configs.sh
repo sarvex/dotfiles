@@ -148,4 +148,5 @@ case "$choice" in
 		exit 1
 	;;
 esac
-emacsclient -c -a emacs "$choice"
+alacritty -e nvim "$choice"
+# emacsclient -c -a emacs "$choice"

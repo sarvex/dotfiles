@@ -89,29 +89,32 @@ ex ()
 
 # root privileges
 alias doas="doas --"
-alias sudo='sudo '
 
 # navigation
 alias ..='cd ..' 
 alias ...='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../..'
+alias .5='cd ../../../..'
+alias .6='cd ../../../../..'
 
 # vim and emacs
-alias vim=nvim
+alias vim="nvim"
 alias em="/usr/bin/emacs -nw"
-alias emacs="emacsclient -c -a ''"
+alias emacs="emacsclient -c -a 'emacs'"
+
+# pacman and yay
+alias pacsyu='sudo pacman -Syyu'                 # update only standard pkgs
+alias yaysua="yay -Sua --noconfirm"              # update only AUR pkgs
+alias yaysyu="yay -Syu --noconfirm"              # update standard pkgs and AUR pkgs
+alias unlock="sudo rm /var/lib/pacman/db.lck"    # remove pacman lock
+alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' # remove orphaned packages
 
 # get fastest mirrors
 alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
 alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
 alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
 alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
-
-# pacman and yay
-alias pksyu='sudo pacman -Syyu'                  # update only standard pkgs
-alias pksua="yay -Sua --noconfirm"               # update only AUR pkgs
-alias pksyua="yay -Syu --noconfirm"              # update standard pkgs and AUR pkgs
-alias unlock="sudo rm /var/lib/pacman/db.lck"    # remove pacman lock
-alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' # remove orphaned packages
 
 # Changing "ls" to "exa"
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
@@ -131,6 +134,27 @@ alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys'
 alias vifm='./.config/vifm/scripts/vifmrun'
+
+## get top process eating memory
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+
+## get top process eating cpu ##
+alias pscpu='ps auxf | sort -nr -k 3'
+alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
+
+# git
+alias addup='git add -u'
+alias addall='git add .'
+alias branch='git branch'
+alias checkout='git checkout'
+alias commit='git commit -m'
+alias fetch='git fetch'
+alias pull='git pull origin'
+alias push='git push origin'
+alias status='git status'
+alias tag='git tag'
+alias newtag='git tag -a'
 
 # shutdown or reboot
 alias ssn="sudo shutdown now"
@@ -159,14 +183,19 @@ alias yta-vorbis="youtube-dl --extract-audio --audio-format vorbis "
 alias yta-wav="youtube-dl --extract-audio --audio-format wav "
 alias ytv-best="youtube-dl -f bestvideo+bestaudio "
 
-# the terminal rickroll
-alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
+# switch between shells
+alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
+alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
+alias tofish="sudo chsh $USER -s /bin/fish && echo 'Now log out.'"
 
 # bare git repo alias for dotfiles
 alias config="/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME"
 
 # termbin
 alias tb="nc termbin.com 9999"
+
+# the terminal rickroll
+alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
 
 ### RANDOM COLOR SCRIPT ###
 /opt/shell-color-scripts/colorscript.sh random

@@ -19,7 +19,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'gmarik/Vundle.vim'                           " Vundle
     Plug 'itchyny/lightline.vim'                       " Lightline statusbar
     Plug 'suan/vim-instant-markdown', {'rtp': 'after'} " Markdown Preview
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'frazrepo/vim-rainbow'
 "{{ File management }}
     Plug 'vifm/vifm.vim'                               " Vifm
