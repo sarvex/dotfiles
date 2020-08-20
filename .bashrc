@@ -5,7 +5,6 @@
 # |____/ |_|
 #
 # My bash config. Not much to see here; just some pretty standard stuff.
-
 # PATH="$HOME/.local/bin${PATH:+:${PATH}}"  # adding .local/bin to $PATH
 
 ### EXPORT
