@@ -94,9 +94,8 @@ alias doas="doas --"
 alias ..='cd ..' 
 alias ...='cd ../..'
 alias .3='cd ../../..'
-alias .4='cd ../../..'
-alias .5='cd ../../../..'
-alias .6='cd ../../../../..'
+alias .4='cd ../../../..'
+alias .5='cd ../../../../..'
 
 # vim and emacs
 alias vim="nvim"
@@ -128,8 +127,12 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
+# confirm before overwriting something
+alias cp="cp -i"
+alias mv='mv -i'
+alias rm='rm -i'
+
 # adding flags
-alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
 alias free='free -m'                      # show sizes in MB
 alias lynx='lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys'
@@ -148,6 +151,7 @@ alias addup='git add -u'
 alias addall='git add .'
 alias branch='git branch'
 alias checkout='git checkout'
+alias clone='git clone'
 alias commit='git commit -m'
 alias fetch='git fetch'
 alias pull='git pull origin'
