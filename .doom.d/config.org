@@ -27,6 +27,8 @@ font string. You generally only need these two:
 ** ORG MODE
 #+BEGIN_SRC emacs-lisp
 (setq org-directory "~/Documents/org/")
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+END_SRC
 
 ** LINE SETTINGS
@@ -55,9 +57,6 @@ Force splits to open on the right
   (set-variable 'split-width-threshold 40 t)) ; make this as low as needed
 (add-hook 'markdown-mode-hook 'prefer-horizontal-split)
 #+END_SRC
-
-#+RESULTS:
-| prefer-horizontal-split | evil-markdown-mode | doom--enable-+lua-love-mode-in-markdown-mode-h | doom--enable-+javascript-npm-mode-in-markdown-mode-h |
 
 ** FILE MANAGER (dired)
 Image previews in dired
@@ -125,7 +124,9 @@ Image previews in dired
 
 ** MASTODON CLIENT (mastodon)
 #+BEGIN_SRC emacs-lisp
-(setq mastodon-instance-url "https://mastodon.technology")
+(use-package mastodon
+  :ensure t)
+(setq mastodon-instance-url "https://mastodon.technology/")
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp

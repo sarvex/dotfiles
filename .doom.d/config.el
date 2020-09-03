@@ -4,6 +4,8 @@
 (setq doom-theme 'doom-palenight)
 
 (setq org-directory "~/Documents/org/")
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 (setq display-line-numbers-type t)
 (global-set-key "\C-x\ t" 'toggle-truncate-lines)
@@ -66,7 +68,9 @@
    smtpmail-smtp-server "smtp.1and1.com"
    smtpmail-smtp-service 587)
 
-(setq mastodon-instance-url "https://mastodon.technology")
+(use-package mastodon
+  :ensure t)
+(setq mastodon-instance-url "https://mastodon.technology/")
 
 (setq md4rd-subs-active '(archlinux commandline DistroTube DoomEmacs emacs freesoftware lbry linux linux4noobs linuxmasterrace linnuxquestions orgmode qutebrowser suckless Ubuntu unixporn UsabilityPorn vim xmonad))
 
