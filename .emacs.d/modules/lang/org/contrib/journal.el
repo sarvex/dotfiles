@@ -12,11 +12,11 @@
   (add-to-list 'magic-mode-alist '(+org-journal-p . org-journal-mode))
 
   (defun +org-journal-p ()
+    "Wrapper around `org-journal-is-journal' to lazy load `org-journal'."
     (when-let (buffer-file-name (buffer-file-name (buffer-base-buffer)))
       (if (or (featurep 'org-journal)
               (and (file-in-directory-p
                     buffer-file-name (expand-file-name org-journal-dir org-directory))
-                   (delq! '+org-journal-p magic-mode-alist 'assq)
                    (require 'org-journal nil t)))
           (org-journal-is-journal))))
 

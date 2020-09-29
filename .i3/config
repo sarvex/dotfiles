@@ -42,7 +42,7 @@ bindsym $mod+Return exec $myTerm
 bindsym $mod+Shift+c kill
 
 # start program launcher
-bindsym $mod+KP_Insert exec --no-startup-id rofi -show run
+bindsym $mod+Shift+Return exec --no-startup-id rofi -show run
 
 # launch categorized menu
 bindsym $mod+' exec --no-startup-id morc_menu

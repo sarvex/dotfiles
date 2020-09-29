@@ -1,11 +1,19 @@
-(setq doom-font (font-spec :family "Mononoki Nerd Font" :size 15)
-       doom-variable-pitch-font (font-spec :family "Mononoki Nerd Font" :size 15))
+(setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 15)
+      doom-variable-pitch-font (font-spec :family "SauceCodePro Nerd Font" :size 15)
+      doom-big-font (font-spec :family "SauceCodePro Nerd Font" :size 24)
+)
 
-(setq doom-theme 'doom-palenight)
+(setq doom-theme 'doom-one)
 
-(setq org-directory "~/Documents/org/")
-(require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(after! org
+  (setq org-directory "~/Documents/org/")
+  (setq org-agenda-files '("~/Documents/org/agenda.org"))
+  ;;(setq org-log-done 'time)
+  (setq org-log-done 'note)
+  (setq org-todo-keywords '((sequence "TODO(t)" "PROJ(p)" "VIDEO(v)" "WAIT(w)" "|" "DONE(d)" "CANCELLED(c)" )))
+  (require 'org-bullets)
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+)
 
 (setq display-line-numbers-type t)
 (global-set-key "\C-x\ t" 'toggle-truncate-lines)
@@ -68,9 +76,9 @@
    smtpmail-smtp-server "smtp.1and1.com"
    smtpmail-smtp-service 587)
 
-(use-package mastodon
-  :ensure t)
-(setq mastodon-instance-url "https://mastodon.technology/")
+(after! mastodon
+  (setq mastodon-instance-url "https://mastodon.technology/")
+)
 
 (setq md4rd-subs-active '(archlinux commandline DistroTube DoomEmacs emacs freesoftware lbry linux linux4noobs linuxmasterrace linnuxquestions orgmode qutebrowser suckless Ubuntu unixporn UsabilityPorn vim xmonad))
 

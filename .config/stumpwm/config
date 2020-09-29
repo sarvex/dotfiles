@@ -10,7 +10,6 @@
 
 (in-package :stumpwm)
 
-
 ;;; Startup Programs
 ;;; Set Background
 (run-shell-command "nitrogen --restore")
@@ -49,14 +48,14 @@
  stumpwm:*normal-border-width* 1
  )
 (stumpwm:set-focus-color "#7799CC")
-(stumpwm:grename "Alpha")
-(stumpwm:gnewbg "Beta")
-(stumpwm:gnewbg "Tau")
-(stumpwm:gnewbg "Pi")
-(stumpwm:gnewbg "Zeta")
-(stumpwm:gnewbg "Teta")
-(stumpwm:gnewbg "Phi")
-(stumpwm:gnewbg "Rho")
+(stumpwm:grename "One")
+(stumpwm:gnewbg "Two")
+(stumpwm:gnewbg "Three")
+(stumpwm:gnewbg "Four")
+(stumpwm:gnewbg "Five")
+(stumpwm:gnewbg "Six")
+(stumpwm:gnewbg "Seven")
+(stumpwm:gnewbg "Eight")
 (stumpwm:toggle-mode-line (stumpwm:current-screen) (stumpwm:current-head))
 
 ;; change the prefix key to something else
@@ -106,7 +105,7 @@
 (define-key *root-map* (kbd "i") "imdb")
 
 ;; Message window font
-(set-font "-xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso8859-14")
+(set-font "-xos4-terminus-medium-r-normal--13-140-72-72-c-80-iso8859-14")
 
 ;;; Define window placement policy...
 

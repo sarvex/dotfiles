@@ -155,6 +155,17 @@ directives. By default, this only recognizes C directives.")
       (run-at-time 0.1 nil #'helpful-key key-sequence)
       (abort-recursive-edit)))
 
+  ;; Make J (evil-join) remove comment delimiters when joining lines.
+  (advice-add #'evil-join :override #'+evil-join-a)
+
+  ;; Prevent gw (`evil-fill') and gq (`evil-fill-and-move') from squeezing
+  ;; spaces. It doesn't in vim, so it shouldn't in evil.
+  (defadvice! +evil--no-squeeze-on-fill-a (orig-fn &rest args)
+    :around '(evil-fill evil-fill-and-move)
+    (letf! (defun fill-region (from to &optional justify nosqueeze to-eop)
+             (funcall fill-region from to justify t to-eop))
+      (apply orig-fn args)))
+
   ;; Make ESC (from normal mode) the universal escaper. See `doom-escape-hook'.
   (advice-add #'evil-force-normal-state :after #'+evil-escape-a)
 
@@ -373,15 +384,17 @@ directives. By default, this only recognizes C directives.")
 ;;; Keybinds
 
 ;; Keybinds that have no Emacs+evil analogues (i.e. don't exist):
-;;   zq - mark word at point as good word
-;;   zw - mark word at point as bad
 ;;   zu{q,w} - undo last marking
-;; Keybinds that evil define:
-;;   z= - correct flyspell word at point
-;;   ]s - jump to previous spelling error
-;;   [s - jump to next spelling error
 
 (map! :v  "@"     #'+evil:apply-macro
+
+      ;; implement dictionary keybinds
+      ;; evil already defines 'z=' to `ispell-word' = correct word at point
+      (:when (featurep! :checkers spell)
+       :n  "zq"   #'+spell/add-word
+       :n  "zw"   #'+spell/remove-word
+       :m  "[s"   #'+spell/previous-error
+       :m  "]s"   #'+spell/next-error)
 
       ;; ported from vim-unimpaired
       :n  "] SPC" #'+evil/insert-newline-below
