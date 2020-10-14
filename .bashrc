@@ -19,6 +19,8 @@ export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomo
 
 ### SET VI MODE IN BASH SHELL
 set -o vi
+bind -m vi-command 'Control-l: clear-screen'
+bind -m vi-insert 'Control-l: clear-screen'
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return

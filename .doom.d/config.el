@@ -1,24 +1,36 @@
 (setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 15)
       doom-variable-pitch-font (font-spec :family "SauceCodePro Nerd Font" :size 15)
-      doom-big-font (font-spec :family "SauceCodePro Nerd Font" :size 24)
-)
+      doom-big-font (font-spec :family "SauceCodePro Nerd Font" :size 24))
 
 (setq doom-theme 'doom-one)
+(map! :leader
+      :desc "Load new theme"
+      "h t" #'counsel-load-theme)
 
 (after! org
-  (setq org-directory "~/Documents/org/")
-  (setq org-agenda-files '("~/Documents/org/agenda.org"))
-  ;;(setq org-log-done 'time)
-  (setq org-log-done 'note)
-  (setq org-todo-keywords '((sequence "TODO(t)" "PROJ(p)" "VIDEO(v)" "WAIT(w)" "|" "DONE(d)" "CANCELLED(c)" )))
+  (setq org-directory "~/Org/"
+        org-agenda-files '("~/Org/agenda.org")
+        org-log-done 'time
+        ;; ex. of org-link-abbrev-alist in action
+        ;; [[arch-wiki:Name_of_Page][Description]]
+        org-link-abbrev-alist
+          '(("google" . "http://www.google.com/search?q=")
+            ("arch-wiki" . "https://wiki.archlinux.org/index.php/")
+            ("ddg" . "https://duckduckgo.com/?q=")
+            ("wiki" . "https://en.wikipedia.org/wiki/"))
+        org-todo-keywords '((sequence "TODO(t)" "PROJ(p)" "VIDEO(v)" "WAIT(w)" "|" "DONE(d)" "CANCELLED(c)" )))
+  ;; Nicer bullets in org-mode
   (require 'org-bullets)
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-)
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 (setq display-line-numbers-type t)
-(global-set-key "\C-x\ t" 'toggle-truncate-lines)
+(map! :leader
+      :desc "Toggle truncate lines"
+      "l t" #'toggle-truncate-lines)
 
 (setq neo-window-fixed-size nil)
+
+(require 'ox-groff)
 
 (setq browse-url-browser-function 'eww-browse-url)
 
@@ -27,10 +39,37 @@
   (set-variable 'split-width-threshold 40 t)) ; make this as low as needed
 (add-hook 'markdown-mode-hook 'prefer-horizontal-split)
 
+(setq centaur-tabs-set-bar 'over
+      centaur-tabs-set-icons t
+      centaur-tabs-gray-out-icons 'buffer
+      centaur-tabs-height 24
+      centaur-tabs-set-modified-marker t
+      centaur-tabs-style "bar"
+      centaur-tabs-modified-marker "•")
+(map! :leader
+      :desc "Toggle tabs on/off"
+      "t o" #'centaur-tabs-local-mode
+      :leader
+      :desc "Switch tab groups"
+      "t s" #'centaur-tabs-counsel-switch-group
+      :leader
+      :desc "Toggle tab groups"
+      "t t" #'centaur-tabs-toggle-groups
+      :leader
+      :desc "Kill all buffers in group"
+      "t k" #'centaur-tabs-kill-all-buffer-in-current-group
+      :leader
+      :desc "Next tab"
+      "t n" #'centaur-tabs-forward
+      :leader
+      :desc "Previous tab"
+      "t p" #'centaur-tabs-backward)
+
 (map!
   (:after dired
     (:map dired-mode-map
-     "C-x i" #'peep-dired
+     :leader
+     "l i" #'peep-dired
      )))
 (evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file
                                              (kbd "k") 'peep-dired-prev-file)
@@ -77,8 +116,7 @@
    smtpmail-smtp-service 587)
 
 (after! mastodon
-  (setq mastodon-instance-url "https://mastodon.technology/")
-)
+  (setq mastodon-instance-url "https://mastodon.technology/"))
 
 (setq md4rd-subs-active '(archlinux commandline DistroTube DoomEmacs emacs freesoftware lbry linux linux4noobs linuxmasterrace linnuxquestions orgmode qutebrowser suckless Ubuntu unixporn UsabilityPorn vim xmonad))
 
@@ -99,10 +137,4 @@
      ("https://www.techrepublic.com/rssfeeds/topic/open-source/" techrepublic linux)
      ("https://betanews.com/feed" betanews linux)
      ("http://lxer.com/module/newswire/headlines.rss" lxer linux)
-     ("https://distrowatch.com/news/dwd.xml" distrowatch linux))))
- '(package-selected-packages
-   (quote
-    (mastodon exwm peep-dired nav-flash evil-mu4e emms elfeed))))
-
-(custom-set-faces
- )
+     ("https://distrowatch.com/news/dwd.xml" distrowatch linux)))))

@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Anton');
 
 body {
-    background-color: #292d3e;
+    background-color: #282c34;
     margin: 0px;
 }
 
@@ -19,7 +19,6 @@ body {
 #clock {
     font-family: sans-serif;
     font-size: 4.0rem;
-    font-weight: 600;
     font-family: "Anton";
     color: #fff;
     margin-bottom: .25em;

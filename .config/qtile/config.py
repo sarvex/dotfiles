@@ -388,8 +388,9 @@ def init_widgets_list():
                        background = colors[4],
                        fontsize = 14
                        ),
-              widget.Pacman(
+              widget.CheckUpdates(
                        update_interval = 1800,
+                       distro = 'Arch',
                        foreground = colors[2],
                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},
                        background = colors[4]

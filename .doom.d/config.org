@@ -2,60 +2,74 @@
 #+AUTHOR: Derek Taylor (DT)
 #+STARTUP: showeverything
 
-** FONTS
+* FONTS
 Doom exposes five (optional) variables for controlling fonts in Doom. Here
 are the three important ones:
 
-+ `doom-font'
-+ `doom-variable-pitch-font'
-+ `doom-big-font' -- used for `doom-big-font-mode'; use this for
-  presentations or streaming.
++ `doom-font' -- standard monospace font that is used for most things in Emacs.
++ `doom-variable-pitch-font' -- variable font which is useful in some Emacs plugins.
++ `doom-big-font' -- used in `doom-big-font-mode'; useful for presentations.
 
 #+BEGIN_SRC emacs-lisp
 (setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 15)
       doom-variable-pitch-font (font-spec :family "SauceCodePro Nerd Font" :size 15)
-      doom-big-font (font-spec :family "SauceCodePro Nerd Font" :size 24)
-)
+      doom-big-font (font-spec :family "SauceCodePro Nerd Font" :size 24))
 #+END_SRC
 
-** DOOM THEME
+* DOOM THEME
 #+BEGIN_SRC emacs-lisp
 (setq doom-theme 'doom-one)
+(map! :leader
+      :desc "Load new theme"
+      "h t" #'counsel-load-theme)
 #+END_SRC
 
-** ORG MODE
+* ORG MODE
 Note that I wrapped everything in (after! org). Without this, my settings might be evaluated too early, which will result in my settings being overwritten by Doom's defaults.
 #+BEGIN_SRC emacs-lisp
 (after! org
-  (setq org-directory "~/Documents/org/")
-  (setq org-agenda-files '("~/Documents/org/agenda.org"))
-  ;;(setq org-log-done 'time)
-  (setq org-log-done 'note)
-  (setq org-todo-keywords '((sequence "TODO(t)" "PROJ(p)" "VIDEO(v)" "WAIT(w)" "|" "DONE(d)" "CANCELLED(c)" )))
+  (setq org-directory "~/Org/"
+        org-agenda-files '("~/Org/agenda.org")
+        org-log-done 'time
+        ;; ex. of org-link-abbrev-alist in action
+        ;; [[arch-wiki:Name_of_Page][Description]]
+        org-link-abbrev-alist
+          '(("google" . "http://www.google.com/search?q=")
+            ("arch-wiki" . "https://wiki.archlinux.org/index.php/")
+            ("ddg" . "https://duckduckgo.com/?q=")
+            ("wiki" . "https://en.wikipedia.org/wiki/"))
+        org-todo-keywords '((sequence "TODO(t)" "PROJ(p)" "VIDEO(v)" "WAIT(w)" "|" "DONE(d)" "CANCELLED(c)" )))
+  ;; Nicer bullets in org-mode
   (require 'org-bullets)
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-)
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
 
-** LINE SETTINGS
+* LINE SETTINGS
  #+BEGIN_SRC emacs-lisp
 (setq display-line-numbers-type t)
-(global-set-key "\C-x\ t" 'toggle-truncate-lines)
+(map! :leader
+      :desc "Toggle truncate lines"
+      "l t" #'toggle-truncate-lines)
 #+END_SRC
 
-** NEOTREE
+* NEOTREE
 Setting the neotree width to be adjustable.
 #+BEGIN_SRC emacs-lisp
 (setq neo-window-fixed-size nil)
 #+END_SRC
 
-** BROWSER (eww)
-Set urls to open in a specific browser.
+* MANPAGES
+#+BEGIN_SRC emacs-lisp
+(require 'ox-groff)
+#+END_SRC
+
+* BROWSER (eww)
+Set urls to open in a specific browser.  I set this to use Emacs' own browser (eww).
 #+BEGIN_SRC emacs-lisp
 (setq browse-url-browser-function 'eww-browse-url)
 #+END_SRC
 
-** SPLITS
+* SPLITS
 Force splits to open on the right
 #+BEGIN_SRC emacs-lisp
 (defun prefer-horizontal-split ()
@@ -64,20 +78,51 @@ Force splits to open on the right
 (add-hook 'markdown-mode-hook 'prefer-horizontal-split)
 #+END_SRC
 
-** FILE MANAGER (dired)
+* TABS (centaur-tabs)
+To use tabs in Doom Emacs, be sure to uncomment "tabs" in Doom's init.el.  Displays tabs at the top of the window similar to tabbed web browsers such as Firefox.  I don't actually use tabs in Emacs.  I placed this in my config to help others who may want tabs.  In the default configuration of Doom Emacs, there are just a few keybindings that use SPC-t, so it wasn't too difficult to find appropriate keybindings using that prefix for "tabs".
+#+BEGIN_SRC emacs-lisp
+(setq centaur-tabs-set-bar 'over
+      centaur-tabs-set-icons t
+      centaur-tabs-gray-out-icons 'buffer
+      centaur-tabs-height 24
+      centaur-tabs-set-modified-marker t
+      centaur-tabs-style "bar"
+      centaur-tabs-modified-marker "•")
+(map! :leader
+      :desc "Toggle tabs on/off"
+      "t o" #'centaur-tabs-local-mode
+      :leader
+      :desc "Switch tab groups"
+      "t s" #'centaur-tabs-counsel-switch-group
+      :leader
+      :desc "Toggle tab groups"
+      "t t" #'centaur-tabs-toggle-groups
+      :leader
+      :desc "Kill all buffers in group"
+      "t k" #'centaur-tabs-kill-all-buffer-in-current-group
+      :leader
+      :desc "Next tab"
+      "t n" #'centaur-tabs-forward
+      :leader
+      :desc "Previous tab"
+      "t p" #'centaur-tabs-backward)
+#+END_SRC
+
+* FILE MANAGER (dired)
 Image previews in dired
 #+BEGIN_SRC emacs-lisp
 (map!
   (:after dired
     (:map dired-mode-map
-     "C-x i" #'peep-dired
+     :leader
+     "l i" #'peep-dired
      )))
 (evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file
                                              (kbd "k") 'peep-dired-prev-file)
 (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
 #+END_SRC
 
-** AUDIO PLAYER (emms)
+* AUDIO PLAYER (emms)
 #+BEGIN_SRC emacs-lisp
 (use-package emms
   :ensure t
@@ -99,7 +144,7 @@ Image previews in dired
   (emms-playing-time 1))
 #+END_SRC
 
-** EMAIL CLIENT (mu4e)
+* EMAIL CLIENT (mu4e)
  Setting up mu4e which is an email client that works within emacs.
  You must install mu4e and mbsync through your Linux distribution's
  package manager. Setting up smtp for sending mail. Make sure the gnutls command
@@ -128,18 +173,19 @@ Image previews in dired
    smtpmail-smtp-service 587)
 #+END_SRC
 
-** MASTODON CLIENT (mastodon)
+* MASTODON CLIENT (mastodon)
 Note that I wrapped my settings with (after! mastodon). Without this, my settings will be overwritten by the default settings for this module, which is "mastodon.social".
 #+BEGIN_SRC emacs-lisp
 (after! mastodon
-  (setq mastodon-instance-url "https://mastodon.technology/")
-)
+  (setq mastodon-instance-url "https://mastodon.technology/"))
 #+END_SRC
 
+* REDDIT CLIENT (md4rd)
 #+BEGIN_SRC emacs-lisp
 (setq md4rd-subs-active '(archlinux commandline DistroTube DoomEmacs emacs freesoftware lbry linux linux4noobs linuxmasterrace linnuxquestions orgmode qutebrowser suckless Ubuntu unixporn UsabilityPorn vim xmonad))
 #+END_SRC
 
+* RSS READER (elfeed)
 #+BEGIN_SRC emacs-lisp
 (custom-set-variables
  '(elfeed-feeds
@@ -158,17 +204,5 @@ Note that I wrapped my settings with (after! mastodon). Without this, my setting
      ("https://www.techrepublic.com/rssfeeds/topic/open-source/" techrepublic linux)
      ("https://betanews.com/feed" betanews linux)
      ("http://lxer.com/module/newswire/headlines.rss" lxer linux)
-     ("https://distrowatch.com/news/dwd.xml" distrowatch linux))))
- '(package-selected-packages
-   (quote
-    (mastodon exwm peep-dired nav-flash evil-mu4e emms elfeed))))
-#+END_SRC
-
-custom-set-faces was added by Custom.
-If you edit it by hand, you could mess it up, so be careful.
-Your init file should contain only one such instance.
-If there is more than one, they won't work right.
-#+BEGIN_SRC emacs-lisp
-(custom-set-faces
- )
+     ("https://distrowatch.com/news/dwd.xml" distrowatch linux)))))
 #+END_SRC
