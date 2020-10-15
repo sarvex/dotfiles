@@ -69,6 +69,17 @@ Set urls to open in a specific browser.  I set this to use Emacs' own browser (e
 (setq browse-url-browser-function 'eww-browse-url)
 #+END_SRC
 
+* SHELLS
+The =inferior shell= is what you get when you run M-x shell. It is a wrapper around your default shell. It is governed by explicit-shell-file-name, the ESHELL environment variable or shell-file-name, in that order.  Below, I demonstrate how to change shell to use fish even though the default shell may be something else.  This will also make M-x term and M-x ansi-term default to fish, though it asks you to confirm before it launches.
+#+BEGIN_SRC emacs-lisp
+(setq shell-file-name "/bin/fish")
+#+END_SRC
+
+Sets the file for where I place my eshell aliases.
+#+BEGIN_SRC emacs-lisp
+(setq eshell-aliases-file "~/.doom.d/aliases")
+#+END_SRC
+
 * SPLITS
 Force splits to open on the right
 #+BEGIN_SRC emacs-lisp

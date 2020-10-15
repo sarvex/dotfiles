@@ -34,6 +34,10 @@
 
 (setq browse-url-browser-function 'eww-browse-url)
 
+(setq shell-file-name "/bin/fish")
+
+(setq eshell-aliases-file "~/.doom.d/aliases")
+
 (defun prefer-horizontal-split ()
   (set-variable 'split-height-threshold nil t)
   (set-variable 'split-width-threshold 40 t)) ; make this as low as needed
