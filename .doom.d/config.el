@@ -22,6 +22,9 @@
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
         org-log-done 'time
+        org-journal-dir "~/Org/journal/"
+        org-journal-date-format "%B %d, %Y (%A)"
+        org-journal-file-format "%Y-%m-%d.org"
         ;; ex. of org-link-abbrev-alist in action
         ;; [[arch-wiki:Name_of_Page][Description]]
         org-link-abbrev-alist
@@ -69,12 +72,6 @@
       :desc "Previous tab"
       "t p" #'centaur-tabs-backward)
 
-(after! neotree
-  (setq neo-smart-open t
-        neo-window-fixed-size nil))
-(after! doom-themes
-  (setq doom-neotree-enable-variable-pitch t))
-
 (require 'ox-groff)
 
 (map! :leader
@@ -112,6 +109,17 @@
 (evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file
                                              (kbd "k") 'peep-dired-prev-file)
 (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
+
+(after! neotree
+  (setq neo-smart-open t
+        neo-window-fixed-size nil))
+(after! doom-themes
+  (setq doom-neotree-enable-variable-pitch t))
+
+(require 'sublimity-scroll)
+(require 'sublimity-map)
+;; (require 'sublimity-attractive)
+(sublimity-mode 0)
 
 (setq browse-url-browser-function 'eww-browse-url)
 

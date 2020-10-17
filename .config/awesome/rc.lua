@@ -712,6 +712,8 @@ awful.rules.rules = {
     { rule = { class = "Xfce4-settings-manager" },
           properties = { floating = false } },
 
+    { rule = { instance = "qutebrowser" },
+          properties = { screen = 1, tag = " SYS " } },
 
 
     -- Floating clients.

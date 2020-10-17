@@ -40,7 +40,7 @@ I have toggled display-line-numbers-type so I have line numbers displayed.  I al
 #+END_SRC
 
 * ORG MODE
-Note that I wrapped most of this in (after! org). Without this, my settings might be evaluated too early, which will result in my settings being overwritten by Doom's defaults.
+Note that I wrapped most of this in (after! org). Without this, my settings might be evaluated too early, which will result in my settings being overwritten by Doom's defaults.  I have also enabled org-journal by adding (+journal) to the org section of Doom Emacs' init.el.
 
 #+BEGIN_SRC emacs-lisp
 (after! org
@@ -49,6 +49,9 @@ Note that I wrapped most of this in (after! org). Without this, my settings migh
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
         org-log-done 'time
+        org-journal-dir "~/Org/journal/"
+        org-journal-date-format "%B %d, %Y (%A)"
+        org-journal-file-format "%Y-%m-%d.org"
         ;; ex. of org-link-abbrev-alist in action
         ;; [[arch-wiki:Name_of_Page][Description]]
         org-link-abbrev-alist
@@ -124,17 +127,6 @@ To use tabs in Doom Emacs, be sure to uncomment "tabs" in Doom's init.el.  Displ
       "t p" #'centaur-tabs-backward)
 #+END_SRC
 
-* NEOTREE
-When you open neotree, it jumps to the current file thanks to neo-smart-open.  The neo-window-fixed-size setting makes the neotree width be adjustable.
-
-#+BEGIN_SRC emacs-lisp
-(after! neotree
-  (setq neo-smart-open t
-        neo-window-fixed-size nil))
-(after! doom-themes
-  (setq doom-neotree-enable-variable-pitch t))
-#+END_SRC
-
 * MANPAGES
 
 #+BEGIN_SRC emacs-lisp
@@ -203,6 +195,27 @@ Image previews in dired
 (evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file
                                              (kbd "k") 'peep-dired-prev-file)
 (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
+#+END_SRC
+
+* FILE TREE VIEWER (Neotree)
+When you open neotree, it jumps to the current file thanks to neo-smart-open.  The neo-window-fixed-size setting makes the neotree width be adjustable.
+
+#+BEGIN_SRC emacs-lisp
+(after! neotree
+  (setq neo-smart-open t
+        neo-window-fixed-size nil))
+(after! doom-themes
+  (setq doom-neotree-enable-variable-pitch t))
+#+END_SRC
+
+* SUBLIMITY
+The sublimity extension offers Sublime-like smooth scrolling and an experimental minimap.  You can also require sublimity-attractive if you want to center everything for a distraction-free mode.  I do not use this extension, hence the reason I have sublimity-mode set to 0.  Set this to 1 to enable it.
+
+#+BEGIN_SRC emacs-lisp
+(require 'sublimity-scroll)
+(require 'sublimity-map)
+;; (require 'sublimity-attractive)
+(sublimity-mode 0)
 #+END_SRC
 
 * BROWSER (eww)

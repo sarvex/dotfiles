@@ -58,6 +58,7 @@
 (package! org-bullets)
 (package! peep-dired)
 (package! rainbow-mode)
+(package! sublimity)
 (package! tldr)
 (package! treemacs)
 (package! wc-mode)
