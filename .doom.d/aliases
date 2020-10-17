@@ -1,1 +1,2 @@
 alias ls exa -al --color=always --group-directories-first
+alias ff find-file $1

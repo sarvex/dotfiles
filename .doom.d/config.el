@@ -1,15 +1,26 @@
 (setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 15)
-      doom-variable-pitch-font (font-spec :family "SauceCodePro Nerd Font" :size 15)
+      doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15)
       doom-big-font (font-spec :family "SauceCodePro Nerd Font" :size 24))
+(after! doom-themes
+  (setq
+   doom-themes-enable-bold t
+   doom-themes-enable-italic t))
 
 (setq doom-theme 'doom-one)
 (map! :leader
       :desc "Load new theme"
       "h t" #'counsel-load-theme)
 
+(setq display-line-numbers-type t)
+(map! :leader
+      :desc "Toggle truncate lines"
+      "l t" #'toggle-truncate-lines)
+
 (after! org
   (setq org-directory "~/Org/"
         org-agenda-files '("~/Org/agenda.org")
+        org-default-notes-file (expand-file-name "notes.org" org-directory)
+        org-ellipsis " ▼ "
         org-log-done 'time
         ;; ex. of org-link-abbrev-alist in action
         ;; [[arch-wiki:Name_of_Page][Description]]
@@ -22,17 +33,6 @@
   ;; Nicer bullets in org-mode
   (require 'org-bullets)
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-
-(setq display-line-numbers-type t)
-(map! :leader
-      :desc "Toggle truncate lines"
-      "l t" #'toggle-truncate-lines)
-
-(setq neo-window-fixed-size nil)
-
-(require 'ox-groff)
-
-(setq browse-url-browser-function 'eww-browse-url)
 
 (setq shell-file-name "/bin/fish")
 
@@ -69,6 +69,40 @@
       :desc "Previous tab"
       "t p" #'centaur-tabs-backward)
 
+(after! neotree
+  (setq neo-smart-open t
+        neo-window-fixed-size nil))
+(after! doom-themes
+  (setq doom-neotree-enable-variable-pitch t))
+
+(require 'ox-groff)
+
+(map! :leader
+      :desc "Edit agenda file"
+      "/ a" #'(lambda () (interactive) (find-file "~/Org/agenda.org")))
+(map! :leader
+      :desc "Edit doom config.org"
+      "/ c" #'(lambda () (interactive) (find-file "~/.doom.d/config.org")))
+(map! :leader
+      :desc "Edit eshell aliases"
+      "/ e" #'(lambda () (interactive) (find-file "~/.doom.d/aliases")))
+(map! :leader
+      :desc "Edit doom init.el"
+      "/ i" #'(lambda () (interactive) (find-file "~/.doom.d/init.el")))
+(map! :leader
+      :desc "Edit doom packages.el"
+      "/ p" #'(lambda () (interactive) (find-file "~/.doom.d/packages.el")))
+(map! :leader
+      :desc "Ssh into distrotube.com"
+      "/ s" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.com")))
+
+(map! :leader
+      :desc "Ssh into distrotube.com"
+      "\\ d" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.com")))
+(map! :leader
+      :desc "Ssh into my nextcloud"
+      "\\ n" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.net")))
+
 (map!
   (:after dired
     (:map dired-mode-map
@@ -78,6 +112,8 @@
 (evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file
                                              (kbd "k") 'peep-dired-prev-file)
 (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
+
+(setq browse-url-browser-function 'eww-browse-url)
 
 (use-package emms
   :ensure t
@@ -100,24 +136,31 @@
 
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
 (require 'mu4e)
-(setq mu4e-get-mail-command "mbsync -c ~/.emacs.d/mu4e/.mbsyncrc -a"
-      mu4e-update-interval  300)
-(setq
-   user-mail-address "derek@distrotube.com"
-   user-full-name  "Derek Taylor"
-   mu4e-compose-signature
-    (concat
-      "Derek Taylor\n"
-      "http://www.youtube.com/DistroTube\n"))
 (require 'smtpmail)
-(setq message-send-mail-function 'smtpmail-send-it
-   starttls-use-gnutls t
-   smtpmail-starttls-credentials '(("smtp.1and1.com" 587 nil nil))
-   smtpmail-auth-credentials
-     '(("smtp.1and1.com" 587 "derek@distrotube.com" nil))
-   smtpmail-default-smtp-server "smtp.1and1.com"
-   smtpmail-smtp-server "smtp.1and1.com"
-   smtpmail-smtp-service 587)
+(setq mu4e-get-mail-command "mbsync -c ~/.emacs.d/mu4e/.mbsyncrc -a"
+      mu4e-update-interval  300
+      user-mail-address "derek@distrotube.com"
+      user-full-name  "Derek Taylor"
+      mu4e-compose-signature
+       (concat
+         "Derek Taylor\n"
+         "http://www.youtube.com/DistroTube\n")
+      message-send-mail-function 'smtpmail-send-it
+      starttls-use-gnutls t
+      smtpmail-starttls-credentials '(("smtp.1and1.com" 587 nil nil))
+      smtpmail-auth-credentials '(("smtp.1and1.com" 587 "derek@distrotube.com" nil))
+      smtpmail-default-smtp-server "smtp.1and1.com"
+      smtpmail-smtp-server "smtp.1and1.com"
+      smtpmail-smtp-service 587)
+(setq mu4e-sent-folder "/Sent"
+      mu4e-drafts-folder "/Drafts"
+      mu4e-trash-folder "/Trash"
+      mu4e-refile-folder "/All Mail")
+(setq mu4e-maildir-shortcuts
+      '(("/derek-distrotube/Inbox"    . ?i)
+        ("/derek-distrotube/Sent"     . ?s)
+        ("/derek-distrotube/All Mail" . ?a)
+        ("/derek-distrotube/Trash"    . ?t)))
 
 (after! mastodon
   (setq mastodon-instance-url "https://mastodon.technology/"))
