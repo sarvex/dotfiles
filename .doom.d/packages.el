@@ -60,6 +60,5 @@
 (package! rainbow-mode)
 (package! sublimity)
 (package! tldr)
-(package! treemacs)
 (package! wc-mode)
 (package! writeroom-mode)

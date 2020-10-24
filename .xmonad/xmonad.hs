@@ -66,7 +66,7 @@ import XMonad.Prompt.Ssh
 import XMonad.Prompt.XMonad
 import Control.Arrow (first)
 
-    -- Utilities
+   -- Utilities
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
@@ -439,6 +439,25 @@ myTreeNavigation = M.fromList
     , ((0, xK_l),        TS.moveChild)
     , ((0, xK_o),        TS.moveHistBack)
     , ((0, xK_i),        TS.moveHistForward)
+    , ((0, xK_a),        TS.moveTo ["+ Accessories"])
+    , ((0, xK_e),        TS.moveTo ["+ Games"])
+    , ((0, xK_g),        TS.moveTo ["+ Graphics"])
+    , ((0, xK_i),        TS.moveTo ["+ Internet"])
+    , ((0, xK_m),        TS.moveTo ["+ Multimedia"])
+    , ((0, xK_o),        TS.moveTo ["+ Office"])
+    , ((0, xK_p),        TS.moveTo ["+ Programming"])
+    , ((0, xK_s),        TS.moveTo ["+ System"])
+    , ((0, xK_b),        TS.moveTo ["+ Bookmarks"])
+    , ((0, xK_c),        TS.moveTo ["+ Config Files"])
+    , ((0, xK_r),        TS.moveTo ["+ Screenshots"])
+    , ((mod4Mask, xK_l), TS.moveTo ["+ Bookmarks", "+ Linux"])
+    , ((mod4Mask, xK_e), TS.moveTo ["+ Bookmarks", "+ Emacs"])
+    , ((mod4Mask, xK_s), TS.moveTo ["+ Bookmarks", "+ Search and Reference"])
+    , ((mod4Mask, xK_p), TS.moveTo ["+ Bookmarks", "+ Programming"])
+    , ((mod4Mask, xK_v), TS.moveTo ["+ Bookmarks", "+ Vim"])
+    , ((mod4Mask .|. altMask, xK_a), TS.moveTo ["+ Bookmarks", "+ Linux", "+ Arch Linux"])
+    , ((mod4Mask .|. altMask, xK_n), TS.moveTo ["+ Bookmarks", "+ Linux", "+ Linux News"])
+    , ((mod4Mask .|. altMask, xK_w), TS.moveTo ["+ Bookmarks", "+ Linux", "+ Window Managers"])
     ]
 
 dtXPConfig :: XPConfig
@@ -684,7 +703,7 @@ myManageHook = composeAll
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
      -- I'm doing it this way because otherwise I would have to write out
      -- the full name of my workspaces.
-     [ className =? "htop"     --> doShift ( myWorkspaces !! 7 )
+     [ className =? "htop"    --> doShift ( myWorkspaces !! 7 )
      , title =? "firefox"     --> doShift ( myWorkspaces !! 1 )
      , className =? "mpv"     --> doShift ( myWorkspaces !! 7 )
      -- , className =? "vlc"     --> doShift ( myWorkspaces !! 7 )
@@ -707,7 +726,7 @@ myKeys =
         , ("M-S-q", io exitSuccess)                  -- Quits xmonad
 
     -- Open my preferred terminal
-        , ("M-<Return>", spawn myTerminal)
+        , ("M-<Return>", spawn (myTerminal ++ " -e fish"))
 
     -- Run Prompt
         , ("M-S-<Return>", shellPrompt dtXPConfig)   -- Shell Prompt
@@ -777,23 +796,23 @@ myKeys =
         , ("M-u <Space>", spawn "mocp --toggle-pause")
 
     -- Emacs (CTRL-e followed by a key)
-        , ("C-e e", spawn "emacsclient -c -a ''")                            -- start emacs
-        , ("C-e b", spawn "emacsclient -c -a '' --eval '(ibuffer)'")         -- list emacs buffers
-        , ("C-e d", spawn "emacsclient -c -a '' --eval '(dired nil)'")       -- dired emacs file manager
-        , ("C-e i", spawn "emacsclient -c -a '' --eval '(erc)'")             -- erc emacs irc client
-        , ("C-e m", spawn "emacsclient -c -a '' --eval '(mu4e)'")            -- mu4e emacs email client
-        , ("C-e n", spawn "emacsclient -c -a '' --eval '(elfeed)'")          -- elfeed emacs rss client
-        , ("C-e s", spawn "emacsclient -c -a '' --eval '(eshell)'")          -- eshell within emacs
-        , ("C-e t", spawn "emacsclient -c -a '' --eval '(mastodon)'")        -- mastodon within emacs
-        , ("C-e v", spawn "emacsclient -c -a '' --eval '(+vterm/here nil)'") -- vterm within emacs
+        , ("C-e e", spawn "emacsclient -c -a 'emacs'")                            -- start emacs
+        , ("C-e b", spawn "emacsclient -c -a 'emacs' --eval '(ibuffer)'")         -- list emacs buffers
+        , ("C-e d", spawn "emacsclient -c -a 'emacs' --eval '(dired nil)'")       -- dired emacs file manager
+        , ("C-e i", spawn "emacsclient -c -a 'emacs' --eval '(erc)'")             -- erc emacs irc client
+        , ("C-e m", spawn "emacsclient -c -a 'emacs' --eval '(mu4e)'")            -- mu4e emacs email client
+        , ("C-e n", spawn "emacsclient -c -a 'emacs' --eval '(elfeed)'")          -- elfeed emacs rss client
+        , ("C-e s", spawn "emacsclient -c -a 'emacs' --eval '(eshell)'")          -- eshell within emacs
+        , ("C-e t", spawn "emacsclient -c -a 'emacs' --eval '(mastodon)'")        -- mastodon within emacs
+        , ("C-e v", spawn "emacsclient -c -a 'emacs' --eval '(+vterm/here nil)'") -- vterm within emacs
         -- emms is an emacs audio player. I set it to auto start playing in a specific directory.
-        , ("C-e a", spawn "emacsclient -c -a '' --eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/Non-Classical/70s-80s/\")'")
+        , ("C-e a", spawn "emacsclient -c -a 'emacs' --eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/Non-Classical/70s-80s/\")'")
 
     --- My Applications (Super+Alt+Key)
         , ("M-M1-a", spawn (myTerminal ++ " -e ncpamixer"))
         , ("M-M1-b", spawn "surf www.youtube.com/c/DistroTube/")
         , ("M-M1-e", spawn (myTerminal ++ " -e neomutt"))
-        , ("M-M1-f", spawn (myTerminal ++ " -e sh ./.config/vifm/scripts/vifmrun"))
+        , ("M-M1-f", spawn (myTerminal ++ " -e sh ./.config/vifm/scripts/vifmrun | bash"))
         , ("M-M1-i", spawn (myTerminal ++ " -e irssi"))
         , ("M-M1-j", spawn (myTerminal ++ " -e joplin"))
         , ("M-M1-l", spawn (myTerminal ++ " -e lynx https://distrotube.com"))

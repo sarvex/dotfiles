@@ -204,3 +204,5 @@ alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/mas
 
 ### RANDOM COLOR SCRIPT ###
 /opt/shell-color-scripts/colorscript.sh random
+
+source /home/dt/.config/broot/launcher/bash/br

@@ -19,7 +19,7 @@
 c.aliases = {'q': 'quit', 'w': 'session-save', 'wq': 'quit --save'}
 
 # Setting dark mode
-config.set("colors.webpage.darkmode.enabled", True)
+# config.set("colors.webpage.darkmode.enabled", True)
 
 
 # Which cookies to accept. With QtWebEngine, this setting also controls
@@ -371,3 +371,11 @@ config.bind('t', 'set-cmd-text -s :open -t')
 config.bind('xb', 'config-cycle statusbar.show always never')
 config.bind('xt', 'config-cycle tabs.show always never')
 config.bind('xx', 'config-cycle statusbar.show always never;; config-cycle tabs.show always never')
+
+# Bindings for cycling through CSS stylesheets from Solarized Everything CSS:
+# https://github.com/alphapapa/solarized-everything-css
+config.bind(',ap', 'config-cycle content.user_stylesheets ~/solarized-everything-css/css/apprentice/apprentice-all-sites.css ""')
+config.bind(',dr', 'config-cycle content.user_stylesheets ~/solarized-everything-css/css/darculized/darculized-all-sites.css ""')
+config.bind(',gr', 'config-cycle content.user_stylesheets ~/solarized-everything-css/css/gruvbox/gruvbox-all-sites.css ""')
+config.bind(',sd', 'config-cycle content.user_stylesheets ~/solarized-everything-css/css/solarized-dark/solarized-dark-all-sites.css ""')
+config.bind(',sl', 'config-cycle content.user_stylesheets ~/solarized-everything-css/css/solarized-light/solarized-light-all-sites.css ""')
