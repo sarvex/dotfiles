@@ -458,7 +458,7 @@ Emacs registers are compartments where you can save text, rectangles and positio
 Keybindings for ssh'ing into remote machines.  By default, Doom Emacs does not use 'SPC \', so the format I use for these bindings is 'SPC \' plus 'key'.
 
 | DESCRIPTION             | KEYBINDING |
-|-------------------------+----------- |
+|-------------------------+------------|
 | Ssh into distrotube.com | SPC \ d    |
 | Ssh into my nextcloud   | SPC \ n    |
 
