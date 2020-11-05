@@ -205,19 +205,19 @@
 
 (map! :leader
       :desc "Edit agenda file"
-      "/ a" #'(lambda () (interactive) (find-file "~/Org/agenda.org"))
+      "- a" #'(lambda () (interactive) (find-file "~/Org/agenda.org"))
       :leader
       :desc "Edit doom config.org"
-      "/ c" #'(lambda () (interactive) (find-file "~/.doom.d/config.org"))
+      "- c" #'(lambda () (interactive) (find-file "~/.doom.d/config.org"))
       :leader
       :desc "Edit eshell aliases"
-      "/ e" #'(lambda () (interactive) (find-file "~/.doom.d/aliases"))
+      "- e" #'(lambda () (interactive) (find-file "~/.doom.d/aliases"))
       :leader
       :desc "Edit doom init.el"
-      "/ i" #'(lambda () (interactive) (find-file "~/.doom.d/init.el"))
+      "- i" #'(lambda () (interactive) (find-file "~/.doom.d/init.el"))
       :leader
       :desc "Edit doom packages.el"
-      "/ p" #'(lambda () (interactive) (find-file "~/.doom.d/packages.el")))
+      "- p" #'(lambda () (interactive) (find-file "~/.doom.d/packages.el")))
 
 (after! org
   (require 'org-bullets)  ; Nicer bullets in org-mode

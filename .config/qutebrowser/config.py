@@ -186,6 +186,10 @@ c.downloads.location.directory = '/home/dt/Downloads'
 #   - switching: Show the tab bar when switching tabs.
 c.tabs.show = 'always'
 
+# Setting default page for when opening new tabs or new windows with
+# commands like :open -t and :open -w .
+c.url.default_page = 'file:///home/dt/.surf/html/homepage.html'
+
 # Search engines which can be used via the address bar.  Maps a search
 # engine name (such as `DEFAULT`, or `ddg`) to a URL with a `{}`
 # placeholder. The placeholder will be replaced by the search term, use
@@ -363,6 +367,10 @@ c.fonts.prompts = 'default_size sans-serif'
 # Font used in the statusbar.
 # Type: Font
 c.fonts.statusbar = '11pt "SauceCodePro Nerd Font"'
+
+# Bindings to use dmenu rather than qutebrowser's builtin search.
+#config.bind('o', 'spawn --userscript dmenu-open')
+#config.bind('O', 'spawn --userscript dmenu-open --tab')
 
 # Bindings for normal mode
 config.bind('M', 'hint links spawn mpv {hint-url}')
