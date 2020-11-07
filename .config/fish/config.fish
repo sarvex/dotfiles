@@ -5,6 +5,7 @@
 # |____/ |_|
 #
 # My fish config. Not much to see here.  Some pretty standard stuff.
+set -U fish_user_paths $fish_user_paths $HOME/.local/bin/
 set fish_greeting                      # Supresses fish's intro message
 set TERM "xterm-256color"              # Sets the terminal type
 set EDITOR "emacsclient -t -a ''"      # $EDITOR use Emacs in terminal
