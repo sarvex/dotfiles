@@ -182,8 +182,6 @@ function commits
 end
 
 # Functions needed for !! and !$
-# Will only work in default (emacs) mode.
-# Will NOT work in vi mode.
 function __history_previous_command
   switch (commandline -t)
   case "!"
@@ -203,8 +201,13 @@ function __history_previous_command_arguments
   end
 end
 # The bindings for !! and !$
-bind ! __history_previous_command
-bind '$' __history_previous_command_arguments
+if [ $fish_key_bindings = fish_vi_key_bindings ];
+  bind -Minsert ! __history_previous_command
+  bind -Minsert '$' __history_previous_command_arguments
+else
+  bind ! __history_previous_command
+  bind '$' __history_previous_command_arguments
+end
 
 # Function for creating a backup file
 # ex: backup file.txt
