@@ -42,7 +42,7 @@ xresources
 zsh
 quit")
 
-choice=$(echo -e "${options[@]}" | dmenu -i -p 'Edit config file: ')
+choice=$(echo -e "${options[@]}" | dmenu -p 'Edit config file: ')
 
 case "$choice" in
 	quit)

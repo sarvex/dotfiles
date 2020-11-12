@@ -58,8 +58,12 @@
 (stumpwm:gnewbg "Eight")
 (stumpwm:toggle-mode-line (stumpwm:current-screen) (stumpwm:current-head))
 
-;; change the prefix key to something else
-(set-prefix-key (kbd "C-z"))
+;; I change the prefix key to something else besides a keychord.
+;; The following three lines are a dirty hack to make SUPER the prefix key.
+;; This was originally (set-prefix-key (kbd "C-t"))
+(run-shell-command "xmodmap -e 'clear mod4'" t)
+(run-shell-command "xmodmap -e \'keycode 133 = F20\'" t)
+(set-prefix-key (kbd "F20"))
 
 ;; prompt the user for an interactive command. The first arg is an
 ;; optional initial contents.
@@ -68,13 +72,35 @@
     (when cmd
       (eval-command cmd t))))
 
-(define-key *root-map* (kbd "q") "quit")
+(define-key *root-map* (kbd "Q") "quit")
+(define-key *root-map* (kbd "R") "restart-hard")
+(define-key *root-map* (kbd "c") "command-mode")
+
+;; (define-key *root-map* (kbd "h") "move-focus left")
+;; (define-key *root-map* (kbd "j") "move-focus down")
+;; (define-key *root-map* (kbd "k") "move-focus up")
+;; (define-key *root-map* (kbd "l") "move-focus left")
+
+;; Interactive keymap activated by hitting the SUPER+backslash
+;; Then you can simply use h,j,k,l to move focus, or
+;; H,J,K,L to move windows. Esc will exit this keymap.
+(define-interactive-keymap imove-window nil
+  ((kbd "h") "move-focus left")
+  ((kbd "j") "move-focus down")
+  ((kbd "k") "move-focus up")
+  ((kbd "l") "move-focus right")
+  ((kbd "H") "move-window left")
+  ((kbd "J") "move-window down")
+  ((kbd "K") "move-window up")
+  ((kbd "L") "move-window right"))
+(define-key *top-map* (kbd "C-\\") "imove-window")
+
 (define-key *root-map* (kbd "C-m") "mode-line")
 ;; Launch My Terminal (st)
-(define-key *root-map* (kbd "RET") "exec alacritty")
+(define-key *root-map* (kbd "RET") "exec alacritty -e fish")
 (define-key *root-map* (kbd "C-c") "exec st") 
 ;; Launch Emacs
-(define-key *root-map* (kbd "S-RET") "exec emacsclient -c")
+(define-key *root-map* (kbd "e") "exec emacsclient -c -a")
 ;; Launch Dmenu
 (define-key *root-map* (kbd "d") "exec dmenu_run")
 ;; My Dmenu Scripts
@@ -108,7 +134,6 @@
 (set-font "-xos4-terminus-medium-r-normal--13-140-72-72-c-80-iso8859-14")
 
 ;;; Define window placement policy...
-
 ;; Clear rules
 (clear-window-placement-rules)
 

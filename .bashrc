@@ -165,10 +165,6 @@ alias status='git status'
 alias tag='git tag'
 alias newtag='git tag -a'
 
-# shutdown or reboot
-alias ssn="sudo shutdown now"
-alias sr="sudo reboot"
-
 # Merge Xresources
 alias merge='xrdb -merge ~/.Xresources'
 

@@ -332,10 +332,6 @@ alias psmem10='ps auxf | sort -nr -k 4 | head -10'
 alias pscpu='ps auxf | sort -nr -k 3'
 alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
 
-# shutdown or reboot
-alias ssn="sudo shutdown now"
-alias sr="sudo reboot"
-
 # Merge Xresources
 alias merge='xrdb -merge ~/.Xresources'
 
