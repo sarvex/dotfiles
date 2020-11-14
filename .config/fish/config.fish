@@ -109,8 +109,8 @@ end
 
 ### DEFAULT EMACS MODE OR VI MODE ###
 function fish_user_key_bindings
-  fish_default_key_bindings
-  # fish_vi_key_bindings
+  # fish_default_key_bindings
+  fish_vi_key_bindings
 end
 ### END OF VI MODE ###
 
