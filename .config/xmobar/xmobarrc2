@@ -3,8 +3,8 @@
 -- you can find weather location codes here: http://weather.noaa.gov/index.html
 
 Config { font    = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true"
-       , additionalFonts = [ "xft:SauceCodePro Nerd Font:pixelsize=11:antialias=true:hinting=true"
-                           , "xft:SauceCodePro Nerd Font:pixelsize=16:antialias=true:hinting=true"
+       , additionalFonts = [ "xft:Mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true"
+                           , "xft:Mononoki Nerd Font:pixelsize=16:antialias=true:hinting=true"
                            , "xft:FontAwesome:pixelsize=13"
                            ]
        , bgColor = "#282c34"

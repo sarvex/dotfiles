@@ -15,6 +15,7 @@
 - [[#default-widget-settings][Default Widget Settings]]
 - [[#widgets][Widgets]]
 - [[#screens][Screens]]
+- [[#some-important-functions][Some Important Functions]]
 - [[#drag-floating-windows][Drag floating windows]]
 - [[#floating-windows][Floating windows]]
 - [[#startup-applications][Startup applications]]
@@ -49,7 +50,6 @@ or substantial portions of the Software.
 - Complete remote scriptability - write scripts to set up workspaces, manipulate windows, update status bar widgets and more.
 - Qtile's remote scriptability makes it one of the most thoroughly unit-tested window managers around.
 
-
 * Imports
 These are python modules that must be imported for this config.
 
@@ -59,7 +59,7 @@ import os
 import re
 import socket
 import subprocess
-from libqtile.config import KeyChord. Key, Screen, Group, Drag, Click
+from libqtile.config import KeyChord, Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 from libqtile.lazy import lazy
@@ -644,6 +644,37 @@ if __name__ in ["config", "__main__"]:
     widgets_screen1 = init_widgets_screen1()
     widgets_screen2 = init_widgets_screen2()
 #+END_SRC
+
+* Some Important Functions
+
+#+begin_src python
+def window_to_prev_group(qtile):
+    if qtile.currentWindow is not None:
+        i = qtile.groups.index(qtile.currentGroup)
+        qtile.currentWindow.togroup(qtile.groups[i - 1].name)
+
+def window_to_next_group(qtile):
+    if qtile.currentWindow is not None:
+        i = qtile.groups.index(qtile.currentGroup)
+        qtile.currentWindow.togroup(qtile.groups[i + 1].name)
+
+def window_to_previous_screen(qtile):
+    i = qtile.screens.index(qtile.current_screen)
+    if i != 0:
+        group = qtile.screens[i - 1].group.name
+        qtile.current_window.togroup(group)
+
+def window_to_next_screen(qtile):
+    i = qtile.screens.index(qtile.current_screen)
+    if i + 1 != len(qtile.screens):
+        group = qtile.screens[i + 1].group.name
+        qtile.current_window.togroup(group)
+
+def switch_screens(qtile):
+    i = qtile.screens.index(qtile.current_screen)
+    group = qtile.screens[i - 1].group
+    qtile.current_screen.set_group(group)
+#+end_src
 
 * Drag floating windows
 Defining some mousebindings for use with floating windows.
