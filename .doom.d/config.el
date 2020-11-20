@@ -133,6 +133,87 @@
       :desc "Search web for text between BEG/END"
       "s w" #'eww-search-words)
 
+(require 'exwm)
+(require 'exwm-config)
+(require 'exwm-systemtray)
+(exwm-systemtray-enable)
+(require 'exwm-randr)
+(exwm-randr-enable)
+(add-hook 'exwm-randr-screen-change-hook
+          (lambda ()
+            (start-process-shell-command
+              "xrandr" nil "xrandr --output DisplayPort-0 --mode 1920x1080 --pos 0x0 --rotate normal
+                                   --output DisplayPort-1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal
+                                   --output HDMI-A-0 --mode 1920x1080 --pos 3840x0 --rotate normal")))
+(setq exwm-workspace-number 10
+      exwm-randr-workspace-output-plist '(0 "DisplayPort-0"
+                                          1 "DisplayPort-1"
+                                          2 "HDMI-A-0")
+      exwm-input-prefix-keys '(?\M-x
+                               ?\M-:)
+      exwm-input-simulation-keys '(([?\s-F] . [?\C-f])
+                                   )
+      exwm-input-global-keys '(([?\s-&] . (lambda (command)
+                                          (interactive (list (read-shell-command "$ ")))
+                                          (start-process-shell-command command nil command)))
+                               ;; splits
+                               ([?\s-v] . evil-window-vsplit)
+                               ([?\s-z] . evil-window-split)
+                               ;; managing workspaces
+                               ([?\s-w] . exwm-workspace-switch)
+                               ([?\s-W] . exwm-workspace-swap)
+                               ([?\s-\C-w] . exwm-workspace-move)
+                               ;; essential programs
+                               ([?\s-d] . dired)
+                               ([s-return] . eshell)
+                               ([s-S-return] . dmenu)
+                               ;; killing buffers and windows
+                               ([?\s-b] . ibuffer)
+                               ([?\s-B] . kill-current-buffer)
+                               ([?\s-C] . +workspace/close-window-or-workspace)
+                               ;; change window focus with super+h,j,k,l
+                               ([?\s-h] . evil-window-left)
+                               ([?\s-j] . evil-window-next)
+                               ([?\s-k] . evil-window-prev)
+                               ([?\s-l] . evil-window-right)
+                               ;; move windows around using SUPER+SHIFT+h,j,k,l
+                               ([?\s-H] . +evil/window-move-left)
+                               ([?\s-J] . +evil/window-move-down)
+                               ([?\s-K] . +evil/window-move-up)
+                               ([?\s-L] . +evil/window-move-right)
+                               ;; move window to far left or far right with SUPER+CTRL+h,l
+                               ([?\s-\C-h] . side-left-window)
+                               ([?\s-\C-j] . side-bottom-window)
+                               ([?\s-\C-l] . side-right-window)
+                               ([?\s-\C-d] . side-window-delete-all)
+                               ([?\s-\C-r] . resize-window)
+                               ;; switch workspace with SUPER+{0-9}
+                               ([?\s-0] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
+                               ([?\s-1] . (lambda () (interactive) (exwm-workspace-switch-create 1)))
+                               ([?\s-2] . (lambda () (interactive) (exwm-workspace-switch-create 2)))
+                               ([?\s-3] . (lambda () (interactive) (exwm-workspace-switch-create 3)))
+                               ([?\s-4] . (lambda () (interactive) (exwm-workspace-switch-create 4)))
+                               ([?\s-5] . (lambda () (interactive) (exwm-workspace-switch-create 5)))
+                               ([?\s-6] . (lambda () (interactive) (exwm-workspace-switch-create 6)))
+                               ([?\s-7] . (lambda () (interactive) (exwm-workspace-switch-create 7)))
+                               ([?\s-8] . (lambda () (interactive) (exwm-workspace-switch-create 8)))
+                               ([?\s-9] . (lambda () (interactive) (exwm-workspace-switch-create 9)))
+                               ;; move window workspace with SUPER+SHIFT+{0-9}
+                               ([?\s-\)] . (lambda () (interactive) (exwm-workspace-move-window 0)))
+                               ([?\s-!] . (lambda () (interactive) (exwm-workspace-move-window 1)))
+                               ([?\s-@] . (lambda () (interactive) (exwm-workspace-move-window 2)))
+                               ([?\s-#] . (lambda () (interactive) (exwm-workspace-move-window 3)))
+                               ([?\s-$] . (lambda () (interactive) (exwm-workspace-move-window 4)))
+                               ([?\s-%] . (lambda () (interactive) (exwm-workspace-move-window 5)))
+                               ([?\s-^] . (lambda () (interactive) (exwm-workspace-move-window 6)))
+                               ([?\s-&] . (lambda () (interactive) (exwm-workspace-move-window 7)))
+                               ([?\s-*] . (lambda () (interactive) (exwm-workspace-move-window 8)))
+                               ([?\s-\(] . (lambda () (interactive) (exwm-workspace-move-window 9)))
+                               ;; setting some toggle commands
+                               ([?\s-f] . exwm-floating-toggle-floating)
+                               ([?\s-m] . exwm-layout-toggle-mode-line)
+                               ([f11] . exwm-layout-toggle-fullscreen)))
+
 (setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15)
       doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15)
       doom-big-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 24))
