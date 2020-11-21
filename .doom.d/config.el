@@ -210,10 +210,18 @@
                                ([?\s-&] . (lambda () (interactive) (exwm-workspace-move-window 7)))
                                ([?\s-*] . (lambda () (interactive) (exwm-workspace-move-window 8)))
                                ([?\s-\(] . (lambda () (interactive) (exwm-workspace-move-window 9)))
+                               ;; SUPER+/ switches to char-mode (needed to pass commands in XWindows sometimes)
+                               ;; SUPER+? switches us back to line-mode
+                               ([?\s-/] . exwm-input-release-keyboard)
+                               ([?\s-?] . exwm-reset)
                                ;; setting some toggle commands
                                ([?\s-f] . exwm-floating-toggle-floating)
                                ([?\s-m] . exwm-layout-toggle-mode-line)
                                ([f11] . exwm-layout-toggle-fullscreen)))
+
+(defun dt/exwm-start-lxsession ()
+  (interactive)
+  (start-process-shell-command "lxsession" nil "lxsession"))
 
 (defun dt/exwm-start-picom ()
   (interactive)
@@ -223,14 +231,15 @@
   (interactive)
   (start-process-shell-command "nm-applet" nil "nm-applet"))
 
-(defun dt/exwm-start-volume-icon ()
+(defun dt/exwm-start-volumeicon ()
   (interactive)
-  (start-process-shell-command "volume-icon" nil "volume-icon"))
+  (start-process-shell-command "volumeicon" nil "volumeicon"))
 
-(after! exwm-config
+(after! exwm
+  (dt/exwm-start-lxsession)
   (dt/exwm-start-picom)
   (dt/exwm-start-nm-applet)
-  (dt/exwm-start-volume-icon))
+  (dt/exwm-start-volumeicon))
 
 (setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15)
       doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15)
