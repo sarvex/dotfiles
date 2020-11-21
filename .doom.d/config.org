@@ -277,6 +277,7 @@ Emacs can be your window manager.  You need to install the exwm package (make su
 #+begin_src emacs-lisp
 (require 'exwm)
 (require 'exwm-config)
+(exwm-config-default)
 (require 'exwm-systemtray)
 (exwm-systemtray-enable)
 (require 'exwm-randr)
@@ -355,6 +356,27 @@ Emacs can be your window manager.  You need to install the exwm package (make su
                                ([?\s-f] . exwm-floating-toggle-floating)
                                ([?\s-m] . exwm-layout-toggle-mode-line)
                                ([f11] . exwm-layout-toggle-fullscreen)))
+#+end_src
+
+Below, I define a few functions that are really just some programs that I want to autostart when logging in to EXWM.  Note that I don't execute these until after EXWM has started.
+
+#+begin_src emacs-lisp
+(defun dt/exwm-start-picom ()
+  (interactive)
+  (start-process-shell-command "picom" nil "picom"))
+
+(defun dt/exwm-start-nm-applet ()
+  (interactive)
+  (start-process-shell-command "nm-applet" nil "nm-applet"))
+
+(defun dt/exwm-start-volume-icon ()
+  (interactive)
+  (start-process-shell-command "volume-icon" nil "volume-icon"))
+
+(after! exwm-config
+  (dt/exwm-start-picom)
+  (dt/exwm-start-nm-applet)
+  (dt/exwm-start-volume-icon))
 #+end_src
 
 * FONTS
@@ -570,6 +592,31 @@ Note that I wrapped most of this in (after! org).  Without this, my settings mig
              "|"                 ; The pipe necessary to separate "active" states and "inactive" states
              "DONE(d)"           ; Task has been completed
              "CANCELLED(c)" )))) ; Task has been cancelled
+
+#+END_SRC
+
+I was tired of having to run org-babel-tangle after saving my literate dotfiles.  So the following function runs org-babel-tangle upon saving any org-mode buffer.  This is asynchronous meaning that it dispatches the tangle function to a subprocess, so that the main Emacs is not blocked while it runs.
+
+#+BEGIN_SRC emacs-lisp
+(defun dt/org-babel-tangle-async (file)
+  "Invoke `org-babel-tangle-file' asynchronously."
+  (message "Tangling %s..." (buffer-file-name))
+  (async-start
+   (let ((args (list file)))
+  `(lambda ()
+        (require 'org)
+        ;;(load "~/.emacs.d/init.el")
+        (let ((start-time (current-time)))
+          (apply #'org-babel-tangle-file ',args)
+          (format "%.2f" (float-time (time-since start-time))))))
+   (let ((message-string (format "Tangling %S completed after " file)))
+     `(lambda (tangle-time)
+        (message (concat ,message-string
+                         (format "%s seconds" tangle-time)))))))
+
+(defun dt/org-babel-tangle-current-buffer-async ()
+  "Tangle current buffer asynchronously."
+  (dt/org-babel-tangle-async (buffer-file-name)))
 #+END_SRC
 
 * REGISTERS
