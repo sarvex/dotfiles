@@ -154,9 +154,9 @@
                                ?\M-:)
       exwm-input-simulation-keys '(([?\s-F] . [?\C-f])
                                    )
-      exwm-input-global-keys '(([?\s-&] . (lambda (command)
-                                          (interactive (list (read-shell-command "$ ")))
-                                          (start-process-shell-command command nil command)))
+      exwm-input-global-keys '(([?\M-\s-7] . (lambda (command)
+                                             (interactive (list (read-shell-command "$ ")))
+                                             (start-process-shell-command command nil command)))
                                ;; splits
                                ([?\s-v] . evil-window-vsplit)
                                ([?\s-z] . evil-window-split)
