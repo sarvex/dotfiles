@@ -14,6 +14,10 @@
 - [[#evaluate-elisp-expressions][EVALUATE ELISP EXPRESSIONS]]
 - [[#eww][EWW]]
 - [[#exwm][EXWM]]
+  - [[#basic-requirements][BASIC REQUIREMENTS]]
+  - [[#keybindings][KEYBINDINGS]]
+  - [[#defining-functions][DEFINING FUNCTIONS]]
+  - [[#autostart-programs][AUTOSTART PROGRAMS]]
 - [[#fonts][FONTS]]
 - [[#ivy][IVY]]
   - [[#ivy-posframe][IVY-POSFRAME]]
@@ -249,6 +253,30 @@ EWW is the Emacs Web Wowser, the builtin browser in Emacs.  Below I set urls to 
 * EXWM
 Emacs can be your window manager.  You need to install the exwm package (make sure to put 'exwm' in your packages.el in Doom Emacs), and create an exwm.desktop file in /usr/share/xsessions that has 'exec=' set to 'emacs'.  Emacs (and exwm) is single threaded so it sometimes does hang.  This means that exwm may not be the best window manager if your tasks are resource intensive.
 
+** BASIC REQUIREMENTS
+#+begin_src emacs-lisp
+(require 'exwm)
+(require 'exwm-config)
+(exwm-config-default)
+(require 'exwm-systemtray)
+(exwm-systemtray-enable)
+(require 'exwm-randr)
+(exwm-randr-enable)
+(add-hook 'exwm-randr-screen-change-hook
+          (lambda ()
+            (start-process-shell-command
+              "xrandr" nil "xrandr --output DisplayPort-0 --mode 1920x1080 --pos 0x0 --rotate normal
+                                   --output DisplayPort-1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal
+                                   --output HDMI-A-0 --mode 1920x1080 --pos 3840x0 --rotate normal")))
+(setq exwm-workspace-number 10
+      exwm-randr-workspace-output-plist '(0 "DisplayPort-0"
+                                          1 "DisplayPort-1"
+                                          2 "HDMI-A-0"))
+#+end_src
+
+** KEYBINDINGS
+I try to use standard vim-motion keybindings that most tiling window managers use.  This should make switching between EXWM and other window managers a bit easier.
+
 | COMMAND                      | DESCRIPTION                      | KEYBINDING        |
 |------------------------------+----------------------------------+-------------------|
 | run-shell-command            | the default run prompt           | SUPER-&           |
@@ -275,24 +303,7 @@ Emacs can be your window manager.  You need to install the exwm package (make su
 | exwm-workspace-move-window   | move window to workspace 0-9     | SUPER-SHIFT-(0-9) |
 
 #+begin_src emacs-lisp
-(require 'exwm)
-(require 'exwm-config)
-(exwm-config-default)
-(require 'exwm-systemtray)
-(exwm-systemtray-enable)
-(require 'exwm-randr)
-(exwm-randr-enable)
-(add-hook 'exwm-randr-screen-change-hook
-          (lambda ()
-            (start-process-shell-command
-              "xrandr" nil "xrandr --output DisplayPort-0 --mode 1920x1080 --pos 0x0 --rotate normal
-                                   --output DisplayPort-1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal
-                                   --output HDMI-A-0 --mode 1920x1080 --pos 3840x0 --rotate normal")))
-(setq exwm-workspace-number 10
-      exwm-randr-workspace-output-plist '(0 "DisplayPort-0"
-                                          1 "DisplayPort-1"
-                                          2 "HDMI-A-0")
-      exwm-input-prefix-keys '(?\M-x
+(setq exwm-input-prefix-keys '(?\M-x
                                ?\M-:)
       exwm-input-simulation-keys '(([?\s-F] . [?\C-f])
                                    )
@@ -308,7 +319,8 @@ Emacs can be your window manager.  You need to install the exwm package (make su
                                ([?\s-\C-w] . exwm-workspace-move)
                                ;; essential programs
                                ([?\s-d] . dired)
-                               ([s-return] . eshell)
+                               ([?\s-e] . eshell)
+                               ([s-return] . dt/exwm-start-alacritty-with-fish)
                                ([s-S-return] . dmenu)
                                ;; killing buffers and windows
                                ([?\s-b] . ibuffer)
@@ -362,9 +374,14 @@ Emacs can be your window manager.  You need to install the exwm package (make su
                                ([f11] . exwm-layout-toggle-fullscreen)))
 #+end_src
 
-Below, I define a few functions that are really just some programs that I want to autostart when logging in to EXWM.  Note that I don't execute these until after EXWM has started.
+** DEFINING FUNCTIONS
+Below, I define a few functions that are really just some programs that I want to be able to launch with M-x or have them autostart when logging in to EXWM.
 
 #+begin_src emacs-lisp
+(defun dt/exwm-start-alacritty-with-fish ()
+  (interactive)
+  (start-process-shell-command "alacritty" nil "alacritty -e fish"))
+
 (defun dt/exwm-start-lxsession ()
   (interactive)
   (start-process-shell-command "lxsession" nil "lxsession"))
@@ -380,12 +397,20 @@ Below, I define a few functions that are really just some programs that I want t
 (defun dt/exwm-start-volumeicon ()
   (interactive)
   (start-process-shell-command "volumeicon" nil "volumeicon"))
+#+end_src
 
+** AUTOSTART PROGRAMS
+The programs I want to autostart when using EXWM.  Note that I don't execute these until after EXWM has started.  I also include 'display-time-mode' here because I only want it to load 'after exwm', becasue I don't want to use this unless I am in EXWM.
+
+#+begin_src emacs-lisp
 (after! exwm
   (dt/exwm-start-lxsession)
   (dt/exwm-start-picom)
   (dt/exwm-start-nm-applet)
-  (dt/exwm-start-volumeicon))
+  (dt/exwm-start-volumeicon)
+  (setq display-time-day-and-date t
+        display-time-format "%a %b %d, %Y (%H:%M)")
+  (display-time-mode 1))
 #+end_src
 
 * FONTS

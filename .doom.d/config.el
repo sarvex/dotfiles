@@ -149,8 +149,9 @@
 (setq exwm-workspace-number 10
       exwm-randr-workspace-output-plist '(0 "DisplayPort-0"
                                           1 "DisplayPort-1"
-                                          2 "HDMI-A-0")
-      exwm-input-prefix-keys '(?\M-x
+                                          2 "HDMI-A-0"))
+
+(setq exwm-input-prefix-keys '(?\M-x
                                ?\M-:)
       exwm-input-simulation-keys '(([?\s-F] . [?\C-f])
                                    )
@@ -166,7 +167,8 @@
                                ([?\s-\C-w] . exwm-workspace-move)
                                ;; essential programs
                                ([?\s-d] . dired)
-                               ([s-return] . eshell)
+                               ([?\s-e] . eshell)
+                               ([s-return] . dt/exwm-start-alacritty-with-fish)
                                ([s-S-return] . dmenu)
                                ;; killing buffers and windows
                                ([?\s-b] . ibuffer)
@@ -219,6 +221,10 @@
                                ([?\s-m] . exwm-layout-toggle-mode-line)
                                ([f11] . exwm-layout-toggle-fullscreen)))
 
+(defun dt/exwm-start-alacritty-with-fish ()
+  (interactive)
+  (start-process-shell-command "alacritty" nil "alacritty -e fish"))
+
 (defun dt/exwm-start-lxsession ()
   (interactive)
   (start-process-shell-command "lxsession" nil "lxsession"))
@@ -239,7 +245,10 @@
   (dt/exwm-start-lxsession)
   (dt/exwm-start-picom)
   (dt/exwm-start-nm-applet)
-  (dt/exwm-start-volumeicon))
+  (dt/exwm-start-volumeicon)
+  (setq display-time-day-and-date t
+        display-time-format "%a %b %d, %Y (%H:%M)")
+  (display-time-mode 1))
 
 (setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15)
       doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15)
