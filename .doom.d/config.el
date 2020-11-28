@@ -247,7 +247,8 @@
   (dt/exwm-start-nm-applet)
   (dt/exwm-start-volumeicon)
   (setq display-time-day-and-date t
-        display-time-format "%a %b %d, %Y (%H:%M)")
+        display-time-format "%a %b %d, %Y (%H:%M)"
+        dmenu-prompt-string "RUN: ")
   (display-time-mode 1))
 
 (setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15)

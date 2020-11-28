@@ -409,7 +409,8 @@ The programs I want to autostart when using EXWM.  Note that I don't execute the
   (dt/exwm-start-nm-applet)
   (dt/exwm-start-volumeicon)
   (setq display-time-day-and-date t
-        display-time-format "%a %b %d, %Y (%H:%M)")
+        display-time-format "%a %b %d, %Y (%H:%M)"
+        dmenu-prompt-string "RUN: ")
   (display-time-mode 1))
 #+end_src
 

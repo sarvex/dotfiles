@@ -45,7 +45,7 @@
 			<item label="Archive Manager">
 				<action name="Execute">
 					<command>
-<![CDATA[file-roller]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[file-roller]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
@@ -64,13 +64,13 @@
 			<item label="Font Viewer">
 				<action name="Execute">
 					<command>
-<![CDATA[gnome-font-viewer]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[gnome-font-viewer]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
-			<item label="Leafpad">
+			<item label="Notepadqq">
 				<action name="Execute">
-					<execute>leafpad</execute>
+					<execute>notepadqq</execute>
 				</action>
 			</item>
 			<item label="ProRealTime">
@@ -125,14 +125,14 @@
 			<item label="Mahjongg">
 				<action name="Execute">
 					<command>
-<![CDATA[gnome-mahjongg]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[gnome-mahjongg]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
 			<item label="Mines">
 				<action name="Execute">
 					<command>
-<![CDATA[gnome-mines]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[gnome-mines]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
@@ -165,7 +165,7 @@
 			<item label="ImageMagick (display)">
 				<action name="Execute">
 					<command>
-<![CDATA[/usr/bin/display.im6]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[/usr/bin/display.im6]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
@@ -187,7 +187,7 @@
 			<item label="LRF Viewer">
 				<action name="Execute">
 					<command>
-<![CDATA[lrfviewer]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[lrfviewer]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
@@ -207,6 +207,11 @@
 			</item>
 		</menu>
 		<menu id="root-menu-273054" label="Internet">
+			<item label="Brave">
+				<action name="Execute">
+					<execute>brave</execute>
+				</action>
+			</item>
 			<item label="Canto RSS Reader">
 				<action name="Execute">
 					<execute>termite -e 'canto-curses' -t 'Canto RSS Reader' </execute>
@@ -236,14 +241,17 @@
 			</item>
 			<item label="Firefox">
 				<action name="Execute">
-					<execute>
-						firefox
-					</execute>
+					<execute>firefox https://mozilla.org</execute>
 				</action>
 			</item>
 			<item label="Irssi IRC">
 				<action name="Execute">
 					<execute>termite -e 'irssi' -t 'irssi'</execute>
+				</action>
+			</item>
+			<item label="Jitsi">
+				<action name="Execute">
+					<execute>/home/dt/Applications/jitsi-meet-x86_64.AppImage</execute>
 				</action>
 			</item>
 			<item label="Lynx">
@@ -295,49 +303,49 @@
 			<item label="Calibre">
 				<action name="Execute">
 					<command>
-<![CDATA[calibre]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[calibre]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
 			<item label="Document Viewer">
 				<action name="Execute">
 					<command>
-<![CDATA[evince]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[evince]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
 			<item label="LibreOffice Calc">
 				<action name="Execute">
 					<command>
-<![CDATA[libreoffice --calc]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[libreoffice --calc]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
 			<item label="LibreOffice Draw">
 				<action name="Execute">
 					<command>
-<![CDATA[libreoffice --draw]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[libreoffice --draw]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
 			<item label="LibreOffice Impress">
 				<action name="Execute">
 					<command>
-<![CDATA[libreoffice --impress]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[libreoffice --impress]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
 			<item label="LibreOffice Math">
 				<action name="Execute">
 					<command>
-<![CDATA[libreoffice --math]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[libreoffice --math]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
 			<item label="LibreOffice Writer">
 				<action name="Execute">
 					<command>
-<![CDATA[libreoffice --writer]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[libreoffice --writer]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
@@ -510,10 +518,15 @@
 					</action>
 				</item>
 			</menu>
+			<item label="App Outlet">
+				<action name="Execute">
+					<execute>/home/dt/Applications/App\ Outlet-1.3.2.AppImage</execute>
+				</action>
+			</item>
 			<item label="Network Connections">
 				<action name="Execute">
 					<command>
-<![CDATA[nm-connection-editor]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[nm-connection-editor]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
@@ -553,6 +566,11 @@
 					<execute>termite -e 'ranger' -t 'ranger file manager'</execute>
 				</action>
 			</item>
+			<item label="Snap Store">
+				<action name="Execute">
+					<execute>snap-store</execute>
+				</action>
+			</item>
 			<item label="Startup Disk Creator">
 				<action name="Execute">
 					<execute>
@@ -587,7 +605,7 @@
 			<item label="Activity Log Manager">
 				<action name="Execute">
 					<command>
-<![CDATA[activity-log-manager]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[activity-log-manager]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
@@ -601,7 +619,7 @@
 			<item label="Backups">
 				<action name="Execute">
 					<command>
-<![CDATA[deja-dup-preferences]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[deja-dup-preferences]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
@@ -615,7 +633,7 @@
 			<item label="Disks Utility">
 				<action name="Execute">
 					<command>
-<![CDATA[gnome-disks]]>																																																																																																																																																																																																																																																																																																																																															
+<![CDATA[gnome-disks]]>																																																																																																																																																																																																																																																																																																																																																																													
 					</command>
 				</action>
 			</item>
