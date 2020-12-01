@@ -203,6 +203,11 @@ alias tb="nc termbin.com 9999"
 alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
 
 ### RANDOM COLOR SCRIPT ###
-/opt/shell-color-scripts/colorscript.sh random
+colorscript random
 
 source /home/dt/.config/broot/launcher/bash/br
+
+### BASH INSULTER ###
+if [ -f /etc/bash.command-not-found ]; then
+    . /etc/bash.command-not-found
+fi

@@ -553,13 +553,14 @@ dtXPKeymap = M.fromList $
      , (xK_Escape, quit)
      ]
 
-archwiki, ebay, news, reddit, urban :: S.SearchEngine
+archwiki, ebay, news, reddit, urban, yacy :: S.SearchEngine
 
 archwiki = S.searchEngine "archwiki" "https://wiki.archlinux.org/index.php?search="
 ebay     = S.searchEngine "ebay" "https://www.ebay.com/sch/i.html?_nkw="
 news     = S.searchEngine "news" "https://news.google.com/search?q="
 reddit   = S.searchEngine "reddit" "https://www.reddit.com/search/?q="
 urban    = S.searchEngine "urban" "https://www.urbandictionary.com/define.php?term="
+yacy     = S.searchEngine "yacy" "http://localhost:8090/yacysearch.html?query="
 
 -- This is the list of search engines that I want to use. Some are from
 -- XMonad.Actions.Search, and some are the ones that I added above.
@@ -579,6 +580,7 @@ searchList = [ ("a", archwiki)
              , ("u", urban)
              , ("w", S.wikipedia)
              , ("y", S.youtube)
+             , ("S-y", yacy)
              , ("z", S.amazon)
              ]
 

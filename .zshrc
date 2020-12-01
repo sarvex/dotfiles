@@ -182,7 +182,7 @@ if [ -f /etc/bash.command-not-found ]; then
 fi
 
 ### RANDOM COLOR SCRIPT ###
-/opt/shell-color-scripts/colorscript.sh random
+colorscript random
 
 ### SETS VI MODE ###
 bindkey -v
