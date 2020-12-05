@@ -5,7 +5,6 @@
 # |____/ |_|
 #
 # My bash config. Not much to see here; just some pretty standard stuff.
-# PATH="$HOME/.local/bin${PATH:+:${PATH}}"  # adding .local/bin to $PATH
 
 ### EXPORT
 export TERM="xterm-256color"              # getting proper colors
@@ -14,10 +13,8 @@ export ALTERNATE_EDITOR=""                # setting for emacsclient
 export EDITOR="emacsclient -t -a ''"      # $EDITOR use Emacs in terminal
 export VISUAL="emacsclient -c -a emacs"   # $VISUAL use Emacs in GUI mode
 
-# sets vim as manpager
-export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nomod nolist noma' -\""
-
-### SET VI MODE IN BASH SHELL
+### SET VI MODE ###
+# Comment this line out to enable default emacs-like bindings
 set -o vi
 bind -m vi-command 'Control-l: clear-screen'
 bind -m vi-insert 'Control-l: clear-screen'
@@ -26,7 +23,8 @@ bind -m vi-insert 'Control-l: clear-screen'
 [[ $- != *i* ]] && return
 
 ### PROMPT
-PS1='[\u@\h \W]\$ '
+# This is commented out if using starship prompt
+# PS1='[\u@\h \W]\$ '
 
 ### PATH
 if [ -d "$HOME/.bin" ] ;
@@ -203,11 +201,17 @@ alias tb="nc termbin.com 9999"
 alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
 
 ### RANDOM COLOR SCRIPT ###
+# Get this script from my GitLab: gitlab.com/dwt1/shell-color-scripts
+# Or install it from the Arch User Repository: shell-color-scripts
 colorscript random
 
+### SOURCING BROOT ###
 source /home/dt/.config/broot/launcher/bash/br
 
 ### BASH INSULTER ###
 if [ -f /etc/bash.command-not-found ]; then
     . /etc/bash.command-not-found
 fi
+
+### SETTING THE STARSHIP PROMPT ###
+eval "$(starship init bash)"
