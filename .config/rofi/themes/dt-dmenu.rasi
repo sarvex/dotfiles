@@ -1,6 +1,7 @@
 /**
  * ROFI Color theme
  * NAME: dt-dmenu.rasi
+ * DESCRIPTION: This is a horizontal prompt similar to dmenu.
  * AUTHOR: Derek Taylor (DT)
  */
 
