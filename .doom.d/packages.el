@@ -55,7 +55,6 @@
 (package! elfeed)
 (package! emms)
 (package! emojify)
-(package! exwm)
 (package! evil-tutor)
 (package! ivy-posframe)
 (package! mastodon)

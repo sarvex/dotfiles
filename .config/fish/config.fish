@@ -7,7 +7,7 @@
 # My fish config. Not much to see here; just some pretty standard stuff.
 
 ### EXPORT ###
-set -U fish_user_paths $fish_user_paths $HOME/.local/bin/
+set -U fish_user_paths $HOME/.local/bin $HOME/Applications $fish_user_paths
 set fish_greeting                      # Supresses fish's intro message
 set TERM "xterm-256color"              # Sets the terminal type
 set EDITOR "emacsclient -t -a ''"      # $EDITOR use Emacs in terminal

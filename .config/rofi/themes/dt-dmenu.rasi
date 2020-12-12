@@ -9,11 +9,12 @@
     background-color:           #282c34;
     border-color:               #282c34;
     text-color:                 #bbc2cf;
+    height:                     20px;
     font:                       "SauceCodePro Nerd Font Mono 9";
     prompt-font:                "Ubuntu Bold 9";
     prompt-background:          #51afef;
     prompt-foreground:          #282c34;
-    prompt-padding:             4px;
+    prompt-padding:             2px;
     selected-normal-background: #ae3f3e;
     selected-normal-foreground: #ffffff;
 }
@@ -36,16 +37,15 @@
 }
 #listview {
     layout: horizontal;
-    spacing: 2px;
     lines: 100;
 }
 #entry {
-    padding: 4px 4px;
+    padding: 2px;
     expand: false;
     width: 10em;
 }
 #element {
-    padding: 4px 8px;
+    padding: 2px 8px;
 }
 #element selected {
     background-color: @selected-normal-background;

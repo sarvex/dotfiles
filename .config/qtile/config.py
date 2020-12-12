@@ -16,12 +16,13 @@ myConfig = "/home/dt/.config/qtile/config.py"    # The Qtile config file locatio
 keys = [
          ### The essentials
          Key([mod], "Return",
-             lazy.spawn(myTerm),
+             lazy.spawn(myTerm+" -e fish"),
              desc='Launches My Terminal'
              ),
          Key([mod, "shift"], "Return",
-             lazy.spawn("dmenu_run -p 'Run: '"),
-             desc='Dmenu Run Launcher'
+             # lazy.spawn("dmenu_run -p 'Run: '"),
+             lazy.spawn("rofi -show drun -config ~/.config/rofi/themes/dt-dmenu.rasi -display-drun \"Run: \" -drun-display-format \"{name}\""),
+             desc='Run Launcher'
              ),
          Key([mod], "Tab",
              lazy.next_layout(),
@@ -266,7 +267,7 @@ layouts = [
     layout.Floating(**layout_theme)
 ]
 
-colors = [["#292d3e", "#292d3e"], # panel background
+colors = [["#282c34", "#282c34"], # panel background
           ["#434758", "#434758"], # background for current screen tab
           ["#ffffff", "#ffffff"], # font color for group names
           ["#ff5555", "#ff5555"], # border line color for current tab
