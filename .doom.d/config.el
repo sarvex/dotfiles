@@ -133,9 +133,9 @@
       :desc "Search web for text between BEG/END"
       "s w" #'eww-search-words)
 
-(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15)
+(setq doom-font (font-spec :family "UbuntuMono Nerd Font" :size 16)
       doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15)
-      doom-big-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 24))
+      doom-big-font (font-spec :family "UbuntuMono Nerd Font" :size 24))
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
@@ -179,7 +179,9 @@
 (after! mastodon
   (setq mastodon-instance-url "https://mastodon.technology/"))
 
-(setq md4rd-subs-active '(archlinux commandline DistroTube DoomEmacs emacs freesoftware lbry linux linux4noobs linuxmasterrace linnuxquestions orgmode qutebrowser suckless Ubuntu unixporn UsabilityPorn vim xmonad))
+;; (require 'md4rd)
+;; (md4rd)
+(setq md4rd-subs-active '(archlinux commandline DistroTube DoomEmacs emacs freesoftware lbry linux linux4noobs linuxmasterrace linuxquestions orgmode qutebrowser suckless Ubuntu unixporn UsabilityPorn vim xmonad))
 
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
 (require 'mu4e)
@@ -216,7 +218,10 @@
   (setq doom-neotree-enable-variable-pitch t))
 (map! :leader
       :desc "Toggle neotree file viewer"
-      "t n" #'toggle-neotree)
+      "t n" #'neotree-toggle
+      :leader
+      :desc "Open directory in neotree"
+      "d n" #'neotree-dir)
 
 (map! :leader
       :desc "Edit agenda file"
@@ -243,7 +248,7 @@
         org-ellipsis " ▼ "
         org-log-done 'time
         org-journal-dir "~/Org/journal/"
-        org-journal-date-format "%B %d, %Y (%A)"
+        org-journal-date-format "%B %d, %Y (%A) "
         org-journal-file-format "%Y-%m-%d.org"
         org-hide-emphasis-markers t
         ;; ex. of org-link-abbrev-alist in action
@@ -333,7 +338,7 @@
       eshell-hist-ignoredups t
       eshell-scroll-to-bottom-on-input t
       eshell-destroy-buffer-when-process-dies t
-      eshell-visual-commands'("bash" "fish" "htop" "ssh" "zsh")
+      eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh")
       vterm-max-scrollback 5000)
 (map! :leader
       :desc "Counsel eshell history"
@@ -349,7 +354,7 @@
 
 (require 'sublimity-scroll)
 (require 'sublimity-map)
-(require 'sublimity-attractive)
+;; (require 'sublimity-attractive)
 (sublimity-mode 0)
 
 (map! :leader

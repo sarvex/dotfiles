@@ -84,8 +84,8 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
 | dired-jump                                | /Jump to current directory in dired/              | SPC d j    |
 | (in dired) peep-dired                     | /Toggle image previews within dired/              | SPC d p    |
 | (in dired) dired-view-file                | /View file in dired/                              | SPC d v    |
-| (in dired) dired-up-directory             | Go up in the directory tree                     | h          |
-| (in dired) dired-find-file                | Go down in the directory tree (or open if file) | l          |
+| (in dired) dired-up-directory             | /Go up in the directory tree/                     | h          |
+| (in dired) dired-find-file                | /Go down in the directory tree (or open if file)/ | l          |
 | (in peep-dired-mode) peep-dired-next-file | /Move to next file in peep-dired-mode/            | j          |
 | (in peep-dired-mode) peep-dired-prev-file | /Move to previous file in peep-dired-mode/        | k          |
 
@@ -254,9 +254,9 @@ Settings related to fonts within Doom Emacs:
 + 'font-lock-keyword-face' -- for keywords with special significance, like ‘for’ and ‘if’ in C.
 
 #+BEGIN_SRC emacs-lisp
-(setq doom-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 15)
+(setq doom-font (font-spec :family "UbuntuMono Nerd Font" :size 16)
       doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15)
-      doom-big-font (font-spec :family "SauceCodePro Nerd Font Mono" :size 24))
+      doom-big-font (font-spec :family "UbuntuMono Nerd Font" :size 24))
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
@@ -345,7 +345,9 @@ Mastodon.el is a mastodon client for Emacs.  Note that I wrapped my settings wit
 An Emacs reddit client that stands for /Mode For Reddit/.   Below, I'm setting the subreddits that I'm following.
 
 #+BEGIN_SRC emacs-lisp
-(setq md4rd-subs-active '(archlinux commandline DistroTube DoomEmacs emacs freesoftware lbry linux linux4noobs linuxmasterrace linnuxquestions orgmode qutebrowser suckless Ubuntu unixporn UsabilityPorn vim xmonad))
+;; (require 'md4rd)
+;; (md4rd)
+(setq md4rd-subs-active '(archlinux commandline DistroTube DoomEmacs emacs freesoftware lbry linux linux4noobs linuxmasterrace linuxquestions orgmode qutebrowser suckless Ubuntu unixporn UsabilityPorn vim xmonad))
 #+END_SRC
 
 * MU4E
@@ -384,6 +386,11 @@ Setting up mu4e which is an email client that works within emacs.  You must inst
 * NEOTREE
 Neotree is a file tree viewer.  When you open neotree, it jumps to the current file thanks to neo-smart-open.  The neo-window-fixed-size setting makes the neotree width be adjustable.  Doom Emacs had no keybindings set for neotree.  Since Doom Emacs uses 'SPC t' for 'toggle' keybindings, I used 'SPC t n' for toggle-neotree.
 
+| COMMAND        | DESCRIPTION               | KEYBINDING |
+|----------------+---------------------------+------------|
+| neotree-toggle | /Toggle neotree/            | SPC t n    |
+| neotree- dir   | /Open directory in neotree/ | SPC d n    |
+
 #+BEGIN_SRC emacs-lisp
 (after! neotree
   (setq neo-smart-open t
@@ -392,7 +399,10 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
   (setq doom-neotree-enable-variable-pitch t))
 (map! :leader
       :desc "Toggle neotree file viewer"
-      "t n" #'toggle-neotree)
+      "t n" #'neotree-toggle
+      :leader
+      :desc "Open directory in neotree"
+      "d n" #'neotree-dir)
 #+END_SRC
 
 * OPEN SPECIFIC FILES
@@ -437,7 +447,7 @@ Note that I wrapped most of this in (after! org).  Without this, my settings mig
         org-ellipsis " ▼ "
         org-log-done 'time
         org-journal-dir "~/Org/journal/"
-        org-journal-date-format "%B %d, %Y (%A)"
+        org-journal-date-format "%B %d, %Y (%A) "
         org-journal-file-format "%Y-%m-%d.org"
         org-hide-emphasis-markers t
         ;; ex. of org-link-abbrev-alist in action
@@ -568,7 +578,7 @@ Settings for the various shells and terminal emulators within Emacs.
       eshell-hist-ignoredups t
       eshell-scroll-to-bottom-on-input t
       eshell-destroy-buffer-when-process-dies t
-      eshell-visual-commands'("bash" "fish" "htop" "ssh" "zsh")
+      eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh")
       vterm-max-scrollback 5000)
 (map! :leader
       :desc "Counsel eshell history"
@@ -594,7 +604,7 @@ The sublimity extension offers Sublime-like smooth scrolling and an experimental
 #+BEGIN_SRC emacs-lisp
 (require 'sublimity-scroll)
 (require 'sublimity-map)
-(require 'sublimity-attractive)
+;; (require 'sublimity-attractive)
 (sublimity-mode 0)
 #+END_SRC
 

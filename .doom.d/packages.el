@@ -65,6 +65,5 @@
 (package! resize-window)
 (package! sublimity)
 (package! tldr)
-(package! virtualenvwrapper)
 (package! wc-mode)
 (package! writeroom-mode)

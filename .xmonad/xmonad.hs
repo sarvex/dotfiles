@@ -76,7 +76,7 @@ import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
 myFont :: String
-myFont = "xft:Mononoki Nerd Font:bold:size=9:antialias=true:hinting=true"
+myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask       -- Sets modkey to super/windows key
@@ -516,25 +516,25 @@ calcPrompt c ans =
 
 dtXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
 dtXPKeymap = M.fromList $
-     map (first $ (,) controlMask)   -- control + <key>
-     [ (xK_z, killBefore)            -- kill line backwards
-     , (xK_k, killAfter)             -- kill line forwards
-     , (xK_a, startOfLine)           -- move to the beginning of the line
-     , (xK_e, endOfLine)             -- move to the end of the line
-     , (xK_m, deleteString Next)     -- delete a character foward
-     , (xK_b, moveCursor Prev)       -- move cursor forward
-     , (xK_f, moveCursor Next)       -- move cursor backward
-     , (xK_BackSpace, killWord Prev) -- kill the previous word
-     , (xK_y, pasteString)           -- paste a string
-     , (xK_g, quit)                  -- quit out of prompt
+     map (first $ (,) controlMask)      -- control + <key>
+     [ (xK_z, killBefore)               -- kill line backwards
+     , (xK_k, killAfter)                -- kill line forwards
+     , (xK_a, startOfLine)              -- move to the beginning of the line
+     , (xK_e, endOfLine)                -- move to the end of the line
+     , (xK_m, deleteString Next)        -- delete a character foward
+     , (xK_b, moveCursor Prev)          -- move cursor forward
+     , (xK_f, moveCursor Next)          -- move cursor backward
+     , (xK_BackSpace, killWord Prev)    -- kill the previous word
+     , (xK_y, pasteString)              -- paste a string
+     , (xK_g, quit)                     -- quit out of prompt
      , (xK_bracketleft, quit)
      ]
      ++
-     map (first $ (,) altMask)       -- meta key + <key>
-     [ (xK_BackSpace, killWord Prev) -- kill the prev word
-     , (xK_f, moveWord Next)         -- move a word forward
-     , (xK_b, moveWord Prev)         -- move a word backward
-     , (xK_d, killWord Next)         -- kill the next word
+     map (first $ (,) altMask)          -- meta key + <key>
+     [ (xK_BackSpace, killWord Prev)    -- kill the prev word
+     , (xK_f, moveWord Next)            -- move a word forward
+     , (xK_b, moveWord Prev)            -- move a word backward
+     , (xK_d, killWord Next)            -- kill the next word
      , (xK_n, moveHistory W.focusUp')   -- move up thru history
      , (xK_p, moveHistory W.focusDown') -- move down thru history
      ]
