@@ -1,5 +1,6 @@
   -- Base
 import XMonad
+import System.Directory
 import System.IO (hPutStrLn)
 import System.Exit (exitSuccess)
 import qualified XMonad.StackSet as W
@@ -68,6 +69,9 @@ import XMonad.Prompt.Shell
 import XMonad.Prompt.Ssh
 import XMonad.Prompt.XMonad
 import Control.Arrow (first)
+
+   -- Text
+import Text.Printf
 
    -- Utilities
 import XMonad.Util.EZConfig (additionalKeysP)
@@ -491,28 +495,37 @@ dtXPConfig' = dtXPConfig
       { autoComplete        = Nothing
       }
 
--- A list of all of the standard Xmonad prompts and a key press assigned to them.
--- These are used in conjunction with keybinding I set later in the config.
-promptList :: [(String, XPConfig -> X ())]
-promptList = [ ("m", manPrompt)          -- manpages prompt
-             , ("p", passPrompt)         -- get passwords (requires 'pass')
-             , ("g", passGeneratePrompt) -- generate passwords (requires 'pass')
-             , ("r", passRemovePrompt)   -- remove passwords (requires 'pass')
-             , ("s", sshPrompt)          -- ssh prompt
-             , ("x", xmonadPrompt)       -- xmonad prompt
-             ]
-
--- Same as the above list except this is for my custom prompts.
-promptList' :: [(String, XPConfig -> String -> X (), String)]
-promptList' = [ ("c", calcPrompt, "qalc")         -- requires qalculate-gtk
-              ]
-
 calcPrompt c ans =
     inputPrompt c (trim ans) ?+ \input ->
         liftIO(runProcessWithInput "qalc" [input] "") >>= calcPrompt c
     where
         trim  = f . f
             where f = reverse . dropWhile isSpace
+
+editPrompt :: String -> X ()
+editPrompt home = do
+    str <- inputPrompt cfg "EDIT: ~/"
+    case str of
+        Just s  -> openInEditor s
+        Nothing -> pure ()
+  where
+    cfg = dtXPConfig { position = CenteredAt 0.5 0.3
+                     , defaultText = "" }
+
+openInEditor :: String -> X ()
+openInEditor path =
+    safeSpawn "emacsclient" ["-c", "-a", "emacs", path]
+
+scrotPrompt :: String -> Bool -> X ()
+scrotPrompt home select = do
+    str <- inputPrompt cfg "~/scrot/"
+    case str of
+        Just s  -> spawn $ printf "sleep 0.3 && scrot %s '%s' -e 'mv $f ~/scrot'" mode s
+        Nothing -> pure ()
+  where
+    mode = if select then "--select" else "--focused"
+    cfg = dtXPConfig { position = CenteredAt 0.5 0.3
+                     , defaultText = "" }
 
 dtXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
 dtXPKeymap = M.fromList $
@@ -746,8 +759,8 @@ myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
     where fadeAmount = 1.0
 
-myKeys :: [(String, X ())]
-myKeys =
+myKeys :: String -> [([Char], X ())]
+myKeys home =
     -- Xmonad
         [ ("M-C-r", spawn "xmonad --recompile") -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")   -- Restarts xmonad
@@ -758,14 +771,26 @@ myKeys =
         -- , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
         -- , ("M-S-<Return>", spawn "rofi -show drun -config ~/.config/rofi/themes/dt-dmenu.rasi -display-drun \"Run: \" -drun-display-format \"{name}\"") -- Rofi
 
+    -- Other Prompts
+        , ("M-p e", calcPrompt dtXPConfig' "qalc") -- calcPrompt
+        , ("M-p e", editPrompt home)               -- editPrompt
+        , ("M-p m", manPrompt dtXPConfig)          -- manPrompt
+        , ("M-p p", passPrompt dtXPConfig)         -- passPrompt
+        , ("M-p g", passGeneratePrompt dtXPConfig) -- passGeneratePrompt
+        , ("M-p r", passRemovePrompt dtXPConfig)   -- passRemovePrompt
+        , ("M-p s", sshPrompt dtXPConfig)          -- sshPrompt
+        , ("M-p x", xmonadPrompt dtXPConfig)       -- xmonadPrompt
+        , ("M-p q", scrotPrompt home True)         -- scrotPrompt True
+        , ("M-p z", scrotPrompt home False)        -- scrotPrompt False
+
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn (myTerminal ++ " -e fish"))
         , ("M-b", spawn (myBrowser ++ " www.youtube.com/c/DistroTube/"))
         , ("M-M1-h", spawn (myTerminal ++ " -e htop"))
 
     -- Kill windows
-        , ("M-S-c", kill1)                         -- Kill the currently focused client
-        , ("M-S-a", killAll)                       -- Kill all windows on current workspace
+        , ("M-S-c", kill1)     -- Kill the currently focused client
+        , ("M-S-a", killAll)   -- Kill all windows on current workspace
 
     -- Workspaces
         , ("M-.", nextScreen)  -- Switch focus to next monitor
@@ -862,13 +887,13 @@ myKeys =
         , ("<XF86AudioPlay>", spawn (myTerminal ++ "mocp --play"))
         , ("<XF86AudioPrev>", spawn (myTerminal ++ "mocp --previous"))
         , ("<XF86AudioNext>", spawn (myTerminal ++ "mocp --next"))
-        -- , ("<XF86AudioMute>",   spawn "amixer set Master toggle")  -- Bug prevents it from toggling correctly in 12.04.
+        , ("<XF86AudioMute>",   spawn "amixer set Master toggle")
         , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
         , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
         , ("<XF86HomePage>", spawn "firefox")
         , ("<XF86Search>", safeSpawn "firefox" ["https://www.duckduckgo.com/"])
-        , ("<XF86Mail>", runOrRaise "geary" (resource =? "thunderbird"))
-        , ("<XF86Calculator>", runOrRaise "gcalctool" (resource =? "gcalctool"))
+        , ("<XF86Mail>", runOrRaise "thunderbird" (resource =? "thunderbird"))
+        , ("<XF86Calculator>", runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
         , ("<XF86Eject>", spawn "toggleeject")
         , ("<Print>", spawn "scrotd 0")
         ]
@@ -876,16 +901,13 @@ myKeys =
     -- Look at "search engines" section of this config for values for "k".
         ++ [("M-s " ++ k, S.promptSearch dtXPConfig' f) | (k,f) <- searchList ]
         ++ [("M-S-s " ++ k, S.selectSearch f) | (k,f) <- searchList ]
-    -- Appending some extra xprompts to keybindings list.
-    -- Look at "xprompt settings" section this of config for values for "k".
-        ++ [("M-p " ++ k, f dtXPConfig') | (k,f) <- promptList ]
-        ++ [("M-p " ++ k, f dtXPConfig' g) | (k,f,g) <- promptList' ]
     -- The following lines are needed for named scratchpads.
           where nonNSP          = WSIs (return (\ws -> W.tag ws /= "nsp"))
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "nsp"))
 
 main :: IO ()
 main = do
+    home <- getHomeDirectory
     -- Launching three instances of xmobar on their monitors.
     xmproc0 <- spawnPipe "xmobar -x 0 /home/dt/.config/xmobar/xmobarrc0"
     xmproc1 <- spawnPipe "xmobar -x 1 /home/dt/.config/xmobar/xmobarrc2"
@@ -922,4 +944,4 @@ main = do
                         , ppExtras  = [windowCount]                           -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                         }
-        } `additionalKeysP` myKeys
+        } `additionalKeysP` myKeys home
