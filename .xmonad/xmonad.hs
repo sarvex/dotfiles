@@ -468,8 +468,8 @@ dtXPConfig = def
       , promptBorderWidth   = 0
       , promptKeymap        = dtXPKeymap
       , position            = Top
-     -- , position            = CenteredAt { xpCenterY = 0.3, xpWidth = 0.3 }
-      , height              = 20
+      -- , position            = CenteredAt { xpCenterY = 0.3, xpWidth = 0.3 }
+      , height              = 23
       , historySize         = 256
       , historyFilter       = id
       , defaultText         = []
@@ -754,9 +754,9 @@ myKeys =
         , ("M-S-q", io exitSuccess)             -- Quits xmonad
 
     -- Run Prompt
-        -- , ("M-S-<Return>", shellPrompt dtXPConfig) -- Xmonad Shell Prompt
+        , ("M-S-<Return>", shellPrompt dtXPConfig) -- Xmonad Shell Prompt
         -- , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
-        , ("M-S-<Return>", spawn "rofi -show drun -config ~/.config/rofi/themes/dt-dmenu.rasi -display-drun \"Run: \" -drun-display-format \"{name}\"") -- Rofi
+        -- , ("M-S-<Return>", spawn "rofi -show drun -config ~/.config/rofi/themes/dt-dmenu.rasi -display-drun \"Run: \" -drun-display-format \"{name}\"") -- Rofi
 
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn (myTerminal ++ " -e fish"))

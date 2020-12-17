@@ -532,6 +532,17 @@ myTreeNavigation = M.fromList
 
 * Xprompts
 ** Xprompt Settings
+The XMonad.Prompt module is useful for writing graphical prompts for XMonad.  There are several readily available prompts that we can use, including:
++ shellPrompt - A standard run prompt similar to dmenu.
++ manPrompt - Searches for a program's manpage.
++ passPrompt - Retrieve passwords from pass, the Unix password manager.
++ passGeneratePrompt - Generates a password for pass.
++ passRemovePrompt - Removes a password from pass.
++ sshPrompt - A prompt for ssh connections.
++ xmonadPrompt - A prompt for XMonad commands.
+
+You can write your own prompts if you know some Haskell.  Some custom prompts include:
++ calcPrompt - A simple calculator prompt that uses qalculate.
 
 #+BEGIN_SRC haskell
 dtXPConfig :: XPConfig
@@ -545,8 +556,8 @@ dtXPConfig = def
       , promptBorderWidth   = 0
       , promptKeymap        = dtXPKeymap
       , position            = Top
-     -- , position            = CenteredAt { xpCenterY = 0.3, xpWidth = 0.3 }
-      , height              = 20
+      -- , position            = CenteredAt { xpCenterY = 0.3, xpWidth = 0.3 }
+      , height              = 23
       , historySize         = 256
       , historyFilter       = id
       , defaultText         = []
@@ -880,6 +891,7 @@ I am using the Xmonad.Util.EZConfig module which allows keybindings to be writte
 | MODKEY + RETURN             | opens terminal (alacritty is the terminal but can be easily changed) |
 | MODKEY + SHIFT + RETURN     | opens run launcher (XMonad's shell xprompt)                          |
 | MODKEY + TAB                | rotates through the available layouts                                |
+| MODKEY + SPACE              | toggles fullscreen on/off (useful for watching videos)               |
 | MODKEY + SHIFT + c          | closes window with focus                                             |
 | MODKEY + SHIFT + r          | restarts xmonad                                                      |
 | MODKEY + SHIFT + q          | quits xmonad                                                         |
@@ -896,6 +908,8 @@ I am using the Xmonad.Util.EZConfig module which allows keybindings to be writte
 | MODKEY + r                  | switches focus to monitor 3                                          |
 | MODKEY + period             | switch focus to next monitor                                         |
 | MODKEY + comma              | switch focus to prev monitor                                         |
+| MODKEY + SPACE              | toggles fullscreen on/off (useful for watching videos)               |
+| MODKEY + t                  | force floating window back into tiling                               |
 
 #+BEGIN_SRC haskell
 myKeys :: [(String, X ())]
@@ -906,9 +920,9 @@ myKeys =
         , ("M-S-q", io exitSuccess)             -- Quits xmonad
 
     -- Run Prompt
-        -- , ("M-S-<Return>", shellPrompt dtXPConfig) -- Xmonad Shell Prompt
+        , ("M-S-<Return>", shellPrompt dtXPConfig) -- Xmonad Shell Prompt
         -- , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
-        , ("M-S-<Return>", spawn "rofi -show drun -config ~/.config/rofi/themes/dt-dmenu.rasi -display-drun \"Run: \" -drun-display-format \"{name}\"") -- Rofi
+        -- , ("M-S-<Return>", spawn "rofi -show drun -config ~/.config/rofi/themes/dt-dmenu.rasi -display-drun \"Run: \" -drun-display-format \"{name}\"") -- Rofi
 
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn (myTerminal ++ " -e fish"))
