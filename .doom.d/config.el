@@ -186,10 +186,13 @@
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
 (require 'mu4e)
 (require 'smtpmail)
-(setq mu4e-get-mail-command "mbsync -c ~/.emacs.d/mu4e/.mbsyncrc -a"
-      mu4e-update-interval  300
-      user-mail-address "derek@distrotube.com"
+(setq user-mail-address "derek@distrotube.com"
       user-full-name  "Derek Taylor"
+      ;; I have my mbsyncrc in a different folder on my system, to keep it separate from the
+      ;; mbsyncrc available publicly in my dotfiles. You MUST edit the following line.
+      ;; Be sure that the following command is: "mbsync -c ~/.config/mu4e/mbsyncrc -a"
+      mu4e-get-mail-command "mbsync -c ~/.config/mu4e-dt/mbsyncrc -a"
+      mu4e-update-interval  300
       mu4e-compose-signature
        (concat
          "Derek Taylor\n"
