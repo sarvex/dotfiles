@@ -77,11 +77,6 @@
      ("http://lxer.com/module/newswire/headlines.rss" lxer linux)
      ("https://distrowatch.com/news/dwd.xml" distrowatch linux)))))
 
-(require 'emms-setup)
-(require 'emms-info)
-(require 'emms-cue)
-(require 'emms-mode-line)
-(require 'emms-playing-time)
 (emms-all)
 (emms-default-players)
 (emms-mode-line 1)
@@ -143,7 +138,6 @@
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
 
-(require 'ivy-posframe)
 (setq ivy-posframe-display-functions-alist
       '((swiper                     . ivy-posframe-display-at-point)
         (complete-symbol            . ivy-posframe-display-at-point)
@@ -174,18 +168,10 @@
       :desc "Toggle truncate lines"
       "t t" #'toggle-truncate-lines)
 
-(require 'ox-groff)
-
 (after! mastodon
   (setq mastodon-instance-url "https://mastodon.technology/"))
 
-;; (require 'md4rd)
-;; (md4rd)
-(setq md4rd-subs-active '(archlinux commandline DistroTube DoomEmacs emacs freesoftware lbry linux linux4noobs linuxmasterrace linuxquestions orgmode qutebrowser suckless Ubuntu unixporn UsabilityPorn vim xmonad))
-
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
-(require 'mu4e)
-(require 'smtpmail)
 (setq user-mail-address "derek@distrotube.com"
       user-full-name  "Derek Taylor"
       ;; I have my mbsyncrc in a different folder on my system, to keep it separate from the
@@ -243,7 +229,6 @@
       "- p" #'(lambda () (interactive) (find-file "~/.doom.d/packages.el")))
 
 (after! org
-  (require 'org-bullets)  ; Nicer bullets in org-mode
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   (setq org-directory "~/Org/"
         org-agenda-files '("~/Org/agenda.org")
@@ -354,11 +339,6 @@
 (map! :leader
       :desc "Clone indirect buffer other window"
       "b c" #'clone-indirect-buffer-other-window)
-
-(require 'sublimity-scroll)
-(require 'sublimity-map)
-;; (require 'sublimity-attractive)
-(sublimity-mode 0)
 
 (map! :leader
       :desc "Winner redo"

@@ -18,9 +18,7 @@
   - [[#ivy-posframe][IVY-POSFRAME]]
   - [[#ivy-keybindings][IVY KEYBINDINGS]]
 - [[#line-settings][LINE SETTINGS]]
-- [[#manpages][MANPAGES]]
 - [[#mastodon][MASTODON]]
-- [[#md4rd][MD4RD]]
 - [[#mu4e][MU4E]]
 - [[#neotree][NEOTREE]]
 - [[#open-specific-files][OPEN SPECIFIC FILES]]
@@ -29,7 +27,6 @@
 - [[#remote-connections][REMOTE CONNECTIONS]]
 - [[#shells][SHELLS]]
 - [[#splits][SPLITS]]
-- [[#sublimity][SUBLIMITY]]
 - [[#winner-mode][WINNER MODE]]
 
 * ABOUT THIS CONFIG 
@@ -170,11 +167,6 @@ One of the media players available for Emacs is emms, which stands for Emacs Mul
 | emms-next             | /Play next track in playlist/       | SPC a n    |
 
 #+BEGIN_SRC emacs-lisp
-(require 'emms-setup)
-(require 'emms-info)
-(require 'emms-cue)
-(require 'emms-mode-line)
-(require 'emms-playing-time)
 (emms-all)
 (emms-default-players)
 (emms-mode-line 1)
@@ -285,7 +277,6 @@ Available functions (positions) for 'ivy-posframe-display-functions-alist'
 =NOTE:= If the setting for 'ivy-posframe-display' is set to 'nil' (false), anything that is set to 'ivy-display-function-fallback' will just default to their normal position in Doom Emacs (usually a bottom split).  However, if this is set to 't' (true), then the fallback position will be centered in the window.
 
 #+BEGIN_SRC emacs-lisp
-(require 'ivy-posframe)
 (setq ivy-posframe-display-functions-alist
       '((swiper                     . ivy-posframe-display-at-point)
         (complete-symbol            . ivy-posframe-display-at-point)
@@ -327,12 +318,6 @@ I have toggled display-line-numbers-type so I have line numbers displayed.  Doom
       "t t" #'toggle-truncate-lines)
 #+END_SRC
 
-* MANPAGES
-
-#+BEGIN_SRC emacs-lisp
-(require 'ox-groff)
-#+END_SRC
-
 * MASTODON
 Mastodon.el is a mastodon client for Emacs.  Note that I wrapped my settings with (after! mastodon).  Without this, my settings for the mastodon instance that I use would be overwritten by the default settings for this module, which is "mastodon.social".
 
@@ -341,22 +326,11 @@ Mastodon.el is a mastodon client for Emacs.  Note that I wrapped my settings wit
   (setq mastodon-instance-url "https://mastodon.technology/"))
 #+END_SRC
 
-* MD4RD
-An Emacs reddit client that stands for /Mode For Reddit/.   Below, I'm setting the subreddits that I'm following.
-
-#+BEGIN_SRC emacs-lisp
-;; (require 'md4rd)
-;; (md4rd)
-(setq md4rd-subs-active '(archlinux commandline DistroTube DoomEmacs emacs freesoftware lbry linux linux4noobs linuxmasterrace linuxquestions orgmode qutebrowser suckless Ubuntu unixporn UsabilityPorn vim xmonad))
-#+END_SRC
-
 * MU4E
 Setting up mu4e which is an email client that works within emacs.  You must install mu4e and mbsync through your Linux distribution's package manager. Setting up smtp for sending mail. Make sure the gnutls command line utils are installed. Package 'gnutls-bin' in Debian/Ubuntu, and 'gnutls' in Arch.
 
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
-(require 'mu4e)
-(require 'smtpmail)
 (setq user-mail-address "derek@distrotube.com"
       user-full-name  "Derek Taylor"
       ;; I have my mbsyncrc in a different folder on my system, to keep it separate from the
@@ -442,7 +416,6 @@ Note that I wrapped most of this in (after! org).  Without this, my settings mig
 
 #+BEGIN_SRC emacs-lisp
 (after! org
-  (require 'org-bullets)  ; Nicer bullets in org-mode
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   (setq org-directory "~/Org/"
         org-agenda-files '("~/Org/agenda.org")
@@ -599,16 +572,6 @@ I set splits to default to opening on the right using 'prefer-horizontal-split'.
 (map! :leader
       :desc "Clone indirect buffer other window"
       "b c" #'clone-indirect-buffer-other-window)
-#+END_SRC
-
-* SUBLIMITY
-The sublimity extension offers Sublime-like smooth scrolling and an experimental minimap.  You can also require sublimity-attractive if you want to center everything for a distraction-free mode.  I do not use this extension, hence the reason I have sublimity-mode set to 0.  Set this to 1 to enable it.
-
-#+BEGIN_SRC emacs-lisp
-(require 'sublimity-scroll)
-(require 'sublimity-map)
-;; (require 'sublimity-attractive)
-(sublimity-mode 0)
 #+END_SRC
 
 * WINNER MODE

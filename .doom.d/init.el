@@ -23,7 +23,7 @@
        company           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +fonts)      ; a search engine for love and life
+       (ivy +fonts +ivyposframe)      ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -146,7 +146,7 @@
        ;;nim               ; python + lisp at the speed of c
        nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       org               ; organize your plain life in plain text
+       (org +org-bullets)             ; organize your plain life in plain text
        php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -169,15 +169,22 @@
        yaml              ; JSON, but readable
 
        :email
-       ;;(mu4e +gmail)
        ;;notmuch
        ;;(wanderlust +gmail)
+       mu4e
+       smtpmail
 
        :app
        ;;calendar
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
+
+       :emms
+       emms-setup
+       emms-info
+       emms-cue
+       emms-mode-line
 
        :config
        literate
