@@ -172,6 +172,7 @@
   (setq mastodon-instance-url "https://mastodon.technology/"))
 
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+;;(require 'smtpmail)
 (setq user-mail-address "derek@distrotube.com"
       user-full-name  "Derek Taylor"
       ;; I have my mbsyncrc in a different folder on my system, to keep it separate from the

@@ -331,6 +331,7 @@ Setting up mu4e which is an email client that works within emacs.  You must inst
 
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+;;(require 'smtpmail)
 (setq user-mail-address "derek@distrotube.com"
       user-full-name  "Derek Taylor"
       ;; I have my mbsyncrc in a different folder on my system, to keep it separate from the
