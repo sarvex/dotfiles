@@ -187,7 +187,7 @@
       message-send-mail-function 'smtpmail-send-it
       starttls-use-gnutls t
       smtpmail-starttls-credentials '(("smtp.1and1.com" 587 nil nil))
-      smtpmail-auth-credentials '(("smtp.1and1.com" 587 "derek@distrotube.com" nil))
+      smtpmail-smtp-user "derek@distrotube.com"
       smtpmail-default-smtp-server "smtp.1and1.com"
       smtpmail-smtp-server "smtp.1and1.com"
       smtpmail-smtp-service 587
