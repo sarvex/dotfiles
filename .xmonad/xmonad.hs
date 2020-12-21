@@ -113,13 +113,15 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 myStartupHook :: X ()
 myStartupHook = do
+          spawnOnce "lxsession &"
           spawnOnce "nitrogen --restore &"
-          spawnOnce "picom --experimental-backend &"
+          spawnOnce "picom --experimental-backends &"
           spawnOnce "nm-applet &"
           spawnOnce "volumeicon &"
           spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
-          spawnOnce "/usr/bin/emacs --daemon &"
-          -- spawnOnce "kak -d -s mysession &"
+          spawnOnce "/usr/bin/emacs --daemon &" -- emacs daemon for the emacsclient
+          -- spawnOnce "kak -d -s mysession &"  -- kakoune daemon for better performance
+          -- spawnOnce "urxvtd -q -o -f &"      -- urxvt daemon for better performance
           setWMName "LG3D"
 
 myColorizer :: Window -> Bool -> X (String, String)
@@ -716,7 +718,6 @@ myShowWNameTheme = def
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
              where
-               -- I've commented out the layouts I don't use.
                myDefaultLayout =     tall
                                  ||| magnify
                                  ||| noBorders monocle

@@ -169,15 +169,22 @@ These are commands we want XMonad to execute on startup, such as running a compo
 #+BEGIN_SRC haskell
 myStartupHook :: X ()
 myStartupHook = do
+          spawnOnce "lxsession &"
           spawnOnce "nitrogen --restore &"
-          spawnOnce "picom --experimental-backend &"
+          spawnOnce "picom --experimental-backends &"
           spawnOnce "nm-applet &"
           spawnOnce "volumeicon &"
           spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
-          spawnOnce "/usr/bin/emacs --daemon &"
-          -- spawnOnce "kak -d -s mysession &"
+          spawnOnce "/usr/bin/emacs --daemon &" -- emacs daemon for the emacsclient
+          -- spawnOnce "kak -d -s mysession &"  -- kakoune daemon for better performance
+          -- spawnOnce "urxvtd -q -o -f &"      -- urxvt daemon for better performance
           setWMName "LG3D"
 #+END_SRC
+
+#+RESULTS:
+: Prelude> Prelude>
+: <interactive>:26:11-19: error:
+:     Variable not in scope: setWMName :: [Char] -> t
 
 * Gridselect
 GridSelect displays items (programs, open windows, etc.) in a 2D grid and lets the user select from it with the cursor/hjkl keys or the mouse.
@@ -841,7 +848,6 @@ myShowWNameTheme = def
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
              where
-               -- I've commented out the layouts I don't use.
                myDefaultLayout =     tall
                                  ||| magnify
                                  ||| noBorders monocle
