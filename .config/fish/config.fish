@@ -281,6 +281,9 @@ alias config="/usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME"
 # termbin
 alias tb="nc termbin.com 9999"
 
+# Unlock LBRY tips
+alias tips="lbrynet txo spend --type=support --is_not_my_input --blocking"
+
 # force all kakoune windows into one session
 alias kak="/usr/bin/kak -c mysession"
 alias kaks="/usr/bin/kak -s mysession"

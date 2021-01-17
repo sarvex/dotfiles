@@ -8,42 +8,46 @@
 # Dmenu script for editing some of my more frequently edited config files.
 
 
-declare options=("alacritty
-awesome
-bash
-broot
-bspwm
-doom.d/config.el
-doom.d/init.el
-dunst
-dwm
-emacs.d/init.el
-herbstluftwm
-i3
-neovim
-picom
-polybar
-qtile
-quickmarks
-qutebrowser
-spectrwm
-st
-stumpwm
-surf
-sxhkd
-tabbed
-termite
-vifm
-vim
-vimb
-xmobar
-xmonad
-xresources
-zsh
-quit")
+declare -a options=("alacritty"
+"awesome"
+"bash"
+"broot"
+"bspwm"
+"doom.d/config.el"
+"doom.d/init.el"
+"dunst"
+"dwm"
+"emacs.d/init.el"
+"herbstluftwm"
+"i3"
+"neovim"
+"picom"
+"polybar"
+"qtile"
+"quickmarks"
+"qutebrowser"
+"spectrwm"
+"st"
+"stumpwm"
+"surf"
+"sxhkd"
+"tabbed"
+"termite"
+"vifm"
+"vim"
+"vimb"
+"xmobar"
+"xmonad"
+"xresources"
+"zsh"
+"quit"
+)
 
-choice=$(echo -e "${options[@]}" | dmenu -p 'Edit config file: ')
+# The combination of echo and printf is done to add line breaks to the end of each
+# item in the array before it is piped into dmenu.  Otherwise, all the items are listed
+# as one long line (one item).
 
+choice=$(echo "$(printf '%s\n' "${options[@]}")" | dmenu -p 'Edit config file: ')
 case "$choice" in
 	quit)
 		echo "Program terminated." && exit 1
@@ -148,5 +152,8 @@ case "$choice" in
 		exit 1
 	;;
 esac
+
+# Ultimately, what do want to do with our choice?  Open in our editor!
 alacritty -e nvim "$choice"
 # emacsclient -c -a emacs "$choice"
+
