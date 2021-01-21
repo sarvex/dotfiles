@@ -4,7 +4,6 @@
 
 Config { font    = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true"
        , additionalFonts = [ "xft:Mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true"
-                           , "xft:Mononoki Nerd Font:pixelsize=16:antialias=true:hinting=true"
                            , "xft:FontAwesome:pixelsize=13"
                            ]
        , bgColor = "#282c34"
@@ -39,5 +38,5 @@ Config { font    = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=t
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " <action=`xdotool key control+alt+g`><icon=haskell_20.xpm/> </action><fc=#666666>  |</fc> %UnsafeStdinReader% }{ <fc=#666666><fn=2>|</fn> </fc><fc=#b3afc2><fn=1></fn>  %uname% </fc><fc=#666666> <fn=2>|</fn></fc> <fc=#ecbe7b> %cpu% </fc><fc=#666666> <fn=2>|</fn></fc> <fc=#ff6c6b> %memory% </fc><fc=#666666> <fn=2>|</fn></fc> <fc=#51afef> %disku% </fc><fc=#666666> <fn=2>|</fn></fc> <fc=#98be65> %enp6s0% </fc><fc=#666666> <fn=2>|</fn></fc> <fc=#c678dd><fn=1></fn>  %pacupdate% </fc><fc=#666666> <fn=2>|</fn></fc> <fc=#46d9ff> %date% </fc><fc=#666666><fn=2>|</fn></fc>%trayerpad%"
+       , template = " <action=`xdotool key control+alt+g`><icon=haskell_20.xpm/> </action><fc=#666666>  |</fc> %UnsafeStdinReader% }{ <fc=#666666> |</fc> <fc=#b3afc2><fn=1></fn>  %uname% </fc><fc=#666666> |</fc> <fc=#ecbe7b> %cpu% </fc><fc=#666666> |</fc> <fc=#ff6c6b> %memory% </fc><fc=#666666> |</fc> <fc=#51afef> %disku% </fc><fc=#666666> |</fc> <fc=#98be65> %enp6s0% </fc><fc=#666666> |</fc>  <fc=#c678dd><fn=1></fn>  %pacupdate% </fc><fc=#666666> |</fc> <fc=#46d9ff> %date%  </fc><fc=#666666><fn=1>|</fn></fc>%trayerpad%"
        }
