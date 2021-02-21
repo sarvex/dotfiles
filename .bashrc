@@ -7,11 +7,23 @@
 # My bash config. Not much to see here; just some pretty standard stuff.
 
 ### EXPORT
-export TERM="xterm-256color"              # getting proper colors
-export HISTCONTROL=ignoredups:erasedups   # no duplicate entries
-export ALTERNATE_EDITOR=""                # setting for emacsclient
-export EDITOR="emacsclient -t -a ''"      # $EDITOR use Emacs in terminal
-export VISUAL="emacsclient -c -a emacs"   # $VISUAL use Emacs in GUI mode
+export TERM="xterm-256color"                      # getting proper colors
+export HISTCONTROL=ignoredups:erasedups           # no duplicate entries
+export ALTERNATE_EDITOR=""                        # setting for emacsclient
+export EDITOR="emacsclient -t -a ''"              # $EDITOR use Emacs in terminal
+export VISUAL="emacsclient -c -a emacs"           # $VISUAL use Emacs in GUI mode
+
+### SET MANPAGER
+### Uncomment only one of these!
+
+### "bat" as manpager
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+### "vim" as manpager
+# export MANPAGER='/bin/bash -c "vim -MRn -c \"set buftype=nofile showtabline=0 ft=man ts=8 nomod nolist norelativenumber nonu noma\" -c \"normal L\" -c \"nmap q :qa<CR>\"</dev/tty <(col -b)"'
+
+### "nvim" as manpager
+# export MANPAGER="nvim -c 'set ft=man' -"
 
 ### SET VI MODE ###
 # Comment this line out to enable default emacs-like bindings
@@ -109,18 +121,12 @@ alias doomdoctor="~/.emacs.d/bin/doom doctor"
 alias doomupgrade="~/.emacs.d/bin/doom upgrade"
 alias doompurge="~/.emacs.d/bin/doom purge"
 
-# pacman and yay
-alias pacsyu='sudo pacman -Syyu'                 # update only standard pkgs
-alias yaysua="yay -Sua --noconfirm"              # update only AUR pkgs
-alias yaysyu="yay -Syu --noconfirm"              # update standard pkgs and AUR pkgs
-alias unlock="sudo rm /var/lib/pacman/db.lck"    # remove pacman lock
-alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' # remove orphaned packages
+# bat
+# alias cat='bat'
 
-# get fastest mirrors
-alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
-alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
-alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
-alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
+# broot
+alias br='broot -dhp'
+alias bs='broot --sizes'
 
 # Changing "ls" to "exa"
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
@@ -128,6 +134,21 @@ alias la='exa -a --color=always --group-directories-first'  # all files and dirs
 alias ll='exa -l --color=always --group-directories-first'  # long format
 alias lt='exa -aT --color=always --group-directories-first' # tree listing
 alias l.='exa -a | egrep "^\."'
+
+# pacman and yay
+alias pacsyu='sudo pacman -Syyu'                 # update only standard pkgs
+alias yaysua='yay -Sua --noconfirm'              # update only AUR pkgs (yay)
+alias yaysyu='yay -Syu --noconfirm'              # update standard pkgs and AUR pkgs (yay)
+alias parsua='paru -Sua --noconfirm'             # update only AUR pkgs (paru)
+alias parsyu='paru -Syu --noconfirm'             # update standard pkgs and AUR pkgs (paru)
+alias unlock='sudo rm /var/lib/pacman/db.lck'    # remove pacman lock
+alias cleanup='sudo pacman -Rns (pacman -Qtdq)'  # remove orphaned packages
+
+# get fastest mirrors
+alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
+alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
+alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
+alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
 
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'
@@ -153,6 +174,9 @@ alias psmem10='ps auxf | sort -nr -k 4 | head -10'
 alias pscpu='ps auxf | sort -nr -k 3'
 alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
 
+# Merge Xresources
+alias merge='xrdb -merge ~/.Xresources'
+
 # git
 alias addup='git add -u'
 alias addall='git add .'
@@ -163,12 +187,9 @@ alias commit='git commit -m'
 alias fetch='git fetch'
 alias pull='git pull origin'
 alias push='git push origin'
-alias status='git status'
+alias stat='git status'  # 'status' is protected name so using 'stat' instead
 alias tag='git tag'
 alias newtag='git tag -a'
-
-# Merge Xresources
-alias merge='xrdb -merge ~/.Xresources'
 
 # get error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
@@ -191,6 +212,7 @@ alias yta-wav="youtube-dl --extract-audio --audio-format wav "
 alias ytv-best="youtube-dl -f bestvideo+bestaudio "
 
 # switch between shells
+# I do not recommend switching default SHELL from bash.
 alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
 alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
 alias tofish="sudo chsh $USER -s /bin/fish && echo 'Now log out.'"
@@ -206,6 +228,14 @@ alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/mas
 
 # Unlock LBRY tips
 alias tips='lbrynet txo spend --type=support --is_not_my_input --blocking'
+
+# Thinkorswim
+alias tos="/home/dt/thinkorswim/thinkorswim" 
+
+# force all kakoune windows into one session
+alias kak="/usr/bin/kak -c mysession"
+alias kaks="/usr/bin/kak -s mysession"
+alias kakd="/usr/bin/kak -d -s mysession &"
 
 ### RANDOM COLOR SCRIPT ###
 # Get this script from my GitLab: gitlab.com/dwt1/shell-color-scripts
