@@ -6,7 +6,7 @@ import System.Exit (exitSuccess)
 import qualified XMonad.StackSet as W
 
     -- Actions
-import XMonad.Actions.CopyWindow (kill1, killAllOtherCopies)
+import XMonad.Actions.CopyWindow (kill1)
 import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
 import XMonad.Actions.GridSelect
 import XMonad.Actions.MouseResize
@@ -19,6 +19,7 @@ import qualified XMonad.Actions.Search as S
 
     -- Data
 import Data.Char (isSpace, toUpper)
+import Data.Maybe (fromJust)
 import Data.Monoid
 import Data.Maybe (isJust)
 import Data.Tree
@@ -67,11 +68,9 @@ import XMonad.Prompt.Man
 import XMonad.Prompt.Pass
 import XMonad.Prompt.Shell
 import XMonad.Prompt.Ssh
+import XMonad.Prompt.Unicode
 import XMonad.Prompt.XMonad
 import Control.Arrow (first)
-
-   -- Text
-import Text.Printf
 
    -- Utilities
 import XMonad.Util.EZConfig (additionalKeysP)
@@ -81,6 +80,9 @@ import XMonad.Util.SpawnOnce
 
 myFont :: String
 myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
+
+myEmojiFont :: String
+myEmojiFont = "xft:JoyPixels:regular:size=9:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask       -- Sets modkey to super/windows key
@@ -500,6 +502,11 @@ dtXPConfig' = dtXPConfig
       { autoComplete        = Nothing
       }
 
+emojiXPConfig :: XPConfig
+emojiXPConfig = dtXPConfig
+      { font             = myEmojiFont
+      }
+
 calcPrompt c ans =
     inputPrompt c (trim ans) ?+ \input ->
         liftIO(runProcessWithInput "qalc" [input] "") >>= calcPrompt c
@@ -519,16 +526,6 @@ editPrompt home = do
 openInEditor :: String -> X ()
 openInEditor path =
     safeSpawn "emacsclient" ["-c", "-a", "emacs", path]
-
-scrotPrompt :: String -> Bool -> X ()
-scrotPrompt home select = do
-    str <- inputPrompt cfg "~/scrot/"
-    case str of
-        Just s  -> spawn $ printf "sleep 0.3 && scrot %s '%s' -e 'mv $f ~/scrot'" mode s
-        Nothing -> pure ()
-  where
-    mode = if select then "--select" else "--focused"
-    cfg = dtXPConfig { defaultText = "" }
 
 dtXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
 dtXPKeymap = M.fromList $
@@ -605,7 +602,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "mocp" spawnMocp findMocp manageMocp
                 ]
   where
-    spawnTerm  = myTerminal ++ " -n scratchpad"
+    spawnTerm  = myTerminal ++ " -n scratchpad 'fish'"
     findTerm   = resource =? "scratchpad"
     manageTerm = customFloating $ W.RationalRect l t w h
                where
@@ -678,14 +675,12 @@ threeCol = renamed [Replace "threeCol"]
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 7
-           $ mySpacing' 4
            $ ThreeCol 1 (3/100) (1/2)
 threeRow = renamed [Replace "threeRow"]
            $ windowNavigation
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ limitWindows 7
-           $ mySpacing' 4
            -- Mirror takes a layout and rotates it by 90 degrees.
            -- So we are applying Mirror to the ThreeCol layout.
            $ Mirror
@@ -728,23 +723,12 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                  ||| threeCol
                                  ||| threeRow
 
-myWorkspaces = [" dev ", " www ", " sys ", " doc ", " vbox ", " chat ", " mus ", " vid ", " gfx "]
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
+myWorkspaces = [" dev ", " www ", " sys ", " doc ", " vbox ", " chat ", " mus ", " vid ", " gfx "]
+myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
-xmobarEscape :: String -> String
-xmobarEscape = concatMap doubleLts
-  where
-        doubleLts '<' = "<<"
-        doubleLts x   = [x]
-
-myClickableWorkspaces :: [String]
-myClickableWorkspaces = clickable . (map xmobarEscape)
-               -- $ [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
-               $ [" dev ", " www ", " sys ", " doc ", " vbox ", " chat ", " mus ", " vid ", " gfx "]
-  where
-        clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
-                      (i,ws) <- zip [1..9] l,
-                      let n = i ]
+clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
+    where i = fromJust $ M.lookup ws myWorkspaceIndices
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
@@ -784,9 +768,8 @@ myKeys home =
         , ("M-p g", passGeneratePrompt dtXPConfig) -- passGeneratePrompt
         , ("M-p r", passRemovePrompt dtXPConfig)   -- passRemovePrompt
         , ("M-p s", sshPrompt dtXPConfig)          -- sshPrompt
+        , ("M-p u", mkUnicodePrompt "xsel" ["-b"] "/home/dt/.xmonad/UnicodeData.txt" emojiXPConfig) -- unicodePrompt (for copying emojis)
         , ("M-p x", xmonadPrompt dtXPConfig)       -- xmonadPrompt
-        , ("M-p q", scrotPrompt home True)         -- scrotPrompt True
-        , ("M-p z", scrotPrompt home False)        -- scrotPrompt False
 
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn (myTerminal ++ " -e fish"))
@@ -939,14 +922,14 @@ main = do
         , focusedBorderColor = myFocusColor
         , logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
                         { ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
-                        , ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]" -- Current workspace in xmobar
-                        , ppVisible = xmobarColor "#98be65" ""                -- Visible but not current workspace
-                        , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#b3afc2" "" . shorten 60     -- Title of active window in xmobar
-                        , ppSep =  "<fc=#666666> <fn=1>|</fn> </fc>"          -- Separators in xmobar
-                        , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
-                        , ppExtras  = [windowCount]                           -- # of windows current workspace
+                        , ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]"           -- Current workspace in xmobar
+                        , ppVisible = xmobarColor "#98be65" "" . clickable              -- Visible but not current workspace
+                        , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" "" . clickable -- Hidden workspaces in xmobar
+                        , ppHiddenNoWindows = xmobarColor "#c792ea" ""  . clickable     -- Hidden workspaces (no windows)
+                        , ppTitle = xmobarColor "#b3afc2" "" . shorten 60               -- Title of active window in xmobar
+                        , ppSep =  "<fc=#666666> <fn=1>|</fn> </fc>"                    -- Separators in xmobar
+                        , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"            -- Urgent workspace
+                        , ppExtras  = [windowCount]                                     -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                         }
         } `additionalKeysP` myKeys home
