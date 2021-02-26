@@ -514,19 +514,6 @@ calcPrompt c ans =
         trim  = f . f
             where f = reverse . dropWhile isSpace
 
-editPrompt :: String -> X ()
-editPrompt home = do
-    str <- inputPrompt cfg "EDIT: ~/"
-    case str of
-        Just s  -> openInEditor s
-        Nothing -> pure ()
-  where
-    cfg = dtXPConfig { defaultText = "" }
-
-openInEditor :: String -> X ()
-openInEditor path =
-    safeSpawn "emacsclient" ["-c", "-a", "emacs", path]
-
 dtXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
 dtXPKeymap = M.fromList $
      map (first $ (,) controlMask)      -- control + <key>
@@ -748,8 +735,8 @@ myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
     where fadeAmount = 1.0
 
-myKeys :: String -> [([Char], X ())]
-myKeys home =
+myKeys :: [(String, X ())]
+myKeys =
     -- Xmonad
         [ ("M-C-r", spawn "xmonad --recompile") -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")   -- Restarts xmonad
@@ -762,7 +749,6 @@ myKeys home =
 
     -- Other Prompts
         , ("M-p c", calcPrompt dtXPConfig' "qalc") -- calcPrompt
-        , ("M-p e", editPrompt home)               -- editPrompt
         , ("M-p m", manPrompt dtXPConfig)          -- manPrompt
         , ("M-p p", passPrompt dtXPConfig)         -- passPrompt
         , ("M-p g", passGeneratePrompt dtXPConfig) -- passGeneratePrompt
@@ -895,7 +881,6 @@ myKeys home =
 
 main :: IO ()
 main = do
-    home <- getHomeDirectory
     -- Launching three instances of xmobar on their monitors.
     xmproc0 <- spawnPipe "xmobar -x 0 $HOME/.config/xmobar/xmobarrc0"
     xmproc1 <- spawnPipe "xmobar -x 1 $HOME/.config/xmobar/xmobarrc2"
@@ -932,4 +917,4 @@ main = do
                         , ppExtras  = [windowCount]                                     -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                         }
-        } `additionalKeysP` myKeys home
+        } `additionalKeysP` myKeys

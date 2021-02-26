@@ -608,24 +608,6 @@ calcPrompt c ans =
             where f = reverse . dropWhile isSpace
 #+END_SRC
 
-*** editPrompt
-editPrompt is a simple prompt that allows you to open a file in your text editor.  The path defaults to the $HOME directory.
-
-#+begin_src haskell
-editPrompt :: String -> X ()
-editPrompt home = do
-    str <- inputPrompt cfg "EDIT: ~/"
-    case str of
-        Just s  -> openInEditor s
-        Nothing -> pure ()
-  where
-    cfg = dtXPConfig { defaultText = "" }
-
-openInEditor :: String -> X ()
-openInEditor path =
-    safeSpawn "emacsclient" ["-c", "-a", "emacs", path]
-#+end_src
-
 ** Xprompt Keymap
 Emacs-like key bindings for xprompts.
 
@@ -911,8 +893,8 @@ I am using the Xmonad.Util.EZConfig module which allows keybindings to be writte
 | MODKEY + t                  | force floating window back into tiling                               |
 
 #+BEGIN_SRC haskell
-myKeys :: String -> [([Char], X ())]
-myKeys home =
+myKeys :: [(String, X ())]
+myKeys =
     -- Xmonad
         [ ("M-C-r", spawn "xmonad --recompile") -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")   -- Restarts xmonad
@@ -925,7 +907,6 @@ myKeys home =
 
     -- Other Prompts
         , ("M-p c", calcPrompt dtXPConfig' "qalc") -- calcPrompt
-        , ("M-p e", editPrompt home)               -- editPrompt
         , ("M-p m", manPrompt dtXPConfig)          -- manPrompt
         , ("M-p p", passPrompt dtXPConfig)         -- passPrompt
         , ("M-p g", passGeneratePrompt dtXPConfig) -- passGeneratePrompt
@@ -1063,7 +1044,6 @@ This is the "main" of XMonad. This where everything in our configs comes togethe
 #+BEGIN_SRC haskell
 main :: IO ()
 main = do
-    home <- getHomeDirectory
     -- Launching three instances of xmobar on their monitors.
     xmproc0 <- spawnPipe "xmobar -x 0 $HOME/.config/xmobar/xmobarrc0"
     xmproc1 <- spawnPipe "xmobar -x 1 $HOME/.config/xmobar/xmobarrc2"
@@ -1100,5 +1080,5 @@ main = do
                         , ppExtras  = [windowCount]                                     -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                         }
-        } `additionalKeysP` myKeys home
+        } `additionalKeysP` myKeys
 #+END_SRC
