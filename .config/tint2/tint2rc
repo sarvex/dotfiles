@@ -147,15 +147,11 @@ startup_notifications = 0
 launcher_tooltip = 0
 launcher_icon_theme  = Breeze-Dark
 
-launcher_item_app = /home/derek/.config/tint2/launchers/obmenu-launch.desktop
-launcher_item_app = /home/derek/.config/tint2/launchers/gmusicbrowser-prev.desktop
-launcher_item_app = /home/derek/.config/tint2/launchers/gmusicbrowser-stop.desktop
-launcher_item_app = /home/derek/.config/tint2/launchers/gmusicbrowser-play.desktop
-launcher_item_app = /home/derek/.config/tint2/launchers/gmusicbrowser-next.desktop
-launcher_item_app = /home/derek/.config/tint2/launchers/pcmanfm.desktop
-launcher_item_app = /home/derek/.config/tint2/launchers/termite.desktop
-launcher_item_app = /home/derek/.config/tint2/launchers/firefox.desktop
-launcher_item_app = /home/derek/.config/tint2/launchers/gedit.desktop
+launcher_item_app = /home/dt/.config/tint2/launchers/obmenu-launch.desktop
+launcher_item_app = /home/dt/.config/tint2/launchers/pcmanfm.desktop
+launcher_item_app = /home/dt/.config/tint2/launchers/Alacritty.desktop
+launcher_item_app = /home/dt/.config/tint2/launchers/brave-browser.desktop
+launcher_item_app = /home/dt/.config/tint2/launchers/emacs.desktop
 
 #-------------------------------------
 # Clock
