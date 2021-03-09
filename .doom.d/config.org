@@ -50,13 +50,14 @@ Doom Emacs uses 'SPC b' for keybindings related to bookmarks and buffers.  Bookm
 * CENTAUR-TABS
 To use tabs in Doom Emacs, be sure to uncomment "tabs" in Doom's init.el.  Displays tabs at the top of the window similar to tabbed web browsers such as Firefox.  I don't actually use tabs in Emacs.  I placed this in my config to help others who may want tabs.  In the default configuration of Doom Emacs, 'SPC t' is used for "toggle" keybindings, so I choose 'SPC t c' to toggle centaur-tabs.  The "g" prefix for keybindings is used for a bunch of evil keybindings in Doom, but "g" plus the arrow keys were not used, so I thought I would bind those for tab navigation.  But I did leave the default "g t" and "g T" intact if you prefer to use those for centaur-tabs-forward/backward.
 
-| COMMAND                     | DESCRIPTION          | KEYBINDING       |
-|-----------------------------+----------------------+------------------|
-| centaur-tabs-local-mode     | /Toggle tabs on/off/   | SPC t c          |
-| centaur-tabs-forward        | /Next tab/             | g <right> or g t |
-| centaur-tabs-backward       | /Previous tab/         | g <left> or g T  |
-| centaur-tabs-forward-group  | /Next tab group/       | g <down>         |
-| centaur-tabs-backward-group | /Previous tab group/   | g <up>           |
+| COMMAND                     | DESCRIPTION               | KEYBINDING       |
+|-----------------------------+---------------------------+------------------|
+| centaur-tabs-mode           | /Toggle tabs globally/      | SPC t c          |
+| centaur-tabs-local-mode     | /Toggle tabs local display/ | SPC t C          |
+| centaur-tabs-forward        | /Next tab/                  | g <right> or g t |
+| centaur-tabs-backward       | /Previous tab/              | g <left> or g T  |
+| centaur-tabs-forward-group  | /Next tab group/            | g <down>         |
+| centaur-tabs-backward-group | /Previous tab group/        | g <up>           |
 
 #+BEGIN_SRC emacs-lisp
 (setq centaur-tabs-set-bar 'over
@@ -67,8 +68,11 @@ To use tabs in Doom Emacs, be sure to uncomment "tabs" in Doom's init.el.  Displ
       centaur-tabs-style "bar"
       centaur-tabs-modified-marker "•")
 (map! :leader
-      :desc "Toggle tabs on/off"
-      "t c" #'centaur-tabs-local-mode)
+      :desc "Toggle tabs globally"
+      "t c" #'centaur-tabs-mode
+      :leader
+      :desc "Toggle tabs local display"
+      "t C" #'centaur-tabs-local-mode)
 (evil-define-key 'normal centaur-tabs-mode-map (kbd "g <right>") 'centaur-tabs-forward        ; default Doom binding is 'g t'
                                                (kbd "g <left>")  'centaur-tabs-backward       ; default Doom binding is 'g T'
                                                (kbd "g <down>")  'centaur-tabs-forward-group
@@ -312,11 +316,31 @@ By default, Doom Emacs does not use 'SPC v', so the format I use for these bindi
 #+END_SRC
 
 * LINE SETTINGS
-I have toggled display-line-numbers-type so I have line numbers displayed.  Doom Emacs uses 'SPC t' for "toggle" commands, so I choose 'SPC t t' for toggle-truncate-lines.
+I set comment-line to 'SPC TAB TAB' which is a rather comfortable keybinding for me on my ErgoDox EZ keyboard.  The standard Emacs keybinding for comment-line is 'C-x C-;'.  The other keybindings are for commands that toggle on/off various line-related settings.  Doom Emacs uses 'SPC t' for "toggle" commands, so I choose 'SPC t' plus 'key' for those bindings.
+
+| COMMAND                  | DESCRIPTION                               | KEYBINDING  |
+|--------------------------+-------------------------------------------+-------------|
+| comment-line             | /Comment or uncomment lines/                | SPC TAB TAB |
+| hl-line-mode             | /Toggle line highlighting in current frame/ | SPC t h     |
+| global-hl-line-mode      | /Toggle line highlighting globally/         | SPC t H     |
+| doom/toggle-line-numbers | /Toggle line numbers/                       | SPC t l     |
+| toggle-truncate-lines    | /Toggle truncate lines/                     | SPC t t     |
 
 #+BEGIN_SRC emacs-lisp
 (setq display-line-numbers-type t)
 (map! :leader
+      :desc "Comment or uncomment lines"
+      "TAB TAB" #'comment-line
+      :leader
+      :desc "Toggle line numbers"
+      "t l" #'doom/toggle-line-numbers
+      :leader
+      :desc "Toggle line highlight in frame"
+      "t h" #'hl-line-mode
+      :leader
+      :desc "Toggle line highlight globally"
+      "t H" #'global-hl-line-mode
+      :leader
       :desc "Toggle truncate lines"
       "t t" #'toggle-truncate-lines)
 #+END_SRC

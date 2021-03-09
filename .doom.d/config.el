@@ -13,8 +13,11 @@
       centaur-tabs-style "bar"
       centaur-tabs-modified-marker "•")
 (map! :leader
-      :desc "Toggle tabs on/off"
-      "t c" #'centaur-tabs-local-mode)
+      :desc "Toggle tabs globally"
+      "t c" #'centaur-tabs-mode
+      :leader
+      :desc "Toggle tabs local display"
+      "t C" #'centaur-tabs-local-mode)
 (evil-define-key 'normal centaur-tabs-mode-map (kbd "g <right>") 'centaur-tabs-forward        ; default Doom binding is 'g t'
                                                (kbd "g <left>")  'centaur-tabs-backward       ; default Doom binding is 'g T'
                                                (kbd "g <down>")  'centaur-tabs-forward-group
@@ -165,6 +168,18 @@
 
 (setq display-line-numbers-type t)
 (map! :leader
+      :desc "Comment or uncomment lines"
+      "TAB TAB" #'comment-line
+      :leader
+      :desc "Toggle line numbers"
+      "t l" #'doom/toggle-line-numbers
+      :leader
+      :desc "Toggle line highlight in frame"
+      "t h" #'hl-line-mode
+      :leader
+      :desc "Toggle line highlight globally"
+      "t H" #'global-hl-line-mode
+      :leader
       :desc "Toggle truncate lines"
       "t t" #'toggle-truncate-lines)
 
