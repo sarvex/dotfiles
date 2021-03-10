@@ -62,6 +62,7 @@
 (package! org-bullets)
 (package! org-ql)
 (package! peep-dired)
+(package! pianobar)
 (package! rainbow-mode)
 (package! resize-window)
 (package! tldr)
