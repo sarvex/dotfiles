@@ -130,7 +130,12 @@
 (define-key *root-map* (kbd "M-s") "google")
 (define-key *root-map* (kbd "i") "imdb")
 
-;; Message window font
+;; Message window font;
+; (ql:quickload 'clx-truetype)
+; (load-module "ttf-fonts")
+; (xft:cache-fonts)
+; (set-font (make-instance 'xft:font :family "Iosevka Nerd Font" :subfamily "Bold" :size 7 :antialias t))
+; (set-font "-*-fixed-medium-r-normal-*-*-140-*-*-*-*-*-*")
 (set-font "-xos4-terminus-medium-r-normal--13-140-72-72-c-80-iso8859-14")
 
 ;;; Define window placement policy...
@@ -139,7 +144,7 @@
 
 ;; Last rule to match takes precedence!
 ;; TIP: if the argument to :title or :role begins with an ellipsis, a substring
-;; match is performed.
+;;
 ;; TIP: if the :create flag is set then a missing group will be created and
 ;; restored from *data-dir*/create file.
 ;; TIP: if the :restore flag is set then group dump is restored even for an

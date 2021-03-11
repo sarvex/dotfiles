@@ -20,8 +20,8 @@ keys = [
              desc='Launches My Terminal'
              ),
          Key([mod, "shift"], "Return",
-             # lazy.spawn("dmenu_run -p 'Run: '"),
-             lazy.spawn("rofi -show drun -config ~/.config/rofi/themes/dt-dmenu.rasi -display-drun \"Run: \" -drun-display-format \"{name}\""),
+             lazy.spawn("dmenu_run -p 'Run: '"),
+             # lazy.spawn("rofi -show drun -config ~/.config/rofi/themes/dt-dmenu.rasi -display-drun \"Run: \" -drun-display-format \"{name}\""),
              desc='Run Launcher'
              ),
          Key([mod], "Tab",
@@ -132,87 +132,17 @@ keys = [
              lazy.layout.toggle_split(),
              desc='Toggle between split and unsplit sides of stack'
              ),
-         ### Dmenu scripts launched with ALT + CTRL + KEY
-         Key(["mod1", "control"], "e",
-             lazy.spawn("./.dmenu/dmenu-edit-configs.sh"),
-             desc='Dmenu script for editing config files'
-             ),
-         Key(["mod1", "control"], "m",
-             lazy.spawn("./.dmenu/dmenu-sysmon.sh"),
-             desc='Dmenu system monitor script'
-             ),
-         Key(["mod1", "control"], "p",
-             lazy.spawn("passmenu"),
-             desc='Passmenu'
-             ),
-         Key(["mod1", "control"], "r",
-             desc='Dmenu reddio script'
-             ),
-         Key(["mod1", "control"], "s",
-             lazy.spawn("./.dmenu/dmenu-surfraw.sh"),
-             desc='Dmenu surfraw script'
-             ),
-         Key(["mod1", "control"], "t",
-             lazy.spawn("./.dmenu/dmenu-trading.sh"),
-             desc='Dmenu trading programs script'
-             ),
-         Key(["mod1", "control"], "i",
-             lazy.spawn("./.dmenu/dmenu-scrot.sh"),
-             desc='Dmenu scrot script'
-             ),
-         ### My applications launched with SUPER + ALT + KEY
-         Key([mod, "mod1"], "b",
-             lazy.spawn("tabbed -r 2 surf -pe x '.surf/html/homepage.html'"),
-             desc='lynx browser'
-             ),
-         Key([mod, "mod1"], "l",
-             lazy.spawn(myTerm+" -e lynx gopher://distro.tube"),
-             desc='lynx browser'
-             ),
-         Key([mod, "mod1"], "n",
-             lazy.spawn(myTerm+" -e newsboat"),
-             desc='newsboat'
-             ),
-         Key([mod, "mod1"], "r",
-             lazy.spawn(myTerm+" -e rtv"),
-             desc='reddit terminal viewer'
-             ),
-         Key([mod, "mod1"], "e",
-             lazy.spawn(myTerm+" -e neomutt"),
-             desc='neomutt'
-             ),
-         Key([mod, "mod1"], "m",
-             lazy.spawn(myTerm+" -e sh ./scripts/toot.sh"),
-             desc='toot mastodon cli'
-             ),
-         Key([mod, "mod1"], "t",
-             lazy.spawn(myTerm+" -e sh ./scripts/tig-script.sh"),
-             desc='tig'
-             ),
-         Key([mod, "mod1"], "f",
-             lazy.spawn(myTerm+" -e sh ./.config/vifm/scripts/vifmrun"),
-             desc='vifm'
-             ),
-         Key([mod, "mod1"], "j",
-             lazy.spawn(myTerm+" -e joplin"),
-             desc='joplin'
-             ),
-         Key([mod, "mod1"], "c",
-             lazy.spawn(myTerm+" -e cmus"),
-             desc='cmus'
-             ),
-         Key([mod, "mod1"], "i",
-             lazy.spawn(myTerm+" -e irssi"),
-             desc='irssi'
-             ),
-         Key([mod, "mod1"], "y",
-             lazy.spawn(myTerm+" -e youtube-viewer"),
-             desc='youtube-viewer'
-             ),
-         Key([mod, "mod1"], "a",
-             lazy.spawn(myTerm+" -e ncpamixer"),
-             desc='ncpamixer'
-             ),
+         # Dmenu scripts launched using the key chord SUPER+p followed by 'key'
+         KeyChord([mod], "p", [
+             Key([], "e", lazy.spawn("./dmscripts/dmconf")),
+             Key([], "i", lazy.spawn("./dmscripts/dmscrot")),
+             Key([], "k", lazy.spawn("./dmscripts/dmkill")),
+             Key([], "l", lazy.spawn("./dmscripts/dmlogout")),
+             Key([], "m", lazy.spawn("./dmscripts/dman")),
+             Key([], "r", lazy.spawn("./dmscripts/dmred")),
+             Key([], "s", lazy.spawn("./dmscripts/dmsearch")),
+             Key([], "p", lazy.spawn("passmenu"))
+         ])
 ]
 
 group_names = [("WWW", {'layout': 'monadtall'}),
