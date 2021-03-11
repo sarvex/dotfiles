@@ -239,6 +239,12 @@ def init_widgets_list():
                        filename = "~/.config/qtile/icons/python.png",
                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('dmenu_run')}
                        ),
+             widget.Sep(
+                       linewidth = 0,
+                       padding = 6,
+                       foreground = colors[2],
+                       background = colors[0]
+                       ),
               widget.GroupBox(
                        font = "Ubuntu Bold",
                        fontsize = 9,
@@ -252,10 +258,10 @@ def init_widgets_list():
                        rounded = False,
                        highlight_color = colors[1],
                        highlight_method = "line",
-                       this_current_screen_border = colors[3],
+                       this_current_screen_border = colors[6],
                        this_screen_border = colors [4],
-                       other_current_screen_border = colors[0],
-                       other_screen_border = colors[0],
+                       other_current_screen_border = colors[6],
+                       other_screen_border = colors[4],
                        foreground = colors[2],
                        background = colors[0]
                        ),
@@ -276,6 +282,16 @@ def init_widgets_list():
                        foreground = colors[6],
                        background = colors[0],
                        padding = 0
+                       ),
+              widget.Systray(
+                       background = colors[0],
+                       padding = 5
+                       ),
+              widget.Sep(
+                       linewidth = 0,
+                       padding = 6,
+                       foreground = colors[0],
+                       background = colors[0]
                        ),
               widget.TextBox(
                        text = '',
@@ -419,17 +435,7 @@ def init_widgets_list():
               widget.Clock(
                        foreground = colors[2],
                        background = colors[5],
-                       format = "%A, %B %d  [ %H:%M ]"
-                       ),
-              widget.Sep(
-                       linewidth = 0,
-                       padding = 10,
-                       foreground = colors[0],
-                       background = colors[5]
-                       ),
-              widget.Systray(
-                       background = colors[0],
-                       padding = 5
+                       format = "%A, %B %d - %H:%M "
                        ),
               ]
     return widgets_list
