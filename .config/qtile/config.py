@@ -132,6 +132,17 @@ keys = [
              lazy.layout.toggle_split(),
              desc='Toggle between split and unsplit sides of stack'
              ),
+         # Emacs programs launched using the key chord CTRL+e followed by 'key'
+         KeyChord(["control"],"e", [
+             Key([], "e", lazy.spawn("emacsclient -c -a 'emacs'")),
+             Key([], "b", lazy.spawn("emacsclient -c -a 'emacs' --eval '(ibuffer)'")),
+             Key([], "d", lazy.spawn("emacsclient -c -a 'emacs' --eval '(dired nil)'")),
+             Key([], "i", lazy.spawn("emacsclient -c -a 'emacs' --eval '(erc)'")),
+             Key([], "m", lazy.spawn("emacsclient -c -a 'emacs' --eval '(mu4e)'")),
+             Key([], "n", lazy.spawn("emacsclient -c -a 'emacs' --eval '(elfeed)'")),
+             Key([], "s", lazy.spawn("emacsclient -c -a 'emacs' --eval '(eshell)'")),
+             Key([], "v", lazy.spawn("emacsclient -c -a 'emacs' --eval '(+vterm/here nil)'"))
+         ]),
          # Dmenu scripts launched using the key chord SUPER+p followed by 'key'
          KeyChord([mod], "p", [
              Key([], "e", lazy.spawn("./dmscripts/dmconf")),
