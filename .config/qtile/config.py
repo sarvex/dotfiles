@@ -3,6 +3,7 @@ import os
 import re
 import socket
 import subprocess
+from libqtile import qtile
 from libqtile.config import KeyChord, Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
@@ -209,11 +210,11 @@ layouts = [
 ]
 
 colors = [["#282c34", "#282c34"], # panel background
-          ["#434758", "#434758"], # background for current screen tab
+          ["#3d3f4b", "#434758"], # background for current screen tab
           ["#ffffff", "#ffffff"], # font color for group names
           ["#ff5555", "#ff5555"], # border line color for current tab
-          ["#8d62a9", "#8d62a9"], # border line color for other tab and odd widgets
-          ["#668bd7", "#668bd7"], # color for the even widgets
+          ["#74438f", "#74438f"], # border line color for 'other tabs' and color for 'odd widgets'
+          ["#4f76c7", "#4f76c7"], # color for the 'even widgets'
           ["#e1acff", "#e1acff"]] # window name
 
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
@@ -236,8 +237,9 @@ def init_widgets_list():
                        background = colors[0]
                        ),
               widget.Image(
-                       filename = "~/.config/qtile/icons/python.png",
-                       mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('dmenu_run')}
+                       filename = "~/.config/qtile/icons/python-white.png",
+                       scale = "False",
+                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('dmenu_run')}
                        ),
              widget.Sep(
                        linewidth = 0,
@@ -351,7 +353,7 @@ def init_widgets_list():
                        distro = "Arch_checkupdates",
                        display_format = "{updates} Updates",
                        foreground = colors[2],
-                       mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},
+                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},
                        background = colors[4]
                        ),
               widget.TextBox(
@@ -371,7 +373,7 @@ def init_widgets_list():
               widget.Memory(
                        foreground = colors[2],
                        background = colors[5],
-                       mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn(myTerm + ' -e htop')},
+                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')},
                        padding = 5
                        ),
               widget.TextBox(

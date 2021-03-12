@@ -359,7 +359,8 @@ def init_widgets_list():
                        background = colors[0]
                        ),
               widget.Image(
-                       filename = "~/.config/qtile/icons/python.png",
+                       filename = "~/.config/qtile/icons/python-white.png",
+                       scale = "False",
                        mouse_callbacks = {'Button1': lambda qtile: qtile.cmd_spawn('dmenu_run')}
                        ),
              widget.Sep(
