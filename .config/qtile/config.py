@@ -134,25 +134,73 @@ keys = [
              ),
          # Emacs programs launched using the key chord CTRL+e followed by 'key'
          KeyChord(["control"],"e", [
-             Key([], "e", lazy.spawn("emacsclient -c -a 'emacs'")),
-             Key([], "b", lazy.spawn("emacsclient -c -a 'emacs' --eval '(ibuffer)'")),
-             Key([], "d", lazy.spawn("emacsclient -c -a 'emacs' --eval '(dired nil)'")),
-             Key([], "i", lazy.spawn("emacsclient -c -a 'emacs' --eval '(erc)'")),
-             Key([], "m", lazy.spawn("emacsclient -c -a 'emacs' --eval '(mu4e)'")),
-             Key([], "n", lazy.spawn("emacsclient -c -a 'emacs' --eval '(elfeed)'")),
-             Key([], "s", lazy.spawn("emacsclient -c -a 'emacs' --eval '(eshell)'")),
-             Key([], "v", lazy.spawn("emacsclient -c -a 'emacs' --eval '(+vterm/here nil)'"))
+             Key([], "e",
+                 lazy.spawn("emacsclient -c -a 'emacs'"),
+                 desc='Launch Emacs'
+                 ),
+             Key([], "b",
+                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(ibuffer)'"),
+                 desc='Launch ibuffer inside Emacs'
+                 ),
+             Key([], "d",
+                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(dired nil)'"),
+                 desc='Launch dired inside Emacs'
+                 ),
+             Key([], "i",
+                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(erc)'"),
+                 desc='Launch erc inside Emacs'
+                 ),
+             Key([], "m",
+                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(mu4e)'"),
+                 desc='Launch mu4e inside Emacs'
+                 ),
+             Key([], "n",
+                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(elfeed)'"),
+                 desc='Launch elfeed inside Emacs'
+                 ),
+             Key([], "s",
+                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(eshell)'"),
+                 desc='Launch the eshell inside Emacs'
+                 ),
+             Key([], "v",
+                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(+vterm/here nil)'"),
+                 desc='Launch vterm inside Emacs'
+                 )
          ]),
          # Dmenu scripts launched using the key chord SUPER+p followed by 'key'
          KeyChord([mod], "p", [
-             Key([], "e", lazy.spawn("./dmscripts/dmconf")),
-             Key([], "i", lazy.spawn("./dmscripts/dmscrot")),
-             Key([], "k", lazy.spawn("./dmscripts/dmkill")),
-             Key([], "l", lazy.spawn("./dmscripts/dmlogout")),
-             Key([], "m", lazy.spawn("./dmscripts/dman")),
-             Key([], "r", lazy.spawn("./dmscripts/dmred")),
-             Key([], "s", lazy.spawn("./dmscripts/dmsearch")),
-             Key([], "p", lazy.spawn("passmenu"))
+             Key([], "e",
+                 lazy.spawn("./dmscripts/dmconf"),
+                 desc='Choose a config file to edit'
+                 ),
+             Key([], "i",
+                 lazy.spawn("./dmscripts/dmscrot"),
+                 desc='Take screenshots via dmenu'
+                 ),
+             Key([], "k",
+                 lazy.spawn("./dmscripts/dmkill"),
+                 desc='Kill processes via dmenu'
+                 ),
+             Key([], "l",
+                 lazy.spawn("./dmscripts/dmlogout"),
+                 desc='A logout menu'
+                 ),
+             Key([], "m",
+                 lazy.spawn("./dmscripts/dman"),
+                 desc='Search manpages in dmenu'
+                 ),
+             Key([], "r",
+                 lazy.spawn("./dmscripts/dmred"),
+                 desc='Search reddit via dmenu'
+                 ),
+             Key([], "s",
+                 lazy.spawn("./dmscripts/dmsearch"),
+                 desc='Search various search engines via dmenu'
+                 ),
+             Key([], "p",
+                 lazy.spawn("passmenu"),
+                 desc='Retrieve passwords with dmenu'
+                 )
          ])
 ]
 
@@ -301,14 +349,9 @@ def init_widgets_list():
                        padding = 0,
                        fontsize = 37
                        ),
-              widget.TextBox(
-                       text = " ₿",
-                       padding = 0,
-                       foreground = colors[2],
-                       background = colors[4],
-                       fontsize = 12
-                       ),
-              widget.BitcoinTicker(
+             widget.Net(
+                       interface = "enp6s0",
+                       format = '{down} ↓↑ {up}',
                        foreground = colors[2],
                        background = colors[4],
                        padding = 5
@@ -382,9 +425,14 @@ def init_widgets_list():
                        padding = 0,
                        fontsize = 37
                        ),
-              widget.Net(
-                       interface = "enp6s0",
-                       format = '{down} ↓↑ {up}',
+              widget.TextBox(
+                       text = " ₿",
+                       padding = 0,
+                       foreground = colors[2],
+                       background = colors[4],
+                       fontsize = 12
+                       ),
+              widget.BitcoinTicker(
                        foreground = colors[2],
                        background = colors[4],
                        padding = 5
