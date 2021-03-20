@@ -131,6 +131,8 @@
       :desc "Search web for text between BEG/END"
       "s w" #'eww-search-words)
 
+(setq ispell-dictionary "english")
+
 (setq doom-font (font-spec :family "Mononoki Nerd Font" :size 15)
       doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15)
       doom-big-font (font-spec :family "Mononoki Nerd Font" :size 24))
@@ -404,6 +406,9 @@
       eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh")
       vterm-max-scrollback 5000)
 (map! :leader
+      :desc "Eshell"
+      "e s" #'eshell
+      :leader
       :desc "Counsel eshell history"
       "e h" #'counsel-esh-history)
 
