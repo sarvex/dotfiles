@@ -589,7 +589,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "mocp" spawnMocp findMocp manageMocp
                 ]
   where
-    spawnTerm  = myTerminal ++ " -n scratchpad 'fish'"
+    spawnTerm  = myTerminal ++ " -n scratchpad"
     findTerm   = resource =? "scratchpad"
     manageTerm = customFloating $ W.RationalRect l t w h
                where
@@ -758,7 +758,7 @@ myKeys =
         , ("M-p x", xmonadPrompt dtXPConfig)       -- xmonadPrompt
 
     -- Useful programs to have a keybinding for launch
-        , ("M-<Return>", spawn (myTerminal ++ " -e fish"))
+        , ("M-<Return>", spawn (myTerminal))
         , ("M-b", spawn (myBrowser ++ " www.youtube.com/c/DistroTube/"))
         , ("M-M1-h", spawn (myTerminal ++ " -e htop"))
 

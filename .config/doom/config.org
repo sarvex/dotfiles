@@ -13,6 +13,7 @@
 - [[#emms][EMMS]]
 - [[#evaluate-elisp-expressions][EVALUATE ELISP EXPRESSIONS]]
 - [[#eww][EWW]]
+- [[#flyspellispellaspell][FLYSPELL/ISPELL/ASPELL]]
 - [[#fonts][FONTS]]
 - [[#ivy][IVY]]
   - [[#ivy-posframe][IVY-POSFRAME]]
@@ -183,7 +184,7 @@ Changing some keybindings from their defaults to better fit with Doom Emacs, and
 #+END_SRC
 
 * EWW
-EWW is the Emacs Web Wowser, the builtin browser in Emacs.  Below I set urls to open in a specific browser (eww) with browse-url-browser-function.  By default, Doom Emacs does not use 'SPC e' for anything, so I choose to use the format 'SPC e' plus 'key' for these (I also use 'SPC e' for 'eval' keybindings).  I chose to use 'SPC s w' for eww-search-words because Doom Emacs uses 'SPC s' for 'search' commands.
+EWW is the Emacs Web Wowser, the builtin browser in Emacs.  Below I set URLs to open in a specific browser (eww) with browse-url-browser-function.  By default, Doom Emacs does not use 'SPC e' for anything, so I choose to use the format 'SPC e' plus 'key' for these (I also use 'SPC e' for 'eval' keybindings).  I chose to use 'SPC s w' for eww-search-words because Doom Emacs uses 'SPC s' for 'search' commands.
 
 #+BEGIN_SRC emacs-lisp
 (setq browse-url-browser-function 'eww-browse-url)
@@ -192,6 +193,18 @@ EWW is the Emacs Web Wowser, the builtin browser in Emacs.  Below I set urls to 
       :desc "Eww web browser" "e w" #'eww
       :desc "Eww reload page" "e R" #'eww-reload
       :desc "Search web for text between BEG/END" "s w" #'eww-search-words))
+#+END_SRC
+
+* FLYSPELL/ISPELL/ASPELL
+I installed 'aspell' and 'aspell-en' from the Arch Linux repos to get spellchecking to work.  I also made a table listing some of the default Doom Emac's keybindings for flycheck/flyspell.  They are listed here for reference.
+
+| COMMAND       | DESCRIPTION                    | KEYBINDING |
+|---------------+--------------------------------+------------|
+| flycheck-mode | /Toggle enable/disable flycheck/ | SPC t f    |
+| flyspell-mode | /Toggle enable/disable flyspell/ | SPC t s    |
+
+#+BEGIN_SRC emacs-lisp
+(setq ispell-dictionary "english")
 #+END_SRC
 
 * FONTS
@@ -571,7 +584,15 @@ Settings for the various shells and terminal emulators within Emacs.
       eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh")
       vterm-max-scrollback 5000)
 (map! :leader
+<<<<<<< HEAD:.config/doom/config.org
       :desc "Counsel eshell history" "e h" #'counsel-esh-history)
+=======
+      :desc "Eshell"
+      "e s" #'eshell
+      :leader
+      :desc "Counsel eshell history"
+      "e h" #'counsel-esh-history)
+>>>>>>> 45486bac887a31725e135dde053925d8ff28cb78:.doom.d/config.org
 #+END_SRC
 
 * SPLITS

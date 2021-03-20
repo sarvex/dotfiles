@@ -67,29 +67,31 @@ keys = [
              desc='Move focus to prev monitor'
              ),
          ### Treetab controls
-         Key([mod, "control"], "k",
-             lazy.layout.section_up(),
+          Key([mod, "shift"], "h",
+             lazy.layout.move_left(),
              desc='Move up a section in treetab'
              ),
-         Key([mod, "control"], "j",
-             lazy.layout.section_down(),
+         Key([mod, "shift"], "l",
+             lazy.layout.move_right(),
              desc='Move down a section in treetab'
              ),
          ### Window controls
          Key([mod], "k",
-             lazy.layout.down(),
+             lazy.layout.up(),
              desc='Move focus down in current stack pane'
              ),
          Key([mod], "j",
-             lazy.layout.up(),
+             lazy.layout.down(),
              desc='Move focus up in current stack pane'
              ),
-         Key([mod, "shift"], "k",
+         Key([mod, "shift"], "j",
              lazy.layout.shuffle_down(),
+             lazy.layout.section_down(),
              desc='Move windows down in current stack'
              ),
-         Key([mod, "shift"], "j",
+         Key([mod, "shift"], "k",
              lazy.layout.shuffle_up(),
+             lazy.layout.section_up(),
              desc='Move windows up in current stack'
              ),
          Key([mod], "h",
@@ -114,21 +116,21 @@ keys = [
              lazy.window.toggle_floating(),
              desc='toggle floating'
              ),
-         Key([mod, "shift"], "m",
+         Key([mod], "f",
              lazy.window.toggle_fullscreen(),
              desc='toggle fullscreen'
              ),
          ### Stack controls
-         Key([mod, "shift"], "space",
+         Key([mod, "shift"], "Tab",
              lazy.layout.rotate(),
              lazy.layout.flip(),
              desc='Switch which side main pane occupies (XmonadTall)'
              ),
-         Key([mod], "space",
+          Key([mod], "space",
              lazy.layout.next(),
              desc='Switch window focus to other pane(s) of stack'
              ),
-         Key([mod, "control"], "Return",
+         Key([mod, "shift"], "space",
              lazy.layout.toggle_split(),
              desc='Toggle between split and unsplit sides of stack'
              ),
@@ -189,6 +191,10 @@ keys = [
                  lazy.spawn("./dmscripts/dman"),
                  desc='Search manpages in dmenu'
                  ),
+             Key([], "o",
+                 lazy.spawn("./dmscripts/dmqute"),
+                 desc='Search your qutebrowser bookmarks and quickmarks'
+                 ),
              Key([], "r",
                  lazy.spawn("./dmscripts/dmred"),
                  desc='Search reddit via dmenu'
@@ -232,26 +238,33 @@ layouts = [
     #layout.Stack(stacks=2, **layout_theme),
     #layout.Columns(**layout_theme),
     #layout.RatioTile(**layout_theme),
+    #layout.Tile(shift_windows=True, **layout_theme),
     #layout.VerticalTile(**layout_theme),
     #layout.Matrix(**layout_theme),
     #layout.Zoomy(**layout_theme),
     layout.MonadTall(**layout_theme),
     layout.Max(**layout_theme),
-    layout.Tile(shift_windows=True, **layout_theme),
     layout.Stack(num_stacks=2),
+    layout.RatioTile(**layout_theme),
     layout.TreeTab(
          font = "Ubuntu",
          fontsize = 10,
-         sections = ["FIRST", "SECOND"],
-         section_fontsize = 11,
-         bg_color = "141414",
-         active_bg = "90C435",
+         sections = ["FIRST", "SECOND", "THIRD", "FOURTH"],
+         section_fontsize = 10,
+         border_width = 2,
+         bg_color = "1c1f24",
+         active_bg = "c678dd",
          active_fg = "000000",
-         inactive_bg = "384323",
-         inactive_fg = "a0a0a0",
+         inactive_bg = "a9a1e1",
+         inactive_fg = "1c1f24",
+         padding_left = 0,
+         padding_x = 0,
          padding_y = 5,
          section_top = 10,
-         panel_width = 320
+         section_bottom = 20,
+         level_shift = 8,
+         vspace = 3,
+         panel_width = 200
          ),
     layout.Floating(**layout_theme)
 ]
@@ -262,7 +275,8 @@ colors = [["#282c34", "#282c34"], # panel background
           ["#ff5555", "#ff5555"], # border line color for current tab
           ["#74438f", "#74438f"], # border line color for 'other tabs' and color for 'odd widgets'
           ["#4f76c7", "#4f76c7"], # color for the 'even widgets'
-          ["#e1acff", "#e1acff"]] # window name
+          ["#e1acff", "#e1acff"], # window name
+          ["#ecbbfb", "#ecbbfb"]] # backbround for inactive screens
 
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
@@ -303,7 +317,7 @@ def init_widgets_list():
                        padding_x = 3,
                        borderwidth = 3,
                        active = colors[2],
-                       inactive = colors[2],
+                       inactive = colors[7],
                        rounded = False,
                        highlight_color = colors[1],
                        highlight_method = "line",
