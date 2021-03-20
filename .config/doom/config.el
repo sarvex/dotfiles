@@ -1,9 +1,7 @@
 (map! :leader
-      :desc "List bookmarks"
-      "b L" #'list-bookmarks
-      :leader
-      :desc "Save current bookmarks to bookmark file"
-      "b w" #'bookmark-save)
+      (:prefix ("b". "buffer")
+        :desc "List bookmarks" "L" #'list-bookmarks
+        :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
 
 (setq centaur-tabs-set-bar 'over
       centaur-tabs-set-icons t
@@ -13,30 +11,21 @@
       centaur-tabs-style "bar"
       centaur-tabs-modified-marker "•")
 (map! :leader
-      :desc "Toggle tabs globally"
-      "t c" #'centaur-tabs-mode
-      :leader
-      :desc "Toggle tabs local display"
-      "t C" #'centaur-tabs-local-mode)
+      :desc "Toggle tabs globally" "t c" #'centaur-tabs-mode
+      :desc "Toggle tabs local display" "t C" #'centaur-tabs-local-mode)
 (evil-define-key 'normal centaur-tabs-mode-map (kbd "g <right>") 'centaur-tabs-forward        ; default Doom binding is 'g t'
                                                (kbd "g <left>")  'centaur-tabs-backward       ; default Doom binding is 'g T'
                                                (kbd "g <down>")  'centaur-tabs-forward-group
                                                (kbd "g <up>")    'centaur-tabs-backward-group)
 
 (map! :leader
-      :desc "Dired"
-      "d d" #'dired
-      :leader
-      :desc "Dired jump to current"
-      "d j" #'dired-jump
+      (:prefix ("d" . "dired")
+       :desc "Open dired" "d" #'dired
+       :desc "Dired jump to current" "j" #'dired-jump)
       (:after dired
-        (:map dired-mode-map
-         :leader
-         :desc "Peep-dired image previews"
-         "d p" #'peep-dired
-         :leader
-         :desc "Dired view file"
-         "d v" #'dired-view-file)))
+       (:map dired-mode-map
+        :desc "Peep-dired image previews" "d p" #'peep-dired
+        :desc "Dired view file" "d v" #'dired-view-file)))
 ;; Make 'h' and 'l' go back and forward in dired. Much faster to navigate the directory structure!
 (evil-define-key 'normal dired-mode-map
   (kbd "h") 'dired-up-directory
@@ -56,10 +45,9 @@
                               ("mkv" . "mpv")
                               ("mp4" . "mpv")))
 
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-dracula)
 (map! :leader
-      :desc "Load new theme"
-      "h t" #'counsel-load-theme)
+      :desc "Load new theme" "h t" #'counsel-load-theme)
 
 (custom-set-variables
  '(elfeed-feeds
@@ -80,56 +68,27 @@
      ("http://lxer.com/module/newswire/headlines.rss" lxer linux)
      ("https://distrowatch.com/news/dwd.xml" distrowatch linux)))))
 
-(emms-all)
-(emms-default-players)
 (emms-mode-line 1)
 (emms-playing-time 1)
 (setq emms-source-file-default-directory "~/Music/Non-Classical/70s-80s/"
       emms-playlist-buffer-name "*Music*"
       emms-info-asynchronously t
       emms-source-file-directory-tree-function 'emms-source-file-directory-tree-find)
-(map! :leader
-      :desc "Go to emms playlist"
-      "a a" #'emms-playlist-mode-go
-      :leader
-      :desc "Emms pause track"
-      "a x" #'emms-pause
-      :leader
-      :desc "Emms stop track"
-      "a s" #'emms-stop
-      :leader
-      :desc "Emms play previous track"
-      "a p" #'emms-previous
-      :leader
-      :desc "Emms play next track"
-      "a n" #'emms-next)
 
 (map! :leader
-      :desc "Evaluate elisp in buffer"
-      "e b" #'eval-buffer
-      :leader
-      :desc "Evaluate defun"
-      "e d" #'eval-defun
-      :leader
-      :desc "Evaluate elisp expression"
-      "e e" #'eval-expression
-      :leader
-      :desc "Evaluate last sexpression"
-      "e l" #'eval-last-sexp
-      :leader
-      :desc "Evaluate elisp in region"
-      "e r" #'eval-region)
+      (:prefix ("e". "evaluate/EWW")
+       :desc "Evaluate elisp in buffer" "b" #'eval-buffer
+       :desc "Evaluate defun" "d" #'eval-defun
+       :desc "Evaluate elisp expression" "e" #'eval-expression
+       :desc "Evaluate last sexpression" "l" #'eval-last-sexp
+       :desc "Evaluate elisp in region" "r" #'eval-region))
 
 (setq browse-url-browser-function 'eww-browse-url)
 (map! :leader
-      :desc "Eww web browser"
-      "e w" #'eww
-      :leader
-      :desc "Eww reload page"
-      "e R" #'eww-reload
-      :leader
-      :desc "Search web for text between BEG/END"
-      "s w" #'eww-search-words)
+      (:prefix ("e" . "evaluate/EWW")
+      :desc "Eww web browser" "e w" #'eww
+      :desc "Eww reload page" "e R" #'eww-reload
+      :desc "Search web for text between BEG/END" "s w" #'eww-search-words))
 
 (setq ispell-dictionary "english")
 
@@ -162,28 +121,17 @@
 (ivy-posframe-mode 1) ; 1 enables posframe-mode, 0 disables it.
 
 (map! :leader
-      :desc "Ivy push view"
-      "v p" #'ivy-push-view
-      :leader
-      :desc "Ivy switch view"
-      "v s" #'ivy-switch-view)
+      :desc "Ivy push view" "v p" #'ivy-push-view
+      :desc "Ivy switch view" "v s" #'ivy-switch-view)
 
 (setq display-line-numbers-type t)
 (map! :leader
-      :desc "Comment or uncomment lines"
-      "TAB TAB" #'comment-line
-      :leader
-      :desc "Toggle line numbers"
-      "t l" #'doom/toggle-line-numbers
-      :leader
-      :desc "Toggle line highlight in frame"
-      "t h" #'hl-line-mode
-      :leader
-      :desc "Toggle line highlight globally"
-      "t H" #'global-hl-line-mode
-      :leader
-      :desc "Toggle truncate lines"
-      "t t" #'toggle-truncate-lines)
+      :desc "Comment or uncomment lines" "TAB TAB" #'comment-line
+      (:prefix ("t" . "toggle")
+      :desc "Toggle line numbers" "l" #'doom/toggle-line-numbers
+      :desc "Toggle line highlight in frame" "h" #'hl-line-mode
+      :desc "Toggle line highlight globally" "H" #'global-hl-line-mode
+      :desc "Toggle truncate lines" "t" #'toggle-truncate-lines))
 
 (after! mastodon
   (setq mastodon-instance-url "https://mastodon.technology/"))
@@ -283,27 +231,17 @@
 (after! doom-themes
   (setq doom-neotree-enable-variable-pitch t))
 (map! :leader
-      :desc "Toggle neotree file viewer"
-      "t n" #'neotree-toggle
-      :leader
-      :desc "Open directory in neotree"
-      "d n" #'neotree-dir)
+      (:prefix ("t" . "toggle")
+      :desc "Toggle neotree file viewer" "n" #'neotree-toggle
+      :desc "Open directory in neotree" "N" #'neotree-dir))
 
 (map! :leader
-      :desc "Edit agenda file"
-      "- a" #'(lambda () (interactive) (find-file "~/Org/agenda.org"))
-      :leader
-      :desc "Edit doom config.org"
-      "- c" #'(lambda () (interactive) (find-file "~/.doom.d/config.org"))
-      :leader
-      :desc "Edit eshell aliases"
-      "- e" #'(lambda () (interactive) (find-file "~/.doom.d/aliases"))
-      :leader
-      :desc "Edit doom init.el"
-      "- i" #'(lambda () (interactive) (find-file "~/.doom.d/init.el"))
-      :leader
-      :desc "Edit doom packages.el"
-      "- p" #'(lambda () (interactive) (find-file "~/.doom.d/packages.el")))
+      (:prefix ("-" . "open file")
+      :desc "Edit agenda file" "a" #'(lambda () (interactive) (find-file "~/Org/agenda.org"))
+      :desc "Edit doom config.org" "c" #'(lambda () (interactive) (find-file "~/.doom.d/config.org"))
+      :desc "Edit eshell aliases" "e" #'(lambda () (interactive) (find-file "~/.doom.d/aliases"))
+      :desc "Edit doom init.el" "i" #'(lambda () (interactive) (find-file "~/.doom.d/init.el"))
+      :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.doom.d/packages.el")))
 
 (after! org
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
@@ -356,45 +294,25 @@
   (dt/org-babel-tangle-async (buffer-file-name)))
 
 (map! :leader
-      :desc "Copy to register"
-      "r c" #'copy-to-register
-      :leader
-      :desc "Frameset to register"
-      "r f" #'frameset-to-register
-      :leader
-      :desc "Insert contents of register"
-      "r i" #'insert-register
-      :leader
-      :desc "Jump to register"
-      "r j" #'jump-to-register
-      :leader
-      :desc "List registers"
-      "r l" #'list-registers
-      :leader
-      :desc "Number to register"
-      "r n" #'number-to-register
-      :leader
-      :desc "Interactively choose a register"
-      "r r" #'counsel-register
-      :leader
-      :desc "View a register"
-      "r v" #'view-register
-      :leader
-      :desc "Window configuration to register"
-      "r w" #'window-configuration-to-register
-      :leader
-      :desc "Increment register"
-      "r +" #'increment-register
-      :leader
-      :desc "Point to register"
-      "r SPC" #'point-to-register)
+      (:prefix ("r" . "registers")
+      :desc "Copy to register" "c" #'copy-to-register
+      :desc "Frameset to register" "f" #'frameset-to-register
+      :desc "Insert contents of register" "i" #'insert-register
+      :desc "Jump to register" "j" #'jump-to-register
+      :desc "List registers" "l" #'list-registers
+      :desc "Number to register" "n" #'number-to-register
+      :desc "Interactively choose a register" "r" #'counsel-register
+      :desc "View a register" "v" #'view-register
+      :desc "Window configuration to register" "w" #'window-configuration-to-register
+      :desc "Increment register" "+" #'increment-register
+      :desc "Point to register" "SPC" #'point-to-register))
 
 (map! :leader
+      (:prefix ("\\" . "ssh")
       :desc "Ssh into distrotube.com"
-      "\\ d" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.com"))
-      :leader
+      "d" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.com"))
       :desc "Ssh into my nextcloud"
-      "\\ n" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.net")))
+      "n" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.net"))))
 
 (setq shell-file-name "/bin/fish"
       eshell-aliases-file "~/.doom.d/aliases"
@@ -406,23 +324,24 @@
       eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh")
       vterm-max-scrollback 5000)
 (map! :leader
+<<<<<<< HEAD:.config/doom/config.org
+      :desc "Counsel eshell history" "e h" #'counsel-esh-history)
+=======
       :desc "Eshell"
       "e s" #'eshell
       :leader
       :desc "Counsel eshell history"
       "e h" #'counsel-esh-history)
+>>>>>>> 45486bac887a31725e135dde053925d8ff28cb78:.doom.d/config.org
 
 (defun prefer-horizontal-split ()
   (set-variable 'split-height-threshold nil t)
   (set-variable 'split-width-threshold 40 t)) ; make this as low as needed
 (add-hook 'markdown-mode-hook 'prefer-horizontal-split)
 (map! :leader
-      :desc "Clone indirect buffer other window"
-      "b c" #'clone-indirect-buffer-other-window)
+      :desc "Clone indirect buffer other window" "b c" #'clone-indirect-buffer-other-window)
 
 (map! :leader
-      :desc "Winner redo"
-      "w <right>" #'winner-redo
-      :leader
-      :desc "Winner undo"
-      "w <left>" #'winner-undo)
+      (:prefix ("w" . "window")
+      :desc "Winner redo" "<right>" #'winner-redo
+      :desc "Winner undo" "<left>" #'winner-undo))
