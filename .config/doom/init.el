@@ -23,7 +23,7 @@
        company           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +fonts +ivyposframe)             ; a search engine for love and life
+       (ivy +fonts +childframe)             ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -49,7 +49,7 @@
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        ;;window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
-       ;;zen               ; distraction-free coding or writing
+       zen               ; distraction-free coding or writing
 
        :editor
        (evil +everywhere); come to the dark side, we have cookies
@@ -66,9 +66,9 @@
        ;;word-wrap         ; soft wrapping with language-aware indent
 
        :emacs
-       dired             ; making dired pretty [functional]
+       (dired +icons)            ; making dired pretty [functional]
        electric          ; smarter, keyword-based electric-indent
-       ibuffer           ; interactive buffer management
+       (ibuffer +icons)           ; interactive buffer management
        undo              ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
 
@@ -80,7 +80,7 @@
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       (spell +flyspell) ; tasing you for misspelling mispelling
+       (spell +aspell) ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
        :tools
@@ -93,7 +93,7 @@
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
-       ;;lsp
+       lsp
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -129,28 +129,28 @@
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
        ;;(go +lsp)         ; the hipster dialect
-       (haskell +dante)  ; a language that's lazier than I am
+       (haskell +lsp)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ; a language you can depend on
-       json              ; At least it ain't XML
+       (json +lmsp)             ; At least it ain't XML
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
-       javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript +lsp)       ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
-       latex             ; writing papers in Emacs has never been so fun
+       (latex +lsp)            ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
        ;;ledger            ; an accounting system in Emacs
-       lua               ; one-based indices? one-based indices
+       (lua +lsp)              ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +org-bullets +org-ql)              ; organize your plain life in plain text
+       (org +org-bullets)              ; organize your plain life in plain text
        php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       python            ; beautiful is better than ugly
+       (python +lsp)           ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
@@ -160,13 +160,13 @@
        ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;scheme            ; a fully conniving family of lisps
-       sh                ; she sells {ba,z,fi}sh shells on the C xor
+       (sh +lsp)               ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       web               ; the tubes
-       yaml              ; JSON, but readable
+       (web +lsp)              ; the tubes
+       (yaml +lsp)             ; JSON, but readable
 
        :email
        mu4e
@@ -176,18 +176,18 @@
 
        :app
        ;;calendar
-       ;;emms
+       emms
        ;;everywhere        ; *leave* Emacs!? You must be joking
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
 
-       :emms
-       emms-setup
-       emms-info
-       emms-cue
-       emms-mode-line
+       ;; :emms
+       ;; emms-setup
+       ;; emms-info
+       ;; emms-cue
+       ;; emms-mode-line
 
        :config
-       ;;literate
+       literate
        (default +bindings +smartparens))

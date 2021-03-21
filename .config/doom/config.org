@@ -32,19 +32,17 @@
 - [[#splits][SPLITS]]
 - [[#winner-mode][WINNER MODE]]
 
-* ABOUT THIS CONFIG
-This is my personal Doom Emacs config.  Doom Emacs is a distribution of Emacs that uses the "evil" keybindings (Vim keybindings) and includes a number of nice extensions and a bit of configuration out of the box.  I am maintaing this config not just for myself, but also for those that want to explore some of what is possible with Emacs.  I will add a lot of examples of plugins and settings, some of them I may not even use personally.  I do this because many people following me on YouTube look at my configs as "documentation".
+* ABOUT THIS CONFIG 
+This is my personal Doom Emacs config.  Doom Emacs is a distribution of Emacs that uses the "evil" keybindings (Vim keybindings) and includes a number of nice extensions and a bit of configuration out of the box.  I am maintaining this config not just for myself, but also for those that want to explore some of what is possible with Emacs.  I will add a lot of examples of plugins and settings, some of them I may not even use personally.  I do this because many people following me on YouTube look at my configs as "documentation".
 
 * BOOKMARKS AND BUFFERS
 Doom Emacs uses 'SPC b' for keybindings related to bookmarks and buffers.  Bookmarks are somewhat like registers in that they record positions you can jump to.  Unlike registers, they have long names, and they persist automatically from one Emacs session to the next. The prototypical use of bookmarks is to record where you were reading in various files.  Regarding /buffers/, the text you are editing in Emacs resides in an object called a /buffer/. Each time you visit a file, a buffer is used to hold the file’s text. Each time you invoke Dired, a buffer is used to hold the directory listing.
 
 #+BEGIN_SRC emacs-lisp
 (map! :leader
-      :desc "List bookmarks"
-      "b L" #'list-bookmarks
-      :leader
-      :desc "Save current bookmarks to bookmark file"
-      "b w" #'bookmark-save)
+      (:prefix ("b". "buffer")
+        :desc "List bookmarks" "L" #'list-bookmarks
+        :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
 #+END_SRC
 
 * CENTAUR-TABS
@@ -68,11 +66,8 @@ To use tabs in Doom Emacs, be sure to uncomment "tabs" in Doom's init.el.  Displ
       centaur-tabs-style "bar"
       centaur-tabs-modified-marker "•")
 (map! :leader
-      :desc "Toggle tabs globally"
-      "t c" #'centaur-tabs-mode
-      :leader
-      :desc "Toggle tabs local display"
-      "t C" #'centaur-tabs-local-mode)
+      :desc "Toggle tabs globally" "t c" #'centaur-tabs-mode
+      :desc "Toggle tabs local display" "t C" #'centaur-tabs-local-mode)
 (evil-define-key 'normal centaur-tabs-mode-map (kbd "g <right>") 'centaur-tabs-forward        ; default Doom binding is 'g t'
                                                (kbd "g <left>")  'centaur-tabs-backward       ; default Doom binding is 'g T'
                                                (kbd "g <down>")  'centaur-tabs-forward-group
@@ -95,19 +90,13 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
 
 #+BEGIN_SRC emacs-lisp
 (map! :leader
-      :desc "Dired"
-      "d d" #'dired
-      :leader
-      :desc "Dired jump to current"
-      "d j" #'dired-jump
+      (:prefix ("d" . "dired")
+       :desc "Open dired" "d" #'dired
+       :desc "Dired jump to current" "j" #'dired-jump)
       (:after dired
-        (:map dired-mode-map
-         :leader
-         :desc "Peep-dired image previews"
-         "d p" #'peep-dired
-         :leader
-         :desc "Dired view file"
-         "d v" #'dired-view-file)))
+       (:map dired-mode-map
+        :desc "Peep-dired image previews" "d p" #'peep-dired
+        :desc "Dired view file" "d v" #'dired-view-file)))
 ;; Make 'h' and 'l' go back and forward in dired. Much faster to navigate the directory structure!
 (evil-define-key 'normal dired-mode-map
   (kbd "h") 'dired-up-directory
@@ -134,8 +123,7 @@ Setting the theme to doom-one.  To try out new themes, I set a keybinding for co
 #+BEGIN_SRC emacs-lisp
 (setq doom-theme 'doom-one)
 (map! :leader
-      :desc "Load new theme"
-      "h t" #'counsel-load-theme)
+      :desc "Load new theme" "h t" #'counsel-load-theme)
 #+END_SRC
 
 * ELFEED
@@ -183,20 +171,12 @@ One of the media players available for Emacs is emms, which stands for Emacs Mul
       emms-info-asynchronously t
       emms-source-file-directory-tree-function 'emms-source-file-directory-tree-find)
 (map! :leader
-      :desc "Go to emms playlist"
-      "a a" #'emms-playlist-mode-go
-      :leader
-      :desc "Emms pause track"
-      "a x" #'emms-pause
-      :leader
-      :desc "Emms stop track"
-      "a s" #'emms-stop
-      :leader
-      :desc "Emms play previous track"
-      "a p" #'emms-previous
-      :leader
-      :desc "Emms play next track"
-      "a n" #'emms-next)
+      (:prefix ("a" . "EMMS audio player")
+       :desc "Go to emms playlist" "a" #'emms-playlist-mode-go
+       :desc "Emms pause track" "x" #'emms-pause
+       :desc "Emms stop track" "s" #'emms-stop
+       :desc "Emms play previous track" "p" #'emms-previous
+       :desc "Emms play next track" "n" #'emms-next))
 #+END_SRC
 
 * EVALUATE ELISP EXPRESSIONS
@@ -212,20 +192,12 @@ Changing some keybindings from their defaults to better fit with Doom Emacs, and
 
 #+Begin_src emacs-lisp
 (map! :leader
-      :desc "Evaluate elisp in buffer"
-      "e b" #'eval-buffer
-      :leader
-      :desc "Evaluate defun"
-      "e d" #'eval-defun
-      :leader
-      :desc "Evaluate elisp expression"
-      "e e" #'eval-expression
-      :leader
-      :desc "Evaluate last sexpression"
-      "e l" #'eval-last-sexp
-      :leader
-      :desc "Evaluate elisp in region"
-      "e r" #'eval-region)
+      (:prefix ("e". "evaluate/EWW")
+       :desc "Evaluate elisp in buffer" "b" #'eval-buffer
+       :desc "Evaluate defun" "d" #'eval-defun
+       :desc "Evaluate elisp expression" "e" #'eval-expression
+       :desc "Evaluate last sexpression" "l" #'eval-last-sexp
+       :desc "Evaluate elisp in region" "r" #'eval-region))
 #+END_SRC
 
 * EWW
@@ -234,14 +206,11 @@ EWW is the Emacs Web Wowser, the builtin browser in Emacs.  Below I set urls to 
 #+BEGIN_SRC emacs-lisp
 (setq browse-url-browser-function 'eww-browse-url)
 (map! :leader
-      :desc "Eww web browser"
-      "e w" #'eww
-      :leader
-      :desc "Eww reload page"
-      "e R" #'eww-reload
-      :leader
       :desc "Search web for text between BEG/END"
-      "s w" #'eww-search-words)
+      "s w" #'eww-search-words
+      (:prefix ("e" . "evaluate/EWW")
+       :desc "Eww web browser" "w" #'eww
+       :desc "Eww reload page" "R" #'eww-reload))
 #+END_SRC
 
 * FONTS
@@ -308,11 +277,9 @@ By default, Doom Emacs does not use 'SPC v', so the format I use for these bindi
 
 #+BEGIN_SRC emacs-lisp
 (map! :leader
-      :desc "Ivy push view"
-      "v p" #'ivy-push-view
-      :leader
-      :desc "Ivy switch view"
-      "v s" #'ivy-switch-view)
+      (:prefix ("v" . "Ivy")
+       :desc "Ivy push view" "v p" #'ivy-push-view
+       :desc "Ivy switch view" "v s" #'ivy-switch-view))
 #+END_SRC
 
 * LINE SETTINGS
@@ -329,20 +296,12 @@ I set comment-line to 'SPC TAB TAB' which is a rather comfortable keybinding for
 #+BEGIN_SRC emacs-lisp
 (setq display-line-numbers-type t)
 (map! :leader
-      :desc "Comment or uncomment lines"
-      "TAB TAB" #'comment-line
-      :leader
-      :desc "Toggle line numbers"
-      "t l" #'doom/toggle-line-numbers
-      :leader
-      :desc "Toggle line highlight in frame"
-      "t h" #'hl-line-mode
-      :leader
-      :desc "Toggle line highlight globally"
-      "t H" #'global-hl-line-mode
-      :leader
-      :desc "Toggle truncate lines"
-      "t t" #'toggle-truncate-lines)
+      :desc "Comment or uncomment lines" "TAB TAB" #'comment-line
+      (:prefix ("t" . "toggle")
+       :desc "Toggle line numbers" "l" #'doom/toggle-line-numbers
+       :desc "Toggle line highlight in frame" "h" #'hl-line-mode
+       :desc "Toggle line highlight globally" "H" #'global-hl-line-mode
+       :desc "Toggle truncate lines" "t" #'toggle-truncate-lines))
 #+END_SRC
 
 * MASTODON
@@ -385,7 +344,7 @@ I will be setting up mu4e to use three different email addresses.  This source b
 #+END_SRC
 
 ** Setting Up Multiple Accounts
-The settings below are specific to each of three different email accounts.  These settings are fictional and are here for documentation purposes.  Hence, I have this source block entirely commmented out.  Now, I do use a source code block similar to the one below, but I don't want to share it publicly.  Keep reading to see how I handle this.
+The settings below are specific to each of three different email accounts.  These settings are fictional and are here for documentation purposes.  Hence, I have this source block entirely commented out.  Now, I do use a source code block similar to the one below, but I don't want to share it publicly.  Keep reading to see how I handle this.
 
 #+BEGIN_SRC emacs-lisp
 ;; (defvar my-mu4e-account-alist
@@ -433,9 +392,9 @@ The settings below are specific to each of three different email accounts.  Thes
 ;;      (smtpmail-smtp-service 587))))
 #+END_SRC
 
-I'm sourcing an elisp file (~/.doom.d/email.el) that contains the above source block but with my actual email settings.  I do this so I don't have to share my email addresses (other than derek@distrotube.com) publicly.  If you uncommented the above source block to use, then you should comment out or delete this block below.
+I'm sourcing an elisp file (~/.config/doom/email.el) that contains the above source block but with my actual email settings.  I do this so I don't have to share my email addresses (other than derek@distrotube.com) publicly.  If you uncommented the above source block to use, then you should comment out or delete this block below.
 #+BEGIN_SRC emacs-lisp
-(load "~/.doom.d/email")
+(load "~/.config/doom/email")
 
 #+END_SRC
 
@@ -480,11 +439,8 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
 (after! doom-themes
   (setq doom-neotree-enable-variable-pitch t))
 (map! :leader
-      :desc "Toggle neotree file viewer"
-      "t n" #'neotree-toggle
-      :leader
-      :desc "Open directory in neotree"
-      "d n" #'neotree-dir)
+      :desc "Toggle neotree file viewer" "t n" #'neotree-toggle
+      :desc "Open directory in neotree" "d n" #'neotree-dir)
 #+END_SRC
 
 * OPEN SPECIFIC FILES
@@ -500,20 +456,12 @@ Keybindings to open files that I work with all the time using the find-file comm
 
 #+BEGIN_SRC emacs-lisp
 (map! :leader
-      :desc "Edit agenda file"
-      "- a" #'(lambda () (interactive) (find-file "~/Org/agenda.org"))
-      :leader
-      :desc "Edit doom config.org"
-      "- c" #'(lambda () (interactive) (find-file "~/.doom.d/config.org"))
-      :leader
-      :desc "Edit eshell aliases"
-      "- e" #'(lambda () (interactive) (find-file "~/.doom.d/aliases"))
-      :leader
-      :desc "Edit doom init.el"
-      "- i" #'(lambda () (interactive) (find-file "~/.doom.d/init.el"))
-      :leader
-      :desc "Edit doom packages.el"
-      "- p" #'(lambda () (interactive) (find-file "~/.doom.d/packages.el")))
+      (:prefix ("-" . "open file")
+       :desc "Edit agenda file" "a" #'(lambda () (interactive) (find-file "~/Org/agenda.org"))
+       :desc "Edit doom config.org" "c" #'(lambda () (interactive) (find-file "~/.doom.d/config.org"))
+       :desc "Edit eshell aliases" "e" #'(lambda () (interactive) (find-file "~/.doom.d/aliases"))
+       :desc "Edit doom init.el" "i" #'(lambda () (interactive) (find-file "~/.doom.d/init.el"))
+       :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.doom.d/packages.el"))))
 #+END_SRC
 
 * ORG MODE
@@ -595,38 +543,18 @@ Emacs registers are compartments where you can save text, rectangles and positio
 
 #+BEGIN_SRC emacs-lisp
 (map! :leader
-      :desc "Copy to register"
-      "r c" #'copy-to-register
-      :leader
-      :desc "Frameset to register"
-      "r f" #'frameset-to-register
-      :leader
-      :desc "Insert contents of register"
-      "r i" #'insert-register
-      :leader
-      :desc "Jump to register"
-      "r j" #'jump-to-register
-      :leader
-      :desc "List registers"
-      "r l" #'list-registers
-      :leader
-      :desc "Number to register"
-      "r n" #'number-to-register
-      :leader
-      :desc "Interactively choose a register"
-      "r r" #'counsel-register
-      :leader
-      :desc "View a register"
-      "r v" #'view-register
-      :leader
-      :desc "Window configuration to register"
-      "r w" #'window-configuration-to-register
-      :leader
-      :desc "Increment register"
-      "r +" #'increment-register
-      :leader
-      :desc "Point to register"
-      "r SPC" #'point-to-register)
+      (:prefix ("r" . "registers")
+       :desc "Copy to register" "c" #'copy-to-register
+       :desc "Frameset to register" "f" #'frameset-to-register
+       :desc "Insert contents of register" "i" #'insert-register
+       :desc "Jump to register" "j" #'jump-to-register
+       :desc "List registers" "l" #'list-registers
+       :desc "Number to register" "n" #'number-to-register
+       :desc "Interactively choose a register" "r" #'counsel-register
+       :desc "View a register" "v" #'view-register
+       :desc "Window configuration to register" "w" #'window-configuration-to-register
+       :desc "Increment register" "+" #'increment-register
+       :desc "Point to register" "SPC" #'point-to-register))
 #+END_SRC
 
 * REMOTE CONNECTIONS
@@ -639,11 +567,9 @@ Keybindings for ssh'ing into remote machines.  By default, Doom Emacs does not u
 
 #+BEGIN_SRC emacs-lisp
 (map! :leader
-      :desc "Ssh into distrotube.com"
-      "\\ d" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.com"))
-      :leader
-      :desc "Ssh into my nextcloud"
-      "\\ n" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.net")))
+      (:prefix ("\\" . "ssh")
+       :desc "Ssh into distrotube.com" "\\ d" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.com"))
+       :desc "Ssh into my nextcloud" "\\ n" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.net"))))
 #+END_SRC
 
 * SHELLS
@@ -662,8 +588,8 @@ Settings for the various shells and terminal emulators within Emacs.
       eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh")
       vterm-max-scrollback 5000)
 (map! :leader
-      :desc "Counsel eshell history"
-      "e h" #'counsel-esh-history)
+      :desc "Eshell" "e s" #'eshell
+      :desc "Counsel eshell history" "e h" #'counsel-esh-history)
 #+END_SRC
 
 * SPLITS
@@ -675,8 +601,7 @@ I set splits to default to opening on the right using 'prefer-horizontal-split'.
   (set-variable 'split-width-threshold 40 t)) ; make this as low as needed
 (add-hook 'markdown-mode-hook 'prefer-horizontal-split)
 (map! :leader
-      :desc "Clone indirect buffer other window"
-      "b c" #'clone-indirect-buffer-other-window)
+      :desc "Clone indirect buffer other window" "b c" #'clone-indirect-buffer-other-window)
 #+END_SRC
 
 * WINNER MODE
@@ -684,9 +609,7 @@ Winner mode has been included with GNU Emacs since version 20.  This is a global
 
 #+BEGIN_SRC emacs-lisp
 (map! :leader
-      :desc "Winner redo"
-      "w <right>" #'winner-redo
-      :leader
-      :desc "Winner undo"
-      "w <left>" #'winner-undo)
+      (:prefix ("w" . "window")
+       :desc "Winner redo" "<right>" #'winner-redo
+       :desc "Winner undo" "<left>" #'winner-undo))
 #+END_SRC
