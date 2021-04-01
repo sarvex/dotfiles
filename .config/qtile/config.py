@@ -378,18 +378,18 @@ def init_widgets_list():
                        fontsize = 37
                        ),
               widget.TextBox(
-                       text = " 🌡",
+                       text = " 🌡 TEMP NOT SHOWN ",
                        padding = 2,
                        foreground = colors[2],
                        background = colors[5],
                        fontsize = 11
                        ),
-              widget.ThermalSensor(
-                       foreground = colors[2],
-                       background = colors[5],
-                       threshold = 90,
-                       padding = 5
-                       ),
+              # widget.ThermalSensor(
+              #          foreground = colors[2],
+              #          background = colors[5],
+              #          threshold = 90,
+              #          padding = 5
+              #          ),
               widget.TextBox(
                        text='',
                        background = colors[5],

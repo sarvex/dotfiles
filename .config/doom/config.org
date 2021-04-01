@@ -41,8 +41,8 @@ Doom Emacs uses 'SPC b' for keybindings related to bookmarks and buffers.  Bookm
 #+BEGIN_SRC emacs-lisp
 (map! :leader
       (:prefix ("b". "buffer")
-        :desc "List bookmarks" "L" #'list-bookmarks
-        :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
+       :desc "List bookmarks" "L" #'list-bookmarks
+       :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
 #+END_SRC
 
 * CENTAUR-TABS
@@ -130,7 +130,13 @@ Setting the theme to doom-one.  To try out new themes, I set a keybinding for co
 An RSS newsfeed reader for Emacs.
 
 #+BEGIN_SRC emacs-lisp
-(setq elfeed-feeds '(("https://www.reddit.com/r/linux.rss" reddit linux)
+;; (require 'elfeed-goodies)
+;; (elfeed-goodies/setup)
+;; (setq elfeed-goodies/entry-pane-size 0.5)
+(setq elfeed-feeds (quote
+                    (("https://www.reddit.com/r/linux.rss" reddit linux)
+                     ("https://www.reddit.com/r/commandline.rss" reddit linux)
+                     ("https://www.reddit.com/r/emacs.rss" reddit linux)
                      ("https://www.gamingonlinux.com/article_rss.php" gaming linux)
                      ("https://hackaday.com/blog/feed/" hackaday linux)
                      ("https://opensource.com/feed" opensource linux)
@@ -144,7 +150,7 @@ An RSS newsfeed reader for Emacs.
                      ("https://www.techrepublic.com/rssfeeds/topic/open-source/" techrepublic linux)
                      ("https://betanews.com/feed" betanews linux)
                      ("http://lxer.com/module/newswire/headlines.rss" lxer linux)
-                     ("https://distrowatch.com/news/dwd.xml" distrowatch linux)))
+                     ("https://distrowatch.com/news/dwd.xml" distrowatch linux))))
 #+END_SRC
 
 * EMMS
@@ -228,6 +234,7 @@ Settings related to fonts within Doom Emacs:
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
+(setq global-prettify-symbols-mode t)
 #+END_SRC
 
 * IVY
@@ -302,11 +309,11 @@ I set comment-line to 'SPC TAB TAB' which is a rather comfortable keybinding for
 #+END_SRC
 
 * MASTODON
-Mastodon.el is a mastodon client for Emacs.  Note that I wrapped my settings with (after! mastodon).  Without this, my settings for the mastodon instance that I use would be overwritten by the default settings for this module, which is "mastodon.social".
+Mastodon.el is a mastodon client for Emacs.  Note that I wrapped my settings with (after! mastodon).  Without this, my settings for the mastodon instance that I use (distrotoot.com) would be overwritten by the default settings for this module, which is "mastodon.social".
 
 #+BEGIN_SRC emacs-lisp
 (after! mastodon
-  (setq mastodon-instance-url "https://mastodon.technology/"))
+  (setq mastodon-instance-url "https://distrotoot.com"))
 #+END_SRC
 
 * MU4E
@@ -392,7 +399,6 @@ The settings below are specific to each of three different email accounts.  Thes
 I'm sourcing an elisp file (~/.config/doom/email.el) that contains the above source block but with my actual email settings.  I do this so I don't have to share my email addresses (other than derek@distrotube.com) publicly.  If you uncommented the above source block to use, then you should comment out or delete this block below.
 #+BEGIN_SRC emacs-lisp
 (load "~/.config/doom/email")
-
 #+END_SRC
 
 ** Function To Facilitate Switching Between Accounts

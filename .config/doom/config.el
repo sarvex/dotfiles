@@ -1,7 +1,7 @@
 (map! :leader
       (:prefix ("b". "buffer")
-        :desc "List bookmarks" "L" #'list-bookmarks
-        :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
+       :desc "List bookmarks" "L" #'list-bookmarks
+       :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
 
 (setq centaur-tabs-set-bar 'over
       centaur-tabs-set-icons t
@@ -49,7 +49,13 @@
 (map! :leader
       :desc "Load new theme" "h t" #'counsel-load-theme)
 
-(setq elfeed-feeds '(("https://www.reddit.com/r/linux.rss" reddit linux)
+;; (require 'elfeed-goodies)
+;; (elfeed-goodies/setup)
+;; (setq elfeed-goodies/entry-pane-size 0.5)
+(setq elfeed-feeds (quote
+                    (("https://www.reddit.com/r/linux.rss" reddit linux)
+                     ("https://www.reddit.com/r/commandline.rss" reddit linux)
+                     ("https://www.reddit.com/r/emacs.rss" reddit linux)
                      ("https://www.gamingonlinux.com/article_rss.php" gaming linux)
                      ("https://hackaday.com/blog/feed/" hackaday linux)
                      ("https://opensource.com/feed" opensource linux)
@@ -63,7 +69,7 @@
                      ("https://www.techrepublic.com/rssfeeds/topic/open-source/" techrepublic linux)
                      ("https://betanews.com/feed" betanews linux)
                      ("http://lxer.com/module/newswire/headlines.rss" lxer linux)
-                     ("https://distrowatch.com/news/dwd.xml" distrowatch linux)))
+                     ("https://distrowatch.com/news/dwd.xml" distrowatch linux))))
 
 (emms-all)
 (emms-default-players)
@@ -106,6 +112,7 @@
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
+(setq global-prettify-symbols-mode t)
 
 (setq ivy-posframe-display-functions-alist
       '((swiper                     . ivy-posframe-display-at-point)
@@ -140,7 +147,7 @@
        :desc "Toggle truncate lines" "t" #'toggle-truncate-lines))
 
 (after! mastodon
-  (setq mastodon-instance-url "https://mastodon.technology/"))
+  (setq mastodon-instance-url "https://distrotoot.com"))
 
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
 ;;(require 'smtpmail)
