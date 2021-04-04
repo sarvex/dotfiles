@@ -570,10 +570,10 @@ floating_layout = layout.Floating(float_rules=[
     # default_float_rules include: utility, notification, toolbar, splash, dialog,
     # file_progress, confirm, download and error.
     *layout.Floating.default_float_rules,
-    Match(title='Confirmation'),  # tastyworks exit box
-    Match(title='Qalculate!'),  # qalculate-gtk
-    Match(wm_class='kdenlive'),  # kdenlive
-    Match(wm_class='pinentry-gtk-2'),  # GPG key password entry
+    Match(title='Confirmation'),      # tastyworks exit box
+    Match(title='Qalculate!'),        # qalculate-gtk
+    Match(wm_class='kdenlive'),       # kdenlive
+    Match(wm_class='pinentry-gtk-2'), # GPG key password entry
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"

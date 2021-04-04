@@ -130,9 +130,15 @@ Setting the theme to doom-one.  To try out new themes, I set a keybinding for co
 An RSS newsfeed reader for Emacs.
 
 #+BEGIN_SRC emacs-lisp
-;; (require 'elfeed-goodies)
-;; (elfeed-goodies/setup)
-;; (setq elfeed-goodies/entry-pane-size 0.5)
+(require 'elfeed-goodies)
+(elfeed-goodies/setup)
+(setq elfeed-goodies/entry-pane-size 0.5)
+(evil-define-key 'normal elfeed-show-mode-map
+  (kbd "J") 'elfeed-goodies/split-show-next
+  (kbd "K") 'elfeed-goodies/split-show-prev)
+(evil-define-key 'normal elfeed-search-mode-map
+  (kbd "J") 'elfeed-goodies/split-show-next
+  (kbd "K") 'elfeed-goodies/split-show-prev)
 (setq elfeed-feeds (quote
                     (("https://www.reddit.com/r/linux.rss" reddit linux)
                      ("https://www.reddit.com/r/commandline.rss" reddit linux)

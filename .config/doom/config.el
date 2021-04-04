@@ -49,9 +49,15 @@
 (map! :leader
       :desc "Load new theme" "h t" #'counsel-load-theme)
 
-;; (require 'elfeed-goodies)
-;; (elfeed-goodies/setup)
-;; (setq elfeed-goodies/entry-pane-size 0.5)
+(require 'elfeed-goodies)
+(elfeed-goodies/setup)
+(setq elfeed-goodies/entry-pane-size 0.5)
+(evil-define-key 'normal elfeed-show-mode-map
+  (kbd "J") 'elfeed-goodies/split-show-next
+  (kbd "K") 'elfeed-goodies/split-show-prev)
+(evil-define-key 'normal elfeed-search-mode-map
+  (kbd "J") 'elfeed-goodies/split-show-next
+  (kbd "K") 'elfeed-goodies/split-show-prev)
 (setq elfeed-feeds (quote
                     (("https://www.reddit.com/r/linux.rss" reddit linux)
                      ("https://www.reddit.com/r/commandline.rss" reddit linux)
