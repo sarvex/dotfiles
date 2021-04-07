@@ -56,6 +56,7 @@
 (package! elpher)
 (package! emojify)
 (package! evil-tutor)
+(package! exwm)
 (package! hyperbole)
 (package! ivy-posframe)
 (package! mastodon)

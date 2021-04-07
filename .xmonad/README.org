@@ -689,7 +689,7 @@ searchList = [ ("a", archwiki)
 #+END_SRC
 
 * Scratchpads
-Allows to have several floating scratchpads running different applications.  Import Util.NamedScratchpad and bind a key to namedScratchpadSpawnAction.  In the example below, I create two named scratchpads: (1) a scratchpad for my terminal, and (2) a scratchpad for moc which is a termina music player.
+Allows to have several floating scratchpads running different applications.  Import Util.NamedScratchpad and bind a key to namedScratchpadSpawnAction.  In the example below, I create two named scratchpads: (1) a scratchpad for my terminal, and (2) a scratchpad for moc which is a terminal music player.
 
 #+BEGIN_SRC haskell
 myScratchPads :: [NamedScratchpad]
