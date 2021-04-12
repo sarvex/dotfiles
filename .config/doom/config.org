@@ -130,7 +130,7 @@ Setting the theme to doom-one.  To try out new themes, I set a keybinding for co
 An RSS newsfeed reader for Emacs.
 
 #+BEGIN_SRC emacs-lisp
-(require 'elfeed-goodies)
+(use-package! elfeed-goodies)
 (elfeed-goodies/setup)
 (setq elfeed-goodies/entry-pane-size 0.5)
 (add-hook 'elfeed-show-mode-hook 'visual-line-mode)
@@ -508,30 +508,6 @@ Note that I wrapped most of this in (after! org).  Without this, my settings mig
              "DONE(d)"           ; Task has been completed
              "CANCELLED(c)" )))) ; Task has been cancelled
 
-#+END_SRC
-
-I was tired of having to run org-babel-tangle after saving my literate dotfiles.  So the following function runs org-babel-tangle upon saving any org-mode buffer.  This is asynchronous meaning that it dispatches the tangle function to a subprocess, so that the main Emacs is not blocked while it runs.
-
-#+BEGIN_SRC emacs-lisp
-(defun dt/org-babel-tangle-async (file)
-  "Invoke `org-babel-tangle-file' asynchronously."
-  (message "Tangling %s..." (buffer-file-name))
-  (async-start
-   (let ((args (list file)))
-  `(lambda ()
-        (require 'org)
-        ;;(load "~/.emacs.d/init.el")
-        (let ((start-time (current-time)))
-          (apply #'org-babel-tangle-file ',args)
-          (format "%.2f" (float-time (time-since start-time))))))
-   (let ((message-string (format "Tangling %S completed after " file)))
-     `(lambda (tangle-time)
-        (message (concat ,message-string
-                         (format "%s seconds" tangle-time)))))))
-
-(defun dt/org-babel-tangle-current-buffer-async ()
-  "Tangle current buffer asynchronously."
-  (dt/org-babel-tangle-async (buffer-file-name)))
 #+END_SRC
 
 * REGISTERS

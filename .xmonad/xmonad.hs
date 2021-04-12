@@ -62,6 +62,7 @@ import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 
     -- Prompt
 import XMonad.Prompt
+import XMonad.Prompt.ConfirmPrompt
 import XMonad.Prompt.Input
 import XMonad.Prompt.FuzzyMatch
 import XMonad.Prompt.Man
@@ -73,6 +74,7 @@ import XMonad.Prompt.XMonad
 import Control.Arrow (first)
 
    -- Utilities
+import XMonad.Util.Dmenu
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
@@ -738,9 +740,9 @@ myLogHook = fadeInactiveLogHook fadeAmount
 myKeys :: [(String, X ())]
 myKeys =
     -- Xmonad
-        [ ("M-C-r", spawn "xmonad --recompile") -- Recompiles xmonad
-        , ("M-S-r", spawn "xmonad --restart")   -- Restarts xmonad
-        , ("M-S-q", io exitSuccess)             -- Quits xmonad
+        [ ("M-C-r", spawn "xmonad --recompile")                        -- Recompiles xmonad
+        , ("M-S-r", spawn "xmonad --restart")                          -- Restarts xmonad
+        , ("M-S-q", confirmPrompt dtXPConfig' "exit" $ io exitSuccess)  -- Quits xmonad
 
     -- Run Prompt
         , ("M-S-<Return>", shellPrompt dtXPConfig) -- Xmonad Shell Prompt
@@ -756,6 +758,7 @@ myKeys =
         , ("M-p s", sshPrompt dtXPConfig)          -- sshPrompt
         , ("M-p u", mkUnicodePrompt "xsel" ["-b"] "/home/dt/.xmonad/UnicodeData.txt" emojiXPConfig) -- unicodePrompt (for copying emojis)
         , ("M-p x", xmonadPrompt dtXPConfig)       -- xmonadPrompt
+        , ("M-p q", confirmPrompt dtXPConfig "exit" $ io exitSuccess)       -- xmonadPrompt
 
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn (myTerminal))
