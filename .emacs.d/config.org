@@ -49,6 +49,7 @@
 - [[#which-key][WHICH KEY]]
 
 * PUT THIS IN YOUR INIT.EL
+I don't want to use init.el to config Emacs.  I want to use an org file to config Emacs because I like literate configs with lots of comments.  The following code block should be your init.el.  This tells init.el to use the source code blocks from this file (config.org).
 
 #+begin_verse
 (org-babel-load-file
@@ -77,7 +78,7 @@ This is my personal Emacs config.  I patterned my config to mimic Doom Emacs, wh
 #+end_src
 
 * ALL THE ICONS
-  This is an icon set that can be used with dashboard, dired, ibuffer and other Emacs programs.
+This is an icon set that can be used with dashboard, dired, ibuffer and other Emacs programs.
   
 #+begin_src emacs-lisp
 (use-package all-the-icons
@@ -174,7 +175,8 @@ This setting ensures that emacsclient always opens on *dashboard* rather than *s
 #+end_src
 
 * FINDING FILES
-  Though 'recentf' is one way to find recent files although I prefer using 'projectile-find-file-in-directory'.
+Though 'recentf' is one way to find recent files although I prefer using 'counsel-recentf'.
+
 #+begin_src emacs-lisp
 (use-package recentf
   :ensure t
@@ -183,7 +185,7 @@ This setting ensures that emacsclient always opens on *dashboard* rather than *s
 #+end_src
   
 * DIRED
-Dired is the file manager within Emacs.  Below, I setup keybindings for image previews (peep-dired).  Doom Emacs does not use 'SPC d' for any of its keybindings, so I've chosen the format of 'SPC d' plus 'key'.
+Dired is the file manager within Emacs.  Below, I setup keybindings for image previews (peep-dired).  I've chosen the format of 'SPC d' plus 'key'.
 | COMMAND                                   | DESCRIPTION                                     | KEYBINDING |
 |-------------------------------------------+-------------------------------------------------+------------|
 | dired                                     | /Open dired file manager/                         | SPC d d    |
@@ -221,6 +223,8 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
 #+end_src
 
 * FONTS
+Defining our fonts.
+
 ** Setting The Font Face
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
