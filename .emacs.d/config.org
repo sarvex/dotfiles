@@ -197,6 +197,8 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
 | (in peep-dired-mode) peep-dired-prev-file | /Move to previous file in peep-dired-mode/        | k          |
 
 #+begin_src emacs-lisp
+(use-package all-the-icons-dired
+:ensure t)
 (use-package dired-open
 :ensure t)
 (use-package peep-dired
