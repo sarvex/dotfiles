@@ -30,6 +30,7 @@
   - [[#change-modeline-to-dooms-modeline][Change Modeline To Doom's Modeline]]
 - [[#ivy-counselswiper][IVY (COUNSEL/SWIPER)]]
   - [[#ivy-posframe][IVY-POSFRAME]]
+- [[#language-support][LANGUAGE SUPPORT]]
 - [[#magit][MAGIT]]
 - [[#org-mode][ORG MODE]]
   - [[#defining-a-few-things][Defining A Few Things]]
@@ -44,7 +45,6 @@
 - [[#shells][SHELLS]]
   - [[#eshell][Eshell]]
   - [[#vterm][Vterm]]
-- [[#language-support][LANGUAGE SUPPORT]]
 - [[#theme][THEME]]
 - [[#which-key][WHICH KEY]]
 
@@ -142,7 +142,6 @@ Emacs Dashboard is an extensible startup screen showing you recent files, bookma
                           (bookmarks . 5)
                           (projects . 5)
                           (registers . 5)))
-                          
   :config
   (dashboard-setup-startup-hook)
   (dashboard-modify-heading-icons '((recents . "file-text")
@@ -228,14 +227,14 @@ Defining our fonts.
 ** Setting The Font Face
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
-	      :font "SauceCodePro Nerd Font 11"
-	      :weight 'medium)
+  :font "SauceCodePro Nerd Font 11"
+  :weight 'medium)
 (set-face-attribute 'variable-pitch nil
-          :font "Ubuntu Nerd Font 11"
-          :weight 'medium)
+  :font "Ubuntu Nerd Font 11"
+  :weight 'medium)
 (set-face-attribute 'fixed-pitch nil
-          :font "SauceCodePro Nerd Font 11"
-          :weight 'medium)
+  :font "SauceCodePro Nerd Font 11"
+  :weight 'medium)
 
 ;; Uncomment the following line if line spacing needs adjusting.
 ;; (setq-default line-spacing 0.10)
@@ -281,38 +280,35 @@ Let's make GNU Emacs look a little better.
 Ivy is a generic completion mechanism for Emacs.
 
 #+begin_src emacs-lisp
-  (use-package counsel
-    :ensure t
-    :after ivy
-    :config (counsel-mode))
-
-  (use-package ivy
-    :ensure t
-    :defer 0.1
-    :diminish
-    :bind (("C-c C-r" . ivy-resume)
-	   ("C-x B" . ivy-switch-buffer-other-window))
-    :custom
-    (ivy-count-format "(%d/%d) ")
-    (ivy-use-virtual-buffers t)
-    :config (ivy-mode))
-
-  (use-package ivy-rich
-    :ensure t
-    :after ivy
-    :custom
-    (ivy-virtual-abbreviate 'full
-			    ivy-rich-switch-buffer-align-virtual-buffer t
-			    ivy-rich-path-style 'abbrev)
-    :config
-    (ivy-set-display-transformer 'ivy-switch-buffer
-				 'ivy-rich-switch-buffer-transformer))
-
-  (use-package swiper
-    :ensure t
-    :after ivy
-    :bind (("C-s" . swiper)
-	   ("C-r" . swiper)))
+(use-package counsel
+  :ensure t
+  :after ivy
+  :config (counsel-mode))
+(use-package ivy
+  :ensure t
+  :defer 0.1
+  :diminish
+  :bind (("C-c C-r" . ivy-resume)
+         ("C-x B" . ivy-switch-buffer-other-window))
+  :custom
+  (ivy-count-format "(%d/%d) ")
+  (ivy-use-virtual-buffers t)
+  :config (ivy-mode))
+(use-package ivy-rich
+  :ensure t
+  :after ivy
+  :custom
+  (ivy-virtual-abbreviate 'full
+   ivy-rich-switch-buffer-align-virtual-buffer t
+   ivy-rich-path-style 'abbrev)
+  :config
+  (ivy-set-display-transformer 'ivy-switch-buffer
+                               'ivy-rich-switch-buffer-transformer))
+(use-package swiper
+  :ensure t
+  :after ivy
+  :bind (("C-s" . swiper)
+         ("C-r" . swiper)))
 #+end_src
 
 ** IVY-POSFRAME
@@ -353,6 +349,14 @@ Available functions (positions) for 'ivy-posframe-display-functions-alist'
 	    (t . 10)))
     :config
     (ivy-posframe-mode 1)) ; 1 enables posframe-mode, 0 disables it.
+#+end_src
+
+* LANGUAGE SUPPORT
+Adding packages for programming langauges, so we can have nice things like syntax highlighting.
+
+#+begin_src emacs-lisp
+(use-package haskell-mode
+  :ensure t)
 #+end_src
 
 * MAGIT
@@ -512,14 +516,6 @@ Vterm is a terminal emulator within Emacs.  The 'shell-file-name' setting sets t
   :ensure t)
 (setq shell-file-name "/bin/fish"
       vterm-max-scrollback 5000)
-#+end_src
-
-* LANGUAGE SUPPORT
-Adding packages for programming langauges, so we can have nice things like syntax highlighting.
-
-#+begin_src emacs-lisp
-(use-package haskell-mode
-  :ensure t)
 #+end_src
 
 * THEME
