@@ -360,6 +360,8 @@ Available functions (positions) for 'ivy-posframe-display-functions-alist'
 
 ** Enabling Org Bullets
 #+begin_src emacs-lisp
+(use-package org-bullets
+  :ensure t)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
    

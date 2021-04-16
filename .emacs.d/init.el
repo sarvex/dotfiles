@@ -8,7 +8,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(haskell-mode vterm eshell-syntax-highlighting toc-org magit-todos magit-lfs magit ivy-posframe ivy-rich counsel peep-dired dired-open projectile dashboard general doom-modeline which-key evil-collection evil use-package)))
+   '(org-bullets haskell-mode vterm eshell-syntax-highlighting toc-org magit-todos magit-lfs magit ivy-posframe ivy-rich counsel peep-dired dired-open projectile dashboard general doom-modeline which-key evil-collection evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
