@@ -6,7 +6,6 @@
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
 #+OPTIONS: num:nil ^:{}
 
-
 * TABLE OF CONTENTS                                                     :TOC:
 - [[#put-this-in-your-initel][PUT THIS IN YOUR INIT.EL]]
 - [[#about-this-config][ABOUT THIS CONFIG]]
@@ -21,6 +20,9 @@
 - [[#evil-mode][EVIL MODE]]
 - [[#finding-files][FINDING FILES]]
 - [[#dired][DIRED]]
+  - [[#keybindings-to-open-dired][Keybindings To Open Dired]]
+  - [[#keybindings-within-dired][Keybindings Within Dired]]
+  - [[#keybindings-for-peep-dired-mode][Keybindings For Peep-Dired-Mode]]
 - [[#fonts][FONTS]]
   - [[#setting-the-font-face][Setting The Font Face]]
   - [[#zooming-in-and-out][Zooming In and Out]]
@@ -29,7 +31,9 @@
   - [[#display-line-numbers-and-truncated-lines][Display Line Numbers and Truncated Lines]]
   - [[#change-modeline-to-dooms-modeline][Change Modeline To Doom's Modeline]]
 - [[#ivy-counselswiper][IVY (COUNSEL/SWIPER)]]
-  - [[#ivy-posframe][IVY-POSFRAME]]
+  - [[#installing-ivy-and-basic-setup][Installing Ivy And Basic Setup]]
+  - [[#making-m-x-great-again][Making M-x Great Again!]]
+  - [[#ivy-posframe][Ivy-posframe]]
 - [[#language-support][LANGUAGE SUPPORT]]
 - [[#magit][MAGIT]]
 - [[#org-mode][ORG MODE]]
@@ -182,16 +186,26 @@ Though 'recentf' is one way to find recent files although I prefer using 'counse
   
 * DIRED
 Dired is the file manager within Emacs.  Below, I setup keybindings for image previews (peep-dired).  I've chosen the format of 'SPC d' plus 'key'.
-| COMMAND                                   | DESCRIPTION                                     | KEYBINDING |
-|-------------------------------------------+-------------------------------------------------+------------|
-| dired                                     | /Open dired file manager/                         | SPC d d    |
-| dired-jump                                | /Jump to current directory in dired/              | SPC d j    |
-| (in dired) peep-dired                     | /Toggle image previews within dired/              | SPC d p    |
-| (in dired) dired-view-file                | /View file in dired/                              | SPC d v    |
-| (in dired) dired-up-directory             | /Go up in the directory tree/                     | h          |
-| (in dired) dired-find-file                | /Go down in the directory tree (or open if file)/ | l          |
-| (in peep-dired-mode) peep-dired-next-file | /Move to next file in peep-dired-mode/            | j          |
-| (in peep-dired-mode) peep-dired-prev-file | /Move to previous file in peep-dired-mode/        | k          |
+
+** Keybindings To Open Dired
+| COMMAND    | DESCRIPTION                        | KEYBINDING |
+|------------+------------------------------------+------------|
+| dired      | /Open dired file manager/            | SPC d d    |
+| dired-jump | /Jump to current directory in dired/ | SPC d j    |
+
+** Keybindings Within Dired
+| COMMAND            | DESCRIPTION                                 | KEYBINDING |
+|--------------------+---------------------------------------------+------------|
+| dired-view-file    | /View file in dired/                          | SPC d v    |
+| dired-up-directory | /Go up in directory tree/                     | h          |
+| dired-find-file    | /Go down in directory tree (or open if file)/ | l          |
+
+** Keybindings For Peep-Dired-Mode
+| COMMAND              | DESCRIPTION                              | KEYBINDING |
+|----------------------+------------------------------------------+------------|
+| peep-dired           | /Toggle image previews within dired/       | SPC d p    |
+| peep-dired-next-file | /Move to next file in peep-dired-mode/     | j          |
+| peep-dired-prev-file | /Move to previous file in peep-dired-mode/ | k          |
 
 #+begin_src emacs-lisp
 (use-package all-the-icons-dired)
@@ -218,23 +232,27 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
 #+end_src
 
 * FONTS
-Defining our fonts.
+Defining our fonts.  Right now I'm using Source Code Pro (SauceCodePro) from the nerd-fonts repository.  Installed from the AUR, it does =NOT= include all variations of the font (such as italics).  You can download the italics Source Code Pro font from the nerd-fonts GitHub though.
 
 ** Setting The Font Face
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
-  :font "Mononoki Nerd Font 11"
+  :font "Source Code Pro"
+  :height 110
   :weight 'medium)
 (set-face-attribute 'variable-pitch nil
-  :font "Ubuntu Nerd Font 11"
+  :font "Ubuntu Nerd Font"
+  :height 120
   :weight 'medium)
 (set-face-attribute 'fixed-pitch nil
-  :font "Mononoki Nerd Font 11"
+  :font "Source Code Pro"
+  :height 110
   :weight 'medium)
-;; Makes commented text italics (working in emacsclient but not emacs)
+;; Makes commented text and keywords italics.
+;; This is working in emacsclient but not emacs.
+;; Your font must have an italic face available.
 (set-face-attribute 'font-lock-comment-face nil
   :slant 'italic)
-;; Makes keywords italics (working in emacsclient but not emacs)
 (set-face-attribute 'font-lock-keyword-face nil
   :slant 'italic)
 
@@ -242,7 +260,7 @@ Defining our fonts.
 (setq-default line-spacing 0.12)
 
 ;; Needed if using emacsclient. Otherwise, your fonts will be smaller than expected.
-(add-to-list 'default-frame-alist '(font . "Mononoki Nerd Font 11"))
+(add-to-list 'default-frame-alist '(font . "Source Code Pro-11"))
 ;; changes certain keywords to symbols, such as lamda!
 (setq global-prettify-symbols-mode t)
 #+end_src
@@ -281,8 +299,9 @@ Let's make GNU Emacs look a little better.
 #+end_src
    
 * IVY (COUNSEL/SWIPER)
-Ivy is a generic completion mechanism for Emacs.
+Ivy, counsel and swiper are a generic completion mechanism for Emacs.  Ivy-rich allows us to add descriptions alongside the commands in M-x.
 
+** Installing Ivy And Basic Setup
 #+begin_src emacs-lisp
 (use-package counsel
   :after ivy
@@ -290,12 +309,15 @@ Ivy is a generic completion mechanism for Emacs.
 (use-package ivy
   :defer 0.1
   :diminish
-  :bind (("C-c C-r" . ivy-resume)
-         ("C-x B" . ivy-switch-buffer-other-window))
+  :bind
+  (("C-c C-r" . ivy-resume)
+   ("C-x B" . ivy-switch-buffer-other-window))
   :custom
-  (ivy-count-format "(%d/%d) ")
-  (ivy-use-virtual-buffers t)
-  :config (ivy-mode))
+  (setq ivy-count-format "(%d/%d) ")
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  :config
+  (ivy-mode))
 (use-package ivy-rich
   :after ivy
   :custom
@@ -304,14 +326,28 @@ Ivy is a generic completion mechanism for Emacs.
    ivy-rich-path-style 'abbrev)
   :config
   (ivy-set-display-transformer 'ivy-switch-buffer
-                               'ivy-rich-switch-buffer-transformer))
+                               'ivy-rich-switch-buffer-transformer)
+  (ivy-rich-mode 1)) ;; this gets us descriptions in M-x.
 (use-package swiper
   :after ivy
   :bind (("C-s" . swiper)
          ("C-r" . swiper)))
 #+end_src
 
-** IVY-POSFRAME
+** Making M-x Great Again!
+The following line removes the annoying '^' in things like counsel-M-x and other ivy/counsel prompts.  The default '^' string means that if you type something immediately after this string only completion candidates that begin with what you typed are shown.  Most of the time, I'm searching for a command without knowing what it begins with though.
+
+#+begin_src emacs-lisp
+(setq ivy-initial-inputs-alist nil)
+#+end_src
+
+Smex is a package the makes M-x remember our history.  Now M-x will show our last used commands first.
+#+begin_src emacs-lisp
+(use-package smex)
+(smex-initialize)
+#+end_src
+
+** Ivy-posframe
 Ivy-posframe is an ivy extension, which lets ivy use posframe to show its candidate menu.  Some of the settings below involve:
 + ivy-posframe-display-functions-alist -- sets the display position for specific programs
 + ivy-posframe-height-alist -- sets the height of the list displayed for specific programs
@@ -427,18 +463,18 @@ This lets us create the various TODO tags that we can use in Org.
 ** Source Code Block Tag Expansion
 Org-tempo is a package that allows for '<s' followed by TAB to expand to a begin_src tag.  Other expansions available include:
 
-| Characters Preceding TAB | Expands to ...                          |
-|--------------------------+-----------------------------------------|
-| <a                       | '#+BEGIN_EXPORT ascii' … '#+END_EXPORT  |
-| <c                       | '#+BEGIN_CENTER' … '#+END_CENTER'       |
-| <C                       | '#+BEGIN_COMMENT' … '#+END_COMMENT'     |
-| <e                       | '#+BEGIN_EXAMPLE' … '#+END_EXAMPLE'     |
-| <E                       | '#+BEGIN_EXPORT' … '#+END_EXPORT'       |
-| <h                       | '#+BEGIN_EXPORT html' … '#+END_EXPORT'  |
-| <l                       | '#+BEGIN_EXPORT latex' … '#+END_EXPORT' |
-| <q                       | '#+BEGIN_QUOTE' … '#+END_QUOTE'         |
-| <s                       | '#+BEGIN_SRC' … '#+END_SRC'             |
-| <v                       | '#+BEGIN_VERSE' … '#+END_VERSE'         |
+| Typing the below + TAB | Expands to ...                          |
+|------------------------+-----------------------------------------|
+| <a                     | '#+BEGIN_EXPORT ascii' … '#+END_EXPORT  |
+| <c                     | '#+BEGIN_CENTER' … '#+END_CENTER'       |
+| <C                     | '#+BEGIN_COMMENT' … '#+END_COMMENT'     |
+| <e                     | '#+BEGIN_EXAMPLE' … '#+END_EXAMPLE'     |
+| <E                     | '#+BEGIN_EXPORT' … '#+END_EXPORT'       |
+| <h                     | '#+BEGIN_EXPORT html' … '#+END_EXPORT'  |
+| <l                     | '#+BEGIN_EXPORT latex' … '#+END_EXPORT' |
+| <q                     | '#+BEGIN_QUOTE' … '#+END_QUOTE'         |
+| <s                     | '#+BEGIN_SRC' … '#+END_SRC'             |
+| <v                     | '#+BEGIN_VERSE' … '#+END_VERSE'         |
 
 #+begin_src emacs-lisp
 (use-package org-tempo
@@ -523,7 +559,22 @@ We need a nice colorscheme.  The Doom Emacs guys have a nice collection of theme
 * WHICH KEY
 Which-key is a minor mode for Emacs that displays the key bindings following your currently entered incomplete command (a prefix) in a popup.
 
+=NOTE:= Which-key has an annoying bug that in some fonts and font sizes, the bottom row in which key gets covered up by the modeline.
+
 #+begin_src emacs-lisp
-(use-package which-key)
+(use-package which-key
+  :init
+  (setq which-key-side-window-location 'bottom
+        which-key-sort-order #'which-key-key-order-alpha
+        which-key-sort-uppercase-first nil
+        which-key-add-column-padding 1
+        which-key-max-display-columns nil
+        which-key-min-display-lines 6
+        which-key-side-window-slot -10
+        which-key-side-window-max-height 0.25
+        which-key-idle-delay 0.8
+        which-key-max-description-length 25
+        which-key-allow-imprecise-window-fit t
+        which-key-separator " → " ))
 (which-key-mode)
 #+end_src
