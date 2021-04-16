@@ -442,7 +442,7 @@ Org-tempo is a package that allows for '<s' followed by TAB to expand to a begin
 
 #+begin_src emacs-lisp
 (use-package org-tempo
-  :ensure nil)
+  :ensure nil) ;; tell use-package not to try to install org-tempo since it's already there.
 #+end_src
 
 ** Source Code Block Syntax Highlighting
