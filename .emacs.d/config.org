@@ -7,7 +7,6 @@
 #+OPTIONS: num:nil ^:{}
 
 * TABLE OF CONTENTS                                                     :TOC:
-- [[#put-this-in-your-initel][PUT THIS IN YOUR INIT.EL]]
 - [[#about-this-config][ABOUT THIS CONFIG]]
 - [[#package-management][PACKAGE MANAGEMENT]]
   - [[#setup-packageel-to-work-with-melpa][Setup package.el to work with MELPA]]
@@ -52,15 +51,15 @@
 - [[#theme][THEME]]
 - [[#which-key][WHICH KEY]]
 
-* PUT THIS IN YOUR INIT.EL
+* PUT THIS IN YOUR INIT.EL 
 I don't want to use init.el to config Emacs.  I want to use an org file to config Emacs because I like literate configs with lots of comments.  The following code block should be your init.el.  This tells init.el to use the source code blocks from this file (config.org).
 
-#+begin_verse
+#+begin_example
 (org-babel-load-file
  (expand-file-name
   "config.org"
   user-emacs-directory))
-#+end_verse
+#+end_example
 
 * ABOUT THIS CONFIG 
 This is my personal Emacs config.  I patterned my config to mimic Doom Emacs, which is a distribution of Emacs that uses the "evil" keybindings (Vim keybindings) and includes a number of nice extensions and a bit of configuration out of the box.  I am maintaining this config not just for myself, but also for those that want to explore some of what is possible with Emacs.  I will add a lot of examples of plugins and settings, some of them I may not even use personally.  I do this because many people following me on YouTube and Odysee look at my configs as "documentation".
