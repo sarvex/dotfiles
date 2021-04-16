@@ -6,6 +6,10 @@
 - [[#other-popular-configs-of-mine][Other Popular Configs Of Mine]]
 - [[#who-am-i][Who Am I?]]
 - [[#distrotube-links][DistroTube Links]]
+  - [[#personal-sites][Personal Sites]]
+  - [[#watch-dts-videos][Watch DT's Videos]]
+  - [[#social-media][Social Media]]
+  - [[#support-dts-work][Support DT's Work]]
 - [[#how-to-manage-your-own-dotfiles][How To Manage Your Own Dotfiles]]
 - [[#license][License]]
 
@@ -55,16 +59,30 @@ I am Derek Taylor (DT), the creator of the DistroTube channel (also DT) on [[htt
 3) As a backup and restore option for myself should the need arise.
 
 * DistroTube Links
-- [[https://www.distrotube.com/][DistroTube.com]]
-- [[https://www.youtube.com/DistroTube][YouTube Channel]]
+** Personal Sites
+I maintain to personal websites.  One is a standard http website and one is a Gemini capsule.  To view the Gemini capsule, you need a Gemini client installed.  My preferred Gemini client is a terminal client called 'amfora'.  If you want a graphical Gemini client, 'lagrange' is a nice program.  There is also a Firefox plugin called Geminize.
+
+- [[https://www.distrotube.com/][DistroTube.com]] (http)
+- [[gemini://distro.tube][Distro.tube]] (gemini)
+
+** Watch DT's Videos
+Although YouTube is the king of video platforms as far as numbers of potential viewers, I have been on Odysee/LBRY since its early days.  And Odysee has exploded in growth and, in my opinion, has positioned itself as a viable alternative to YouTube.  And Odysee/LBRY is free and open source software!
+
+- [[https://www.youtube.com/DistroTube][YouTube]]
+- [[https://odysee.com/@DistroTube:2][Odysee (LBRY)]]
+
+** Social Media
+  I don't hangout on social media that much.  While I do read every message sent to me, I cannot possibly respond to every message.  I'd never get any work done if I did.  
+
+- [[https://distrotoot.com/@derek][Distrotoot.com (Mastodon)]]
+- [[https://www.reddit.com/r/distrotube/][r/DistroTube (Reddit)]]
+
+** Support DT's Work
+Making great content in the form of videos and in the form of these dotfiles is time consuming and a lot of work.  Since the pandemic, being a video content creator has been full-time job, and I need your support.  Consider subscribing to my Patreon or make a one-time donation through PayPal.  Those of you on Odysee can send LBC as a tip.
+
 - [[https://www.patreon.com/distrotube][Patreon]]
-- [[https://mastodon.technology/@distrotube][Mastodon]]
-- [[https://www.reddit.com/r/distrotube/][Reddit]]
-
-*Want to chat?*
-- Look for DistroTube's server on Discord.
-- Also, checkout out #distrotube on the Freenode network on IRC.
-
+- [[https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=derek%40distrotube%2ecom&lc=US&item_name=DistroTube&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest][PayPal]]
+  
 * How To Manage Your Own Dotfiles
 There are a hundred ways to manage your dotfiles. Personally, I use the *git bare repository method* for managing my dotfiles. Here is an article about this method of managing your dotfiles: [[https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/][https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/]]
 
