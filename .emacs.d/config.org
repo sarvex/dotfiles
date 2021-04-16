@@ -227,13 +227,13 @@ Defining our fonts.
 ** Setting The Font Face
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
-  :font "Mononoki Nerd Font 12"
+  :font "JetBrains Mono 11"
   :weight 'medium)
 (set-face-attribute 'variable-pitch nil
-  :font "Ubuntu Nerd Font 12"
+  :font "Ubuntu Nerd Font 11"
   :weight 'medium)
 (set-face-attribute 'fixed-pitch nil
-  :font "Mononoki Nerd Font 12"
+  :font "JetBrains Mono 11"
   :weight 'medium)
 ;; Makes commented text italics (working in emacsclient but not emacs)
 (set-face-attribute 'font-lock-comment-face nil
@@ -243,10 +243,10 @@ Defining our fonts.
   :slant 'italic)
 
 ;; Uncomment the following line if line spacing needs adjusting.
-;; (setq-default line-spacing 0.10)
+(setq-default line-spacing 0.12)
 
 ;; Needed if using emacsclient. Otherwise, your fonts will be smaller than expected.
-(add-to-list 'default-frame-alist '(font . "Mononoki Nerd Font 12"))
+(add-to-list 'default-frame-alist '(font . "JetBrains Mono 11"))
 ;; changes certain keywords to symbols, such as lamda!
 (setq global-prettify-symbols-mode t)
 #+end_src
