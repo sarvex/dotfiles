@@ -7,24 +7,27 @@
 #+OPTIONS: num:nil ^:{}
 
 * TABLE OF CONTENTS                                                     :TOC:
+- [[#important-put-this-in-your-initel][IMPORTANT! PUT THIS IN YOUR INIT.EL]]
 - [[#about-this-config][ABOUT THIS CONFIG]]
-- [[#package-management][PACKAGE MANAGEMENT]]
-  - [[#setup-packageel-to-work-with-melpa][Setup package.el to work with MELPA]]
-  - [[#installing-use-package][Installing use-package]]
+- [[#a-few-programs-to-load-first][A FEW PROGRAMS TO LOAD FIRST]]
+  - [[#setup-packageel-to-work-with-melpa][Setup Package.el To Work With MELPA]]
+  - [[#use-package][Use-Package]]
+  - [[#evil-mode][Evil Mode]]
+  - [[#general-keybindings][General Keybindings]]
 - [[#all-the-icons][ALL THE ICONS]]
-- [[#general-keybindings][GENERAL KEYBINDINGS]]
+- [[#buffers-and-bookmarks][BUFFERS AND BOOKMARKS]]
 - [[#dashboard][DASHBOARD]]
   - [[#configuring-dashboard][Configuring Dashboard]]
   - [[#dashboard-in-emacsclient][Dashboard in Emacsclient]]
-- [[#evil-mode][EVIL MODE]]
-- [[#finding-files][FINDING FILES]]
-- [[#dired][DIRED]]
+- [[#file-manager-dired][FILE MANAGER (DIRED)]]
   - [[#keybindings-to-open-dired][Keybindings To Open Dired]]
   - [[#keybindings-within-dired][Keybindings Within Dired]]
   - [[#keybindings-for-peep-dired-mode][Keybindings For Peep-Dired-Mode]]
+- [[#finding-files][FINDING FILES]]
 - [[#fonts][FONTS]]
   - [[#setting-the-font-face][Setting The Font Face]]
   - [[#zooming-in-and-out][Zooming In and Out]]
+- [[#general-keybindings-1][GENERAL KEYBINDINGS]]
 - [[#graphical-user-interface-tweaks][GRAPHICAL USER INTERFACE TWEAKS]]
   - [[#disable-menu-toolbars-and-scrollbars][Disable Menu, Toolbars and Scrollbars]]
   - [[#display-line-numbers-and-truncated-lines][Display Line Numbers and Truncated Lines]]
@@ -48,10 +51,11 @@
 - [[#shells][SHELLS]]
   - [[#eshell][Eshell]]
   - [[#vterm][Vterm]]
+- [[#splits-and-window-controls][SPLITS AND WINDOW CONTROLS]]
 - [[#theme][THEME]]
 - [[#which-key][WHICH KEY]]
 
-* PUT THIS IN YOUR INIT.EL 
+* IMPORTANT! PUT THIS IN YOUR INIT.EL 
 I don't want to use init.el to config Emacs.  I want to use an org file to config Emacs because I like literate configs with lots of comments.  The following code block should be your init.el.  This tells init.el to use the source code blocks from this file (config.org).
 
 #+begin_example
@@ -64,8 +68,10 @@ I don't want to use init.el to config Emacs.  I want to use an org file to confi
 * ABOUT THIS CONFIG 
 This is my personal Emacs config.  I patterned my config to mimic Doom Emacs, which is a distribution of Emacs that uses the "evil" keybindings (Vim keybindings) and includes a number of nice extensions and a bit of configuration out of the box.  I am maintaining this config not just for myself, but also for those that want to explore some of what is possible with Emacs.  I will add a lot of examples of plugins and settings, some of them I may not even use personally.  I do this because many people following me on YouTube and Odysee look at my configs as "documentation".
 
-* PACKAGE MANAGEMENT
-** Setup package.el to work with MELPA
+* A FEW PROGRAMS TO LOAD FIRST
+The order in which the various Emacs modules load is very important.  So the very first code block is going to contain essential modules that many other modules will depend on later in this config.
+
+** Setup Package.el To Work With MELPA
 #+begin_src emacs-lisp
 (require 'package)
 (add-to-list 'package-archives
@@ -74,7 +80,7 @@ This is my personal Emacs config.  I patterned my config to mimic Doom Emacs, wh
 (package-initialize)
 #+end_src
 
-** Installing use-package
+** Use-Package
 Install use-package and enable ':ensure t' globally.  The ':ensure' keyword causes the package(s) within use-package statements to be installed automatically if not already present on your system.  To avoid having to add ':ensure t' to every use-package statement in this config, I set 'use-package-always-ensure'.
 
 #+begin_src emacs-lisp
@@ -83,50 +89,53 @@ Install use-package and enable ':ensure t' globally.  The ':ensure' keyword caus
 (setq use-package-always-ensure t)
 #+end_src
 
+** Evil Mode
+Evil is an extensible 'vi' layer for Emacs. It emulates the main features of Vim, and provides facilities for writing custom extensions.  Evil Collection is also installed since it adds 'evil' bindings to parts of Emacs that the standard Evil package does not cover, such as: calenda, help-mode adn ibuffer.
+  
+#+begin_src emacs-lisp
+(use-package evil
+  :init      ;; tweak evil's configuration before loading it
+  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+  (setq evil-want-keybinding nil)
+  (setq evil-vsplit-window-right t)
+  (setq evil-split-window-below t)
+  (evil-mode))
+(use-package evil-collection
+  :after evil
+  :config
+  (setq evil-collection-mode-list '(dashboard dired ibuffer))
+  (evil-collection-init))
+#+end_src
+
+** General Keybindings
+General.el allows us to set keybindings.  As a longtime Doom Emacs user, I have grown accustomed to using SPC as the prefix key.  General makes setting keybindings (especially with SPC) much easier.  All of the keybindings we set later in the config depend on general being loaded.
+
+#+begin_src emacs-lisp
+(use-package general
+  :config
+  (general-evil-setup t))
+#+end_src
+
 * ALL THE ICONS
 This is an icon set that can be used with dashboard, dired, ibuffer and other Emacs programs.
   
 #+begin_src emacs-lisp
 (use-package all-the-icons)
 #+end_src
-  
-* GENERAL KEYBINDINGS
-General.el allows us to set keybindings.  As a longtime Doom Emacs user, I have grown accustomed to using SPC as the prefix key.  It certainly is easier on the hands than constantly using CTRL for a prefix.
+
+* BUFFERS AND BOOKMARKS
 
 #+begin_src emacs-lisp
-(use-package general
-  :config
-  (general-evil-setup t))
-
 (nvmap :prefix "SPC"
-       "SPC"   '(counsel-M-x :which-key "M-x")
-       "."     '(find-file :which-key "Find file")
-       ;; Buffers
        "b b"   '(ibuffer :which-key "Ibuffer")
+       "b c"   '(clone-indirect-buffer-other-window :which-key "Clone indirect buffer other window")
        "b k"   '(kill-current-buffer :which-key "Kill current buffer")
        "b n"   '(next-buffer :which-key "Next buffer")
        "b p"   '(previous-buffer :which-key "Previous buffer")
        "b B"   '(ibuffer-list-buffers :which-key "Ibuffer list buffers")
-       "b K"   '(kill-buffer :which-key "Kill buffer")
-       ;; Eshell
-       "e h"   '(counsel-esh-history :which-key "Eshell history")
-       "e s"   '(eshell :which-key "Eshell")
-       "f r"   '(counsel-recentf :which-key "Recent files")
-       "h r r" '((lambda () (interactive) (load-file "~/.emacs.d/init.el")) :which-key "Reload emacs config")
-       "t t"   '(toggle-truncate-lines :which-key "Toggle truncate lines")
-       ;; Window splits
-       "w c"   '(evil-window-delete :which-key "Close window")
-       "w n"   '(evil-window-new :which-key "New window")
-       "w s"   '(evil-window-split :which-key "Horizontal split window")
-       "w v"   '(evil-window-vsplit :which-key "Vertical split window")
-       ;; Window motions
-       "w h"   '(evil-window-left :which-key "Window left")
-       "w j"   '(evil-window-down :which-key "Window down")
-       "w k"   '(evil-window-up :which-key "Window up")
-       "w l"   '(evil-window-right :which-key "Window right")
-       "w w"   '(evil-window-next :which-key "Goto next window"))
+       "b K"   '(kill-buffer :which-key "Kill buffer"))
 #+end_src
-  
+
 * DASHBOARD
 Emacs Dashboard is an extensible startup screen showing you recent files, bookmarks, agenda items and an Emacs banner.
 
@@ -157,33 +166,7 @@ This setting ensures that emacsclient always opens on *dashboard* rather than *s
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 #+end_src
 
-* EVIL MODE
-  Evil is an extensible 'vi' layer for Emacs. It emulates the main features of Vim, and provides facilities for writing custom extensions.  Evil Collection is also installed since it adds 'evil' bindings to parts of Emacs that the standard Evil package does not cover, such as: calenda, help-mode adn ibuffer.
-  
-#+begin_src emacs-lisp
-(use-package evil
-  :init      ;; tweak evil's configuration before loading it
-  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
-  (setq evil-want-keybinding nil)
-  (setq evil-vsplit-window-right t)
-  (setq evil-split-window-below t)
-  (evil-mode))
-(use-package evil-collection
-  :after evil
-  :config
-  (evil-collection-init))
-#+end_src
-
-* FINDING FILES
-Though 'recentf' is one way to find recent files although I prefer using 'counsel-recentf'.
-
-#+begin_src emacs-lisp
-(use-package recentf
-  :config
-  (recentf-mode))
-#+end_src
-  
-* DIRED
+* FILE MANAGER (DIRED)
 Dired is the file manager within Emacs.  Below, I setup keybindings for image previews (peep-dired).  I've chosen the format of 'SPC d' plus 'key'.
 
 ** Keybindings To Open Dired
@@ -202,7 +185,7 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
 ** Keybindings For Peep-Dired-Mode
 | COMMAND              | DESCRIPTION                              | KEYBINDING |
 |----------------------+------------------------------------------+------------|
-| peep-dired           | /Toggle image previews within dired/       | SPC d p    |
+| peep-dired           | /Toggle previews within dired/             | SPC d p    |
 | peep-dired-next-file | /Move to next file in peep-dired-mode/     | j          |
 | peep-dired-prev-file | /Move to previous file in peep-dired-mode/ | k          |
 
@@ -210,15 +193,20 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
 (use-package all-the-icons-dired)
 (use-package dired-open)
 (use-package peep-dired)
-	(nvmap :prefix "SPC"
-	       "d d" '(dired :which-key "Open dired")
-	       "d j" '(dired-jump :which-key "Dired jump to current"))
-  (with-eval-after-load 'dired
-    (define-key dired-mode-map (kbd "M-p") 'peep-dired)
-    (evil-define-key'(normal visual) dired-mode-map (kbd "h") 'dired-up-directory)
-    (evil-define-key'(normal visual) dired-mode-map (kbd "l") 'dired-open-file)) ; use dired-find-file instead if not using dired-open package
-    (evil-define-key'(normal visual) dired-mode-map (kbd "j") 'peep-dired-next-file)
-    (evil-define-key'(normal visual) dired-mode-map (kbd "k") 'peep-dired-prev-file)
+
+(nvmap :states '(normal visual) :keymaps 'override :prefix "SPC"
+               "d d" '(dired :which-key "Open dired")
+               "d j" '(dired-jump :which-key "Dired jump to current")
+               "d p" '(peep-dired :which-key "Peep-dired"))
+
+(with-eval-after-load 'dired
+  ;;(define-key dired-mode-map (kbd "M-p") 'peep-dired)
+  (evil-define-key 'normal dired-mode-map (kbd "h") 'dired-up-directory)
+  (evil-define-key 'normal dired-mode-map (kbd "l") 'dired-open-file) ; use dired-find-file instead if not using dired-open package
+  (evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file)
+  (evil-define-key 'normal peep-dired-mode-map (kbd "k") 'peep-dired-prev-file))
+
+(add-hook 'peep-dired-hook 'evil-normalize-keymaps)
 ;; Get file icons in dired
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 ;; With dired-open plugin, you can launch external programs for certain extensions
@@ -230,6 +218,15 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
                               ("mp4" . "mpv")))
 #+end_src
 
+* FINDING FILES
+Though 'recentf' is one way to find recent files although I prefer using 'counsel-recentf'.
+
+#+begin_src emacs-lisp
+(use-package recentf
+  :config
+  (recentf-mode))
+#+end_src
+  
 * FONTS
 Defining our fonts.  Right now I'm using Source Code Pro (SauceCodePro) from the nerd-fonts repository.  Installed from the AUR, it does =NOT= include all variations of the font (such as italics).  You can download the italics Source Code Pro font from the nerd-fonts GitHub though.
 
@@ -275,6 +272,18 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
 (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
 #+end_src
 
+* GENERAL KEYBINDINGS
+General.el allows us to set keybindings.  As a longtime Doom Emacs user, I have grown accustomed to using SPC as the prefix key.  It certainly is easier on the hands than constantly using CTRL for a prefix.
+
+#+begin_src emacs-lisp
+(nvmap :states '(normal visual) :keymaps 'override :prefix "SPC"
+       "SPC"   '(counsel-M-x :which-key "M-x")
+       "."     '(find-file :which-key "Find file")
+       "f r"   '(counsel-recentf :which-key "Recent files")
+       "h r r" '((lambda () (interactive) (load-file "~/.emacs.d/init.el")) :which-key "Reload emacs config")
+       "t t"   '(toggle-truncate-lines :which-key "Toggle truncate lines"))
+#+end_src
+  
 * GRAPHICAL USER INTERFACE TWEAKS
 Let's make GNU Emacs look a little better.
 
@@ -519,6 +528,13 @@ Emacs' default scrolling is annoying because of the sudden half-page jumps.  Als
 * SHELLS
 ** Eshell
 Eshell is an Emacs 'shell' that is written in Elisp.
+
+#+begin_src emacs-lisp
+(nvmap :prefix "SPC"
+       "e h"   '(counsel-esh-history :which-key "Eshell history")
+       "e s"   '(eshell :which-key "Eshell"))
+#+end_src
+
 + 'eshell-syntax-highlighting' -- adds fish/zsh-like syntax highlighting.
 + 'eshell-aliases-file' -- sets an aliases file for the eshell.
   
@@ -543,6 +559,23 @@ Vterm is a terminal emulator within Emacs.  The 'shell-file-name' setting sets t
 (use-package vterm)
 (setq shell-file-name "/bin/fish"
       vterm-max-scrollback 5000)
+#+end_src
+
+* SPLITS AND WINDOW CONTROLS
+
+#+begin_src emacs-lisp
+(nvmap :prefix "SPC"
+       ;; Window splits
+       "w c"   '(evil-window-delete :which-key "Close window")
+       "w n"   '(evil-window-new :which-key "New window")
+       "w s"   '(evil-window-split :which-key "Horizontal split window")
+       "w v"   '(evil-window-vsplit :which-key "Vertical split window")
+       ;; Window motions
+       "w h"   '(evil-window-left :which-key "Window left")
+       "w j"   '(evil-window-down :which-key "Window down")
+       "w k"   '(evil-window-up :which-key "Window up")
+       "w l"   '(evil-window-right :which-key "Window right")
+       "w w"   '(evil-window-next :which-key "Goto next window"))
 #+end_src
 
 * THEME
