@@ -50,6 +50,7 @@
 ;(unpin! t)
 (package! flycheck-aspell)
 (package! async)
+(package! dashboard)
 (package! dired-open)
 (package! dmenu)
 (package! elfeed-goodies)

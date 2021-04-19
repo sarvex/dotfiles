@@ -7,7 +7,13 @@
 - [[#about-this-config][ABOUT THIS CONFIG]]
 - [[#bookmarks-and-buffers][BOOKMARKS AND BUFFERS]]
 - [[#centaur-tabs][CENTAUR-TABS]]
+- [[#dashboard][DASHBOARD]]
+  - [[#configuring-dashboard][Configuring Dashboard]]
+  - [[#dashboard-in-emacsclient][Dashboard in Emacsclient]]
 - [[#dired][DIRED]]
+  - [[#keybindings-to-open-dired][Keybindings To Open Dired]]
+  - [[#keybindings-within-dired][Keybindings Within Dired]]
+  - [[#keybindings-within-dired-with-peep-dired-mode-enabled][Keybindings Within Dired With Peep-Dired-Mode Enabled]]
 - [[#doom-theme][DOOM THEME]]
 - [[#elfeed][ELFEED]]
 - [[#emms][EMMS]]
@@ -74,19 +80,60 @@ To use tabs in Doom Emacs, be sure to uncomment "tabs" in Doom's init.el.  Displ
                                                (kbd "g <up>")    'centaur-tabs-backward-group)
 #+END_SRC
 
+* DASHBOARD
+Emacs Dashboard is an extensible startup screen showing you recent files, bookmarks, agenda items and an Emacs banner.
+
+** Configuring Dashboard
+#+begin_src emacs-lisp
+(use-package dashboard
+  :init      ;; tweak dashboard config before loading it
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-banner-logo-title "Emacs Is More Than A Text Editor!")
+  ;;(setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
+  (setq dashboard-startup-banner "~/.config/doom/emacs-dash.png")  ;; use custom image as banner
+  (setq dashboard-center-content nil) ;; set to 't' for centered content
+  (setq dashboard-items '((recents . 5)
+                          (agenda . 5 )
+                          (bookmarks . 5)
+                          (projects . 5)
+                          (registers . 5)))
+  :config
+  (dashboard-setup-startup-hook)
+  (dashboard-modify-heading-icons '((recents . "file-text")
+			      (bookmarks . "book"))))
+#+end_src
+
+** Dashboard in Emacsclient
+This setting ensures that emacsclient always opens on *dashboard* rather than *scratch*.
+#+begin_src emacs-lisp
+(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+#+end_src
+
 * DIRED
 Dired is the file manager within Emacs.  Below, I setup keybindings for image previews (peep-dired).  Doom Emacs does not use 'SPC d' for any of its keybindings, so I've chosen the format of 'SPC d' plus 'key'.
 
-| COMMAND                                   | DESCRIPTION                                     | KEYBINDING |
-|-------------------------------------------+-------------------------------------------------+------------|
-| dired                                     | /Open dired file manager/                         | SPC d d    |
-| dired-jump                                | /Jump to current directory in dired/              | SPC d j    |
-| (in dired) peep-dired                     | /Toggle image previews within dired/              | SPC d p    |
-| (in dired) dired-view-file                | /View file in dired/                              | SPC d v    |
-| (in dired) dired-up-directory             | /Go up in the directory tree/                     | h          |
-| (in dired) dired-find-file                | /Go down in the directory tree (or open if file)/ | l          |
-| (in peep-dired-mode) peep-dired-next-file | /Move to next file in peep-dired-mode/            | j          |
-| (in peep-dired-mode) peep-dired-prev-file | /Move to previous file in peep-dired-mode/        | k          |
+** Keybindings To Open Dired
+| COMMAND    | DESCRIPTION                        | KEYBINDING |
+|------------+------------------------------------+------------|
+| dired      | /Open dired file manager/            | SPC d d    |
+| dired-jump | /Jump to current directory in dired/ | SPC d j    |
+
+** Keybindings Within Dired
+| COMMAND             | DESCRIPTION                                 | KEYBINDING |
+|---------------------+---------------------------------------------+------------|
+| dired-view-file     | /View file in dired/                          | SPC d v    |
+| dired-up-directory  | /Go up in directory tree/                     | h          |
+| dired-find-file     | /Go down in directory tree (or open if file)/ | l          |
+| dired-next-line     | Move down to next line                      | j          |
+| dired-previous-line | Move up to previous line                    | k          |
+
+** Keybindings Within Dired With Peep-Dired-Mode Enabled
+| COMMAND              | DESCRIPTION                              | KEYBINDING |
+|----------------------+------------------------------------------+------------|
+| peep-dired           | /Toggle previews within dired/             | SPC d p    |
+| peep-dired-next-file | /Move to next file in peep-dired-mode/     | j          |
+| peep-dired-prev-file | /Move to previous file in peep-dired-mode/ | k          |
 
 #+BEGIN_SRC emacs-lisp
 (map! :leader
@@ -142,8 +189,9 @@ An RSS newsfeed reader for Emacs.
   (kbd "K") 'elfeed-goodies/split-show-prev)
 (setq elfeed-feeds (quote
                     (("https://www.reddit.com/r/linux.rss" reddit linux)
-                     ("https://www.reddit.com/r/commandline.rss" reddit linux)
-                     ("https://www.reddit.com/r/emacs.rss" reddit linux)
+                     ("https://www.reddit.com/r/commandline.rss" reddit commandline)
+                     ("https://www.reddit.com/r/distrotube.rss" reddit distrotube)
+                     ("https://www.reddit.com/r/emacs.rss" reddit emacs)
                      ("https://www.gamingonlinux.com/article_rss.php" gaming linux)
                      ("https://hackaday.com/blog/feed/" hackaday linux)
                      ("https://opensource.com/feed" opensource linux)
@@ -229,12 +277,12 @@ Settings related to fonts within Doom Emacs:
 + 'doom-variable-pitch-font' -- variable font which is useful in some Emacs plugins.
 + 'doom-big-font' -- used in doom-big-font-mode; useful for presentations.
 + 'font-lock-comment-face' -- for comments.
-+ 'font-lock-keyword-face' -- for keywords with special significance, like ‘for’ and ‘if’ in C.
++ 'font-lock-keyword-face' -- for keywords with special significance like 'setq' in elisp.
 
 #+BEGIN_SRC emacs-lisp
-(setq doom-font (font-spec :family "Mononoki Nerd Font" :size 15)
+(setq doom-font (font-spec :family "Source Code Pro" :size 15)
       doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15)
-      doom-big-font (font-spec :family "Mononoki Nerd Font" :size 24))
+      doom-big-font (font-spec :family "Source Code Pro" :size 24))
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
@@ -294,7 +342,7 @@ By default, Doom Emacs does not use 'SPC v', so the format I use for these bindi
 #+END_SRC
 
 * LINE SETTINGS
-I set comment-line to 'SPC TAB TAB' which is a rather comfortable keybinding for me on my ErgoDox EZ keyboard.  The standard Emacs keybinding for comment-line is 'C-x C-;'.  The other keybindings are for commands that toggle on/off various line-related settings.  Doom Emacs uses 'SPC t' for "toggle" commands, so I choose 'SPC t' plus 'key' for those bindings.
+I set comment-line to 'SPC TAB TAB' which is a rather comfortable keybinding for me on my ZSA Moonlander keyboard.  The standard Emacs keybinding for comment-line is 'C-x C-;'.  The other keybindings are for commands that toggle on/off various line-related settings.  Doom Emacs uses 'SPC t' for "toggle" commands, so I choose 'SPC t' plus 'key' for those bindings.
 
 | COMMAND                  | DESCRIPTION                               | KEYBINDING  |
 |--------------------------+-------------------------------------------+-------------|
