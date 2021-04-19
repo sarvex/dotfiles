@@ -80,8 +80,11 @@ myTerminal = "alacritty"    -- Sets default terminal
 myBrowser :: String
 myBrowser = "qutebrowser "  -- Sets qutebrowser as browser
 
+myEmacs :: String
+myEmacs = "emacsclient -c -a 'emacs' "  -- Makes emacs keybindings easier to type
+
 myEditor :: String
-myEditor = "emacsclient -c -a emacs "  -- Sets emacs as editor
+myEditor = "emacsclient -c -a 'emacs' "  -- Sets emacs as editor
 -- myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor
 
 myBorderWidth :: Dimension
@@ -102,15 +105,17 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "lxsession &"
-          spawnOnce "nitrogen --restore &"
+          spawnOnce "~/.fehbg &"  -- set last saved wallpaper
+          -- spawnOnce "feh --randomize --bg-fill ~/wallpapers/*"  -- set random wallpaper
           spawnOnce "picom &"
           spawnOnce "nm-applet &"
           spawnOnce "volumeicon &"
+          spawnOnce "conky -c $HOME/.config/conky/xmonad.conkyrc"
           spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
-          spawnOnce "conky -c $HOME/.config/conky/chimera.conkyrc" -- emacs daemon for the emacsclient
           spawnOnce "/usr/bin/emacs --daemon &" -- emacs daemon for the emacsclient
           -- spawnOnce "kak -d -s mysession &"  -- kakoune daemon for better performance
           -- spawnOnce "urxvtd -q -o -f &"      -- urxvt daemon for better performance
+          -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh for wallpaper setter
           setWMName "LG3D"
 
 myColorizer :: Window -> Bool -> X (String, String)
@@ -160,6 +165,7 @@ myAppGrid = [ ("Audacity", "audacity")
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "mocp" spawnMocp findMocp manageMocp
+                , NS "calculator" spawnCalc findCalc manageCalc
                 ]
   where
     spawnTerm  = myTerminal ++ " -t scratchpad"
@@ -177,7 +183,15 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  h = 0.9
                  w = 0.9
                  t = 0.95 -h
-                 l = 0.95 -w
+                 l = 0.95 -w 
+    spawnCalc  = "qalculate-gtk"
+    findCalc   = className =? "Qalculate-gtk"
+    manageCalc = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.5
+                 w = 0.4
+                 t = 0.75 -h
+                 l = 0.70 -w
 
 --Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
@@ -292,7 +306,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                  ||| threeRow
 
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
-myWorkspaces = [" dev ", " www ", " sys ", " doc ", " vbox ", " chat ", " mus ", " vid ", " gfx "] -- ++ ["NSP"]
+myWorkspaces = [" dev ", " www ", " sys ", " doc ", " vbox ", " chat ", " mus ", " vid ", " gfx "]
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
@@ -300,14 +314,25 @@ clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
+     -- 'doFloat' forces a window to float.  Useful for dialog boxes and such.
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
      -- I'm doing it this way because otherwise I would have to write out the full
      -- name of my workspaces and the names would be very long if using clickable workspaces.
-     [ title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 1 )
-     , className =? "mpv"     --> doShift ( myWorkspaces !! 7 )
-     , className =? "Gimp"    --> doShift ( myWorkspaces !! 8 )
-     , className =? "Gimp"    --> doFloat
-     , title =? "Oracle VM VirtualBox Manager"     --> doFloat
+     [ className =? "confirm"         --> doFloat
+     , className =? "file_progress"   --> doFloat
+     , className =? "dialog"          --> doFloat
+     , className =? "download"        --> doFloat
+     , className =? "error"           --> doFloat
+     , className =? "Gimp"            --> doFloat
+     , className =? "notification"    --> doFloat
+     , className =? "pinentry-gtk-2"  --> doFloat
+     , className =? "splash"          --> doFloat
+     , className =? "toolbar"         --> doFloat
+     , title =? "Oracle VM VirtualBox Manager"  --> doFloat
+     , title =? "Mozilla Firefox"   --> doShift ( myWorkspaces !! 1 )
+     , className =? "brave-browser" --> doShift ( myWorkspaces !! 1 )
+     , className =? "qutebrowser"   --> doShift ( myWorkspaces !! 1 )
+     , className =? "mpv"           --> doShift ( myWorkspaces !! 7 )
      , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads
@@ -403,14 +428,23 @@ myKeys =
         , ("M-C-k", sendMessage $ pullGroup U)
         , ("M-C-j", sendMessage $ pullGroup D)
         , ("M-C-m", withFocused (sendMessage . MergeAll))
-        , ("M-C-u", withFocused (sendMessage . UnMerge))
+        -- , ("M-C-u", withFocused (sendMessage . UnMerge))
         , ("M-C-/", withFocused (sendMessage . UnMergeAll))
         , ("M-C-.", onGroup W.focusUp')    -- Switch focus to next tab
         , ("M-C-,", onGroup W.focusDown')  -- Switch focus to prev tab
 
     -- Scratchpads
-        , ("M-C-<Return>", namedScratchpadAction myScratchPads "terminal")
-        , ("M-C-c", namedScratchpadAction myScratchPads "mocp")
+    -- Toggle show/hide these programs.  They run on a hidden workspace.
+    -- When you toggle them to show, it brings them to your current workspace.
+    -- Toggle them to hide and it sends them back to hidden workspace (NSP).
+        , ("C-s t", namedScratchpadAction myScratchPads "terminal")
+        , ("C-s m", namedScratchpadAction myScratchPads "mocp")
+        , ("C-s c", namedScratchpadAction myScratchPads "calculator")
+
+    -- Set wallpaper with 'feh'. Type 'SUPER+F1' to launch sxiv in the wallpapers directory.
+    -- Then in sxiv, type 'C-x w' to set the wallpaper that you choose.
+        , ("M-<F1>", spawn "sxiv -r -q -t -o ~/wallpapers/*")
+        , ("M-<F2>", spawn "feh --randomize --bg-fill ~/wallpapers/*")
 
     -- Controls for mocp music player (SUPER-u followed by a key)
         , ("M-u p", spawn "mocp --play")
@@ -419,18 +453,18 @@ myKeys =
         , ("M-u <Space>", spawn "mocp --toggle-pause")
 
     -- Emacs (CTRL-e followed by a key)
-        , ("C-e e", spawn "emacsclient -c -a 'emacs'")                            -- start emacs
-        , ("C-e b", spawn "emacsclient -c -a 'emacs' --eval '(ibuffer)'")         -- list emacs buffers
-        , ("C-e d", spawn "emacsclient -c -a 'emacs' --eval '(dired nil)'")       -- dired emacs file manager
-        , ("C-e i", spawn "emacsclient -c -a 'emacs' --eval '(erc)'")             -- erc emacs irc client
-        , ("C-e m", spawn "emacsclient -c -a 'emacs' --eval '(mu4e)'")            -- mu4e emacs email client
-        , ("C-e n", spawn "emacsclient -c -a 'emacs' --eval '(elfeed)'")          -- elfeed emacs rss client
-        , ("C-e s", spawn "emacsclient -c -a 'emacs' --eval '(eshell)'")          -- eshell within emacs
-        , ("C-e t", spawn "emacsclient -c -a 'emacs' --eval '(mastodon)'")        -- mastodon within emacs
-        , ("C-e v", spawn "emacsclient -c -a 'emacs' --eval '(vterm nil)'") -- vterm within emacs
-        , ("C-e w", spawn "emacsclient -c -a 'emacs' --eval '(eww \"distrotube.com\")'") -- vterm within emacs
+        , ("C-e e", spawn myEmacs)                 -- start emacs
+        , ("C-e b", spawn (myEmacs ++ ("--eval '(ibuffer)'")))   -- list buffers
+        , ("C-e d", spawn (myEmacs ++ ("--eval '(dired nil)'"))) -- dired
+        , ("C-e i", spawn (myEmacs ++ ("--eval '(erc)'")))       -- erc irc client
+        , ("C-e m", spawn (myEmacs ++ ("--eval '(mu4e)'")))      -- mu4e email 
+        , ("C-e n", spawn (myEmacs ++ ("--eval '(elfeed)'")))    -- elfeed rss
+        , ("C-e s", spawn (myEmacs ++ ("--eval '(eshell)'")))    -- eshell
+        , ("C-e t", spawn (myEmacs ++ ("--eval '(mastodon)'")))  -- mastodon.el
+        , ("C-e v", spawn (myEmacs ++ ("--eval '(vterm nil)'"))) -- vterm
+        , ("C-e w", spawn (myEmacs ++ ("--eval '(eww \"distrotube.com\")'"))) -- eww browser
         -- emms is an emacs audio player. I set it to auto start playing in a specific directory.
-        , ("C-e a", spawn "emacsclient -c -a 'emacs' --eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/Non-Classical/70s-80s/\")'")
+        , ("C-e a", spawn (myEmacs ++ ("--eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/Non-Classical/70s-80s/\")'")))
 
     -- Multimedia Keys
         , ("<XF86AudioPlay>", spawn (myTerminal ++ "mocp --play"))

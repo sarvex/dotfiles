@@ -164,12 +164,12 @@ keys = [
              desc='Move down a section in treetab'
              ),
          ### Window controls
-         Key([mod], "k",
-             lazy.layout.up(),
-             desc='Move focus down in current stack pane'
-             ),
          Key([mod], "j",
              lazy.layout.down(),
+             desc='Move focus down in current stack pane'
+             ),
+         Key([mod], "k",
+             lazy.layout.up(),
              desc='Move focus up in current stack pane'
              ),
          Key([mod, "shift"], "j",

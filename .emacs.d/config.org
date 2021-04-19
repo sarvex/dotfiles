@@ -666,6 +666,8 @@ Emacs' default scrolling is annoying because of the sudden half-page jumps.  Als
 #+end_src
 
 * SHELLS
+In my configs, all of my shells (bash, fish, zsh and the ESHELL) require my shell-color-scripts-git package to be installed.  On Arch Linux, you can install it from the AUR.  Otherwise, go to my shell-color-scripts repository on GitLab to get it.
+
 ** Eshell
 Eshell is an Emacs 'shell' that is written in Elisp.
 
@@ -676,6 +678,7 @@ Eshell is an Emacs 'shell' that is written in Elisp.
 #+end_src
 
 + 'eshell-syntax-highlighting' -- adds fish/zsh-like syntax highlighting.
++ 'eshell-rc-script' -- your profile for eshell; like a bashrc for eshell.
 + 'eshell-aliases-file' -- sets an aliases file for the eshell.
   
 #+begin_src emacs-lisp
@@ -683,7 +686,9 @@ Eshell is an Emacs 'shell' that is written in Elisp.
   :after esh-mode
   :config
   (eshell-syntax-highlighting-global-mode +1))
-(setq eshell-aliases-file "~/.config/doom/aliases"
+
+(setq eshell-rc-script (concat user-emacs-directory "eshell/profile")
+      eshell-aliases-file (concat user-emacs-directory "eshell/aliases")
       eshell-history-size 5000
       eshell-buffer-maximum-lines 5000
       eshell-hist-ignoredups t
