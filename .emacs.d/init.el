@@ -1,37 +1,18 @@
-;;; init.el -*- lexical-binding: t; -*-
-;;
-;; Author:  Henrik Lissner <henrik@lissner.net>
-;; URL:     https://github.com/hlissner/doom-emacs
-;;
-;;   =================     ===============     ===============   ========  ========
-;;   \\ . . . . . . .\\   //. . . . . . .\\   //. . . . . . .\\  \\. . .\\// . . //
-;;   ||. . ._____. . .|| ||. . ._____. . .|| ||. . ._____. . .|| || . . .\/ . . .||
-;;   || . .||   ||. . || || . .||   ||. . || || . .||   ||. . || ||. . . . . . . ||
-;;   ||. . ||   || . .|| ||. . ||   || . .|| ||. . ||   || . .|| || . | . . . . .||
-;;   || . .||   ||. _-|| ||-_ .||   ||. . || || . .||   ||. _-|| ||-_.|\ . . . . ||
-;;   ||. . ||   ||-'  || ||  `-||   || . .|| ||. . ||   ||-'  || ||  `|\_ . .|. .||
-;;   || . _||   ||    || ||    ||   ||_ . || || . _||   ||    || ||   |\ `-_/| . ||
-;;   ||_-' ||  .|/    || ||    \|.  || `-_|| ||_-' ||  .|/    || ||   | \  / |-_.||
-;;   ||    ||_-'      || ||      `-_||    || ||    ||_-'      || ||   | \  / |  `||
-;;   ||    `'         || ||         `'    || ||    `'         || ||   | \  / |   ||
-;;   ||            .===' `===.         .==='.`===.         .===' /==. |  \/  |   ||
-;;   ||         .=='   \_|-_ `===. .==='   _|_   `===. .===' _-|/   `==  \/  |   ||
-;;   ||      .=='    _-'    `-_  `='    _-'   `-_    `='  _-'   `-_  /|  \/  |   ||
-;;   ||   .=='    _-'          '-__\._-'         '-_./__-'         `' |. /|  |   ||
-;;   ||.=='    _-'                                                     `' |  /==.||
-;;   =='    _-'                                                            \/   `==
-;;   \   _-'                                                                `-_   /
-;;    `''                                                                      ``'
-;;
-;; These demons are not part of GNU Emacs.
-;;
-;;; License: MIT
+(org-babel-load-file
+ (expand-file-name
+  "config.org"
+  user-emacs-directory))
 
-;; In the strange case that early-init.el wasn't loaded (e.g. you're using
-;; Chemacs 1? Or you're loading this file directly?), we do it explicitly:
-(unless (boundp 'doom-version)
-  (load (concat (file-name-directory load-file-name) "early-init")
-        nil t))
-
-;; And let 'er rip!
-(doom-initialize)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(elfeed-goodies sudo-edit ox-man dired smex org-tempo all-the-icons-dired which-key vterm use-package toc-org projectile peep-dired org-bullets magit-todos magit-lfs ivy-rich ivy-posframe haskell-mode general evil-collection eshell-syntax-highlighting doom-themes doom-modeline dired-open dashboard counsel)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
