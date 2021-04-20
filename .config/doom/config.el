@@ -131,19 +131,6 @@
        :desc "Eww web browser" "w" #'eww
        :desc "Eww reload page" "R" #'eww-reload))
 
-(defun eww-display+ (buf _alist)
-  (let ((w (or (window-in-direction 'right)
-               (window-in-direction 'left)
-               (window-in-direction 'below)
-               (window-in-direction 'above)
-               (split-window-horizontally))))
-    (set-window-buffer w buf)
-    w))
-
-(push `(,(rx "*eww*")
-        (eww-display+))
-      display-buffer-alist)
-
 (setq doom-font (font-spec :family "Source Code Pro" :size 15)
       doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15)
       doom-big-font (font-spec :family "Source Code Pro" :size 24))
@@ -296,6 +283,8 @@
        :desc "Edit doom init.el" "i" #'(lambda () (interactive) (find-file "~/.doom.d/init.el"))
        :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.doom.d/packages.el"))))
 
+(map! :leader
+      :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   (setq org-directory "~/Org/"
@@ -346,14 +335,15 @@
        :desc "Ssh into my nextcloud" "\\ n" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.net"))))
 
 (setq shell-file-name "/bin/fish"
-      eshell-aliases-file "~/.doom.d/aliases"
+      vterm-max-scrollback 5000)
+(setq eshell-rc-script "~/.config/doom/eshell/profile"
+      eshell-aliases-file "~/.config/doom/eshell/aliases"
       eshell-history-size 5000
       eshell-buffer-maximum-lines 5000
       eshell-hist-ignoredups t
       eshell-scroll-to-bottom-on-input t
       eshell-destroy-buffer-when-process-dies t
-      eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh")
-      vterm-max-scrollback 5000)
+      eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh"))
 (map! :leader
       :desc "Eshell" "e s" #'eshell
       :desc "Counsel eshell history" "e h" #'counsel-esh-history)
