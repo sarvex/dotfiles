@@ -403,6 +403,7 @@ myManageHook = composeAll
      , className =? "brave-browser" --> doShift ( myWorkspaces !! 1 )
      , className =? "qutebrowser"   --> doShift ( myWorkspaces !! 1 )
      , className =? "mpv"           --> doShift ( myWorkspaces !! 7 )
+     , className =? "Gimp"           --> doShift ( myWorkspaces !! 8 )
      , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads 
@@ -440,20 +441,24 @@ I am using the Xmonad.Util.EZConfig module which allows keybindings to be writte
 myKeys :: [(String, X ())]
 myKeys =
     -- Xmonad
-        [ ("M-C-r", spawn "xmonad --recompile")                        -- Recompiles xmonad
-        , ("M-S-r", spawn "xmonad --restart")                          -- Restarts xmonad
-        , ("M-S-q", io exitSuccess)  -- Quits xmonad
+        [ ("M-C-r", spawn "xmonad --recompile")  -- Recompiles xmonad
+        , ("M-S-r", spawn "xmonad --restart")    -- Restarts xmonad
+        , ("M-S-q", io exitSuccess)              -- Quits xmonad
 
     -- Run Prompt
+    -- M-p was the default keybinding.  I've changed it to M-S-RET because I will use
+    -- M-p as part of the keychord for the other dmenu script bindings. 
         , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
 
-    -- Other Prompts
+    -- Other Dmenu Prompts
+    -- In Xmonad and many tiling window managers, M-p is the default keybinding to
+    --  launch dmenu_run, so I've decided to use M-p plus KEY for these dmenu scripts.
         , ("M-p c", spawn "/home/dt/dmscripts/dcolors")  -- pick color from our scheme
         , ("M-p e", spawn "/home/dt/dmscripts/dmconf")   -- edit config files
         , ("M-p i", spawn "/home/dt/dmscripts/dmscrot")  -- screenshots (images)
         , ("M-p k", spawn "/home/dt/dmscripts/dmkill")   -- kill processes
         , ("M-p m", spawn "/home/dt/dmscripts/dman")     -- manpages
-        , ("M-p o", spawn "/home/dt/dmscripts/dmqute")   -- open qutebrowser bookmarks, quickmarks and history
+        , ("M-p o", spawn "/home/dt/dmscripts/dmqute")   -- qutebrowser bookmarks/history
         , ("M-p p", spawn "passmenu")                    -- passmenu
         , ("M-p q", spawn "/home/dt/dmscripts/dmlogout") -- logout menu
         , ("M-p r", spawn "/home/dt/dmscripts/dmred")    -- reddio (a reddit viewer)
@@ -510,10 +515,10 @@ myKeys =
         , ("M-<Space>", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
 
     -- Increase/decrease windows in the master pane or the stack
-        , ("M-S-<Up>", sendMessage (IncMasterN 1))      -- Increase number of clients in master pane
-        , ("M-S-<Down>", sendMessage (IncMasterN (-1))) -- Decrease number of clients in master pane
-        , ("M-C-<Up>", increaseLimit)                   -- Increase number of windows
-        , ("M-C-<Down>", decreaseLimit)                 -- Decrease number of windows
+        , ("M-S-<Up>", sendMessage (IncMasterN 1))      -- Increase # of clients master pane
+        , ("M-S-<Down>", sendMessage (IncMasterN (-1))) -- Decrease # of clients master pane
+        , ("M-C-<Up>", increaseLimit)                   -- Increase # of windows
+        , ("M-C-<Down>", decreaseLimit)                 -- Decrease # of windows
 
     -- Window resizing
         , ("M-h", sendMessage Shrink)                   -- Shrink horiz window width
@@ -617,16 +622,19 @@ main = do
         , normalBorderColor  = myNormColor
         , focusedBorderColor = myFocusColor
         , logHook = dynamicLogWithPP $ namedScratchpadFilterOutWorkspacePP $ xmobarPP
-                        { ppOutput = \x -> hPutStrLn xmproc0 x  >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
-                        , ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]"           -- Current workspace in xmobar
-                        , ppVisible = xmobarColor "#98be65" "" . clickable              -- Visible but not current workspace
-                        , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" "" . clickable -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#c792ea" ""  . clickable     -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#b3afc2" "" . shorten 60               -- Title of active window in xmobar
-                        , ppSep =  "<fc=#666666> <fn=1>|</fn> </fc>"                    -- Separators in xmobar
-                        , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"            -- Urgent workspace
-                        , ppExtras  = [windowCount]                                     -- # of windows current workspace
-                        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
-                        }
+              -- the following variables beginning with 'pp' are settings for xmobar.
+              { ppOutput = \x -> hPutStrLn xmproc0 x                          -- xmobar on monitor 1
+                              >> hPutStrLn xmproc1 x                          -- xmobar on monitor 2
+                              >> hPutStrLn xmproc2 x                          -- xmobar on monitor 3
+              , ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]"           -- Current workspace
+              , ppVisible = xmobarColor "#98be65" "" . clickable              -- Visible but not current workspace
+              , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" "" . clickable -- Hidden workspaces
+              , ppHiddenNoWindows = xmobarColor "#c792ea" ""  . clickable     -- Hidden workspaces (no windows)
+              , ppTitle = xmobarColor "#b3afc2" "" . shorten 60               -- Title of active window
+              , ppSep =  "<fc=#666666> <fn=1>|</fn> </fc>"                    -- Separator character
+              , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"            -- Urgent workspace
+              , ppExtras  = [windowCount]                                     -- # of windows current workspace
+              , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]                    -- order of things in xmobar
+              }
         } `additionalKeysP` myKeys
 #+END_SRC
