@@ -1,4 +1,4 @@
-  -- Base
+-- Base
 import XMonad
 import System.Directory
 import System.IO (hPutStrLn)
@@ -516,7 +516,7 @@ main = do
                                <+> serverModeEventHook
                                <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
                                <+> docksEventHook
-                               -- <+> fullscreenEventHook  -- this does NOT work right if using multi-monitors!
+                               <+> fullscreenEventHook  -- this does NOT work right if using multi-monitors!
         , modMask            = myModMask
         , terminal           = myTerminal
         , startupHook        = myStartupHook
