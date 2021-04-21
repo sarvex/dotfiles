@@ -24,7 +24,7 @@
   (setq dashboard-set-file-icons t)
   (setq dashboard-banner-logo-title "Emacs Is More Than A Text Editor!")
   ;;(setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
-  (setq dashboard-startup-banner "~/.config/doom/emacs-dash.png")  ;; use custom image as banner
+  (setq dashboard-startup-banner "~/.config/doom/doom-emacs-dash.png")  ;; use custom image as banner
   (setq dashboard-center-content nil) ;; set to 't' for centered content
   (setq dashboard-items '((recents . 5)
                           (agenda . 5 )
@@ -68,6 +68,9 @@
 (setq doom-theme 'doom-one)
 (map! :leader
       :desc "Load new theme" "h t" #'counsel-load-theme)
+
+(use-package emojify
+  :hook (after-init . global-emojify-mode))
 
 (use-package! elfeed-goodies)
 (elfeed-goodies/setup)
