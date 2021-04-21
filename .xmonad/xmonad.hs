@@ -104,19 +104,22 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 myStartupHook :: X ()
 myStartupHook = do
-          spawnOnce "lxsession &"
-          spawnOnce "~/.fehbg &"  -- set last saved wallpaper
-          -- spawnOnce "feh --randomize --bg-fill ~/wallpapers/*"  -- set random wallpaper
-          spawnOnce "picom &"
-          spawnOnce "nm-applet &"
-          spawnOnce "volumeicon &"
-          spawnOnce "conky -c $HOME/.config/conky/xmonad.conkyrc"
-          spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
-          spawnOnce "/usr/bin/emacs --daemon &" -- emacs daemon for the emacsclient
-          -- spawnOnce "kak -d -s mysession &"  -- kakoune daemon for better performance
-          -- spawnOnce "urxvtd -q -o -f &"      -- urxvt daemon for better performance
-          -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh for wallpaper setter
-          setWMName "LG3D"
+    spawnOnce "lxsession &"
+    spawnOnce "picom &"
+    spawnOnce "nm-applet &"
+    spawnOnce "volumeicon &"
+    spawnOnce "conky -c $HOME/.config/conky/xmonad.conkyrc"
+    spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
+    spawnOnce "/usr/bin/emacs --daemon &" -- emacs daemon for the emacsclient
+    -- spawnOnce "kak -d -s mysession &"  -- kakoune daemon for better performance
+    -- spawnOnce "urxvtd -q -o -f &"      -- urxvt daemon for better performance
+
+    spawnOnce "xargs xwallpaper --stretch < ~/.xwallpaper"  -- set last saved with xwallpaper
+    -- spawnOnce "/bin/ls ~/wallpapers | shuf -n 1 | xargs xwallpaper --stretch"  -- set random xwallpaper
+    -- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
+    -- spawnOnce "feh --randomize --bg-fill ~/wallpapers/*"  -- feh set random wallpaper
+    -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
+    setWMName "LG3D"
 
 myColorizer :: Window -> Bool -> X (String, String)
 myColorizer = colorRangeFromClassName
@@ -445,7 +448,8 @@ myKeys =
     -- Set wallpaper with 'feh'. Type 'SUPER+F1' to launch sxiv in the wallpapers directory.
     -- Then in sxiv, type 'C-x w' to set the wallpaper that you choose.
         , ("M-<F1>", spawn "sxiv -r -q -t -o ~/wallpapers/*")
-        , ("M-<F2>", spawn "feh --randomize --bg-fill ~/wallpapers/*")
+        , ("M-<F2>", spawn "/bin/ls ~/wallpapers | shuf -n 1 | xargs xwallpaper --stretch")
+        --, ("M-<F2>", spawn "feh --randomize --bg-fill ~/wallpapers/*")
 
     -- Controls for mocp music player (SUPER-u followed by a key)
         , ("M-u p", spawn "mocp --play")
