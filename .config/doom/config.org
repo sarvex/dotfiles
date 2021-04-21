@@ -15,6 +15,7 @@
   - [[#keybindings-within-dired][Keybindings Within Dired]]
   - [[#keybindings-within-dired-with-peep-dired-mode-enabled][Keybindings Within Dired With Peep-Dired-Mode Enabled]]
 - [[#doom-theme][DOOM THEME]]
+- [[#emojis][EMOJIS]]
 - [[#elfeed][ELFEED]]
 - [[#emms][EMMS]]
 - [[#evaluate-elisp-expressions][EVALUATE ELISP EXPRESSIONS]]
@@ -172,6 +173,14 @@ Setting the theme to doom-one.  To try out new themes, I set a keybinding for co
 (map! :leader
       :desc "Load new theme" "h t" #'counsel-load-theme)
 #+END_SRC
+
+* EMOJIS
+Emojify is an Emacs extension to display emojis. It can display github style emojis like :smile: or plain ascii ones like :). 
+
+#+begin_src emacs-lisp
+(use-package emojify
+  :hook (after-init . global-emojify-mode))
+#+end_src
 
 * ELFEED
 An RSS newsfeed reader for Emacs.
