@@ -35,7 +35,7 @@ do
     case "$1" in
         "c") 
             xclip -selection clipboard -target image/png "$file" &&
-	        notify-send "$file has been copied to clipboard." && exit 0
+            notify-send "$file has been copied to clipboard." && exit 0
         ;;
         "d")
             [ "$(printf "No\\nYes" | dmenu -i -p "Really delete $file?")" = "Yes" ] && 
@@ -52,7 +52,7 @@ do
         ;;
         "w") 
             feh --bg-scale "$file" &&
-		    notify-send "$file has been set as your wallpaper." && exit 0
+            notify-send "$file has been set as your wallpaper." && exit 0
         ;;
         "x") 
             xwallpaper --stretch "$file" &&
@@ -61,7 +61,7 @@ do
                 touch $filename
             fi
             echo "$file" > $HOME/.xwallpaper &&
-        	notify-send "$file has been set as your wallpaper." && exit 0
+            notify-send "$file has been set as your wallpaper." && exit 0
         ;;
         "7")
             rotate 270
