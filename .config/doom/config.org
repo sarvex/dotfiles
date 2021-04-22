@@ -514,22 +514,24 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
 * OPEN SPECIFIC FILES
 Keybindings to open files that I work with all the time using the find-file command, which is the interactive file search that opens with 'C-x C-f' in GNU Emacs or 'SPC f f' in Doom Emacs.  These keybindings use find-file non-interactively since we specify exactly what file to open.  The format I use for these bindings is 'SPC -' plus 'key' since Doom Emacs does not use these keybindings.
 
-| PATH TO FILE           | DESCRIPTION           | KEYBINDING |
-|------------------------+-----------------------+------------|
-| ~/Org/agenda.org       | /Edit agenda file/      | SPC - a    |
-| ~/.doom.d/config.org"  | /Edit doom config.org/  | SPC - c    |
-| ~/.doom.d/aliases"     | /Edit eshell aliases/   | SPC - e    |
-| ~/.doom.d/init.el"     | /Edit doom init.el/     | SPC - i    |
-| ~/.doom.d/packages.el" | /Edit doom packages.el/ | SPC - p    |
+| PATH TO FILE                   | DESCRIPTION           | KEYBINDING |
+|--------------------------------+-----------------------+------------|
+| ~/Org/agenda.org               | /Edit agenda file/      | SPC - a    |
+| ~/.config/doom/config.org"     | /Edit doom config.org/  | SPC - c    |
+| ~/.config/doom/eshell/aliases" | /Edit eshell aliases/   | SPC - e a  |
+| ~/.config/doom/eshell/profile" | /Edit eshell profile/   | SPC - e p  |
+| ~/.config/doom/init.el"        | /Edit doom init.el/     | SPC - i    |
+| ~/.config/doom/packages.el"    | /Edit doom packages.el/ | SPC - p    |
 
 #+BEGIN_SRC emacs-lisp
 (map! :leader
       (:prefix ("-" . "open file")
        :desc "Edit agenda file" "a" #'(lambda () (interactive) (find-file "~/Org/agenda.org"))
-       :desc "Edit doom config.org" "c" #'(lambda () (interactive) (find-file "~/.doom.d/config.org"))
-       :desc "Edit eshell aliases" "e" #'(lambda () (interactive) (find-file "~/.doom.d/aliases"))
-       :desc "Edit doom init.el" "i" #'(lambda () (interactive) (find-file "~/.doom.d/init.el"))
-       :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.doom.d/packages.el"))))
+       :desc "Edit doom config.org" "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
+       :desc "Edit eshell aliases" "e a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
+       :desc "Edit eshell aliases" "e p" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/profile"))
+       :desc "Edit doom init.el" "i" #'(lambda () (interactive) (find-file "~/.config/doom/init.el"))
+       :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.config/doom/packages.el"))))
 #+END_SRC
 
 * ORG MODE
