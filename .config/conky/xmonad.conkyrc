@@ -7,7 +7,6 @@
 conky.config = {
 
 	--Various settings
-
 	background = true, 							-- forked to background
 	cpu_avg_samples = 2,						-- The number of samples to average for CPU monitoring.
 	diskio_avg_samples = 10,					-- The number of samples to average for disk I/O monitoring.
@@ -20,22 +19,22 @@ conky.config = {
 	update_interval = 1,						-- update interval
 	imlib_cache_size = 0,                       -- disable image cache to get a new spotify cover per song
 
-
-	--Placement
-	-- settings for my triple monitor setup; conky on the middle monitor
+	-- Placement (Conky on MIDDLE of THREE monitors at 1920x1080)
 	alignment = 'top_left',		                -- top_left,top_middle,top_right,bottom_left,bottom_middle,bottom_right,
-	gap_x = 3550,                               -- pixels between right or left border
-
-    -- settings for single monitor setups.
-	--alignment = 'top_right',		            -- top_left,top_middle,top_right,bottom_left,bottom_middle,bottom_right,
-	--gap_x = 50,									-- pixels between right or left border
+	gap_x = 3540,                               -- pixels between right or left border
 	gap_y = 70,									-- pixels between bottom or left border
-	minimum_height = 200,						-- minimum height of window
+
+    -- Placement (For SINGLE monitor users!)
+	--alignment = 'top_right',		            -- top_left,top_middle,top_right,bottom_left,bottom_middle,bottom_right,
+	--gap_x = 50,								-- pixels between right or left border
+	--gap_y = 70,								-- pixels between bottom or left border
+
+    -- Size
+    minimum_height = 200,						-- minimum height of window
 	minimum_width = 260,						-- minimum height of window
 	maximum_width = 260,						-- maximum height of window
 
 	--Graphical
-
 	border_inner_margin = 5, 					-- margin between border and text
 	border_outer_margin = 5, 					-- margin between border and edge of window
 	border_width = 0, 							-- border width in pixels
@@ -54,10 +53,8 @@ conky.config = {
 	stippled_borders = 0,						-- dashing the border
 
 	--Textual
-
-	extra_newline = false,						-- extra newline at the end - for asesome's wiboxes
 	format_human_readable = true,				-- KiB, MiB rather then number of bytes
-	font = 'Source Code Pro:bold:size=10',  			-- font for complete conky unless in code defined
+	font = 'Source Code Pro:bold:size=10',  	-- font for complete conky unless in code defined
 	max_text_width = 0,							-- 0 will make sure line does not get broken if width too smal
 	max_user_text = 16384,						-- max text in conky default 16384
 	override_utf8_locale = true,				-- force UTF8 requires xft
@@ -70,49 +67,36 @@ conky.config = {
 	xftalpha = 1,								-- alpha of the xft font - between 0-1
 
 	--Windows
-
 	own_window = true,							-- create your own window to draw
 	own_window_argb_value = 255,			    -- real transparency - composite manager required 0-255
 	own_window_argb_visual = true,				-- use ARGB - composite manager required
 	own_window_class = 'Conky',					-- manually set the WM_CLASS name for use with xprop
 	own_window_colour = '#282c34',				-- set colour if own_window_transparent no
-	own_window_hints = 'undecorated,below,above,sticky,skip_taskbar,skip_pager',  -- if own_window true - just hints - own_window_type sets it
 	own_window_transparent = false,				-- if own_window_argb_visual is true sets background opacity 0%
-	own_window_title = 'system_conky',			-- set the name manually  - default conky "hostname"
+	own_window_title = 'xmonad_conky',			-- set the name manually; default conky "hostname"
 	own_window_type = 'desktop',				-- if own_window true options are: normal/override/dock/desktop/panel
+	own_window_hints = 'undecorated,below,above,sticky,skip_taskbar,skip_pager',  -- if own_window true - just hints - own_window_type sets it
 
-
-	--Colours
-
-	default_color = '#C0C0C0',  				-- default color and border color
+	--Colors
 	color0 = '#c678dd',
 	color1 = '#bbc2cf',
 	color2 = '#51afef',
 	color3 = '#98be65',
-	color4 = '#BDBDBD',
-	color5 = '#CCCCCC',
-	color6 = '#aa0000',
-
-	--Signal Colours
-	color7 = '#1F7411',  						--green
-	color8 = '#FFA726',  						--orange
-	color9 = '#F1544B',  						--firebrick
 };
 
 conky.text = [[
-${alignc}${color0}${font Ubuntu:size=24}${time %H:%M}${font}
-${voffset 4}${alignc}${color0}${font Ubuntu:size=16}${time %b %d, %Y}${font}${color}
+${alignc}${color0}${font Ubuntu:size=30}${time %H:%M}${font}
+${voffset 6}${alignc}${color0}${font Ubuntu:size=14}${time %b %d, %Y}${font}${color}
 ${voffset 18}${goto 12}${color3}CPU${goto 50}$cpu%
-${color2}${goto 12}${cpubar 8,254}${color}
-${voffset 5}${goto 12}$font${top name 1}$alignr$color${top cpu 1}%
-${goto 12}${top name 2}$alignr$color${top cpu 2}%
-${goto 12}${top name 3}$alignr$color${top cpu 3}%
-#
-${voffset 10}${goto 12}${color3}RAM${goto 50}$mem/$memmax
+${color2}${goto 12}${cpubar 8,254}
+${voffset 5}${goto 12}$font${color1}${top name 1}$alignr$color${top cpu 1}%
+${goto 12}${color1}${top name 2}$alignr$color${top cpu 2}%
+${goto 12}${color1}${top name 3}$alignr$color${top cpu 3}%
+${voffset 14}${goto 12}${color3}RAM${goto 50}$mem/$memmax
 ${color2}${goto 12}${membar 8,254}${color}
-${goto 12}${voffset 5}${top_mem name 1}$alignr$color${top_mem mem_res 1}
-${goto 12}${top_mem name 2}$alignr$color${top_mem mem_res 2}
-${goto 12}${top_mem name 3}$alignr$color${top_mem mem_res 3}
+${goto 12}${voffset 5}${color1}${top_mem name 1}$alignr$color${top_mem mem_res 1}
+${goto 12}${color1}${top_mem name 2}$alignr$color${top_mem mem_res 2}
+${goto 12}${color1}${top_mem name 3}$alignr$color${top_mem mem_res 3}
 ${voffset 18}${color1}${alignc}XMONAD KEYBINDINGS${color}
 ${color1}${hr}${color}
 ${color1}[S]+[RET]${alignr}${color2}opens terminal${color}
