@@ -108,9 +108,6 @@ It's nice to assign values to stuff that you will use more than once in the conf
 myFont :: String
 myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
 
-myEmojiFont :: String
-myEmojiFont = "xft:JoyPixels:regular:size=9:antialias=true:hinting=true"
-
 myModMask :: KeyMask
 myModMask = mod4Mask        -- Sets modkey to super/windows key
 
@@ -142,6 +139,25 @@ altMask = mod1Mask          -- Setting this for use in xprompts
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 #+END_SRC
+
+#+RESULTS:
+#+begin_example
+<interactive>:37:45-56: error:
+    Not in scope: ‘W.integrate'’
+    No module named ‘W’ is imported.
+
+<interactive>:37:60-66: error:
+    Not in scope: ‘W.stack’
+    No module named ‘W’ is imported.
+
+<interactive>:37:70-80: error:
+    Not in scope: ‘W.workspace’
+    No module named ‘W’ is imported.
+
+<interactive>:37:84-92: error:
+    Not in scope: ‘W.current’
+    No module named ‘W’ is imported.
+#+end_example
 
 * Autostart (The Startup Hook)
 These are commands we want XMonad to execute on startup, such as running a compositor, setting our wallpaper, starting the emacs daemon, and starting our system tray and the applications that belong in it.
