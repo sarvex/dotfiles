@@ -93,9 +93,6 @@ myNormColor   = "#282c34"   -- Border color of normal windows
 myFocusColor :: String
 myFocusColor  = "#46d9ff"   -- Border color of focused windows
 
-altMask :: KeyMask
-altMask = mod1Mask          -- Setting this for use in xprompts
-
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
@@ -332,6 +329,7 @@ myManageHook = composeAll
      , className =? "Gimp"            --> doShift ( myWorkspaces !! 8 )
      , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
+     , isFullscreen -->  doFullFloat
      ] <+> namedScratchpadManageHook myScratchPads
 
 myKeys :: [(String, X ())]
@@ -342,13 +340,11 @@ myKeys =
         , ("M-S-q", io exitSuccess)              -- Quits xmonad
 
     -- Run Prompt
-    -- M-p was the default keybinding.  I've changed it to M-S-RET because I will use
-    -- M-p as part of the keychord for the other dmenu script bindings.
         , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
 
     -- Other Dmenu Prompts
     -- In Xmonad and many tiling window managers, M-p is the default keybinding to
-    --  launch dmenu_run, so I've decided to use M-p plus KEY for these dmenu scripts.
+    -- launch dmenu_run, so I've decided to use M-p plus KEY for these dmenu scripts.
         , ("M-p c", spawn "~/dmscripts/dcolors")  -- pick color from our scheme
         , ("M-p e", spawn "~/dmscripts/dmconf")   -- edit config files
         , ("M-p i", spawn "~/dmscripts/dmscrot")  -- screenshots (images)
@@ -381,10 +377,10 @@ myKeys =
         , ("M-S-t", sinkAll)                       -- Push ALL floating windows to tile
 
     -- Increase/decrease spacing (gaps)
-        , ("M-d", decWindowSpacing 4)           -- Decrease window spacing
-        , ("M-i", incWindowSpacing 4)           -- Increase window spacing
-        , ("M-S-d", decScreenSpacing 4)         -- Decrease screen spacing
-        , ("M-S-i", incScreenSpacing 4)         -- Increase screen spacing
+        , ("C-M1-j", decWindowSpacing 4)         -- Decrease window spacing
+        , ("C-M1-k", incWindowSpacing 4)         -- Increase window spacing
+        , ("C-M1-h", decScreenSpacing 4)         -- Decrease screen spacing
+        , ("C-M1-l", incScreenSpacing 4)         -- Increase screen spacing
 
     -- Grid Select (CTR-g followed by a key)
         , ("C-g g", spawnSelected' myAppGrid)                 -- grid select favorite apps
@@ -404,10 +400,6 @@ myKeys =
 
     -- Layouts
         , ("M-<Tab>", sendMessage NextLayout)           -- Switch to next layout
-        , ("M-C-M1-<Up>", sendMessage Arrange)
-        , ("M-C-M1-<Down>", sendMessage DeArrange)
-        , ("M-S-<Space>", sendMessage ToggleStruts)     -- Toggles struts
-        , ("M-S-n", sendMessage $ MT.Toggle NOBORDERS)  -- Toggles noborder
         , ("M-<Space>", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
 
     -- Increase/decrease windows in the master pane or the stack
@@ -475,15 +467,15 @@ myKeys =
         , ("<XF86AudioPlay>", spawn (myTerminal ++ "mocp --play"))
         , ("<XF86AudioPrev>", spawn (myTerminal ++ "mocp --previous"))
         , ("<XF86AudioNext>", spawn (myTerminal ++ "mocp --next"))
-        , ("<XF86AudioMute>",   spawn "amixer set Master toggle")
+        , ("<XF86AudioMute>", spawn "amixer set Master toggle")
         , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
         , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
-        , ("<XF86HomePage>", spawn "firefox")
-        , ("<XF86Search>", safeSpawn "firefox" ["https://www.duckduckgo.com/"])
+        , ("<XF86HomePage>", spawn "qutebrowser https://www.youtube.com/c/DistroTube")
+        , ("<XF86Search>", spawn "dmsearch")
         , ("<XF86Mail>", runOrRaise "thunderbird" (resource =? "thunderbird"))
         , ("<XF86Calculator>", runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
         , ("<XF86Eject>", spawn "toggleeject")
-        , ("<Print>", spawn "scrotd 0")
+        , ("<Print>", spawn "dmscrot")
         ]
     -- The following lines are needed for named scratchpads.
           where nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
@@ -497,17 +489,13 @@ main = do
     xmproc2 <- spawnPipe "xmobar -x 2 $HOME/.config/xmobar/xmobarrc1"
     -- the xmonad, ya know...what the WM is named after!
     xmonad $ ewmh def
-        { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks
-        -- Run xmonad commands from command line with "xmonadctl command". Commands include:
-        -- shrink, expand, next-layout, default-layout, restart-wm, xterm, kill, refresh, run,
-        -- focus-up, focus-down, swap-up, swap-down, swap-master, sink, quit-wm. You can run
-        -- "xmonadctl 0" to generate full list of commands written to ~/.xsession-errors.
-        -- To compile xmonadctl: ghc -dynamic xmonadctl.hs
-        , handleEventHook    = serverModeEventHookCmd
-                               <+> serverModeEventHook
-                               <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
-                               <+> docksEventHook
-                               <+> fullscreenEventHook  -- this does NOT work right if using multi-monitors!
+        { manageHook         = myManageHook <+> manageDocks
+        , handleEventHook    = docksEventHook
+                               -- Uncomment this line to enable fullscreen support on things like YouTube/Netflix.
+                               -- This works perfect on SINGLE monitor systems. On multi-monitor systems,
+                               -- it adds a border around the window if screen does not have focus. So, my solution
+                               -- is to use a keybinding to toggle fullscreen noborders instead.  (M-<Space>)
+                               -- <+> fullscreenEventHook
         , modMask            = myModMask
         , terminal           = myTerminal
         , startupHook        = myStartupHook
