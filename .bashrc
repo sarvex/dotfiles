@@ -13,6 +13,9 @@ export ALTERNATE_EDITOR=""                        # setting for emacsclient
 export EDITOR="emacsclient -t -a ''"              # $EDITOR use Emacs in terminal
 export VISUAL="emacsclient -c -a emacs"           # $VISUAL use Emacs in GUI mode
 
+### EXPORTS for dmscripts
+export DMTERM="emacsclient -c -a emacs"
+
 ### SET MANPAGER
 ### Uncomment only one of these!
 

@@ -13,8 +13,8 @@ Config { font    = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=t
        , hideOnStart = False
        , allDesktops = True
        , persistent = True
-       , iconRoot = "~/.xmonad/xpm/"  -- default: "."
-       , commands = [ 
+       , iconRoot = "/home/dt/.xmonad/xpm/"  -- default: "."
+       , commands = [
                       -- Time and date
                       Run Date "<fn=1>\xf133</fn>  %b %d %Y - (%H:%M) " "date" 50
                       -- Network up and down

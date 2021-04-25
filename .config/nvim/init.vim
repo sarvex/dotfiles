@@ -196,6 +196,11 @@ set mouse=nicr
 set mouse=a
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Fix Sizing Bug With Alacritty Terminal
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd VimEnter * :silent exec "!kill -s SIGWINCH $PPID"
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Splits and Tabbed Files
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set splitbelow splitright
