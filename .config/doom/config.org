@@ -637,7 +637,11 @@ Note that I wrapped most of this in (after! org).  Without this, my settings mig
              "|"                 ; The pipe necessary to separate "active" states and "inactive" states
              "DONE(d)"           ; Task has been completed
              "CANCELLED(c)" )))) ; Task has been cancelled
+#+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+(use-package ox-man
+  :ensure nil)
 #+END_SRC
 
 * REGISTERS

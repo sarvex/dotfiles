@@ -95,7 +95,7 @@
   (dashboard-modify-heading-icons '((recents . "file-text")
 			      (bookmarks . "book"))))
 
-(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+(setq doom-fallback-buffer "*dashboard*")
 
 (map! :leader
       (:prefix ("d" . "dired")
@@ -377,6 +377,9 @@
              "|"                 ; The pipe necessary to separate "active" states and "inactive" states
              "DONE(d)"           ; Task has been completed
              "CANCELLED(c)" )))) ; Task has been cancelled
+
+(use-package ox-man
+  :ensure nil)
 
 (map! :leader
       (:prefix ("r" . "registers")
