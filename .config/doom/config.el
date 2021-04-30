@@ -239,6 +239,8 @@
 (after! mastodon
   (setq mastodon-instance-url "https://distrotoot.com"))
 
+(xterm-mouse-mode 1)
+
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
 ;;(require 'smtpmail)
 (setq user-mail-address "derek@distrotube.com"
@@ -378,8 +380,7 @@
              "DONE(d)"           ; Task has been completed
              "CANCELLED(c)" )))) ; Task has been cancelled
 
-(use-package ox-man
-  :ensure nil)
+(use-package ox-man)
 
 (map! :leader
       (:prefix ("r" . "registers")

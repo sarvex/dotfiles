@@ -27,6 +27,7 @@
   - [[#ivy-keybindings][IVY KEYBINDINGS]]
 - [[#line-settings][LINE SETTINGS]]
 - [[#mastodon][MASTODON]]
+- [[#mouse-support][MOUSE SUPPORT]]
 - [[#mu4e][MU4E]]
   - [[#setting-up-environment-with-main-account][Setting Up Environment With Main Account]]
   - [[#setting-up-multiple-accounts][Setting Up Multiple Accounts]]
@@ -449,6 +450,13 @@ Mastodon.el is a mastodon client for Emacs.  Note that I wrapped my settings wit
   (setq mastodon-instance-url "https://distrotoot.com"))
 #+END_SRC
 
+* MOUSE SUPPORT
+Adding mouse support in the terminal version of Emacs.
+
+#+begin_src emacs-lisp
+(xterm-mouse-mode 1)
+#+end_src
+
 * MU4E
 Setting up mu4e which is an email client that works within emacs.  You must install mu4e and mbsync through your Linux distribution's package manager. Setting up smtp for sending mail. Make sure the gnutls command line utils are installed. Package 'gnutls-bin' in Debian/Ubuntu, and 'gnutls' in Arch.
 
@@ -639,9 +647,9 @@ Note that I wrapped most of this in (after! org).  Without this, my settings mig
              "CANCELLED(c)" )))) ; Task has been cancelled
 #+END_SRC
 
+We need ox-man for "Org eXporting" to manpage format.
 #+BEGIN_SRC emacs-lisp
-(use-package ox-man
-  :ensure nil)
+(use-package ox-man)
 #+END_SRC
 
 * REGISTERS

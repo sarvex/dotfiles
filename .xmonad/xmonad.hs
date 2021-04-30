@@ -6,7 +6,7 @@ import System.Exit (exitSuccess)
 import qualified XMonad.StackSet as W
 
     -- Actions
-import XMonad.Actions.CopyWindow (kill1, killAllOtherCopies, copyWindow)
+import XMonad.Actions.CopyWindow (kill1)
 import XMonad.Actions.CycleWS (Direction1D(..), moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
 import XMonad.Actions.GridSelect
 import XMonad.Actions.MouseResize
@@ -305,23 +305,6 @@ myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y 
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
     where i = fromJust $ M.lookup ws myWorkspaceIndices
 
--- 'doCopy' copies the managed window into another workspace.
--- If you use this feature then you need to change your kill keybinding
--- from kill1 to killAllOtherCopies <+> kill1
--- I personally have two different keybindings, one for killing only copies, one for killing all of them.
-doCopy :: WorkspaceId -> ManageHook
-doCopy m = ask >>= \w -> doF (copyWindow w m)
-
--- 'doCopyToAll' simply copies managed window into the all workspaces.
--- Since scracthpads and dynamic workspaces are not presented in the 'myWorkspaces'
--- they will not be affected. I personally use this feature for my webcam.
--- , title =? "video - mpv"  --> doFloat <+> doCopyToAll
--- If you use this feature then you need to change your kill keybinding
--- from kill1 to killAllOtherCopies <+> kill1
--- I personally have two different keybindings, one for killing only copies, one for killing all of them.
-doCopyToAll :: ManageHook
-doCopyToAll = foldr (\w rest -> doCopy (w) <+> rest) (doCopy (myWorkspaces !! 1)) myWorkspaces
-
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
      -- 'doFloat' forces a window to float.  Useful for dialog boxes and such.
@@ -362,7 +345,8 @@ myKeys =
     -- Other Dmenu Prompts
     -- In Xmonad and many tiling window managers, M-p is the default keybinding to
     -- launch dmenu_run, so I've decided to use M-p plus KEY for these dmenu scripts.
-        , ("M-p c", spawn "dcolors")  -- pick color from our scheme
+        , ("M-p a", spawn "dmsounds")  -- pick color from our scheme
+        , ("M-p c", spawn "dmcolors")  -- pick color from our scheme
         , ("M-p e", spawn "dmconf")   -- edit config files
         , ("M-p i", spawn "dmscrot")  -- screenshots (images)
         , ("M-p k", spawn "dmkill")   -- kill processes
