@@ -107,8 +107,27 @@
         :desc "Dired view file" "d v" #'dired-view-file)))
 ;; Make 'h' and 'l' go back and forward in dired. Much faster to navigate the directory structure!
 (evil-define-key 'normal dired-mode-map
+  (kbd "M-RET") 'dired-display-file
   (kbd "h") 'dired-up-directory
-  (kbd "l") 'dired-open-file) ; use dired-find-file instead if not using dired-open package
+  (kbd "l") 'dired-open-file ; use dired-find-file instead of dired-open.
+  (kbd "m") 'dired-mark
+  (kbd "t") 'dired-toggle-marks
+  (kbd "u") 'dired-unmark
+  (kbd "C") 'dired-do-copy
+  (kbd "D") 'dired-do-delete
+  (kbd "J") 'dired-goto-file
+  (kbd "M") 'dired-chmod
+  (kbd "O") 'dired-chown
+  (kbd "P") 'dired-do-print
+  (kbd "R") 'dired-rename
+  (kbd "T") 'dired-do-touch
+  (kbd "Y") 'dired-copy-filenamecopy-filename-as-kill ; copies filename to kill ring.
+  (kbd "+") 'dired-create-directory
+  (kbd "-") 'dired-up-directory
+  (kbd "% l") 'dired-downcase
+  (kbd "% u") 'dired-upcase
+  (kbd "; d") 'epa-dired-do-decrypt
+  (kbd "; e") 'epa-dired-do-encrypt)
 ;; If peep-dired is enabled, you will get image previews as you go up/down with 'j' and 'k'
 (evil-define-key 'normal peep-dired-mode-map
   (kbd "j") 'peep-dired-next-file

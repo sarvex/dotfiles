@@ -17,18 +17,6 @@
 (run-shell-command "xmodmap ~/.Xmodmap")
 (run-shell-command "./.config/herbstluftwm/panel.sh")
 
-(defun show-kernel ()
-  (let ((ip (run-shell-command "uname -r" t)))
-    (substitute #\Space #\Newline ip)))
-
-(defun show-hostname ()
-  (let ((host-name (run-shell-command "cat /etc/hostname" t)))
-    (substitute #\Space #\Newline host-name)))
-
-(defun show-package-count ()
-  (let ((host-name (run-shell-command "pacman -Q | wc -l" t)))
-    (substitute #\Space #\Newline host-name)))
-
 (defvar color1 "#ff92d0")
 (defvar color2 "#282a36")
 
@@ -185,7 +173,3 @@
 (define-frame-preference "Shareland"
   (0 t   nil :class "XTerm")
   (1 nil t   :class "aMule"))
-
-(define-frame-preference "Emacs"
-  (1 t t :restore "emacs-editing-dump" :title "...xdvi")
-  (0 t t :create "emacs-dump" :class "Emacs"))
