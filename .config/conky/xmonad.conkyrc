@@ -116,12 +116,12 @@ ${color1}[CTRL]+e, s${alignr}${color2}eshell${color}
 ${color1}[CTRL]+e, v${alignr}${color2}vterm${color}
 ${color1}[CTRL]+e, w${alignr}${color2}eww browser${color}
 ${color1}${hr}${color}
-${color1}[S]+p, e${alignr}${color2}dmconf${color}
-${color1}[S]+p, i${alignr}${color2}dmscrot${color}
-${color1}[S]+p, k${alignr}${color2}dmkill${color}
-${color1}[S]+p, m${alignr}${color2}dman${color}
-${color1}[S]+p, o${alignr}${color2}dmqute${color}
-${color1}[S]+p, s${alignr}${color2}dmsearch${color}
+${color1}[S]+p, e${alignr}${color2}dm-confedit${color}
+${color1}[S]+p, i${alignr}${color2}dm-maim${color}
+${color1}[S]+p, k${alignr}${color2}dm-kill${color}
+${color1}[S]+p, m${alignr}${color2}dm-man${color}
+${color1}[S]+p, o${alignr}${color2}dm-bookman${color}
+${color1}[S]+p, s${alignr}${color2}dm-websearch${color}
 ${color1}${hr}${color}
 ${color1}[S]+[CTRL]+r${alignr}${color2}recompile xmonad${color}
 ${color1}[S]+[SHIFT]+r${alignr}${color2}restart xmonad${color}
