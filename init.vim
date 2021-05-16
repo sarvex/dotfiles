@@ -1,17 +1,10 @@
-if has('nvim')
-  let plug_path = '~/.local/share/nvim/site/autoload/plug.vim'
-  let path = '~/.config/nvim/plugged'
-else 
-  let plug_path = '~/.vim/autoload/plug.vim'
-  let path = '~/.vim/plugged'
-endif
-
-if empty(glob(plug_path))
-  silent !curl -fLo &plug_path --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+let data = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin(path)
+call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'ap/vim-css-color', {'for': ['css', 'scss', 'conf', 'javascript']}
