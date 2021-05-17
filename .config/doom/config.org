@@ -671,6 +671,7 @@ Note that I wrapped most of this in (after! org).  Without this, my settings mig
 We need ox-man for "Org eXporting" to manpage format.
 #+BEGIN_SRC emacs-lisp
 (use-package ox-man)
+(use-package ox-gemini)
 #+END_SRC
 
 * REGISTERS

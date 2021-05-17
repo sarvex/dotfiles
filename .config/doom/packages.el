@@ -62,6 +62,7 @@
 (package! ivy-posframe)
 (package! mastodon)
 (package! org-bullets)
+(package! ox-gemini)
 (package! peep-dired)
 (package! pianobar)
 (package! rainbow-mode)

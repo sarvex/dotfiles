@@ -400,6 +400,7 @@
              "CANCELLED(c)" )))) ; Task has been cancelled
 
 (use-package ox-man)
+(use-package ox-gemini)
 
 (map! :leader
       (:prefix ("r" . "registers")
