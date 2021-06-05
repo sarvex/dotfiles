@@ -402,6 +402,8 @@
 (use-package ox-man)
 (use-package ox-gemini)
 
+(use-package! password-store)
+
 (map! :leader
       (:prefix ("r" . "registers")
        :desc "Copy to register" "c" #'copy-to-register

@@ -64,7 +64,7 @@
 (package! org-bullets)
 (package! ox-gemini)
 (package! peep-dired)
-(package! pianobar)
+(package! password-store)
 (package! rainbow-mode)
 (package! resize-window)
 (package! tldr)
