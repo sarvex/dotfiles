@@ -14,6 +14,9 @@
   - [[#use-package][Use-Package]]
   - [[#evil-mode][Evil Mode]]
   - [[#general-keybindings][General Keybindings]]
+- [[#startup-performance][STARTUP PERFORMANCE]]
+  - [[#garbage-collection][Garbage collection]]
+  - [[#native-compil][Native Compil]]
 - [[#all-the-icons][ALL THE ICONS]]
 - [[#buffers-and-bookmarks][BUFFERS AND BOOKMARKS]]
 - [[#dashboard][DASHBOARD]]
@@ -66,6 +69,7 @@
 - [[#splits-and-window-controls][SPLITS AND WINDOW CONTROLS]]
 - [[#theme][THEME]]
 - [[#which-key][WHICH KEY]]
+- [[#runtime-performance][RUNTIME PERFORMANCE]]
 - [[#writeroom-mode][WRITEROOM MODE]]
 
 * IMPORTANT! PUT THIS IN YOUR INIT.EL 
