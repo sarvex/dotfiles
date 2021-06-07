@@ -106,6 +106,34 @@ Install use-package and enable ':ensure t' globally.  The ':ensure' keyword caus
 (setq use-package-always-ensure t)
 #+end_src
 
+** Evil Mode
+Evil is an extensible 'vi' layer for Emacs. It emulates the main features of Vim, and provides facilities for writing custom extensions.  Evil Collection is also installed since it adds 'evil' bindings to parts of Emacs that the standard Evil package does not cover, such as: calenda, help-mode adn ibuffer.
+  
+#+begin_src emacs-lisp
+(use-package evil
+  :init      ;; tweak evil's configuration before loading it
+  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+  (setq evil-want-keybinding nil)
+  (setq evil-vsplit-window-right t)
+  (setq evil-split-window-below t)
+  (evil-mode))
+(use-package evil-collection
+  :after evil
+  :config
+  (setq evil-collection-mode-list '(dashboard dired ibuffer))
+  (evil-collection-init))
+(use-package evil-tutor)
+#+end_src
+
+** General Keybindings
+General.el allows us to set keybindings.  As a longtime Doom Emacs user, I have grown accustomed to using SPC as the prefix key.  General makes setting keybindings (especially with SPC) much easier.  All of the keybindings we set later in the config depend on general being loaded.
+
+#+begin_src emacs-lisp
+(use-package general
+  :config
+  (general-evil-setup t))
+#+end_src
+
 * STARTUP PERFORMANCE
   This section is where it make emacs faster to load.
 ** Garbage collection
@@ -140,34 +168,6 @@ Makes startup faster by reducing the frequency of garbage collection
 ;; prevent the use of stale byte-code. Otherwise, it saves us a little IO time
 ;; to skip the mtime checks on every *.elc file.
 (setq load-prefer-newer noninteractive)
-#+end_src
-
-** Evil Mode
-Evil is an extensible 'vi' layer for Emacs. It emulates the main features of Vim, and provides facilities for writing custom extensions.  Evil Collection is also installed since it adds 'evil' bindings to parts of Emacs that the standard Evil package does not cover, such as: calenda, help-mode adn ibuffer.
-  
-#+begin_src emacs-lisp
-(use-package evil
-  :init      ;; tweak evil's configuration before loading it
-  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
-  (setq evil-want-keybinding nil)
-  (setq evil-vsplit-window-right t)
-  (setq evil-split-window-below t)
-  (evil-mode))
-(use-package evil-collection
-  :after evil
-  :config
-  (setq evil-collection-mode-list '(dashboard dired ibuffer))
-  (evil-collection-init))
-(use-package evil-tutor)
-#+end_src
-
-** General Keybindings
-General.el allows us to set keybindings.  As a longtime Doom Emacs user, I have grown accustomed to using SPC as the prefix key.  General makes setting keybindings (especially with SPC) much easier.  All of the keybindings we set later in the config depend on general being loaded.
-
-#+begin_src emacs-lisp
-(use-package general
-  :config
-  (general-evil-setup t))
 #+end_src
 
 * ALL THE ICONS
