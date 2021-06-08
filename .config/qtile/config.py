@@ -172,35 +172,35 @@ keys = [
          # Dmenu scripts launched using the key chord SUPER+p followed by 'key'
          KeyChord([mod], "p", [
              Key([], "e",
-                 lazy.spawn("./dmscripts/dmconf"),
+                 lazy.spawn("./dmscripts/dm-confedit"),
                  desc='Choose a config file to edit'
                  ),
              Key([], "i",
-                 lazy.spawn("./dmscripts/dmscrot"),
+                 lazy.spawn("./dmscripts/dm-maim"),
                  desc='Take screenshots via dmenu'
                  ),
              Key([], "k",
-                 lazy.spawn("./dmscripts/dmkill"),
+                 lazy.spawn("./dmscripts/dm-kill"),
                  desc='Kill processes via dmenu'
                  ),
              Key([], "l",
-                 lazy.spawn("./dmscripts/dmlogout"),
+                 lazy.spawn("./dmscripts/dm-logout"),
                  desc='A logout menu'
                  ),
              Key([], "m",
-                 lazy.spawn("./dmscripts/dman"),
+                 lazy.spawn("./dmscripts/dm-man"),
                  desc='Search manpages in dmenu'
                  ),
              Key([], "o",
-                 lazy.spawn("./dmscripts/dmqute"),
+                 lazy.spawn("./dmscripts/dm-bookman"),
                  desc='Search your qutebrowser bookmarks and quickmarks'
                  ),
              Key([], "r",
-                 lazy.spawn("./dmscripts/dmred"),
+                 lazy.spawn("./dmscripts/dm-reddit"),
                  desc='Search reddit via dmenu'
                  ),
              Key([], "s",
-                 lazy.spawn("./dmscripts/dmsearch"),
+                 lazy.spawn("./dmscripts/dm-websearch"),
                  desc='Search various search engines via dmenu'
                  ),
              Key([], "p",
