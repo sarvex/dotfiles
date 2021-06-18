@@ -62,6 +62,9 @@
 
 (defalias 'year-calendar 'dt/year-calendar)
 
+(use-package! calfw)
+(use-package! calfw-org)
+
 (setq centaur-tabs-set-bar 'over
       centaur-tabs-set-icons t
       centaur-tabs-gray-out-icons 'buffer
@@ -221,7 +224,6 @@
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
-(setq global-prettify-symbols-mode t)
 
 (setq ivy-posframe-display-functions-alist
       '((swiper                     . ivy-posframe-display-at-point)
@@ -367,6 +369,28 @@
        :desc "Edit doom init.el" "i" #'(lambda () (interactive) (find-file "~/.config/doom/init.el"))
        :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.config/doom/packages.el"))))
 
+(defun my/org-mode/load-prettify-symbols () "Prettify org mode keywords"
+  (interactive)
+  (setq prettify-symbols-alist
+    (mapcan (lambda (x) (list x (cons (upcase (car x)) (cdr x))))
+          '(("#+begin_src" . ?)
+            ("#+end_src" . ?)
+            ("#+begin_example" . ?)
+            ("#+end_example" . ?)
+            ("#+DATE:" . ?⏱)
+            ("#+AUTHOR:" . ?✏)
+            ("[ ]" .  ?☐)
+            ("[X]" . ?☑ )
+            ("[-]" . ?❍ )
+            ("lambda" . ?λ)
+            ("#+header:" . ?)
+            ("#+name:" . ?﮸)
+            ("#+results:" . ?)
+            ("#+call:" . ?)
+            (":properties:" . ?)
+            (":logbook:" . ?))))
+  (prettify-symbols-mode 1))
+
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org
@@ -398,6 +422,14 @@
              "|"                 ; The pipe necessary to separate "active" states and "inactive" states
              "DONE(d)"           ; Task has been completed
              "CANCELLED(c)" )))) ; Task has been cancelled
+
+(custom-set-faces
+  '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
+  '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
+  '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
+  '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
+  '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
+)
 
 (use-package ox-man)
 (use-package ox-gemini)
