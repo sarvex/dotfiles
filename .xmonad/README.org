@@ -31,6 +31,8 @@ This is the xmonad configuration of Derek Taylor (DistroTube)
 
 Keep in mind, that my configs are purposely bloated with examples of what you can do with xmonad. It is written more as a study guide rather than a config that you should download and use.
 
+NOTE: You will also need my xmobar config, which is located here: https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/xmobar
+
 * Imports
 These are Haskell modules that we must import so that we can use their functions later in the config.
 
