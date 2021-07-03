@@ -926,7 +926,7 @@ Which-key is a minor mode for Emacs that displays the key bindings following you
         which-key-allow-imprecise-window-fit t
         which-key-separator " → " ))
 (which-key-mode)
-#+e
+#+end_src
 
 * RUNTIME PERFORMANCE
 Dial the GC threshold back down so that garbage collection happens more frequently but in less time.
