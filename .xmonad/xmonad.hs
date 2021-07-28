@@ -447,7 +447,7 @@ myKeys =
     -- Set wallpaper with 'feh'. Type 'SUPER+F1' to launch sxiv in the wallpapers directory.
     -- Then in sxiv, type 'C-x w' to set the wallpaper that you choose.
         , ("M-<F1>", spawn "sxiv -r -q -t -o ~/wallpapers/*")
-        , ("M-<F2>", spawn "/bin/ls ~/wallpapers | shuf -n 1 | xargs xwallpaper --stretch")
+        , ("M-<F2>", spawn "find ~/wallpapers/ -type f | shuf -n 1 | xargs xwallpaper --stretch")
         --, ("M-<F2>", spawn "feh --randomize --bg-fill ~/wallpapers/*")
 
     -- Controls for mocp music player (SUPER-u followed by a key)
