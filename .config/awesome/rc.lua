@@ -72,7 +72,7 @@ local modkey1      = "Control"
 local browser           = "firefox"
 local editor            = os.getenv("EDITOR") or "vim"
 local editorgui         = "geany"
-local filemanager       = "thunar"
+local filemanager       = "pcmanfm"
 local mailclient        = "geary"
 local mediaplayer       = "vlc"
 local scrlocker         = "slimlock"
@@ -165,7 +165,7 @@ beautiful.init(string.format(gears.filesystem.get_configuration_dir() .. "/theme
 local myawesomemenu = {
     { "hotkeys", function() return false, hotkeys_popup.show_help end },
     { "manual", terminal .. " -e 'man awesome'" },
-    { "edit config", terminal.." vim ~/.config/awesome/rc.lua" },
+    { "edit config", "emacsclient -c -a emacs ~/.config/awesome/rc.lua" },
     { "arandr", "arandr" },
     { "restart", awesome.restart },
 }
@@ -239,8 +239,8 @@ globalkeys = my_table.join(
         {description = "surf web browser" , group = "gui apps" }),
     awful.key({ modkey, altkey  }, "c", function () awful.util.spawn( terminal.." -e cmus" ) end,
         {description = "cmus" , group = "terminal apps" }),
-    awful.key({ modkey, altkey }, "e", function () awful.util.spawn( "emacsclient -a 'emacs' -c" ) end,
-        {description = "emacs client" , group = "gui apps" }),
+    awful.key({ modkey, altkey }, "e", function () awful.util.spawn( terminal.." -e neomutt" ) end,
+        {description = "neomutt email" , group = "terminal apps" }),
     awful.key({ modkey, altkey  }, "f", function () awful.util.spawn( terminal.." -e sh ./.config/vifm/scripts/vifmrun" ) end,
         {description = "vifm" , group = "terminal apps" }),
     awful.key({ modkey, altkey  }, "i", function () awful.util.spawn( terminal.." -e irssi" ) end,
@@ -467,7 +467,7 @@ globalkeys = my_table.join(
               {description = "dropdown application", group = "super"}),
 
     -- Widgets popups
-    awful.key({ altkey, }, "c", function () lain.widget.cal().show(7) end,
+    awful.key({ altkey, }, "c", function () lain.widget.calendar.show(7) end,
               {description = "show calendar", group = "widgets"}),
     awful.key({ altkey, }, "h", function () if beautiful.fs then beautiful.fs.show(7) end end,
               {description = "show filesystem", group = "widgets"}),
@@ -712,8 +712,6 @@ awful.rules.rules = {
     { rule = { class = "Xfce4-settings-manager" },
           properties = { floating = false } },
 
-    { rule = { instance = "qutebrowser" },
-          properties = { screen = 1, tag = " SYS " } },
 
 
     -- Floating clients.
