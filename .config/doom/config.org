@@ -713,7 +713,30 @@ We need ox-man for "Org eXporting" to manpage format.
 #+BEGIN_SRC emacs-lisp
 (use-package ox-man)
 (use-package ox-gemini)
+(use-package ox-publish)
 #+END_SRC
+
+Org-publish
+#+begin_src emacs-lisp
+
+(setq org-publish-project-alist
+      '(("org-notes"
+         :base-directory "~/Org/website"
+         :base-extension "org"
+         :publishing-directory "~/public_html/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t)
+         ("org-static"
+         :base-directory "~/Org/website"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :publishing-directory "~/public_html/"
+         :recursive t
+         :publishing-function org-publish-attachment)
+      ))
+
+#+end_src
 
 * PASSWORD STORE
 Uses the standard Unix password store "pass".
