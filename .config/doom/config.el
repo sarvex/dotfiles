@@ -435,12 +435,15 @@
 (use-package ox-gemini)
 (use-package ox-publish)
 
+(setq org-publish-use-timestamps-flag nil)
+(setq org-export-with-broken-links t)
 (setq org-publish-project-alist
-      '(("org-notes"
-         :base-directory "~/Org/website"
+      '(("distro.tube"
+         :base-directory "~/gitlab-repos/distro.tube/"
          :base-extension "org"
-         :publishing-directory "~/public_html/"
+         :publishing-directory "~/gitlab-repos/distro.tube/html/"
          :recursive t
+         :exclude "org-html-themes/.*"
          :publishing-function org-html-publish-to-html
          :headline-levels 4             ; Just the default for this project.
          :auto-preamble t)
@@ -449,6 +452,7 @@
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
          :publishing-directory "~/public_html/"
          :recursive t
+         :exclude ".*/org-html-themes/.*"
          :publishing-function org-publish-attachment)
       ))
 
@@ -470,8 +474,8 @@
 
 (map! :leader
       (:prefix ("\\" . "ssh")
-       :desc "Ssh into distrotube.com" "\\ d" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.com"))
-       :desc "Ssh into my nextcloud" "\\ n" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.net"))))
+       :desc "Ssh into distrotube.com" "\ d" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.com"))
+       :desc "Ssh into my nextcloud" "\ n" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.net"))))
 
 (setq shell-file-name "/bin/fish"
       vterm-max-scrollback 5000)

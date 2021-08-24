@@ -718,13 +718,15 @@ We need ox-man for "Org eXporting" to manpage format.
 
 Org-publish
 #+begin_src emacs-lisp
-
+(setq org-publish-use-timestamps-flag nil)
+(setq org-export-with-broken-links t)
 (setq org-publish-project-alist
-      '(("org-notes"
-         :base-directory "~/Org/website"
+      '(("distro.tube"
+         :base-directory "~/gitlab-repos/distro.tube/"
          :base-extension "org"
-         :publishing-directory "~/public_html/"
+         :publishing-directory "~/gitlab-repos/distro.tube/html/"
          :recursive t
+         :exclude "org-html-themes/.*"
          :publishing-function org-html-publish-to-html
          :headline-levels 4             ; Just the default for this project.
          :auto-preamble t)
@@ -733,6 +735,7 @@ Org-publish
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
          :publishing-directory "~/public_html/"
          :recursive t
+         :exclude ".*/org-html-themes/.*"
          :publishing-function org-publish-attachment)
       ))
 
@@ -789,8 +792,8 @@ Keybindings for ssh'ing into remote machines.  By default, Doom Emacs does not u
 #+BEGIN_SRC emacs-lisp
 (map! :leader
       (:prefix ("\\" . "ssh")
-       :desc "Ssh into distrotube.com" "\\ d" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.com"))
-       :desc "Ssh into my nextcloud" "\\ n" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.net"))))
+       :desc "Ssh into distrotube.com" "\ d" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.com"))
+       :desc "Ssh into my nextcloud" "\ n" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.net"))))
 #+END_SRC
 
 * SHELLS
