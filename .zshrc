@@ -96,27 +96,6 @@ fi
 
 IFS=$SAVEIFS
 
-### OH MY ZSH ###
-
-# Path to your oh-my-zsh installation.
-ZSH=$HOME/.oh-my-zsh
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Add wisely, as too many plugins slow down shell startup.
-# Defning the plugins needs to happen before sourcing oh-my-zsh.
-plugins=(command-not-found
-         emacs
-         git
-         history
-         zsh-interactive-cd)
-
-# Sourcing oh-my-zsh
-# Your plugins will not work without this source.
-source $ZSH/oh-my-zsh.sh
-
 ### ALIASES ###
 
 # root privileges
@@ -150,12 +129,6 @@ alias doomsync="~/.emacs.d/bin/doom sync"
 alias doomdoctor="~/.emacs.d/bin/doom doctor"
 alias doomupgrade="~/.emacs.d/bin/doom upgrade"
 alias doompurge="~/.emacs.d/bin/doom purge"
-# bat
-# alias cat='bat'
-
-# broot
-alias br='broot -dhp'
-alias bs='broot --sizes'
 
 # Changing "ls" to "exa"
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
@@ -259,23 +232,21 @@ alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/mas
 # Unlock LBRY tips
 alias tips='lbrynet txo spend --type=support --is_not_my_input --blocking'
 
-# Thinkorswim
-alias tos="~/thinkorswim/thinkorswim"
+### Skel ###
+# Copy/paste all content of /etc/skel over to home folder.
+# A backup of config is created. BEWARE!
+alias skel='[ -d ~/.config ] || mkdir ~/.config && cp -Rf ~/.config ~/.config-backup-$(date +%Y.%m.%d-%H.%M.%S) && cp -rf /etc/skel/* ~'
 
-# force all kakoune windows into one session
-alias kak="/usr/bin/kak -c mysession"
-alias kaks="/usr/bin/kak -s mysession"
-alias kakd="/usr/bin/kak -d -s mysession &"
+### Backup Skel ###
+# backup contents of /etc/skel to hidden backup folder in $HOME.
+alias bupskel='cp -Rf /etc/skel ~/.skel-backup-$(date +%Y.%m.%d-%H.%M.%S)'
 
 ### RANDOM COLOR SCRIPT ###
 # Get this script from my GitLab: gitlab.com/dwt1/shell-color-scripts
 # Or install it from the Arch User Repository: shell-color-scripts
 colorscript random
 
-### SOURCING BROOT ###
-source ~/.config/broot/launcher/bash/br
-
-### BASH INSULTER ###
+### BASH INSULTER (works in zsh though) ###
 if [ -f /etc/bash.command-not-found ]; then
     . /etc/bash.command-not-found
 fi
@@ -283,7 +254,3 @@ fi
 ### SETTING THE STARSHIP PROMPT ###
 eval "$(starship init zsh)"
 
-
-
-
-source /home/dt/.config/broot/launcher/bash/br
