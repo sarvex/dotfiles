@@ -267,3 +267,5 @@ fi
 
 ### SETTING THE STARSHIP PROMPT ###
 eval "$(starship init bash)"
+
+source /home/dt/.config/broot/launcher/bash/br

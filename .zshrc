@@ -285,3 +285,5 @@ eval "$(starship init zsh)"
 
 
 
+
+source /home/dt/.config/broot/launcher/bash/br
