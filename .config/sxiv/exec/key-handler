@@ -50,10 +50,6 @@ do
             notify-send "File information" \
             "$(mediainfo "$file" | tr -s ' ' | grep -v CompleteName_Last)"
         ;;
-        "w") 
-            feh --bg-scale "$file" &&
-            notify-send "$file has been set as your wallpaper." && exit 0
-        ;;
         "x") 
             xwallpaper --stretch "$file" &&
             filename=$HOME/.xwallpaper
