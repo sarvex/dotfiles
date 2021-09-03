@@ -10,8 +10,9 @@ from libqtile import layout, bar, widget, hook
 from libqtile.lazy import lazy
 from typing import List  # noqa: F401
 
-mod = "mod4"                                     # Sets mod key to SUPER/WINDOWS
-myTerm = "alacritty"                             # My terminal of choice
+mod = "mod4"              # Sets mod key to SUPER/WINDOWS
+myTerm = "alacritty"      # My terminal of choice
+myBrowser = "qutebrowser" # My terminal of choice
 
 keys = [
          ### The essentials
@@ -21,9 +22,13 @@ keys = [
              ),
          Key([mod, "shift"], "Return",
              lazy.spawn("dmenu_run -p 'Run: '"),
-             # lazy.spawn("rofi -show drun -config ~/.config/rofi/themes/dt-dmenu.rasi -display-drun \"Run: \" -drun-display-format \"{name}\""),
              desc='Run Launcher'
              ),
+         Key([mod], "b",
+             lazy.spawn(myBrowser),
+             desc='Qutebrowser'
+             ),
+
          Key([mod], "Tab",
              lazy.next_layout(),
              desc='Toggle through layouts'
