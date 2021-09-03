@@ -28,7 +28,6 @@ keys = [
              lazy.spawn(myBrowser),
              desc='Qutebrowser'
              ),
-
          Key([mod], "Tab",
              lazy.next_layout(),
              desc='Toggle through layouts'
