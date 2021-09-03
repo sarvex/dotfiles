@@ -103,7 +103,7 @@ myStartupHook = do
     spawnOnce "picom &"
     spawnOnce "nm-applet &"
     spawnOnce "volumeicon &"
-    spawnOnce "conky -c $HOME/.config/conky/xmonad.conkyrc"
+    spawnOnce "conky -c $HOME/.config/conky/doomone-xmonad.conkyrc"
     spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
     spawnOnce "/usr/bin/emacs --daemon &" -- emacs daemon for the emacsclient
     -- uncomment to restore last saved wallpaper
