@@ -5,5 +5,6 @@ lxsession &
 picom &
 nitrogen --restore &
 /usr/bin/emacs --daemon &
+conky -c $HOME/.config/conky/doomone-qtile.conkyrc
 volumeicon &
 nm-applet &
