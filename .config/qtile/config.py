@@ -8,7 +8,8 @@ from libqtile.config import Click, Drag, Group, KeyChord, Key, Match, Screen
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 from libqtile.lazy import lazy
-from typing import List  # noqa: F401
+from libqtile.utils import guess_terminal
+from typing import List  # noqa: F401from typing import List  # noqa: F401
 
 mod = "mod4"              # Sets mod key to SUPER/WINDOWS
 myTerm = "alacritty"      # My terminal of choice
@@ -214,21 +215,21 @@ keys = [
          ])
 ]
 
-group_names = [("WWW", {'layout': 'monadtall'}),
-               ("DEV", {'layout': 'monadtall'}),
-               ("SYS", {'layout': 'monadtall'}),
-               ("DOC", {'layout': 'monadtall'}),
-               ("VBOX", {'layout': 'monadtall'}),
-               ("CHAT", {'layout': 'monadtall'}),
-               ("MUS", {'layout': 'monadtall'}),
-               ("VID", {'layout': 'monadtall'}),
-               ("GFX", {'layout': 'floating'})]
+groups = [Group("WWW", {'layout': 'monadtall'}),
+              Group("DEV", {'layout': 'monadtall'}),
+              Group("SYS", {'layout': 'monadtall'}),
+              Group("DOC", {'layout': 'monadtall'}),
+              Group("VBOX", {'layout': 'monadtall'}),
+              Group("CHAT", {'layout': 'monadtall'}),
+              Group("MUS", {'layout': 'monadtall'}),
+              Group("VID", {'layout': 'monadtall'}),
+              Group("GFX", {'layout': 'floating'})]
 
-groups = [Group(name, **kwargs) for name, kwargs in group_names]
-
-for i, (name, kwargs) in enumerate(group_names, 1):
-    keys.append(Key([mod], str(i), lazy.group[name].toscreen()))        # Switch to another group
-    keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name))) # Send current window to another group
+# Allow MODKEY+[0 through 9] to bind to groups, see https://docs.qtile.org/en/stable/manual/config/groups.html
+# MOD4 + index Number : Switch to Group[index]
+# MOD4 + shift + index Number : Send active window to another Group
+from libqtile.dgroups import simple_key_binder
+dgroups_key_binder = simple_key_binder("mod4")
 
 layout_theme = {"border_width": 2,
                 "margin": 8,
@@ -363,7 +364,7 @@ def init_widgets_list():
               widget.TextBox(
                        text = '',
                        background = colors[0],
-                       foreground = colors[4],
+                       foreground = colors[5],
                        padding = 0,
                        fontsize = 37
                        ),
@@ -371,33 +372,33 @@ def init_widgets_list():
                        interface = "enp6s0",
                        format = '{down} ↓↑ {up}',
                        foreground = colors[2],
-                       background = colors[4],
+                       background = colors[5],
                        padding = 5
                        ),
               widget.TextBox(
                        text = '',
-                       background = colors[4],
-                       foreground = colors[5],
+                       background = colors[5],
+                       foreground = colors[4],
                        padding = 0,
                        fontsize = 37
                        ),
-              widget.TextBox(
-                       text = " 🌡 TEMP NOT SHOWN ",
+             widget.TextBox(
+                       text = " 🌡",
                        padding = 2,
                        foreground = colors[2],
-                       background = colors[5],
+                       background = colors[4],
                        fontsize = 11
                        ),
-              # widget.ThermalSensor(
-              #          foreground = colors[2],
-              #          background = colors[5],
-              #          threshold = 90,
-              #          padding = 5
-              #          ),
+              widget.ThermalSensor(
+                       foreground = colors[2],
+                       background = colors[4],
+                       threshold = 90,
+                       padding = 5
+                       ),
               widget.TextBox(
                        text='',
-                       background = colors[5],
-                       foreground = colors[4],
+                       background = colors[4],
+                       foreground = colors[5],
                        padding = 0,
                        fontsize = 37
                        ),
@@ -405,7 +406,7 @@ def init_widgets_list():
                        text = " ⟳",
                        padding = 2,
                        foreground = colors[2],
-                       background = colors[4],
+                       background = colors[5],
                        fontsize = 14
                        ),
               widget.CheckUpdates(
@@ -414,45 +415,26 @@ def init_widgets_list():
                        display_format = "{updates} Updates",
                        foreground = colors[2],
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},
-                       background = colors[4]
+                       background = colors[5]
                        ),
               widget.TextBox(
                        text = '',
-                       background = colors[4],
-                       foreground = colors[5],
-                       padding = 0,
-                       fontsize = 37
-                       ),
-              widget.TextBox(
-                       text = " 🖬",
-                       foreground = colors[2],
-                       background = colors[5],
-                       padding = 0,
-                       fontsize = 14
-                       ),
-              widget.Memory(
-                       foreground = colors[2],
-                       background = colors[5],
-                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')},
-                       padding = 5
-                       ),
-              widget.TextBox(
-                       text='',
                        background = colors[5],
                        foreground = colors[4],
                        padding = 0,
                        fontsize = 37
                        ),
               widget.TextBox(
-                       text = " ₿",
+                       text = " 🖬",
+                       foreground = colors[2],
+                       background = colors[4],
                        padding = 0,
-                       foreground = colors[2],
-                       background = colors[4],
-                       fontsize = 12
+                       fontsize = 14
                        ),
-              widget.BitcoinTicker(
+              widget.Memory(
                        foreground = colors[2],
                        background = colors[4],
+                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')},
                        padding = 5
                        ),
               widget.TextBox(
@@ -562,9 +544,7 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front())
 ]
 
-dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
-main = None
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
@@ -581,6 +561,11 @@ floating_layout = layout.Floating(float_rules=[
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
+reconfigure_screens = True
+
+# If things like steam games want to auto-minimize themselves when losing
+# focus, should we respect this or not?
+auto_minimize = True
 
 @hook.subscribe.startup_once
 def start_once():
