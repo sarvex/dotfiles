@@ -28,10 +28,6 @@
 - [[#line-settings][LINE SETTINGS]]
 - [[#mastodon][MASTODON]]
 - [[#mouse-support][MOUSE SUPPORT]]
-- [[#mu4e][MU4E]]
-  - [[#setting-up-environment-with-main-account][Setting Up Environment With Main Account]]
-  - [[#setting-up-multiple-accounts][Setting Up Multiple Accounts]]
-  - [[#function-to-facilitate-switching-between-accounts][Function To Facilitate Switching Between Accounts]]
 - [[#neotree][NEOTREE]]
 - [[#open-specific-files][OPEN SPECIFIC FILES]]
 - [[#org-mode][ORG MODE]]
@@ -330,7 +326,7 @@ One of the media players available for Emacs is emms, which stands for Emacs Mul
 (emms-default-players)
 (emms-mode-line 1)
 (emms-playing-time 1)
-(setq emms-source-file-default-directory "~/Music/Non-Classical/70s-80s/"
+(setq emms-source-file-default-directory "~/Music/"
       emms-playlist-buffer-name "*Music*"
       emms-info-asynchronously t
       emms-source-file-directory-tree-function 'emms-source-file-directory-tree-find)
@@ -483,117 +479,6 @@ Adding mouse support in the terminal version of Emacs.
 #+begin_src emacs-lisp
 (xterm-mouse-mode 1)
 #+end_src
-
-* MU4E
-Setting up mu4e which is an email client that works within emacs.  You must install mu4e and mbsync through your Linux distribution's package manager. Setting up smtp for sending mail. Make sure the gnutls command line utils are installed. Package 'gnutls-bin' in Debian/Ubuntu, and 'gnutls' in Arch.
-
-** Setting Up Environment With Main Account
-I will be setting up mu4e to use three different email addresses.  This source block contains default settings and fallback settings.
-
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
-;;(require 'smtpmail)
-(setq user-mail-address "derek@distrotube.com"
-      user-full-name  "Derek Taylor"
-      ;; I have my mbsyncrc in a different folder on my system, to keep it separate from the
-      ;; mbsyncrc available publicly in my dotfiles. You MUST edit the following line.
-      ;; Be sure that the following command is: "mbsync -c ~/.config/mu4e/mbsyncrc -a"
-      mu4e-get-mail-command "mbsync -c ~/.config/mu4e-dt/mbsyncrc -a"
-      mu4e-update-interval  300
-      mu4e-main-buffer-hide-personal-addresses t
-      message-send-mail-function 'smtpmail-send-it
-      starttls-use-gnutls t
-      smtpmail-starttls-credentials '(("smtp.1and1.com" 587 nil nil))
-      mu4e-sent-folder "/account-1/Sent"
-      mu4e-drafts-folder "/account-1/Drafts"
-      mu4e-trash-folder "/account-1/Trash"
-      mu4e-maildir-shortcuts
-      '(("/account-1/Inbox"      . ?i)
-        ("/account-1/Sent Items" . ?s)
-        ("/account-1/Drafts"     . ?d)
-        ("/account-1/Trash"      . ?t)))
-
-#+END_SRC
-
-** Setting Up Multiple Accounts
-The settings below are specific to each of three different email accounts.  These settings are fictional and are here for documentation purposes.  Hence, I have this source block entirely commented out.  Now, I do use a source code block similar to the one below, but I don't want to share it publicly.  Keep reading to see how I handle this.
-
-#+BEGIN_SRC emacs-lisp
-;; (defvar my-mu4e-account-alist
-;;   '(("acc1-domain"
-;;      (mu4e-sent-folder "/acc1-domain/Sent")
-;;      (mu4e-drafts-folder "/acc1-domain/Drafts")
-;;      (mu4e-trash-folder "/acc1-domain/Trash")
-;;      (mu4e-compose-signature
-;;        (concat
-;;          "Ricky Bobby\n"
-;;          "acc1@domain.com\n"))
-;;      (user-mail-address "acc1@domain.com")
-;;      (smtpmail-default-smtp-server "smtp.domain.com")
-;;      (smtpmail-smtp-server "smtp.domain.com")
-;;      (smtpmail-smtp-user "acc1@domain.com")
-;;      (smtpmail-stream-type starttls)
-;;      (smtpmail-smtp-service 587))
-;;     ("acc2-domain"
-;;      (mu4e-sent-folder "/acc2-domain/Sent")
-;;      (mu4e-drafts-folder "/acc2-domain/Drafts")
-;;      (mu4e-trash-folder "/acc2-domain/Trash")
-;;      (mu4e-compose-signature
-;;        (concat
-;;          "Suzy Q\n"
-;;          "acc2@domain.com\n"))
-;;      (user-mail-address "acc2@domain.com")
-;;      (smtpmail-default-smtp-server "smtp.domain.com")
-;;      (smtpmail-smtp-server "smtp.domain.com")
-;;      (smtpmail-smtp-user "acc2@domain.com")
-;;      (smtpmail-stream-type starttls)
-;;      (smtpmail-smtp-service 587))
-;;     ("acc3-domain"
-;;      (mu4e-sent-folder "/acc3-domain/Sent")
-;;      (mu4e-drafts-folder "/acc3-domain/Drafts")
-;;      (mu4e-trash-folder "/acc3-domain/Trash")
-;;      (mu4e-compose-signature
-;;        (concat
-;;          "John Boy\n"
-;;          "acc3@domain.com\n"))
-;;      (user-mail-address "acc3@domain.com")
-;;      (smtpmail-default-smtp-server "smtp.domain.com")
-;;      (smtpmail-smtp-server "smtp.domain.com")
-;;      (smtpmail-smtp-user "acc3@domain.com")
-;;      (smtpmail-stream-type starttls)
-;;      (smtpmail-smtp-service 587))))
-#+END_SRC
-
-I'm sourcing an elisp file (~/.config/doom/email.el) that contains the above source block but with my actual email settings.  I do this so I don't have to share my email addresses (other than derek@distrotube.com) publicly.  If you uncommented the above source block to use, then you should comment out or delete this block below.
-#+BEGIN_SRC emacs-lisp
-(load "~/.config/doom/email")
-#+END_SRC
-
-** Function To Facilitate Switching Between Accounts
-The following function can be used to select an account.  This function then needs to be added to mu4e-compose-pre-hook,
-
-#+BEGIN_SRC emacs-lisp
-(defun my-mu4e-set-account ()
-  "Set the account for composing a message."
-  (let* ((account
-          (if mu4e-compose-parent-message
-              (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
-                (string-match "/\\(.*?\\)/" maildir)
-                (match-string 1 maildir))
-            (completing-read (format "Compose with account: (%s) "
-                                     (mapconcat #'(lambda (var) (car var))
-                                                my-mu4e-account-alist "/"))
-                             (mapcar #'(lambda (var) (car var)) my-mu4e-account-alist)
-                             nil t nil nil (caar my-mu4e-account-alist))))
-         (account-vars (cdr (assoc account my-mu4e-account-alist))))
-    (if account-vars
-        (mapc #'(lambda (var)
-                  (set (car var) (cadr var)))
-              account-vars)
-      (error "No email account found"))))
-
-(add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
-#+END_SRC
 
 * NEOTREE
 Neotree is a file tree viewer.  When you open neotree, it jumps to the current file thanks to neo-smart-open.  The neo-window-fixed-size setting makes the neotree width be adjustable.  Doom Emacs had no keybindings set for neotree.  Since Doom Emacs uses 'SPC t' for 'toggle' keybindings, I used 'SPC t n' for toggle-neotree.
