@@ -101,7 +101,7 @@ ${voffset 18}${color1}${alignc}XMONAD KEYBINDINGS${color}
 ${color1}${hr}${color}
 ${color1}[S]+[RET]${alignr}${color2}open terminal${color}
 ${color1}[S]+b${alignr}${color2}open qutebrowser${color}
-${color1}[S]+[SPC]+[RET]${alignr}${color2}run prompt${color}
+${color1}[S]+[SHIFT]+[RET]${alignr}${color2}run prompt${color}
 ${color1}[S]+[SHIFT]+c${alignr}${color2}close window${color}
 ${color1}[S]+hjkl${alignr}${color2}move win focus${color}
 ${color1}[S]+[SHIFT]+hjkl${alignr}${color2}move window${color}
