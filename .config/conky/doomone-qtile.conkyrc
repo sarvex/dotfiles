@@ -106,7 +106,7 @@ ${color1}[S]+[SHIFT]+c${alignr}${color2}close window${color}
 ${color1}[S]+hjkl${alignr}${color2}move win focus${color}
 ${color1}[S]+[SHIFT]+hjkl${alignr}${color2}move window${color}
 ${color1}[S]+[0-9]${alignr}${color2}switch workspace${color}
-${color1}[S]+[SHIFT]+[0-9]${alignr}${color2}send window${color}
+${color1}[S]+[SHIFT]+[1-9]${alignr}${color2}send window${color}
 ${color1}[S]+h/l${alignr}${color2}shrink/expand${color}
 ${color1}${hr}${color}
 ${color1}[CTRL]+e, e${alignr}${color2}launch emacs${color}
