@@ -307,7 +307,7 @@ def init_widgets_list():
                        scale = "False",
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm)}
                        ),
-             widget.Sep(
+              widget.Sep(
                        linewidth = 0,
                        padding = 6,
                        foreground = colors[2],
