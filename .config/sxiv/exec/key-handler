@@ -52,11 +52,11 @@ do
         ;;
         "x") 
             xwallpaper --stretch "$file" &&
-            filename=$HOME/.xwallpaper
+            filename=$HOME/.cache/wall
             if [ ! -f $filename ]; then
                 touch $filename
             fi
-            echo "$file" > $HOME/.xwallpaper &&
+            echo "$file" > $HOME/.cache/wall &&
             notify-send "$file has been set as your wallpaper." && exit 0
         ;;
         "7")
