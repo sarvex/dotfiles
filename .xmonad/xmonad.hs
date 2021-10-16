@@ -106,10 +106,7 @@ myStartupHook = do
     spawnOnce "conky -c $HOME/.config/conky/doomone-xmonad.conkyrc"
     spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
     spawnOnce "/usr/bin/emacs --daemon &" -- emacs daemon for the emacsclient
-    -- uncomment to restore last saved wallpaper
-    spawnOnce "xargs xwallpaper --stretch < ~/.xwallpaper"
-    --uncomment to set a random wallpaper on login
-    -- spawnOnce "find /usr/share/backgrounds/dtos-backgrounds/ -type f | shuf -n 1 | xargs xwallpaper --stretch"
+    spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
 
     -- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
     -- spawnOnce "feh --randomize --bg-fill ~/wallpapers/*"  -- feh set random wallpaper
@@ -355,6 +352,7 @@ myKeys =
     -- KB_GROUP Other Dmenu Prompts
     -- In Xmonad and many tiling window managers, M-p is the default keybinding to
     -- launch dmenu_run, so I've decided to use M-p plus KEY for these dmenu scripts.
+        , ("M-p h", spawn "dm-hub")       -- allows access to all dmscripts
         , ("M-p a", spawn "dm-sounds")    -- choose an ambient background
         , ("M-p b", spawn "dm-setbg")     -- set a background
         , ("M-p c", spawn "dm-colpick")   -- pick color from our scheme
@@ -362,11 +360,13 @@ myKeys =
         , ("M-p i", spawn "dm-maim")      -- screenshots (images)
         , ("M-p k", spawn "dm-kill")      -- kill processes
         , ("M-p m", spawn "dm-man")       -- manpages
+        , ("M-p n", spawn "dm-note")      -- store one-line notes and copy them
         , ("M-p o", spawn "dm-bookman")   -- qutebrowser bookmarks/history
         , ("M-p p", spawn "passmenu")     -- passmenu
         , ("M-p q", spawn "dm-logout")    -- logout menu
         , ("M-p r", spawn "dm-reddit")    -- reddio (a reddit viewer)
         , ("M-p s", spawn "dm-websearch") -- search various search engines
+        , ("M-p t", spawn "dm-translate") -- translate text (Google Translate)
 
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn (myTerminal))
@@ -445,13 +445,6 @@ myKeys =
         , ("M-s t", namedScratchpadAction myScratchPads "terminal")
         , ("M-s m", namedScratchpadAction myScratchPads "mocp")
         , ("M-s c", namedScratchpadAction myScratchPads "calculator")
-
-    -- KB_GROUP Set wallpaper
-    -- Set wallpaper with either 'xwallwaper'. Type 'SUPER+F1' to launch sxiv in the
-    -- wallpapers directory; then in sxiv, type 'C-x x' to set the wallpaper that you
-    -- choose.  Or, type 'SUPER+F2' to set a random wallpaper.
-        , ("M-<F1>", spawn "sxiv -r -q -t -o /usr/share/backgrounds/dtos-backgrounds/*")
-        , ("M-<F2>", spawn "find /usr/share/backgrounds/dtos-backgrounds// -type f | shuf -n 1 | xargs xwallpaper --stretch")
 
     -- KB_GROUP Controls for mocp music player (SUPER-u followed by a key)
         , ("M-u p", spawn "mocp --play")

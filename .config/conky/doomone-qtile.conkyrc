@@ -116,9 +116,9 @@ ${color1}[CTRL]+e, n${alignr}${color2}elfeed${color}
 ${color1}[CTRL]+e, s${alignr}${color2}eshell${color}
 ${color1}[CTRL]+e, v${alignr}${color2}vterm${color}
 ${color1}${hr}${color}
+${color1}[S]+p, h${alignr}${color2}dm-hub${color}
+${color1}[S]+p, b${alignr}${color2}dm-setbg${color}
 ${color1}[S]+p, e${alignr}${color2}dm-confedit${color}
-${color1}[S]+p, i${alignr}${color2}dm-maim${color}
-${color1}[S]+p, k${alignr}${color2}dm-kill${color}
 ${color1}[S]+p, m${alignr}${color2}dm-man${color}
 ${color1}[S]+p, o${alignr}${color2}dm-bookman${color}
 ${color1}[S]+p, s${alignr}${color2}dm-websearch${color}
