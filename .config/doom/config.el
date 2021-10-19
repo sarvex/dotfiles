@@ -150,9 +150,6 @@
 (map! :leader
       :desc "Load new theme" "h t" #'counsel-load-theme)
 
-(use-package emojify
-  :hook (after-init . global-emojify-mode))
-
 (use-package! elfeed-goodies)
 (elfeed-goodies/setup)
 (setq elfeed-goodies/entry-pane-size 0.5)
@@ -198,6 +195,9 @@
        :desc "Emms stop track" "s" #'emms-stop
        :desc "Emms play previous track" "p" #'emms-previous
        :desc "Emms play next track" "n" #'emms-next))
+
+(use-package emojify
+  :hook (after-init . global-emojify-mode))
 
 (map! :leader
       (:prefix ("e". "evaluate/EWW")
@@ -257,9 +257,6 @@
        :desc "Toggle line highlight globally" "H" #'global-hl-line-mode
        :desc "Toggle truncate lines" "t" #'toggle-truncate-lines))
 
-(after! mastodon
-  (setq mastodon-instance-url "https://distrotoot.com"))
-
 (xterm-mouse-mode 1)
 
 (after! neotree
@@ -279,28 +276,6 @@
        :desc "Edit eshell aliases" "e p" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/profile"))
        :desc "Edit doom init.el" "i" #'(lambda () (interactive) (find-file "~/.config/doom/init.el"))
        :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.config/doom/packages.el"))))
-
-(defun my/org-mode/load-prettify-symbols () "Prettify org mode keywords"
-  (interactive)
-  (setq prettify-symbols-alist
-    (mapcan (lambda (x) (list x (cons (upcase (car x)) (cdr x))))
-          '(("#+begin_src" . ?)
-            ("#+end_src" . ?)
-            ("#+begin_example" . ?)
-            ("#+end_example" . ?)
-            ("#+DATE:" . ?⏱)
-            ("#+AUTHOR:" . ?✏)
-            ("[ ]" .  ?☐)
-            ("[X]" . ?☑ )
-            ("[-]" . ?❍ )
-            ("lambda" . ?λ)
-            ("#+header:" . ?)
-            ("#+name:" . ?﮸)
-            ("#+results:" . ?)
-            ("#+call:" . ?)
-            (":properties:" . ?)
-            (":logbook:" . ?))))
-  (prettify-symbols-mode 1))
 
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
@@ -382,11 +357,6 @@
        :desc "Window configuration to register" "w" #'window-configuration-to-register
        :desc "Increment register" "+" #'increment-register
        :desc "Point to register" "SPC" #'point-to-register))
-
-(map! :leader
-      (:prefix ("\\" . "ssh")
-       :desc "Ssh into distrotube.com" "\ d" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.com"))
-       :desc "Ssh into my nextcloud" "\ n" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.net"))))
 
 (setq shell-file-name "/bin/fish"
       vterm-max-scrollback 5000)

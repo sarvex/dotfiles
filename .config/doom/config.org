@@ -16,9 +16,9 @@
   - [[#keybindings-within-dired][Keybindings Within Dired]]
   - [[#keybindings-within-dired-with-peep-dired-mode-enabled][Keybindings Within Dired With Peep-Dired-Mode Enabled]]
 - [[#doom-theme][DOOM THEME]]
-- [[#emojis][EMOJIS]]
 - [[#elfeed][ELFEED]]
 - [[#emms][EMMS]]
+- [[#emojis][EMOJIS]]
 - [[#evaluate-elisp-expressions][EVALUATE ELISP EXPRESSIONS]]
 - [[#eww][EWW]]
 - [[#fonts][FONTS]]
@@ -26,14 +26,15 @@
   - [[#ivy-posframe][IVY-POSFRAME]]
   - [[#ivy-keybindings][IVY KEYBINDINGS]]
 - [[#line-settings][LINE SETTINGS]]
-- [[#mastodon][MASTODON]]
 - [[#mouse-support][MOUSE SUPPORT]]
 - [[#neotree][NEOTREE]]
 - [[#open-specific-files][OPEN SPECIFIC FILES]]
 - [[#org-mode][ORG MODE]]
+  - [[#set-font-sizes-for-each-header-level-in-org][Set font sizes for each header level in Org]]
+  - [[#org-export-modules][Org-Export modules]]
+  - [[#org-publish][Org-publish]]
 - [[#password-store][PASSWORD STORE]]
 - [[#registers][REGISTERS]]
-- [[#remote-connections][REMOTE CONNECTIONS]]
 - [[#shells][SHELLS]]
 - [[#splits][SPLITS]]
 - [[#winner-mode][WINNER MODE]]
@@ -52,7 +53,7 @@ Doom Emacs uses 'SPC b' for keybindings related to bookmarks and buffers.  Bookm
 #+END_SRC
 
 * CALENDAR
-Let's make a 12-month calendar available.  Nice to have so that when we click on time/date in xmobar, we get a nice 12-month calendar to view.
+Let's make a 12-month calendar available so we can have a calendar app that, when we click on time/date in xmobar, we get a nice 12-month calendar to view.
 
 This is a modification of: http://homepage3.nifty.com/oatu/emacs/calendar.html
 See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-than-3-months
@@ -267,14 +268,6 @@ Setting the theme to doom-one.  To try out new themes, I set a keybinding for co
       :desc "Load new theme" "h t" #'counsel-load-theme)
 #+END_SRC
 
-* EMOJIS
-Emojify is an Emacs extension to display emojis. It can display github style emojis like :smile: or plain ascii ones like :). 
-
-#+begin_src emacs-lisp
-(use-package emojify
-  :hook (after-init . global-emojify-mode))
-#+end_src
-
 * ELFEED
 An RSS newsfeed reader for Emacs.
 
@@ -338,6 +331,14 @@ One of the media players available for Emacs is emms, which stands for Emacs Mul
        :desc "Emms play previous track" "p" #'emms-previous
        :desc "Emms play next track" "n" #'emms-next))
 #+END_SRC
+
+* EMOJIS
+Emojify is an Emacs extension to display emojis. It can display github style emojis like :smile: or plain ascii ones like :).
+
+#+begin_src emacs-lisp
+(use-package emojify
+  :hook (after-init . global-emojify-mode))
+#+end_src
 
 * EVALUATE ELISP EXPRESSIONS
 Changing some keybindings from their defaults to better fit with Doom Emacs, and to avoid conflicts with my window managers which sometimes use the control key in their keybindings.  By default, Doom Emacs does not use 'SPC e' for anything, so I choose to use the format 'SPC e' plus 'key' for these (I also use 'SPC e' for 'eww' keybindings).
@@ -465,14 +466,6 @@ I set comment-line to 'SPC TAB TAB' which is a rather comfortable keybinding for
        :desc "Toggle truncate lines" "t" #'toggle-truncate-lines))
 #+END_SRC
 
-* MASTODON
-Mastodon.el is a mastodon client for Emacs.  Note that I wrapped my settings with (after! mastodon).  Without this, my settings for the mastodon instance that I use (distrotoot.com) would be overwritten by the default settings for this module, which is "mastodon.social".
-
-#+BEGIN_SRC emacs-lisp
-(after! mastodon
-  (setq mastodon-instance-url "https://distrotoot.com"))
-#+END_SRC
-
 * MOUSE SUPPORT
 Adding mouse support in the terminal version of Emacs.
 
@@ -525,30 +518,6 @@ Keybindings to open files that I work with all the time using the find-file comm
 * ORG MODE
 Note that I wrapped most of this in (after! org).  Without this, my settings might be evaluated too early, which will result in my settings being overwritten by Doom's defaults.  I have also enabled org-journal by adding (+journal) to the org section of my Doom Emacs init.el.
 
-#+begin_src emacs-lisp
-(defun my/org-mode/load-prettify-symbols () "Prettify org mode keywords"
-  (interactive)
-  (setq prettify-symbols-alist
-    (mapcan (lambda (x) (list x (cons (upcase (car x)) (cdr x))))
-          '(("#+begin_src" . ?)
-            ("#+end_src" . ?)
-            ("#+begin_example" . ?)
-            ("#+end_example" . ?)
-            ("#+DATE:" . ?⏱)
-            ("#+AUTHOR:" . ?✏)
-            ("[ ]" .  ?☐)
-            ("[X]" . ?☑ )
-            ("[-]" . ?❍ )
-            ("lambda" . ?λ)
-            ("#+header:" . ?)
-            ("#+name:" . ?﮸)
-            ("#+results:" . ?)
-            ("#+call:" . ?)
-            (":properties:" . ?)
-            (":logbook:" . ?))))
-  (prettify-symbols-mode 1))
-#+end_src
-
 #+BEGIN_SRC emacs-lisp
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
@@ -583,7 +552,7 @@ Note that I wrapped most of this in (after! org).  Without this, my settings mig
              "CANCELLED(c)" )))) ; Task has been cancelled
 #+END_SRC
 
-Setting the font sizes for each header level in Org mode.
+** Set font sizes for each header level in Org
 #+begin_src emacs-lisp
 (custom-set-faces
   '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
@@ -594,14 +563,15 @@ Setting the font sizes for each header level in Org mode.
 )
 #+end_src
 
-We need ox-man for "Org eXporting" to manpage format.
+** Org-Export modules
+We need ox-man for "Org eXporting" to manpage format, ox-gemini for exporting to gemtext, and ox-publish for converting an Org site into an HTML site.
 #+BEGIN_SRC emacs-lisp
 (use-package ox-man)
 (use-package ox-gemini)
 (use-package ox-publish)
 #+END_SRC
 
-Org-publish
+** Org-publish
 #+begin_src emacs-lisp
 (setq org-publish-use-timestamps-flag nil)
 (setq org-export-with-broken-links t)
@@ -623,7 +593,6 @@ Org-publish
          :exclude ".*/org-html-themes/.*"
          :publishing-function org-publish-attachment)
       ))
-
 #+end_src
 
 * PASSWORD STORE
@@ -664,21 +633,6 @@ Emacs registers are compartments where you can save text, rectangles and positio
        :desc "Window configuration to register" "w" #'window-configuration-to-register
        :desc "Increment register" "+" #'increment-register
        :desc "Point to register" "SPC" #'point-to-register))
-#+END_SRC
-
-* REMOTE CONNECTIONS
-Keybindings for ssh'ing into remote machines.  By default, Doom Emacs does not use 'SPC \', so the format I use for these bindings is 'SPC \' plus 'key'.
-
-| DESCRIPTION             | KEYBINDING |
-|-------------------------+------------|
-| Ssh into distrotube.com | SPC \ d    |
-| Ssh into my nextcloud   | SPC \ n    |
-
-#+BEGIN_SRC emacs-lisp
-(map! :leader
-      (:prefix ("\\" . "ssh")
-       :desc "Ssh into distrotube.com" "\ d" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.com"))
-       :desc "Ssh into my nextcloud" "\ n" #'(lambda () (interactive) (find-file "/scp:derek@distrotube.net"))))
 #+END_SRC
 
 * SHELLS
