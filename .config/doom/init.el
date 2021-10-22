@@ -169,8 +169,8 @@
        yaml             ; JSON, but readable
 
        :email
-       mu4e
-       smtpmail
+       ;;mu4e
+       ;;smtpmail
        ;;notmuch
        ;;(wanderlust +gmail)
 
