@@ -214,7 +214,9 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# COLOR SCHEMES
+#######################################
+##      START OF COLOR SCHEMES       ##
+#######################################
 schemes:
   ### Doom One ###
   doom-one: &doom-one
@@ -332,6 +334,35 @@ schemes:
       cyan:    '0x8ec07c'
       white:   '0xebdbb2'
 
+### Monokai ###
+  monokai-pro: &monokai-pro
+    # Default colors
+    primary:
+      background: '#2D2A2E'
+      foreground: '#FCFCFA'
+
+    # Normal colors
+    normal:
+      black:   '#403E41'
+      red:     '#FF6188'
+      green:   '#A9DC76'
+      yellow:  '#FFD866'
+      blue:    '#FC9867'
+      magenta: '#AB9DF2'
+      cyan:    '#78DCE8'
+      white:   '#FCFCFA'
+
+    # Bright colors
+    bright:
+      black:   '#727072'
+      red:     '#FF6188'
+      green:   '#A9DC76'
+      yellow:  '#FFD866'
+      blue:    '#FC9867'
+      magenta: '#AB9DF2'
+      cyan:    '#78DCE8'
+      white:   '#FCFCFA'
+
   ### Nord ###
   nord: &nord
     # Default colors
@@ -360,6 +391,40 @@ schemes:
       magenta: '0xB48EAD'
       cyan:    '0x8FBCBB'
       white:   '0xECEFF4'
+
+  ### Oceanic Next ###
+  oceanic-next: &oceanic-next
+    # Default colors
+    primary:
+      background: '#1b2b34'
+      foreground: '#d8dee9'
+
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '#1b2b34'
+      cursor: '#ffffff'
+
+    # Normal colors
+    normal:
+      black:   '#343d46'
+      red:     '#EC5f67'
+      green:   '#99C794'
+      yellow:  '#FAC863'
+      blue:    '#6699cc'
+      magenta: '#c594c5'
+      cyan:    '#5fb3b3'
+      white:   '#d8dee9'
+
+    # Bright colors
+    bright:
+      black:   '#343d46'
+      red:     '#EC5f67'
+      green:   '#99C794'
+      yellow:  '#FAC863'
+      blue:    '#6699cc'
+      magenta: '#c594c5'
+      cyan:    '#5fb3b3'
+      white:   '#d8dee9'
 
   ### Solarized Light ###
   solarized-light: &solarized-light
@@ -470,11 +535,18 @@ schemes:
 # *doom-one
 # *dracula
 # *gruvbox-dark
+# *monokai-pro
 # *nord
+# *oceanic-next
 # *solarized-light
 # *solarized-dark
 # *tomorrow-night
+
 colors: *doom-one
+
+#######################################
+##       END OF COLOR SCHEMES        ##
+#######################################
 
 # Visual Bell
 #
