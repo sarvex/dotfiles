@@ -152,7 +152,7 @@ myStartupHook = do
     spawnOnce "picom &"
     spawnOnce "nm-applet &"
     spawnOnce "volumeicon &"
-    spawnOnce "conky -c $HOME/.config/conky/doomone-xmonad.conkyrc"
+    spawnOnce "conky -c $HOME/.config/conky/xmonad/doom-one-01.conkyrc"
     spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34  --height 22 &"
     spawnOnce "/usr/bin/emacs --daemon &" -- emacs daemon for the emacsclient
     spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
@@ -166,7 +166,7 @@ myStartupHook = do
 #+END_SRC
 
 * Gridselect
-GridSelect displays items (programs, open windows, etc.) in a 2D grid and lets the user selectfrom it with the cursor/hjkl keys or the mouse.
+GridSelect displays items (programs, open windows, etc.) in a 2D grid and lets the user select from it with the cursor/hjkl keys or the mouse.
 
 #+BEGIN_SRC haskell
 myColorizer :: Window -> Bool -> X (String, String)
