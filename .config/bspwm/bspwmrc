@@ -13,7 +13,7 @@
 sxhkd &
 picom &
 nitrogen --restore &
-./.config/bspwm/panel.sh &
+./.config/bspwm/launch.sh &
 
 #### MONITORS ####
 bspc monitor DisplayPort-0 -d 1 2 3 4 5 6 7 8 9
