@@ -426,6 +426,35 @@ schemes:
       cyan:    '#5fb3b3'
       white:   '#d8dee9'
 
+  ### Palenight ###
+  palenight: &palenight
+    # Default colors
+    primary:
+      background: '#292d3e'
+      foreground: '#d0d0d0'
+
+    # Normal colors
+    normal:
+      black:   '#292d3e'
+      red:     '#f07178'
+      green:   '#c3e88d'
+      yellow:  '#ffcb6b'
+      blue:    '#82aaff'
+      magenta: '#c792ea'
+      cyan:    '#89ddff'
+      white:   '#d0d0d0'
+
+    # Bright colors
+    bright:
+      black:   '#434758'
+      red:     '#ff8b92'
+      green:   '#ddffa7'
+      yellow:  '#ffe585'
+      blue:    '#9cc4ff'
+      magenta: '#e1acff'
+      cyan:    '#a3f7ff'
+      white:   '#ffffff'
+
   ### Solarized Light ###
   solarized-light: &solarized-light
     # Default colors
@@ -538,6 +567,7 @@ schemes:
 # *monokai-pro
 # *nord
 # *oceanic-next
+# *palenight
 # *solarized-light
 # *solarized-dark
 # *tomorrow-night

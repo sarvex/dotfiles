@@ -54,7 +54,10 @@ conky.config = {
 
 	--Textual
 	format_human_readable = true,				-- KiB, MiB rather then number of bytes
-	font = 'Source Code Pro:bold:size=10',  	-- font for complete conky unless in code defined
+	font  = 'Source Code Pro:bold:size=10',  	-- the default font used
+	font2 = 'Raleway:bold:size=30',         	-- font for the time
+	font3 = 'Ubuntu:size=14',               	-- font for the date
+	font4 = 'Raleway:bold:size=9',              -- font for the keybindings heading
 	max_text_width = 0,							-- 0 will make sure line does not get broken if width too smal
 	max_user_text = 16384,						-- max text in conky default 16384
 	override_utf8_locale = true,				-- force UTF8 requires xft
@@ -85,8 +88,8 @@ conky.config = {
 };
 
 conky.text = [[
-${alignc}${color0}${font Ubuntu:size=30}${time %H:%M}${font}
-${voffset 6}${alignc}${color0}${font Ubuntu:size=14}${time %b %d, %Y}${font}${color}
+${alignc}${color0}${font2}${time %H:%M}${font}
+${voffset 6}${alignc}${color0}${font3}${time %b %d, %Y}${font}${color}
 ${voffset 18}${goto 12}${color3}CPU${goto 50}$cpu%
 ${color2}${goto 12}${cpubar 8,254}
 ${voffset 5}${goto 12}$font${color1}${top name 1}$alignr$color${top cpu 1}%
@@ -97,7 +100,7 @@ ${color2}${goto 12}${membar 8,254}${color}
 ${goto 12}${voffset 5}${color1}${top_mem name 1}$alignr$color${top_mem mem_res 1}
 ${goto 12}${color1}${top_mem name 2}$alignr$color${top_mem mem_res 2}
 ${goto 12}${color1}${top_mem name 3}$alignr$color${top_mem mem_res 3}
-${voffset 18}${color1}${alignc}XMONAD KEYBINDINGS${color}
+${voffset 18}${color1}${alignc}${font4}XMONAD KEYBINDINGS${font}${color}
 ${color1}${hr}${color}
 ${color1}[S]+[RET]${alignr}${color2}open terminal${color}
 ${color1}[S]+b${alignr}${color2}open qutebrowser${color}
