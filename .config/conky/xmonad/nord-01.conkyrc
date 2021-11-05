@@ -31,8 +31,8 @@ conky.config = {
 
     -- Size
     minimum_height = 200,						-- minimum height of window
-	minimum_width = 260,						-- minimum height of window
-	maximum_width = 260,						-- maximum height of window
+	minimum_width = 260,						-- minimum width of window
+	maximum_width = 260,						-- maximum width of window
 
 	--Graphical
 	border_inner_margin = 5, 					-- margin between border and text
