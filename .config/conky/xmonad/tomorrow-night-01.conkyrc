@@ -112,12 +112,12 @@ ${color1}[S]+[1-9]${alignr}${color2}switch workspace${color}
 ${color1}[S]+[SHIFT]+[1-9]${alignr}${color2}send window${color}
 ${color1}[S]+h/l${alignr}${color2}shrink/expand${color}
 ${color1}${hr}${color}
-${color1}[CTRL]+e, e${alignr}${color2}launch emacs${color}
-${color1}[CTRL]+e, b${alignr}${color2}ibuffer${color}
-${color1}[CTRL]+e, d${alignr}${color2}dired${color}
-${color1}[CTRL]+e, n${alignr}${color2}elfeed${color}
-${color1}[CTRL]+e, s${alignr}${color2}eshell${color}
-${color1}[CTRL]+e, v${alignr}${color2}vterm${color}
+${color1}[S]+e, e${alignr}${color2}launch emacs${color}
+${color1}[S]+e, b${alignr}${color2}ibuffer${color}
+${color1}[S]+e, d${alignr}${color2}dired${color}
+${color1}[S]+e, n${alignr}${color2}elfeed${color}
+${color1}[S]+e, s${alignr}${color2}eshell${color}
+${color1}[S]+e, v${alignr}${color2}vterm${color}
 ${color1}${hr}${color}
 ${color1}[S]+p, h${alignr}${color2}dm-hub${color}
 ${color1}[S]+p, b${alignr}${color2}dm-setbg${color}

@@ -1,7 +1,7 @@
 --[[
-#######################################
-##  monokai-pro-01.conkyrc (XMonad)  ##
-#######################################
+######################################
+##  monokai-pro-01.conkyrc (Qtile)  ##
+######################################
 ]]
 
 conky.config = {
@@ -100,7 +100,7 @@ ${color2}${goto 12}${membar 8,254}${color}
 ${goto 12}${voffset 5}${color1}${top_mem name 1}$alignr$color${top_mem mem_res 1}
 ${goto 12}${color1}${top_mem name 2}$alignr$color${top_mem mem_res 2}
 ${goto 12}${color1}${top_mem name 3}$alignr$color${top_mem mem_res 3}
-${voffset 18}${color1}${alignc}${font4}XMONAD KEYBINDINGS${font}${color}
+${voffset 18}${color1}${alignc}${font4}QTILE KEYBINDINGS${font}${color}
 ${color1}${hr}${color}
 ${color1}[S]+[RET]${alignr}${color2}open terminal${color}
 ${color1}[S]+b${alignr}${color2}open qutebrowser${color}
@@ -126,6 +126,6 @@ ${color1}[S]+p, m${alignr}${color2}dm-man${color}
 ${color1}[S]+p, o${alignr}${color2}dm-bookman${color}
 ${color1}[S]+p, s${alignr}${color2}dm-websearch${color}
 ${color1}${hr}${color}
-${color1}[S]+[SHIFT]+r${alignr}${color2}restart xmonad${color}
-${color1}[S]+[SHIFT]+q${alignr}${color2}quit xmonad${color}
+${color1}[S]+[SHIFT]+r${alignr}${color2}restart qtile${color}
+${color1}[S]+[SHIFT]+q${alignr}${color2}quit qtile${color}
 ]];
