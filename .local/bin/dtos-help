@@ -17,7 +17,7 @@ source "$HOME/.config/dmscripts/config"
 
 declare -A dtvids
 dtvids[Bash Scripting Variables, Arrays & If-Then-Else]="https://www.youtube.com/watch?v=xhI1qXUrAHw"
-dtvids[Begginers Guide To Gimp]="https://www.youtube.com/watch?v=YHwnlgD18kE"
+dtvids[Beginners Guide To Gimp]="https://www.youtube.com/watch?v=YHwnlgD18kE"
 dtvids[Beginners Guide To Kdenlive]="https://www.youtube.com/watch?v=KI93ae_nnyY"
 dtvids[Beginners Guide To The Linux Terminal]="https://www.youtube.com/watch?v=s3ii48qYBxA"
 dtvids[Bookmarks, Buffers And Windows In Doom Emacs]="https://www.youtube.com/watch?v=F1iaskxcLNA"
