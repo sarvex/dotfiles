@@ -281,13 +281,13 @@
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-  (setq org-directory "~/Org/"
-        org-agenda-files '("~/Org/agenda.org")
-        org-roam-directory "~/Roam/"
+  (setq org-directory "~/nc/Org/"
+        org-agenda-files '("~/nc/Org/agenda.org")
+        org-roam-directory "~/nc/Roam/"
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
         org-log-done 'time
-        org-journal-dir "~/Org/journal/"
+        org-journal-dir "~/nc/Org/journal/"
         org-journal-date-format "%B %d, %Y (%A) "
         org-journal-file-format "%Y-%m-%d.org"
         org-hide-emphasis-markers t
@@ -342,6 +342,8 @@
          :exclude ".*/org-html-themes/.*"
          :publishing-function org-publish-attachment)
       ))
+
+(setq org-roam-directory "~/nc/Roam")
 
 (use-package! password-store)
 

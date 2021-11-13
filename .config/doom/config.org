@@ -31,8 +31,9 @@
 - [[#open-specific-files][OPEN SPECIFIC FILES]]
 - [[#org-mode][ORG MODE]]
   - [[#set-font-sizes-for-each-header-level-in-org][Set font sizes for each header level in Org]]
-  - [[#org-export-modules][Org-Export modules]]
+  - [[#org-export][Org-export]]
   - [[#org-publish][Org-publish]]
+  - [[#org-roam][Org-roam]]
 - [[#password-store][PASSWORD STORE]]
 - [[#registers][REGISTERS]]
 - [[#shells][SHELLS]]
@@ -516,20 +517,23 @@ Keybindings to open files that I work with all the time using the find-file comm
 #+END_SRC
 
 * ORG MODE
-Note that I wrapped most of this in (after! org).  Without this, my settings might be evaluated too early, which will result in my settings being overwritten by Doom's defaults.  I have also enabled org-journal by adding (+journal) to the org section of my Doom Emacs init.el.
+I wrapped most of this block in (after! org).  Without this, my settings might be evaluated too early, which will result in my settings being overwritten by Doom's defaults.  I have also enabled org-journal by adding (+journal) to the org section of my Doom Emacs init.el.
+
+=NOTE:= I have the location of my Org directory and Roam directory in $HOME/nc/ which is a Nextcloud folder that allows me to instantly sync all of my Org work between my home computer and my office computer.
+
 
 #+BEGIN_SRC emacs-lisp
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-  (setq org-directory "~/Org/"
-        org-agenda-files '("~/Org/agenda.org")
-        org-roam-directory "~/Roam/"
+  (setq org-directory "~/nc/Org/"
+        org-agenda-files '("~/nc/Org/agenda.org")
+        org-roam-directory "~/nc/Roam/"
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
         org-log-done 'time
-        org-journal-dir "~/Org/journal/"
+        org-journal-dir "~/nc/Org/journal/"
         org-journal-date-format "%B %d, %Y (%A) "
         org-journal-file-format "%Y-%m-%d.org"
         org-hide-emphasis-markers t
@@ -564,7 +568,7 @@ Note that I wrapped most of this in (after! org).  Without this, my settings mig
 )
 #+end_src
 
-** Org-Export modules
+** Org-export
 We need ox-man for "Org eXporting" to manpage format, ox-gemini for exporting to gemtext, and ox-publish for converting an Org site into an HTML site.
 #+BEGIN_SRC emacs-lisp
 (use-package ox-man)
@@ -594,6 +598,20 @@ We need ox-man for "Org eXporting" to manpage format, ox-gemini for exporting to
          :exclude ".*/org-html-themes/.*"
          :publishing-function org-publish-attachment)
       ))
+#+end_src
+
+** Org-roam
+| COMMAND                         | DESCRIPTION                     | KEYBINDING  |
+|---------------------------------+---------------------------------+-------------|
+| org-roam-find-file              | org roam find file              | SPC n r f   |
+| org-roam-insert                 | org roam insert                 | SPC n r i   |
+| org-roam-dailies-find-date      | org roam dailies find date      | SPC n r d d |
+| org-roam-dailies-find-today     | org roam dailies find today     | SPC n r d t |
+| org-roam-dailies-find-tomorrow  | org roam dailies find tomorrow  | SPC n r d m |
+| org-roam-dailies-find-yesterday | org roam dailies find yesterday | SPC n r d y |
+
+#+begin_src emacs-lisp
+(setq org-roam-directory "~/nc/Roam")
 #+end_src
 
 * PASSWORD STORE
