@@ -283,7 +283,6 @@
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   (setq org-directory "~/nc/Org/"
         org-agenda-files '("~/nc/Org/agenda.org")
-        org-roam-directory "~/nc/Roam/"
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
         org-log-done 'time
