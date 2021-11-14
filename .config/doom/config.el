@@ -280,7 +280,7 @@
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  ;;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   (setq org-directory "~/nc/Org/"
         org-agenda-files '("~/nc/Org/agenda.org")
         org-default-notes-file (expand-file-name "notes.org" org-directory)
@@ -342,7 +342,8 @@
          :publishing-function org-publish-attachment)
       ))
 
-(setq org-roam-directory "~/nc/Roam")
+(after! org
+  (setq org-roam-directory "~/nc/Roam"))
 
 (use-package! password-store)
 
