@@ -342,7 +342,7 @@
          :publishing-function org-publish-attachment)
       ))
 
-(after! org
+(after! org-roam
   (setq org-roam-directory "~/nc/Roam"))
 
 (use-package! password-store)

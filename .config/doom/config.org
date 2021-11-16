@@ -609,7 +609,7 @@ We need ox-man for "Org eXporting" to manpage format, ox-gemini for exporting to
 | org-roam-dailies-find-yesterday | org roam dailies find yesterday | SPC n r d y |
 
 #+begin_src emacs-lisp
-(after! org
+(after! org-roam
   (setq org-roam-directory "~/nc/Roam"))
 #+end_src
 
