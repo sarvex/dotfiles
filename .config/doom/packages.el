@@ -67,7 +67,6 @@
 (package! emojify)
 (package! evil-tutor)
 (package! ivy-posframe)
-(package! org-bullets)
 (package! ox-gemini)
 (package! peep-dired)
 (package! password-store)

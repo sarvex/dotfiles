@@ -280,15 +280,14 @@
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org
-  ;;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   (setq org-directory "~/nc/Org/"
         org-agenda-files '("~/nc/Org/agenda.org")
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
+        org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
+        org-superstar-item-bullet-alist '((?+ . ?➤)
+                                          (?- . ?✦))
         org-log-done 'time
-        org-journal-dir "~/nc/Org/journal/"
-        org-journal-date-format "%B %d, %Y (%A) "
-        org-journal-file-format "%Y-%m-%d.org"
         org-hide-emphasis-markers t
         ;; ex. of org-link-abbrev-alist in action
         ;; [[arch-wiki:Name_of_Page][Description]]
@@ -319,7 +318,12 @@
 
 (use-package ox-man)
 (use-package ox-gemini)
-(use-package ox-publish)
+
+(setq org-journal-dir "~/nc/Org/journal/"
+      org-journal-date-prefix "* "
+      org-journal-time-prefix "** "
+      org-journal-date-format "%B %d, %Y (%A) "
+      org-journal-file-format "%Y-%m-%d.org")
 
 (setq org-publish-use-timestamps-flag nil)
 (setq org-export-with-broken-links t)
