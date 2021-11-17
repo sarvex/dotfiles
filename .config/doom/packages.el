@@ -61,6 +61,7 @@
 (package! calfw-org)
 (package! dashboard)
 (package! dired-open)
+(package! dired-subtree)
 (package! dmenu)
 (package! elfeed-goodies)
 (package! elpher)

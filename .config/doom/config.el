@@ -119,10 +119,10 @@
   (kbd "C") 'dired-do-copy
   (kbd "D") 'dired-do-delete
   (kbd "J") 'dired-goto-file
-  (kbd "M") 'dired-chmod
-  (kbd "O") 'dired-chown
+  (kbd "M") 'dired-do-chmod
+  (kbd "O") 'dired-do-chown
   (kbd "P") 'dired-do-print
-  (kbd "R") 'dired-rename
+  (kbd "R") 'dired-do-rename
   (kbd "T") 'dired-do-touch
   (kbd "Y") 'dired-copy-filenamecopy-filename-as-kill ; copies filename to kill ring.
   (kbd "+") 'dired-create-directory
@@ -145,6 +145,9 @@
                               ("png" . "sxiv")
                               ("mkv" . "mpv")
                               ("mp4" . "mpv")))
+
+(setq delete-by-moving-to-trash t
+      trash-directory "~/.local/share/Trash/files/")
 
 (setq doom-theme 'doom-one)
 (map! :leader

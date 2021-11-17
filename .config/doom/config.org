@@ -15,6 +15,7 @@
   - [[#keybindings-to-open-dired][Keybindings To Open Dired]]
   - [[#keybindings-within-dired][Keybindings Within Dired]]
   - [[#keybindings-within-dired-with-peep-dired-mode-enabled][Keybindings Within Dired With Peep-Dired-Mode Enabled]]
+  - [[#making-deleted-files-go-to-trash-can][Making deleted files go to trash can]]
 - [[#doom-theme][DOOM THEME]]
 - [[#elfeed][ELFEED]]
 - [[#emms][EMMS]]
@@ -196,15 +197,27 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
 | dired-jump | /Jump to current directory in dired/ | SPC d j    |
 
 ** Keybindings Within Dired
-| COMMAND             | DESCRIPTION                                 | KEYBINDING |
-|---------------------+---------------------------------------------+------------|
-| dired-view-file     | /View file in dired/                          | SPC d v    |
-| dired-up-directory  | /Go up in directory tree/                     | h          |
-| dired-find-file     | /Go down in directory tree (or open if file)/ | l          |
-| dired-next-line     | Move down to next line                      | j          |
-| dired-previous-line | Move up to previous line                    | k          |
-| dired-mark          | Mark file at point                          | m          |
-| dired-unmark        | Unmark file at point                        | u          |
+| COMMAND                | DESCRIPTION                                 | KEYBINDING |
+|------------------------+---------------------------------------------+------------|
+| dired-view-file        | /View file in dired/                          | SPC d v    |
+| dired-up-directory     | /Go up in directory tree/                     | h          |
+| dired-find-file        | /Go down in directory tree (or open if file)/ | l          |
+| dired-next-line        | Move down to next line                      | j          |
+| dired-previous-line    | Move up to previous line                    | k          |
+| dired-mark             | Mark file at point                          | m          |
+| dired-unmark           | Unmark file at point                        | u          |
+| dired-hide-details     | Toggle detailed listings on/off             | (          |
+| dired-git-info-mode    | Toggle git information on/off               | )          |
+| dired-create-directory | Create new empty directory                  | +          |
+| dired-diff             | Compare file at point with another          | =          |
+| dired-subtree-toggle   | Toggle viewing subtree at point             | TAB        |
+
+| COMMAND         | DESCRIPTION                      | KEYBINDING |
+|-----------------+----------------------------------+------------|
+| dired-do-chgrp  | Change the group of marked files | g G        |
+| dired-do-chmod  | Change the mode of marked files  | M          |
+| dired-do-chown  | Change the owner of marked files | O          |
+| dired-do-rename | Rename file or all marked files  | R          |
 
 ** Keybindings Within Dired With Peep-Dired-Mode Enabled
 | COMMAND              | DESCRIPTION                              | KEYBINDING |
@@ -233,10 +246,10 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
   (kbd "C") 'dired-do-copy
   (kbd "D") 'dired-do-delete
   (kbd "J") 'dired-goto-file
-  (kbd "M") 'dired-chmod
-  (kbd "O") 'dired-chown
+  (kbd "M") 'dired-do-chmod
+  (kbd "O") 'dired-do-chown
   (kbd "P") 'dired-do-print
-  (kbd "R") 'dired-rename
+  (kbd "R") 'dired-do-rename
   (kbd "T") 'dired-do-touch
   (kbd "Y") 'dired-copy-filenamecopy-filename-as-kill ; copies filename to kill ring.
   (kbd "+") 'dired-create-directory
@@ -260,6 +273,12 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
                               ("mkv" . "mpv")
                               ("mp4" . "mpv")))
 #+END_SRC
+
+** Making deleted files go to trash can
+#+begin_src emacs-lisp
+(setq delete-by-moving-to-trash t
+      trash-directory "~/.local/share/Trash/files/")
+#+end_src
 
 * DOOM THEME
 Setting the theme to doom-one.  To try out new themes, I set a keybinding for counsel-load-theme with 'SPC h t'.
