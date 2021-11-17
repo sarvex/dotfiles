@@ -574,6 +574,7 @@ I wrapped most of this block in (after! org).  Without this, my settings might b
 #+END_SRC
 
 ** Set font sizes for each header level in Org
+You can set the Org heading levels to be different font sizes.  So I choose to have level 1 headings to be 140% in height, level 2 to be 130%, etc.  Other interesting things you could play with include adding :foreground color and/or :background color if you want to override the theme colors.
 #+begin_src emacs-lisp
 (custom-set-faces
   '(org-level-1 ((t (:inherit outline-1 :height 1.4))))
