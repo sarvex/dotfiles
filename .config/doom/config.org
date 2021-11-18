@@ -210,7 +210,7 @@ Emacs Dashboard is an extensible startup screen showing you recent files, bookma
   :init      ;; tweak dashboard config before loading it
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
-  (setq dashboard-banner-logo-title "\nKEYBINDINGS:\nOpen dired file manager  (SPC .)\nOpen buffer list         (SPC b i)\nFind recent files        (SPC f r)\nOpen the eshell          (SPC e s)\nToggle big font mode     (SPC t b)")
+  (setq dashboard-banner-logo-title "\nKEYBINDINGS:\nFind file               (SPC .)     Open buffer list    (SPC b i)\nFind recent files       (SPC f r)   Open the eshell     (SPC e s)\nOpen dired file manager (SPC d d)   List of keybindings (SPC h b b)")
   ;;(setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
   (setq dashboard-startup-banner "~/.config/doom/doom-emacs-dash.png")  ;; use custom image as banner
   (setq dashboard-center-content nil) ;; set to 't' for centered content
@@ -235,26 +235,42 @@ This setting ensures that emacsclient always opens on *dashboard* rather than *s
 Dired is the file manager within Emacs.  Below, I setup keybindings for image previews (peep-dired).  Doom Emacs does not use 'SPC d' for any of its keybindings, so I've chosen the format of 'SPC d' plus 'key'.
 
 ** Keybindings To Open Dired
+
 | COMMAND    | DESCRIPTION                        | KEYBINDING |
 |------------+------------------------------------+------------|
 | dired      | /Open dired file manager/            | SPC d d    |
 | dired-jump | /Jump to current directory in dired/ | SPC d j    |
 
 ** Keybindings Within Dired
-| COMMAND                | DESCRIPTION                                 | KEYBINDING |
-|------------------------+---------------------------------------------+------------|
-| dired-view-file        | /View file in dired/                          | SPC d v    |
-| dired-up-directory     | /Go up in directory tree/                     | h          |
-| dired-find-file        | /Go down in directory tree (or open if file)/ | l          |
-| dired-next-line        | Move down to next line                      | j          |
-| dired-previous-line    | Move up to previous line                    | k          |
-| dired-mark             | Mark file at point                          | m          |
-| dired-unmark           | Unmark file at point                        | u          |
-| dired-hide-details     | Toggle detailed listings on/off             | (          |
-| dired-git-info-mode    | Toggle git information on/off               | )          |
-| dired-create-directory | Create new empty directory                  | +          |
-| dired-diff             | Compare file at point with another          | =          |
-| dired-subtree-toggle   | Toggle viewing subtree at point             | TAB        |
+*** Basic dired commands
+
+| COMMAND                 | DESCRIPTION                                 | KEYBINDING |
+|-------------------------+---------------------------------------------+------------|
+| dired-view-file         | /View file in dired/                          | SPC d v    |
+| dired-up-directory      | /Go up in directory tree/                     | h          |
+| dired-find-file         | /Go down in directory tree (or open if file)/ | l          |
+| dired-next-line         | Move down to next line                      | j          |
+| dired-previous-line     | Move up to previous line                    | k          |
+| dired-mark              | Mark file at point                          | m          |
+| dired-unmark            | Unmark file at point                        | u          |
+| dired-do-copy           | Copy current file or marked files           | C          |
+| dired-do-rename         | Rename current file or marked files         | R          |
+| dired-hide-details      | Toggle detailed listings on/off             | (          |
+| dired-git-info-mode     | Toggle git information on/off               | )          |
+| dired-create-directory  | Create new empty directory                  | +          |
+| dired-diff              | Compare file at point with another          | =          |
+| dired-subtree-toggle    | Toggle viewing subtree at point             | TAB        |
+
+*** Dired commands using regex
+
+| COMMAND                 | DESCRIPTION                | KEYBINDING |
+|-------------------------+----------------------------+------------|
+| dired-mark-files-regexp | Mark files using regex     | % m        |
+| dired-do-copy-regexp    | Copy files using regex     | % C        |
+| dired-do-rename-regexp  | Rename files using regex   | % R        |
+| dired-mark-files-regexp | Mark all files using regex | * %        |
+
+*** File permissions and ownership
 
 | COMMAND         | DESCRIPTION                      | KEYBINDING |
 |-----------------+----------------------------------+------------|
@@ -263,14 +279,7 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
 | dired-do-chown  | Change the owner of marked files | O          |
 | dired-do-rename | Rename file or all marked files  | R          |
 
-** Keybindings Within Dired With Peep-Dired-Mode Enabled
-| COMMAND              | DESCRIPTION                              | KEYBINDING |
-|----------------------+------------------------------------------+------------|
-| peep-dired           | /Toggle previews within dired/             | SPC d p    |
-| peep-dired-next-file | /Move to next file in peep-dired-mode/     | j          |
-| peep-dired-prev-file | /Move to previous file in peep-dired-mode/ | k          |
-
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (map! :leader
       (:prefix ("d" . "dired")
        :desc "Open dired" "d" #'dired
@@ -279,7 +288,7 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
        (:map dired-mode-map
         :desc "Peep-dired image previews" "d p" #'peep-dired
         :desc "Dired view file" "d v" #'dired-view-file)))
-;; Make 'h' and 'l' go back and forward in dired. Much faster to navigate the directory structure!
+
 (evil-define-key 'normal dired-mode-map
   (kbd "M-RET") 'dired-display-file
   (kbd "h") 'dired-up-directory
@@ -302,11 +311,6 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
   (kbd "% u") 'dired-upcase
   (kbd "; d") 'epa-dired-do-decrypt
   (kbd "; e") 'epa-dired-do-encrypt)
-;; If peep-dired is enabled, you will get image previews as you go up/down with 'j' and 'k'
-(evil-define-key 'normal peep-dired-mode-map
-  (kbd "j") 'peep-dired-next-file
-  (kbd "k") 'peep-dired-prev-file)
-(add-hook 'peep-dired-hook 'evil-normalize-keymaps)
 ;; Get file icons in dired
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 ;; With dired-open plugin, you can launch external programs for certain extensions
@@ -316,6 +320,22 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
                               ("png" . "sxiv")
                               ("mkv" . "mpv")
                               ("mp4" . "mpv")))
+#+end_src
+
+** Keybindings Within Dired With Peep-Dired-Mode Enabled
+If peep-dired is enabled, you will get image previews as you go up/down with 'j' and 'k'
+
+| COMMAND              | DESCRIPTION                              | KEYBINDING |
+|----------------------+------------------------------------------+------------|
+| peep-dired           | /Toggle previews within dired/             | SPC d p    |
+| peep-dired-next-file | /Move to next file in peep-dired-mode/     | j          |
+| peep-dired-prev-file | /Move to previous file in peep-dired-mode/ | k          |
+
+#+BEGIN_SRC emacs-lisp
+(evil-define-key 'normal peep-dired-mode-map
+  (kbd "j") 'peep-dired-next-file
+  (kbd "k") 'peep-dired-prev-file)
+(add-hook 'peep-dired-hook 'evil-normalize-keymaps)
 #+END_SRC
 
 ** Making deleted files go to trash can
@@ -745,7 +765,9 @@ Settings for the various shells and terminal emulators within Emacs.
       eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh"))
 (map! :leader
       :desc "Eshell" "e s" #'eshell
-      :desc "Counsel eshell history" "e h" #'counsel-esh-history)
+      :desc "Eshell popup toggle" "e t" #'+eshell/toggle
+      :desc "Counsel eshell history" "e h" #'counsel-esh-history
+      :desc "Vterm popup toggle" "v t" #'+vterm/toggle)
 #+END_SRC
 
 * SPLITS
