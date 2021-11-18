@@ -358,7 +358,6 @@
          :publishing-function org-publish-attachment)
       ))
 
-(remove-hook 'find-file-hook #'+org-roam-open-buffer-on-find-file)
 (after! org-roam
   (setq org-roam-directory "~/nc/Roam"))
 
