@@ -6,6 +6,9 @@
 * TABLE OF CONTENTS :toc:
 - [[#about-this-config][ABOUT THIS CONFIG]]
 - [[#bookmarks-and-buffers][BOOKMARKS AND BUFFERS]]
+  - [[#bookmarks][Bookmarks]]
+  - [[#buffers][Buffers]]
+  - [[#keybindings-within-ibuffer-mode][Keybindings within ibuffer mode]]
 - [[#calendar][CALENDAR]]
 - [[#centaur-tabs][CENTAUR-TABS]]
 - [[#dashboard][DASHBOARD]]
@@ -46,7 +49,10 @@
 This is my personal Doom Emacs config.  Doom Emacs is a distribution of Emacs that uses the "evil" keybindings (Vim keybindings) and includes a number of nice extensions and a bit of configuration out of the box.  I am maintaining this config not just for myself, but also for those that want to explore some of what is possible with Emacs.  I will add a lot of examples of plugins and settings, some of them I may not even use personally.  I do this because many people following me on YouTube look at my configs as "documentation".
 
 * BOOKMARKS AND BUFFERS
-Doom Emacs uses 'SPC b' for keybindings related to bookmarks and buffers.  Bookmarks are somewhat like registers in that they record positions you can jump to.  Unlike registers, they have long names, and they persist automatically from one Emacs session to the next. The prototypical use of bookmarks is to record where you were reading in various files.  Regarding /buffers/, the text you are editing in Emacs resides in an object called a /buffer/. Each time you visit a file, a buffer is used to hold the file’s text. Each time you invoke Dired, a buffer is used to hold the directory listing.
+Doom Emacs uses 'SPC b' for keybindings related to bookmarks and buffers.
+
+** Bookmarks
+Bookmarks are somewhat like registers in that they record positions you can jump to.  Unlike registers, they have long names, and they persist automatically from one Emacs session to the next. The prototypical use of bookmarks is to record where you were reading in various files.
 
 #+BEGIN_SRC emacs-lisp
 (map! :leader
@@ -54,6 +60,44 @@ Doom Emacs uses 'SPC b' for keybindings related to bookmarks and buffers.  Bookm
        :desc "List bookmarks" "L" #'list-bookmarks
        :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
 #+END_SRC
+
+** Buffers
+Regarding /buffers/, the text you are editing in Emacs resides in an object called a /buffer/. Each time you visit a file, a buffer is used to hold the file’s text. Each time you invoke Dired, a buffer is used to hold the directory listing.  /Ibuffer/ is a program that lists all of your Emacs /buffers/, allowing you to navigate between them and filter them.
+
+| COMMAND         | DESCRIPTION          | KEYBINDING |
+|-----------------+----------------------+------------|
+| ibuffer         | Launch ibuffer       | SPC b i    |
+| kill-buffer     | Kill current buffer  | SPC b k    |
+| next-buffer     | Goto next buffer     | SPC b n    |
+| previous-buffer | Goto previous buffer | SPC b p    |
+| save-buffer     | Save current buffer  | SPC b s    |
+
+** Keybindings within ibuffer mode
+| COMMAND                           | DESCRIPTION                            | KEYBINDING |
+|-----------------------------------+----------------------------------------+------------|
+| ibuffer-mark-forward              | Mark the buffer                        | m          |
+| ibuffer-unmark-forward            | Unmark the buffer                      | u          |
+| ibuffer-do-kill-on-deletion-marks | Kill the marked buffers                | x          |
+| ibuffer-filter-by-content         | Ibuffer filter by content              | f c        |
+| ibuffer-filter-by-directory       | Ibuffer filter by directory            | f d        |
+| ibuffer-filter-by-filename        | Ibuffer filter by filename (full path) | f f        |
+| ibuffer-filter-by-mode            | Ibuffer filter by mode                 | f m        |
+| ibuffer-filter-by-name            | Ibuffer filter by name                 | f n        |
+| ibuffer-filter-disable            | Disable ibuffer filter                 | f x        |
+| ibuffer-do-kill-lines             | Hide marked buffers                    | g h        |
+| ibuffer-update                    | Restore hidden buffers                 | g H        |
+
+#+begin_src emacs-lisp
+(evil-define-key 'normal ibuffer-mode-map
+  (kbd "f c") 'ibuffer-filter-by-content
+  (kbd "f d") 'ibuffer-filter-by-directory
+  (kbd "f f") 'ibuffer-filter-by-filename
+  (kbd "f m") 'ibuffer-filter-by-mode
+  (kbd "f n") 'ibuffer-filter-by-name
+  (kbd "f x") 'ibuffer-filter-disable
+  (kbd "g h") 'ibuffer-do-kill-lines
+  (kbd "g H") 'ibuffer-update)
+#+end_src
 
 * CALENDAR
 Let's make a 12-month calendar available so we can have a calendar app that, when we click on time/date in xmobar, we get a nice 12-month calendar to view.
