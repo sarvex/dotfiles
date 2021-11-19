@@ -270,6 +270,12 @@
        :desc "Toggle line highlight globally" "H" #'global-hl-line-mode
        :desc "Toggle truncate lines" "t" #'toggle-truncate-lines))
 
+(set-face-attribute 'mode-line nil :font "Ubuntu Mono-13")
+(setq doom-modeline-height 30     ;; sets modeline height
+      doom-modeline-bar-width 5   ;; sets right bar width
+      doom-modeline-persp-name t  ;; adds perspective name to modeline
+      doom-modeline-persp-icon t) ;; adds folder icon next to persp name
+
 (xterm-mouse-mode 1)
 
 (after! neotree
@@ -282,13 +288,15 @@
       :desc "Open directory in neotree" "d n" #'neotree-dir)
 
 (map! :leader
-      (:prefix ("-" . "open file")
+      (:prefix ("=" . "open file")
        :desc "Edit agenda file" "a" #'(lambda () (interactive) (find-file "~/Org/agenda.org"))
        :desc "Edit doom config.org" "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
-       :desc "Edit eshell aliases" "e a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
-       :desc "Edit eshell aliases" "e p" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/profile"))
        :desc "Edit doom init.el" "i" #'(lambda () (interactive) (find-file "~/.config/doom/init.el"))
        :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.config/doom/packages.el"))))
+(map! :leader
+      (:prefix ("= e" . "open eshell files")
+       :desc "Edit eshell aliases" "a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
+       :desc "Edit eshell profile" "p" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/profile"))))
 
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
@@ -362,6 +370,14 @@
   (setq org-roam-directory "~/nc/Roam"))
 
 (use-package! password-store)
+
+(map! :leader
+       :desc "Switch to perspective NAME" "DEL" #'persp-switch
+       :desc "Switch to buffer in perspective" "," #'persp-switch-to-buffer
+       :desc "Switch to next perspective" "]" #'persp-next
+       :desc "Switch to previous perspective" "[" #'persp-prev
+       :desc "Add a buffer current perspective" "+" #'persp-add-buffer
+       :desc "Remove perspective by name" "-" #'persp-remove-by-name)
 
 (map! :leader
       (:prefix ("r" . "registers")

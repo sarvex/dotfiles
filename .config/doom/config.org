@@ -30,6 +30,7 @@
   - [[#ivy-posframe][IVY-POSFRAME]]
   - [[#ivy-keybindings][IVY KEYBINDINGS]]
 - [[#line-settings][LINE SETTINGS]]
+- [[#modeline][MODELINE]]
 - [[#mouse-support][MOUSE SUPPORT]]
 - [[#neotree][NEOTREE]]
 - [[#open-specific-files][OPEN SPECIFIC FILES]]
@@ -40,6 +41,7 @@
   - [[#org-publish][Org-publish]]
   - [[#org-roam][Org-roam]]
 - [[#password-store][PASSWORD STORE]]
+- [[#perspective][PERSPECTIVE]]
 - [[#registers][REGISTERS]]
 - [[#shells][SHELLS]]
 - [[#splits][SPLITS]]
@@ -466,7 +468,6 @@ Settings related to fonts within Doom Emacs:
 + 'doom-big-font' -- used in doom-big-font-mode; useful for presentations.
 + 'font-lock-comment-face' -- for comments.
 + 'font-lock-keyword-face' -- for keywords with special significance like 'setq' in elisp.
-+ 'global-prettify-symbols-mode' -- change certain keywords to symbols, such as lambda!
 
 #+BEGIN_SRC emacs-lisp
 (setq doom-font (font-spec :family "Source Code Pro" :size 15)
@@ -551,6 +552,17 @@ I set comment-line to 'SPC TAB TAB' which is a rather comfortable keybinding for
        :desc "Toggle truncate lines" "t" #'toggle-truncate-lines))
 #+END_SRC
 
+* MODELINE
+The modeline is the bottom status bar that appears in Emacs windows.
+
+#+begin_src emacs-lisp
+(set-face-attribute 'mode-line nil :font "Ubuntu Mono-13")
+(setq doom-modeline-height 30     ;; sets modeline height
+      doom-modeline-bar-width 5   ;; sets right bar width
+      doom-modeline-persp-name t  ;; adds perspective name to modeline
+      doom-modeline-persp-icon t) ;; adds folder icon next to persp name
+#+end_src
+
 * MOUSE SUPPORT
 Adding mouse support in the terminal version of Emacs.
 
@@ -578,26 +590,28 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
 #+END_SRC
 
 * OPEN SPECIFIC FILES
-Keybindings to open files that I work with all the time using the find-file command, which is the interactive file search that opens with 'C-x C-f' in GNU Emacs or 'SPC f f' in Doom Emacs.  These keybindings use find-file non-interactively since we specify exactly what file to open.  The format I use for these bindings is 'SPC -' plus 'key' since Doom Emacs does not use these keybindings.
+Keybindings to open files that I work with all the time using the find-file command, which is the interactive file search that opens with 'C-x C-f' in GNU Emacs or 'SPC f f' in Doom Emacs.  These keybindings use find-file non-interactively since we specify exactly what file to open.  The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does not use 'SPC ='.
 
 | PATH TO FILE                   | DESCRIPTION           | KEYBINDING |
 |--------------------------------+-----------------------+------------|
-| ~/Org/agenda.org               | /Edit agenda file/      | SPC - a    |
-| ~/.config/doom/config.org"     | /Edit doom config.org/  | SPC - c    |
-| ~/.config/doom/eshell/aliases" | /Edit eshell aliases/   | SPC - e a  |
-| ~/.config/doom/eshell/profile" | /Edit eshell profile/   | SPC - e p  |
-| ~/.config/doom/init.el"        | /Edit doom init.el/     | SPC - i    |
-| ~/.config/doom/packages.el"    | /Edit doom packages.el/ | SPC - p    |
+| ~/Org/agenda.org               | /Edit agenda file/      | SPC = a    |
+| ~/.config/doom/config.org"     | /Edit doom config.org/  | SPC = c    |
+| ~/.config/doom/init.el"        | /Edit doom init.el/     | SPC = i    |
+| ~/.config/doom/packages.el"    | /Edit doom packages.el/ | SPC = p    |
+| ~/.config/doom/eshell/aliases" | /Edit eshell aliases/   | SPC = e a  |
+| ~/.config/doom/eshell/profile" | /Edit eshell profile/   | SPC = e p  |
 
 #+BEGIN_SRC emacs-lisp
 (map! :leader
-      (:prefix ("-" . "open file")
+      (:prefix ("=" . "open file")
        :desc "Edit agenda file" "a" #'(lambda () (interactive) (find-file "~/Org/agenda.org"))
        :desc "Edit doom config.org" "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
-       :desc "Edit eshell aliases" "e a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
-       :desc "Edit eshell aliases" "e p" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/profile"))
        :desc "Edit doom init.el" "i" #'(lambda () (interactive) (find-file "~/.config/doom/init.el"))
        :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.config/doom/packages.el"))))
+(map! :leader
+      (:prefix ("= e" . "open eshell files")
+       :desc "Edit eshell aliases" "a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
+       :desc "Edit eshell profile" "p" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/profile"))))
 #+END_SRC
 
 * ORG MODE
@@ -712,6 +726,29 @@ Uses the standard Unix password store "pass".
 
 #+begin_src emacs-lisp
 (use-package! password-store)
+#+end_src
+
+* PERSPECTIVE
+Perspective provides multiple named workspaces (or "perspectives") in Emacs, similar to having multiple desktops in window managers like Awesome and XMonad.  Each perspective has its own buffer list and its own window layout, making it easy to work on many separate projects without getting lost in all the buffers.  Switching to a perspective activates its window configuration, and when in a perspective, only its buffers are available (by default).  Doom Emacs uses 'SPC some_key' for binding some of the perspective commands, so I used this binging format for the perspective bindings that I created..
+
+| COMMAND                    | DESCRIPTION                         | KEYBINDING |
+|----------------------------+-------------------------------------+------------|
+| persp-switch               | Switch to perspective NAME          | SPC DEL    |
+| persp-switch-to-buffer     | Switch to buffer in perspective     | SPC ,      |
+| persp-next                 | Switch to next perspective          | SPC ]      |
+| persp-prev                 | Switch to previous perspective      | SPC [      |
+| persp-add-buffer           | Add a buffer to current perspective | SPC +      |
+| persp-remove-by-name       | Remove perspective by name          | SPC -      |
+| +workspace/switch-to-{0-9} | Switch to workspace /n/               | SPC 0-9    |
+
+#+begin_src emacs-lisp
+(map! :leader
+       :desc "Switch to perspective NAME" "DEL" #'persp-switch
+       :desc "Switch to buffer in perspective" "," #'persp-switch-to-buffer
+       :desc "Switch to next perspective" "]" #'persp-next
+       :desc "Switch to previous perspective" "[" #'persp-prev
+       :desc "Add a buffer current perspective" "+" #'persp-add-buffer
+       :desc "Remove perspective by name" "-" #'persp-remove-by-name)
 #+end_src
 
 * REGISTERS
