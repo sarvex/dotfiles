@@ -70,6 +70,7 @@
 (package! ivy-posframe)
 (package! mw-thesaurus)
 (package! ox-gemini)
+(package! pacmacs)
 (package! peep-dired)
 (package! password-store)
 (package! rainbow-mode)

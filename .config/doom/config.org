@@ -871,12 +871,15 @@ Winner mode has been included with GNU Emacs since version 20.  This is a global
 * ZAP TO CHAR
 Emacs provides a 'zap-to-char' command that kills from the current point to a character.  It is bound to 'M-z' in standard GNU Emacs but since Doom Emacs uses 'SPC' as its leader key and does not have 'SPC z' binded to anything, it just makes since to use it for 'zap-to-char'.  Note that 'zap-to-char' can be used with the universal argument 'SPC u' to modify its behavior.  Examples of 'zap-to-char' usage are listed in the table below:
 
-| KEYBINDING       | WHAT IS DOES                                                    |
-|------------------+-----------------------------------------------------------------|
-| SPC z e          | deletes all characters to the next occurrence of 'e'            |
-| SPC u 2 SPC z e  | deletes all characters to the second occurrence of 'e'          |
-| SPC u - SPC z e  | deletes all characters to the previous occurrence of 'e'        |
-| SPC u -2 SPC z e | deletes all characters to the fourth previous occurrence of 'e' |
+| KEYBINDING                | WHAT IS DOES                                               |
+|---------------------------+------------------------------------------------------------|
+| SPC z e                   | deletes all chars to the next occurrence of 'e'            |
+| SPC u 2 SPC z e           | deletes all chars to the second occurrence of 'e'          |
+| SPC u - SPC z e           | deletes all chars to the previous occurrence of 'e'        |
+| SPC u -2 SPC z e          | deletes all chars to the fourth previous occurrence of 'e' |
+| SPC u 1 0 0 SPC u SPC z e | deletes all chars to the 100th occurrence of 'e'           |
+
+=TIP:= The universal argument (SPC u) can only take a single integer by default.  If you need to use a multi-digit number (like 100 in the last example in the table above), then you must terminate the universal argument with another 'SPC u' after typing the number.
 
 'zap-up-to-char' is an alternative command that does not zap the char specified.  It is binded to 'SPC Z'.  It can also be used in conjunction with the universal argument 'SPC u' in similar fashion to the the 'zap-to-char' examples above.
 
