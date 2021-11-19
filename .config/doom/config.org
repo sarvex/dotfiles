@@ -26,6 +26,7 @@
 - [[#evaluate-elisp-expressions][EVALUATE ELISP EXPRESSIONS]]
 - [[#eww][EWW]]
 - [[#fonts][FONTS]]
+- [[#insert-date][INSERT DATE]]
 - [[#ivy][IVY]]
   - [[#ivy-posframe][IVY-POSFRAME]]
   - [[#ivy-keybindings][IVY KEYBINDINGS]]
@@ -46,8 +47,9 @@
 - [[#shells][SHELLS]]
 - [[#splits][SPLITS]]
 - [[#winner-mode][WINNER MODE]]
+- [[#zap-to-char][ZAP TO CHAR]]
 
-* ABOUT THIS CONFIG 
+* ABOUT THIS CONFIG
 This is my personal Doom Emacs config.  Doom Emacs is a distribution of Emacs that uses the "evil" keybindings (Vim keybindings) and includes a number of nice extensions and a bit of configuration out of the box.  I am maintaining this config not just for myself, but also for those that want to explore some of what is possible with Emacs.  I will add a lot of examples of plugins and settings, some of them I may not even use personally.  I do this because many people following me on YouTube look at my configs as "documentation".
 
 * BOOKMARKS AND BUFFERS
@@ -487,6 +489,36 @@ Settings related to fonts within Doom Emacs:
   '(font-lock-keyword-face :slant italic))
 #+END_SRC
 
+* INSERT DATE
+Some custom functions to insert the date.  The function 'insert-todays-date' can be used one of three different ways: (1) just the keybinding without the universal argument prefix, (2) with one universal argument prefix, or (3) with two universal argument prefixes.  The universal argument prefix is 'SPC-u' in Doom Emacs (C-u in standard GNU Emacs).  The function 'insert-any-date' only outputs to one format, which is the same format as 'insert-todays-date' without a prefix.
+
+| COMMAND               | EXAMPLE OUTPUT            | KEYBINDING            |
+|-----------------------+---------------------------+-----------------------|
+| dt/insert-todays-date | Friday, November 19, 2021 | SPC i d t             |
+| dt/insert-todays-date | 11-19-2021                | SPC u SPC i d t       |
+| dt/insert-todays-date | 2021-11-19                | SPC u SPC u SPC i d t |
+| dt/insert-any-date    | Friday, November 19, 2021 | SPC i d a             |
+
+#+begin_src emacs-lisp
+(defun dt/insert-todays-date (prefix)
+  (interactive "P")
+  (let ((format (cond
+                 ((not prefix) "%A, %B %d, %Y")
+                 ((equal prefix '(4)) "%m-%d-%Y")
+                 ((equal prefix '(16)) "%Y-%m-%d"))))
+    (insert (format-time-string format))))
+
+(require 'calendar)
+(defun dt/insert-any-date (date)
+  "Insert DATE using the current locale."
+  (interactive (list (calendar-read-date)))
+  (insert (calendar-date-string date)))
+
+(map! :leader
+      (:prefix ("i d" . "Insert date")
+        :desc "Insert any date" "a" #'dt/insert-any-date
+        :desc "Insert todays date" "t" #'dt/insert-todays-date))
+#+end_src
 * IVY
 Ivy is a generic completion mechanism for Emacs.
 
@@ -559,7 +591,8 @@ I set comment-line to 'SPC TAB TAB' which is a rather comfortable keybinding for
 #+END_SRC
 
 * MODELINE
-The modeline is the bottom status bar that appears in Emacs windows.
+The modeline is the bottom status bar that appears in Emacs windows.  For more information on what is available to configure in the Doom modeline, check out:
+https://github.com/seagle0128/doom-modeline
 
 #+begin_src emacs-lisp
 (set-face-attribute 'mode-line nil :font "Ubuntu Mono-13")
@@ -749,12 +782,12 @@ Perspective provides multiple named workspaces (or "perspectives") in Emacs, sim
 
 #+begin_src emacs-lisp
 (map! :leader
-       :desc "Switch to perspective NAME" "DEL" #'persp-switch
-       :desc "Switch to buffer in perspective" "," #'persp-switch-to-buffer
-       :desc "Switch to next perspective" "]" #'persp-next
-       :desc "Switch to previous perspective" "[" #'persp-prev
-       :desc "Add a buffer current perspective" "+" #'persp-add-buffer
-       :desc "Remove perspective by name" "-" #'persp-remove-by-name)
+      :desc "Switch to perspective NAME" "DEL" #'persp-switch
+      :desc "Switch to buffer in perspective" "," #'persp-switch-to-buffer
+      :desc "Switch to next perspective" "]" #'persp-next
+      :desc "Switch to previous perspective" "[" #'persp-prev
+      :desc "Add a buffer current perspective" "+" #'persp-add-buffer
+      :desc "Remove perspective by name" "-" #'persp-remove-by-name)
 #+end_src
 
 * REGISTERS
@@ -833,4 +866,24 @@ Winner mode has been included with GNU Emacs since version 20.  This is a global
       (:prefix ("w" . "window")
        :desc "Winner redo" "<right>" #'winner-redo
        :desc "Winner undo" "<left>" #'winner-undo))
+#+END_SRC
+
+* ZAP TO CHAR
+Emacs provides a 'zap-to-char' command that kills from the current point to a character.  It is bound to 'M-z' in standard GNU Emacs but since Doom Emacs uses 'SPC' as its leader key and does not have 'SPC z' binded to anything, it just makes since to use it for 'zap-to-char'.  Note that 'zap-to-char' can be used with the universal argument 'SPC u' to modify its behavior.  Examples of 'zap-to-char' usage are listed in the table below:
+
+| KEYBINDING       | WHAT IS DOES                                                    |
+|------------------+-----------------------------------------------------------------|
+| SPC z e          | deletes all characters to the next occurrence of 'e'            |
+| SPC u 2 SPC z e  | deletes all characters to the second occurrence of 'e'          |
+| SPC u - SPC z e  | deletes all characters to the previous occurrence of 'e'        |
+| SPC u -2 SPC z e | deletes all characters to the fourth previous occurrence of 'e' |
+
+'zap-up-to-char' is an alternative command that does not zap the char specified.  It is binded to 'SPC Z'.  It can also be used in conjunction with the universal argument 'SPC u' in similar fashion to the the 'zap-to-char' examples above.
+
+=NOTE:= Vim (evil mode) has similar functionality builtin.  You can delete to the next occurrence of 'e' by using 'dte' in normal.  To delete to the next occurrence of 'e' including the 'e', then you would use 'dfe'.  And you can modify 'dt' and 'df' by prefixing them with numbers, so '2dte' would delete to the second occurrence of 'e'.
+
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+      :desc "Zap to char" "z" #'zap-to-char
+      :desc "Zap up to char" "Z" #'zap-up-to-char)
 #+END_SRC

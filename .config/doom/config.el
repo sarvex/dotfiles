@@ -244,6 +244,25 @@ List of keybindings (SPC h b b)")
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
 
+(defun dt/insert-todays-date (prefix)
+  (interactive "P")
+  (let ((format (cond
+                 ((not prefix) "%A, %B %d, %Y")
+                 ((equal prefix '(4)) "%m-%d-%Y")
+                 ((equal prefix '(16)) "%Y-%m-%d"))))
+    (insert (format-time-string format))))
+
+(require 'calendar)
+(defun dt/insert-any-date (date)
+  "Insert DATE using the current locale."
+  (interactive (list (calendar-read-date)))
+  (insert (calendar-date-string date)))
+
+(map! :leader
+      (:prefix ("i d" . "Insert date")
+        :desc "Insert any date" "a" #'dt/insert-any-date
+        :desc "Insert todays date" "t" #'dt/insert-todays-date))
+
 (setq ivy-posframe-display-functions-alist
       '((swiper                     . ivy-posframe-display-at-point)
         (complete-symbol            . ivy-posframe-display-at-point)
@@ -378,12 +397,12 @@ List of keybindings (SPC h b b)")
 (use-package! password-store)
 
 (map! :leader
-       :desc "Switch to perspective NAME" "DEL" #'persp-switch
-       :desc "Switch to buffer in perspective" "," #'persp-switch-to-buffer
-       :desc "Switch to next perspective" "]" #'persp-next
-       :desc "Switch to previous perspective" "[" #'persp-prev
-       :desc "Add a buffer current perspective" "+" #'persp-add-buffer
-       :desc "Remove perspective by name" "-" #'persp-remove-by-name)
+      :desc "Switch to perspective NAME" "DEL" #'persp-switch
+      :desc "Switch to buffer in perspective" "," #'persp-switch-to-buffer
+      :desc "Switch to next perspective" "]" #'persp-next
+      :desc "Switch to previous perspective" "[" #'persp-prev
+      :desc "Add a buffer current perspective" "+" #'persp-add-buffer
+      :desc "Remove perspective by name" "-" #'persp-remove-by-name)
 
 (map! :leader
       (:prefix ("r" . "registers")
@@ -426,3 +445,7 @@ List of keybindings (SPC h b b)")
       (:prefix ("w" . "window")
        :desc "Winner redo" "<right>" #'winner-redo
        :desc "Winner undo" "<left>" #'winner-undo))
+
+(map! :leader
+      :desc "Zap to char" "z" #'zap-to-char
+      :desc "Zap up to char" "Z" #'zap-up-to-char)
