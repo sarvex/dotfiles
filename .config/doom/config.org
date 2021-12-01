@@ -43,6 +43,7 @@
   - [[#org-roam][Org-roam]]
 - [[#password-store][PASSWORD STORE]]
 - [[#perspective][PERSPECTIVE]]
+- [[#rainbow-mode][RAINBOW MODE]]
 - [[#registers][REGISTERS]]
 - [[#shells][SHELLS]]
 - [[#splits][SPLITS]]
@@ -788,6 +789,15 @@ Perspective provides multiple named workspaces (or "perspectives") in Emacs, sim
       :desc "Switch to previous perspective" "[" #'persp-prev
       :desc "Add a buffer current perspective" "+" #'persp-add-buffer
       :desc "Remove perspective by name" "-" #'persp-remove-by-name)
+#+end_src
+
+* RAINBOW MODE
+Rainbox mode displays the actual color for any hex value color.  It's such a nice feature that I wanted it turned on all the time, regardless of what mode I am in.  The following creates a global minor mode for rainbow-mode and enables it.
+
+#+begin_src emacs-lisp
+(define-globalized-minor-mode global-rainbow-mode rainbow-mode
+  (lambda () (rainbow-mode 1)))
+(global-rainbow-mode 1 )
 #+end_src
 
 * REGISTERS
