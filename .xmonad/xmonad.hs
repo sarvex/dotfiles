@@ -66,6 +66,19 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
+   -- ColorScheme module (SET ONLY ONE!)
+      -- Possible choice are:
+      -- doom-one
+      -- dracula
+      -- gruvbox-dark
+      -- monokai-pro
+      -- nord
+      -- oceanic-next
+      -- solarized-dark
+      -- solarized-light
+      -- tomorrow-night
+import Colors.DoomOne
+
 myFont :: String
 myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
 
@@ -96,28 +109,6 @@ myFocusColor  = "#46d9ff"   -- Border color of focused windows
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
-
--- Set the color scheme.  The following are valid color schemes:
-   -- doom-one
-   -- dracula
-   -- gruvbox-dark
-   -- monokai-pro
-   -- nord
-   -- oceanic-next
-   -- solarized-dark
-   -- solarized-light
-   -- tomorrow-night
-
-colorScheme :: String
-colorScheme = "doom-one"
-
-colorCurrent01 = "#c792ea"
-colorVisible01 = "#c792ea"
-colorHidden01 = "#82aaff"
-colorHiddenNW01 = "#82aaff"
-colorTitle01 = "#b3afc2"
-colorSep01 = "#b3afc2"
-colorUrgent01 = "#c45500"
 
 myStartupHook :: X ()
 myStartupHook = do
@@ -537,21 +528,21 @@ main = do
                               >> hPutStrLn xmproc1 x   -- xmobar on monitor 2
                               >> hPutStrLn xmproc2 x   -- xmobar on monitor 3
                 -- Current workspace
-              , ppCurrent = xmobarColor colorCurrent01 "" . wrap
-                            ("<box type=Bottom width=2 mb=2 color=" ++ colorCurrent01 ++ ">") "</box>"
+              , ppCurrent = xmobarColor color06 "" . wrap
+                            ("<box type=Bottom width=2 mb=2 color=" ++ color06 ++ ">") "</box>"
                 -- Visible but not current workspace
-              , ppVisible = xmobarColor colorVisible01 "" . clickable
+              , ppVisible = xmobarColor color06 "" . clickable
                 -- Hidden workspace
-              , ppHidden = xmobarColor colorHidden01 "" . wrap
-                           ("<box type=Top width=2 mt=2 color=" ++ colorHidden01 ++ ">") "</box>" . clickable
+              , ppHidden = xmobarColor color05 "" . wrap
+                           ("<box type=Top width=2 mt=2 color=" ++ color05 ++ ">") "</box>" . clickable
                 -- Hidden workspaces (no windows)
-              , ppHiddenNoWindows = xmobarColor colorHiddenNW01 ""  . clickable
+              , ppHiddenNoWindows = xmobarColor color05 ""  . clickable
                 -- Title of active window
-              , ppTitle = xmobarColor colorTitle01 "" . shorten 60
+              , ppTitle = xmobarColor color16 "" . shorten 60
                 -- Separator character
-              , ppSep =  "<fc=" ++ colorSep01 ++ "> <fn=1>|</fn> </fc>"
+              , ppSep =  "<fc=" ++ color09 ++ "> <fn=1>|</fn> </fc>"
                 -- Urgent workspace
-              , ppUrgent = xmobarColor colorUrgent01 "" . wrap "!" "!"
+              , ppUrgent = xmobarColor color02 "" . wrap "!" "!"
                 -- Adding # of windows on current workspace to the bar
               , ppExtras  = [windowCount]
                 -- order of things in xmobar
