@@ -68,15 +68,16 @@ import XMonad.Util.SpawnOnce
 
    -- ColorScheme module (SET ONLY ONE!)
       -- Possible choice are:
-      -- doom-one
-      -- dracula
-      -- gruvbox-dark
-      -- monokai-pro
-      -- nord
-      -- oceanic-next
-      -- solarized-dark
-      -- solarized-light
-      -- tomorrow-night
+      -- DoomOne
+      -- Dracula
+      -- GruvboxDark
+      -- MonokaiPro
+      -- Nord
+      -- OceanicNext
+      -- Palenight
+      -- SolarizedDark
+      -- SolarizedLight
+      -- TomorrowNight
 import Colors.DoomOne
 
 myFont :: String
@@ -101,11 +102,11 @@ myEditor = "emacsclient -c -a 'emacs' "  -- Sets emacs as editor
 myBorderWidth :: Dimension
 myBorderWidth = 2           -- Sets border width for windows
 
-myNormColor :: String
-myNormColor   = "#282c34"   -- Border color of normal windows
+myNormColor :: String       -- Border color of normal windows
+myNormColor   = colorBack   -- This variable is imported from Colors.THEME
 
-myFocusColor :: String
-myFocusColor  = "#46d9ff"   -- Border color of focused windows
+myFocusColor :: String      -- Border color of focused windows
+myFocusColor  = color15     -- This variable is imported from Colors.THEME
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
@@ -283,12 +284,12 @@ wideAccordion  = renamed [Replace "wideAccordion"]
 
 -- setting colors for tabs layout and tabs sublayout.
 myTabTheme = def { fontName            = myFont
-                 , activeColor         = "#46d9ff"
-                 , inactiveColor       = "#313846"
-                 , activeBorderColor   = "#46d9ff"
-                 , inactiveBorderColor = "#282c34"
-                 , activeTextColor     = "#282c34"
-                 , inactiveTextColor   = "#d0d0d0"
+                 , activeColor         = color15
+                 , inactiveColor       = color08
+                 , activeBorderColor   = color15
+                 , inactiveBorderColor = colorBack
+                 , activeTextColor     = colorBack
+                 , inactiveTextColor   = color16
                  }
 
 -- Theme for showWName which prints current workspace when you change workspaces.

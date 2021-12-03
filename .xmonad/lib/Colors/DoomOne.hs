@@ -3,6 +3,10 @@ module Colors.DoomOne where
 import XMonad
 
 colorScheme = "doom-one"
+
+colorBack = "#282c34"
+colorFore = "#bbc2cf"
+
 color01 = "#1c1f24"
 color02 = "#ff6c6b"
 color03 = "#98be65"

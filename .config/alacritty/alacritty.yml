@@ -455,17 +455,17 @@ schemes:
       cyan:    '#a3f7ff'
       white:   '#ffffff'
 
-  ### Solarized Light ###
-  solarized-light: &solarized-light
+  ### Solarized Dark ###
+  solarized-dark: &solarized-dark
     # Default colors
     primary:
-      background: '#fdf6e3' # base3
-      foreground: '#657b83' # base00
+      background: '#002b36' # base03
+      foreground: '#839496' # base0
 
     # Cursor colors
     cursor:
-      text:   '#fdf6e3' # base3
-      cursor: '#657b83' # base00
+      text:   '#002b36' # base03
+      cursor: '#839496' # base0
 
     # Normal colors
     normal:
@@ -489,17 +489,17 @@ schemes:
       cyan:    '#93a1a1' # base1
       white:   '#fdf6e3' # base3
 
-  ### Solarized Dark ###
-  solarized-dark: &solarized-dark
+  ### Solarized Light ###
+  solarized-light: &solarized-light
     # Default colors
     primary:
-      background: '#002b36' # base03
-      foreground: '#839496' # base0
+      background: '#fdf6e3' # base3
+      foreground: '#657b83' # base00
 
     # Cursor colors
     cursor:
-      text:   '#002b36' # base03
-      cursor: '#839496' # base0
+      text:   '#fdf6e3' # base3
+      cursor: '#657b83' # base00
 
     # Normal colors
     normal:
