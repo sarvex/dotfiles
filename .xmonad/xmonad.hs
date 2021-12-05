@@ -78,7 +78,7 @@ import XMonad.Util.SpawnOnce
       -- SolarizedDark
       -- SolarizedLight
       -- TomorrowNight
-import Colors.SolarizedLight
+import Colors.DoomOne
 
 myFont :: String
 myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
@@ -113,15 +113,19 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 myStartupHook :: X ()
 myStartupHook = do
+    spawn "killall conky"   -- kill current conky on each restart
+    spawn "killall trayer"  -- kill current trayer on each restart
+
     spawnOnce "lxsession"
     spawnOnce "picom"
     spawnOnce "nm-applet"
     spawnOnce "volumeicon"
     spawnOnce "/usr/bin/emacs --daemon" -- emacs daemon for the emacsclient
-    spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
-    spawnOnce ("conky -c $HOME/.config/conky/xmonad/" ++ colorScheme ++ "-01.conkyrc")
-    spawnOnce ("killall trayer || trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
 
+    spawn ("sleep 2 && conky -c $HOME/.config/conky/xmonad/" ++ colorScheme ++ "-01.conkyrc")
+    spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
+
+    spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
     -- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
     -- spawnOnce "feh --randomize --bg-fill ~/wallpapers/*"  -- feh set random wallpaper
     -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
