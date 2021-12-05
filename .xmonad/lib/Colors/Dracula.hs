@@ -3,6 +3,10 @@ module Colors.Dracula where
 import XMonad
 
 colorScheme = "dracula"
+
+colorBack = "#282a36"
+colorFore = "#f8f8f2"
+
 color01="#000000"
 color02="#ff5555"
 color03="#50fa7b"
@@ -19,3 +23,6 @@ color13="#caa9fa"
 color14="#ff92d0"
 color15="#9aedfe"
 color16="#e6e6e6"
+
+colorTrayer :: String
+colorTrayer = "--tint 0x282a36"

@@ -374,9 +374,9 @@ List of keybindings (SPC h b b)")
 (setq org-export-with-broken-links t)
 (setq org-publish-project-alist
       '(("distro.tube"
-         :base-directory "~/gitlab-repos/distro.tube/"
+         :base-directory "~/nc/gitlab-repos/distro.tube/"
          :base-extension "org"
-         :publishing-directory "~/gitlab-repos/distro.tube/html/"
+         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/"
          :recursive t
          :exclude "org-html-themes/.*"
          :publishing-function org-html-publish-to-html

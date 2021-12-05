@@ -23,3 +23,6 @@ color13 = "#FC9867"
 color14 = "#AB9DF2"
 color15 = "#78DCE8"
 color16 = "#FCFCFA"
+
+colorTrayer :: String
+colorTrayer = "--tint 0x2D2A2E"
