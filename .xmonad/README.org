@@ -18,7 +18,7 @@
 
 * About This Config
 #+CAPTION: XMonad Scrot
-#+ATTR_HTML: :alt XMonad Scrot :title XMonad Scrot :align left 
+#+ATTR_HTML: :alt XMonad Scrot :title XMonad Scrot :align left
 [[https://gitlab.com/dwt1/dotfiles/-/raw/master/.screenshots/dotfiles05-thumb.png]]
 
 Xmonad is a dynamically tiling X11 window manager that is written and configured in Haskell.
@@ -267,7 +267,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  h = 0.9
                  w = 0.9
                  t = 0.95 -h
-                 l = 0.95 -w 
+                 l = 0.95 -w
     spawnCalc  = "qalculate-gtk"
     findCalc   = className =? "Qalculate-gtk"
     manageCalc = customFloating $ W.RationalRect l t w h
@@ -275,7 +275,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  h = 0.5
                  w = 0.4
                  t = 0.75 -h
-                 l = 0.70 -w 
+                 l = 0.70 -w
 #+END_SRC
 
 * Layouts
