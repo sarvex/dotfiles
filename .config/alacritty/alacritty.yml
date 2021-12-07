@@ -219,7 +219,7 @@ draw_bold_text_with_bright_colors: true
 #######################################
 schemes:
   ### Doom One ###
-  doom-one: &doom-one
+  DoomOne: &DoomOne
     primary:
       background: '#282c34'
       foreground: '#bbc2cf'
@@ -249,7 +249,7 @@ schemes:
       white:   '#dfdfdf'
 
   ### Dracula ###
-  dracula: &dracula
+  Dracula: &Dracula
     primary:
       background: '#282a36'
       foreground: '#f8f8f2'
@@ -304,7 +304,7 @@ schemes:
       white:   '#e6e6d1'
 
   ### Gruvbox dark ###
-  gruvbox-dark: &gruvbox-dark
+  GruvboxDark: &GruvboxDark
     # Default colors
     primary:
       # hard contrast: background = '0x1d2021'
@@ -335,7 +335,7 @@ schemes:
       white:   '#ebdbb2'
 
 ### Monokai ###
-  monokai-pro: &monokai-pro
+  MonokaiPro: &MonokaiPro
     # Default colors
     primary:
       background: '#2D2A2E'
@@ -364,7 +364,7 @@ schemes:
       white:   '#FCFCFA'
 
   ### Nord ###
-  nord: &nord
+  Nord: &Nord
     # Default colors
     primary:
       background: '#2E3440'
@@ -393,7 +393,7 @@ schemes:
       white:   '#ECEFF4'
 
   ### Oceanic Next ###
-  oceanic-next: &oceanic-next
+  OceanicNext: &OceanicNext
     # Default colors
     primary:
       background: '#1b2b34'
@@ -427,7 +427,7 @@ schemes:
       white:   '#d8dee9'
 
   ### Palenight ###
-  palenight: &palenight
+  Palenight: &Palenight
     # Default colors
     primary:
       background: '#292d3e'
@@ -456,7 +456,7 @@ schemes:
       white:   '#ffffff'
 
   ### Solarized Dark ###
-  solarized-dark: &solarized-dark
+  SolarizedDark: &SolarizedDark
     # Default colors
     primary:
       background: '#002b36' # base03
@@ -490,7 +490,7 @@ schemes:
       white:   '#fdf6e3' # base3
 
   ### Solarized Light ###
-  solarized-light: &solarized-light
+  SolarizedLight: &SolarizedLight
     # Default colors
     primary:
       background: '#fdf6e3' # base3
@@ -524,7 +524,7 @@ schemes:
       white:   '#fdf6e3' # base3
 
   ### Tomorrow Night ###
-  tomorrow-night: &tomorrow-night
+  TomorrowNight: &TomorrowNight
      # Default colors
     primary:
       background: '#1d1f21'
@@ -561,18 +561,18 @@ schemes:
 ## SET THEME: Choose ONE color scheme from those in the above list. ##
 ## ###################################################################
 # Available themes are:
-# *doom-one
-# *dracula
-# *gruvbox-dark
-# *monokai-pro
-# *nord
-# *oceanic-next
-# *palenight
-# *solarized-light
-# *solarized-dark
-# *tomorrow-night
+# *DoomOne
+# *Dracula
+# *GruvboxDark
+# *MonokaiPro
+# *Nord
+# *OceanicNext
+# *Palenight
+# *SolarizedLight
+# *SolarizedDark
+# *TomorrowNight
 
-colors: *doom-one
+colors: *DoomOne
 
 #######################################
 ##       END OF COLOR SCHEMES        ##
