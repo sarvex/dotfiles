@@ -1,0 +1,45 @@
+#+TITLE: Linux Man Pages (Manual Pages)
+#+DESCRIPTION: Linux man pages - find
+#+SETUPFILE: ./org-html-themes/org/theme-readtheorg.setup
+#+OPTIONS: num:nil ^:{}
+#+INCLUDE: "./header.org"
+
+* Man page sections
+The Linux man-pages project documents the Linux kernel and C library interfaces that are employed by user-space programs. With respect to the C library, the primary focus is the GNU C library (glibc), although, where known, documentation of variations in other C libraries available for Linux is also included. The project provides manual pages in the following sections:
+
+| *Manpages*   | *Sorted by category*                                   |
+|------------+------------------------------------------------------|
+| [[./man-org/man0p/index.org][Section 0p]] | Header files (POSIX)                                 |
+| [[./man-org/man1/index.org][Section 1]]  | Executable programs or shell commands (introduction) |
+| [[./man-org/man1p/index.org][Section 1p]] | Executable programs or shell commands (POSIX)        |
+| [[./man-org/man2/index.org][Section 2]]  | System calls (introduction)                          |
+| [[./man-org/man3/index.org][Section 3]]  | Library calls (introduction)                         |
+| [[./man-org/man3p/index.org][Section 3p]] | Perl Modules                                         |
+| [[./man-org/man4/index.org][Section 4]]  | Special files (introduction)                         |
+| [[./man-org/man5/index.org][Section 5]]  | File formats and conventions (introduction)          |
+| [[./man-org/man6/index.org][Section 6]]  | Games (introduction)                                 |
+| [[./man-org/man7/index.org][Section 7]]  | Miscellaneous (introduction)                         |
+| [[./man-org/man8/index.org][Section 8]]  | System administration commands (introduction)        |
+| [[./man-org/mann/index.org][Section n]]  | Tcl functions                                        |
+
+* Search alphabetically
+| [[./man-org/alpha/0-9.org][#]] | [[./man-org/alpha/a.org][a]] | [[./man-org/alpha/b.org][b]] | [[./man-org/alpha/c.org][c]] | [[./man-org/alpha/d.org][d]] | [[./man-org/alpha/e.org][e]] | [[./man-org/alpha/f.org][f]] | [[./man-org/alpha/g.org][g]] | [[./man-org/alpha/h.org][h]] | [[./man-org/alpha/i.org][i]] | [[./man-org/alpha/j.org][j]] | [[./man-org/alpha/k.org][k]] | [[./man-org/alpha/l.org][l]] | [[./man-org/alpha/m.org][m]] |
+| [[./man-org/alpha/n.org][n]] | [[./man-org/alpha/o.org][o]] | [[./man-org/alpha/p.org][p]] | [[./man-org/alpha/q.org][q]] | [[./man-org/alpha/r.org][r]] | [[./man-org/alpha/s.org][s]] | [[./man-org/alpha/t.org][t]] | [[./man-org/alpha/u.org][u]] | [[./man-org/alpha/v.org][v]] | [[./man-org/alpha/w.org][w]] | [[./man-org/alpha/x.org][x]] | [[./man-org/alpha/y.org][y]] | [[./man-org/alpha/z.org][z]] |   |
+
+* Popular man pages
+The table below contains links to some of the most often used shell utilties, and these man pages are grouped here as a quick reference..
+
+| apropos | awk  | bash   | cat  | chmod | chown | chroot | cp     |
+| csplit  | curl | cut    | date | dd    | df    | diff   | du     |
+| echo    | feh  | find   | git  | gpg   | grep  | head   | htop   |
+| info    | kill | locate | less | ln    | ls    | man    | mkdir  |
+| mount   | mv   | pandoc | pass | posix | perl  | printf | ps     |
+| rm      | sed  | seq    | shuf | sort  | split | ssh    | sudo   |
+| tail    | tac  | tar    | tee  | top   | touch | tr     | umount |
+| uname   | uniq | uptime | wc   | wget  | xargs | yes    | zip    |
+
+* How to view man pages on Linux
+dddd
+
+* About man-org
+=man-org= is a project that essentially takes Linux man pages written in the standard man page format (Troff) and converts them to a much more user-friendly format (Org).  The complete =man-org= database is freely available for anyone to download and/or install.  The source code for =man-org= can be found in this GitLab repo, and contributions to the project are welcome.

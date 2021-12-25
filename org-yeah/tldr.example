@@ -1,0 +1,30 @@
+
+  [1mfind[0m
+
+  Find files or directories under the given directory tree, recursively.[0m
+  More information: https://manned.org/find.[0m
+
+  [32m- Find files by extension:[0m
+    [31mfind [0mroot_path[0m[31m -name '[0m*.ext[0m[31m'[0m
+
+  [32m- Find files matching multiple path/name patterns:[0m
+    [31mfind [0mroot_path[0m[31m -path '[0m**/path/**/*.ext[0m[31m' -or -name '[0m*pattern*[0m[31m'[0m
+
+  [32m- Find directories matching a given name, in case-insensitive mode:[0m
+    [31mfind [0mroot_path[0m[31m -type d -iname '[0m*lib*[0m[31m'[0m
+
+  [32m- Find files matching a given pattern, excluding specific paths:[0m
+    [31mfind [0mroot_path[0m[31m -name '[0m*.py[0m[31m' -not -path '[0m*/site-packages/*[0m[31m'[0m
+
+  [32m- Find files matching a given size range:[0m
+    [31mfind [0mroot_path[0m[31m -size [0m+500k[0m[31m -size [0m-10M[0m[31m[0m
+
+  [32m- Run a command for each file (use `{}` within the command to access the filename):[0m
+    [31mfind [0mroot_path[0m[31m -name '[0m*.ext[0m[31m' -exec [0mwc -l {} [0m[31m\;[0m
+
+  [32m- Find files modified in the last 7 days and delete them:[0m
+    [31mfind [0mroot_path[0m[31m -daystart -mtime -[0m7[0m[31m -delete[0m
+
+  [32m- Find empty (0 byte) files and delete them:[0m
+    [31mfind [0mroot_path[0m[31m -type [0mf[0m[31m -empty -delete[0m
+

@@ -1,0 +1,18 @@
+#+DESCRIPTION: Header
+#+SETUPFILE: ./org-html-themes/org/theme-readtheorg.setup
+#+OPTIONS: num:nil ^:{}
+
+#+begin_export html
+<div class="orgyeah-header">
+  <img src="logo.png"/>
+  <div class="topbar-menu-container">
+    <span class="topbar-menu"><a class="current" href="index.html">Home</a></span>
+    <span class="topbar-menu"><a href="dtos/index.html">Linux Manpages</a></span>
+    <span class="topbar-menu"><a href="contribute/index.html">Linux Software</a></span>
+    <span class="topbar-menu"><a href="kb/index.html">Linux Wiki</a></span>
+    <span class="topbar-menu"><a href="community/index.html">Bash Wiki</a></span>
+    <span class="topbar-menu"><a href="contribute/index.html">Emacs Wiki</a></span>
+    <span class="topbar-menu"><a href="contribute/index.html">Contribute</a></span>
+  </div>
+</div>
+#+end_export
