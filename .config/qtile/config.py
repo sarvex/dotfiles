@@ -275,21 +275,23 @@ layouts = [
     layout.Floating(**layout_theme)
 ]
 
-colors = [["#282c34", "#282c34"], # panel background
-          ["#3d3f4b", "#434758"], # background for current screen tab
-          ["#ffffff", "#ffffff"], # font color for group names
-          ["#ff5555", "#ff5555"], # border line color for current tab
-          ["#74438f", "#74438f"], # border line color for 'other tabs' and color for 'odd widgets'
-          ["#4f76c7", "#4f76c7"], # color for the 'even widgets'
-          ["#e1acff", "#e1acff"], # window name
-          ["#ecbbfb", "#ecbbfb"]] # backbround for inactive screens
+colors = [["#282c34", "#282c34"],
+          ["#1c1f24", "#1c1f24"],
+          ["#dfdfdf", "#dfdfdf"],
+          ["#ff6c6b", "#ff6c6b"],
+          ["#98be65", "#98be65"],
+          ["#da8548", "#da8548"],
+          ["#51afef", "#51afef"],
+          ["#c678dd", "#c678dd"],
+          ["#46d9ff", "#46d9ff"],
+          ["#a9a1e1", "#a9a1e1"]]
 
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
 ##### DEFAULT WIDGET SETTINGS #####
 widget_defaults = dict(
-    font="Ubuntu Mono",
-    fontsize = 12,
+    font="Ubuntu Bold",
+    fontsize = 10,
     padding = 2,
     background=colors[2]
 )
@@ -334,18 +336,33 @@ def init_widgets_list():
                        foreground = colors[2],
                        background = colors[0]
                        ),
-              widget.Prompt(
-                       prompt = prompt,
+             widget.TextBox(
+                       text = '|',
                        font = "Ubuntu Mono",
-                       padding = 10,
-                       foreground = colors[3],
-                       background = colors[1]
+                       background = colors[0],
+                       foreground = '474747',
+                       padding = 2,
+                       fontsize = 14
                        ),
-              widget.Sep(
-                       linewidth = 0,
-                       padding = 40,
+              widget.CurrentLayoutIcon(
+                       custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
                        foreground = colors[2],
-                       background = colors[0]
+                       background = colors[0],
+                       padding = 0,
+                       scale = 0.7
+                       ),
+              widget.CurrentLayout(
+                       foreground = colors[2],
+                       background = colors[0],
+                       padding = 5
+                       ),
+             widget.TextBox(
+                       text = '|',
+                       font = "Ubuntu Mono",
+                       background = colors[0],
+                       foreground = '474747',
+                       padding = 2,
+                       fontsize = 14
                        ),
               widget.WindowName(
                        foreground = colors[6],
@@ -364,127 +381,107 @@ def init_widgets_list():
                        ),
               widget.TextBox(
                        text = '',
+                       font = "Ubuntu Mono",
                        background = colors[0],
-                       foreground = colors[5],
+                       foreground = colors[3],
                        padding = 0,
                        fontsize = 37
                        ),
              widget.Net(
-                       interface = "enp6s0",
-                       format = '{down} ↓↑ {up}',
-                       foreground = colors[2],
-                       background = colors[5],
+                       interface = "enp5s0",
+                       format = 'Net: {down} ↓↑ {up}',
+                       foreground = colors[1],
+                       background = colors[3],
                        padding = 5
                        ),
               widget.TextBox(
                        text = '',
-                       background = colors[5],
+                       font = "Ubuntu Mono",
+                       background = colors[3],
                        foreground = colors[4],
                        padding = 0,
                        fontsize = 37
                        ),
-             widget.TextBox(
-                       text = " 🌡",
-                       padding = 2,
-                       foreground = colors[2],
-                       background = colors[4],
-                       fontsize = 11
-                       ),
               widget.ThermalSensor(
-                       foreground = colors[2],
+                       foreground = colors[1],
                        background = colors[4],
                        threshold = 90,
+                       fmt = 'Temp: {}',
                        padding = 5
                        ),
               widget.TextBox(
                        text='',
+                       font = "Ubuntu Mono",
                        background = colors[4],
                        foreground = colors[5],
                        padding = 0,
                        fontsize = 37
-                       ),
-              widget.TextBox(
-                       text = " ⟳",
-                       padding = 2,
-                       foreground = colors[2],
-                       background = colors[5],
-                       fontsize = 14
                        ),
               widget.CheckUpdates(
                        update_interval = 1800,
                        distro = "Arch_checkupdates",
-                       display_format = "{updates} Updates",
-                       foreground = colors[2],
+                       display_format = "Updates: {updates} ",
+                       foreground = colors[1],
+                       colour_have_updates = colors[1],
+                       colour_no_updates = colors[1],
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},
+                       padding = 5,
                        background = colors[5]
                        ),
               widget.TextBox(
                        text = '',
+                       font = "Ubuntu Mono",
                        background = colors[5],
-                       foreground = colors[4],
+                       foreground = colors[6],
                        padding = 0,
                        fontsize = 37
-                       ),
-              widget.TextBox(
-                       text = " 🖬",
-                       foreground = colors[2],
-                       background = colors[4],
-                       padding = 0,
-                       fontsize = 14
                        ),
               widget.Memory(
-                       foreground = colors[2],
-                       background = colors[4],
+                       foreground = colors[1],
+                       background = colors[6],
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')},
+                       fmt = 'Mem: {}',
                        padding = 5
                        ),
               widget.TextBox(
                        text = '',
-                       background = colors[4],
-                       foreground = colors[5],
+                       font = "Ubuntu Mono",
+                       background = colors[6],
+                       foreground = colors[7],
                        padding = 0,
                        fontsize = 37
-                       ),
-              widget.TextBox(
-                      text = " Vol:",
-                       foreground = colors[2],
-                       background = colors[5],
-                       padding = 0
                        ),
               widget.Volume(
-                       foreground = colors[2],
-                       background = colors[5],
+                       foreground = colors[1],
+                       background = colors[7],
+                       fmt = 'Vol: {}',
                        padding = 5
                        ),
               widget.TextBox(
                        text = '',
-                       background = colors[5],
-                       foreground = colors[4],
+                       font = "Ubuntu Mono",
+                       background = colors[7],
+                       foreground = colors[8],
                        padding = 0,
                        fontsize = 37
                        ),
-              widget.CurrentLayoutIcon(
-                       custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
-                       foreground = colors[0],
-                       background = colors[4],
-                       padding = 0,
-                       scale = 0.7
-                       ),
-              widget.CurrentLayout(
-                       foreground = colors[2],
-                       background = colors[4],
+              widget.KeyboardLayout(
+                       foreground = colors[1],
+                       background = colors[8],
+                       fmt = 'Keyboard: {}',
                        padding = 5
                        ),
               widget.TextBox(
                        text = '',
-                       background = colors[4],
-                       foreground = colors[5],
+                       font = "Ubuntu Mono",
+                       background = colors[8],
+                       foreground = colors[9],
                        padding = 0,
                        fontsize = 37
                        ),
               widget.Clock(
-                       foreground = colors[2],
-                       background = colors[5],
+                       foreground = colors[1],
+                       background = colors[9],
                        format = "%A, %B %d - %H:%M "
                        ),
               ]
@@ -492,7 +489,7 @@ def init_widgets_list():
 
 def init_widgets_screen1():
     widgets_screen1 = init_widgets_list()
-    del widgets_screen1[7:8]               # Slicing removes unwanted widgets (systray) on Monitors 1,3
+    del widgets_screen1[9:10]               # Slicing removes unwanted widgets (systray) on Monitors 1,3
     return widgets_screen1
 
 def init_widgets_screen2():
