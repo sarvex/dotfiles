@@ -14,8 +14,8 @@
 
 Config { font            = "xft:Ubuntu:weight=bold:pixelsize=11:antialias=true:hinting=true"
        , additionalFonts = [ "xft:Mononoki:pixelsize=11:antialias=true:hinting=true"
-                           , "xft:Font Awesome 5 Free Solid:pixelsize=12"
-                           , "xft:Font Awesome 5 Brands:pixelsize=12"
+                           , "xft:Font Awesome 6 Free Solid:pixelsize=12"
+                           , "xft:Font Awesome 6 Brands:pixelsize=12"
                            ]
        , bgColor      = "#282828"
        , fgColor      = "#ebdbb2"
