@@ -386,7 +386,7 @@ myKeys =
         , ("M-p o", spawn "dm-bookman")       -- qutebrowser bookmarks/history
         , ("M-p p", spawn "passmenu")         -- passmenu
         , ("M-p q", spawn "dm-logout")        -- logout menu
-        , ("M-p r", spawn "dm-reddit")        -- reddio (a reddit viewer)
+        , ("M-p r", spawn "dm-radio")         -- online radio
         , ("M-p s", spawn "dm-websearch")     -- search various search engines
         , ("M-p t", spawn "dm-translate")     -- translate text (Google Translate)
 
