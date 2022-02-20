@@ -374,12 +374,100 @@ List of keybindings (SPC h b b)")
 (setq org-publish-use-timestamps-flag nil)
 (setq org-export-with-broken-links t)
 (setq org-publish-project-alist
-      '(("distro.tube"
+      '(("distro.tube without manpages"
          :base-directory "~/nc/gitlab-repos/distro.tube/"
          :base-extension "org"
          :publishing-directory "~/nc/gitlab-repos/distro.tube/html/"
          :recursive t
-         :exclude "org-html-themes/.*"
+         :exclude "org-html-themes/.*\\|man-org/man*"
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t)
+         ("man0p"
+         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man0p/"
+         :base-extension "org"
+         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man0p/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t)
+         ("man1"
+         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man1/"
+         :base-extension "org"
+         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man1/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t)
+         ("man1p"
+         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man1p/"
+         :base-extension "org"
+         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man1p/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t)
+         ("man2"
+         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man2/"
+         :base-extension "org"
+         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man2/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t)
+         ("man3"
+         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man3/"
+         :base-extension "org"
+         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man3/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t)
+         ("man3p"
+         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man3p/"
+         :base-extension "org"
+         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man3p/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t)
+         ("man4"
+         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man4/"
+         :base-extension "org"
+         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man4/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t)
+         ("man5"
+         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man5/"
+         :base-extension "org"
+         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man5/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t)
+         ("man6"
+         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man6/"
+         :base-extension "org"
+         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man6/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t)
+         ("man7"
+         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man7/"
+         :base-extension "org"
+         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man7/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t)
+         ("man8"
+         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man8/"
+         :base-extension "org"
+         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man8/"
+         :recursive t
          :publishing-function org-html-publish-to-html
          :headline-levels 4             ; Just the default for this project.
          :auto-preamble t)
