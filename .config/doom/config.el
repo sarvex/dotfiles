@@ -471,62 +471,6 @@ List of keybindings (SPC h b b)")
          :publishing-function org-html-publish-to-html
          :headline-levels 4             ; Just the default for this project.
          :auto-preamble t)
-        ("man0p"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man0p/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man0p/"
-         :recursive t
-         :exclude "org-html-themes/.*"
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-        ("man1"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man1/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man1/"
-         :recursive t
-         :exclude "org-html-themes/.*"
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-         ("man1p"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man1p/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man1p/"
-         :recursive t
-         :exclude "org-html-themes/.*"
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-        ("man2"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man2/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man2/"
-         :recursive t
-         :exclude "org-html-themes/.*"
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-         ("man3"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man3/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man3/"
-         :recursive t
-         :exclude "org-html-themes/.*"
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-         ("man3p"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man3p/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man3p/"
-         :recursive t
-         :exclude "org-html-themes/.*"
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-
-
          ("org-static"
          :base-directory "~/Org/website"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
