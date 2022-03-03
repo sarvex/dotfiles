@@ -83,3 +83,6 @@
 (package! s)
 (package! tldr)
 (package! wc-mode)
+(package! beacon)
+(package! clippy)
+(package! minimap)
