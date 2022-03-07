@@ -384,7 +384,7 @@ myKeys =
         , ("M-p m", spawn "dm-man")           -- manpages
         , ("M-p n", spawn "dm-note")          -- store one-line notes and copy them
         , ("M-p o", spawn "dm-bookman")       -- qutebrowser bookmarks/history
-        , ("M-p p", spawn "passmenu")         -- passmenu
+        , ("M-p p", spawn "passmenu -p \"Pass: \"") -- passmenu
         , ("M-p q", spawn "dm-logout")        -- logout menu
         , ("M-p r", spawn "dm-radio")         -- online radio
         , ("M-p s", spawn "dm-websearch")     -- search various search engines
