@@ -143,6 +143,9 @@ myEditor :: String
 myEditor = "emacsclient -c -a 'emacs' "  -- Sets emacs as editor
 -- myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor
 
+myRunCommand :: String
+myRunCommand = "dmenu_run -l 20 -g 3 -X 0 -Y 0 -W 680 -p 'Run: '"
+
 myBorderWidth :: Dimension
 myBorderWidth = 2           -- Sets border width for windows
 
@@ -484,7 +487,7 @@ myKeys =
         , ("M-/", spawn "dtos-help")                  -- DTOS help/tutorial videos
 
     -- KB_GROUP Run Prompt
-        , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
+        , ("M-S-<Return>", spawn "dm-run") -- Dmenu
 
     -- KB_GROUP Other Dmenu Prompts
     -- In Xmonad and many tiling window managers, M-p is the default keybinding to
