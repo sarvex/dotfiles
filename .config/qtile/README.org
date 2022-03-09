@@ -74,7 +74,7 @@ Just some variables I am setting to make my life easier.
 #+BEGIN_SRC python
 mod = "mod4"              # Sets mod key to SUPER/WINDOWS
 myTerm = "alacritty"      # My terminal of choice
-myBrowser = "qutebrowser" # My terminal of choice
+myBrowser = "qutebrowser" # My browser of choice
 #+END_SRC
 
 * Keybindings

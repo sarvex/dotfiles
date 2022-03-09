@@ -13,7 +13,7 @@ from typing import List  # noqa: F401from typing import List  # noqa: F401
 
 mod = "mod4"              # Sets mod key to SUPER/WINDOWS
 myTerm = "alacritty"      # My terminal of choice
-myBrowser = "qutebrowser" # My terminal of choice
+myBrowser = "qutebrowser" # My browser of choice
 
 keys = [
          ### The essentials
