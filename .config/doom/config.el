@@ -5,6 +5,9 @@
        :desc "List bookmarks" "L" #'list-bookmarks
        :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
 
+(global-auto-revert-mode 1)
+(setq global-auto-revert-non-file-buffers t)
+
 (evil-define-key 'normal ibuffer-mode-map
   (kbd "f c") 'ibuffer-filter-by-content
   (kbd "f d") 'ibuffer-filter-by-directory

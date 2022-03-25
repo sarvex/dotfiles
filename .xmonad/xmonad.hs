@@ -99,9 +99,6 @@ myEditor :: String
 myEditor = "emacsclient -c -a 'emacs' "  -- Sets emacs as editor
 -- myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor
 
-myRunCommand :: String
-myRunCommand = "dmenu_run -l 20 -g 3 -X 0 -Y 0 -W 680 -p 'Run: '"
-
 myBorderWidth :: Dimension
 myBorderWidth = 2           -- Sets border width for windows
 
