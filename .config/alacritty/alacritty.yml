@@ -40,6 +40,13 @@ window:
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: false
 
+  # Background opacity
+  #
+  # Window opacity as a floating point number from `0.0` to `1.0`.
+  # The value `0.0` is completely transparent and `1.0` is opaque.
+  opacity: 1.0
+  # opacity: 0.80
+
   # Window decorations
   #
   # Values for `decorations`:
@@ -604,14 +611,6 @@ colors: *DoomOne
 #  duration: 0
 #  color: '#ffffff'
 
-# Background opacity
-#
-# Window opacity as a floating point number from `0.0` to `1.0`.
-# The value `0.0` is completely transparent and `1.0` is opaque.
-window:
-  opacity: 1.0
-#  opacity: 0.80
-
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
 
@@ -868,3 +867,4 @@ key_bindings:
   - { key: PageDown,  mods: None,          action: ScrollPageDown, mode: ~Alt  }
   - { key: Home,      mods: Shift,         action: ScrollToTop,    mode: ~Alt  }
   - { key: End,       mods: Shift,         action: ScrollToBottom, mode: ~Alt  }
+
