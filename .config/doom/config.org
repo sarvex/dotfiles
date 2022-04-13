@@ -26,6 +26,7 @@
 - [[#elfeed][ELFEED]]
 - [[#emms][EMMS]]
 - [[#emojis][EMOJIS]]
+- [[#erc][ERC]]
 - [[#evaluate-elisp-expressions][EVALUATE ELISP EXPRESSIONS]]
 - [[#eww][EWW]]
 - [[#fonts][FONTS]]
@@ -471,6 +472,31 @@ Emojify is an Emacs extension to display emojis. It can display github style emo
   :hook (after-init . global-emojify-mode))
 #+end_src
 
+* ERC
+ERC is a built-in Emacs IRC client.
+
+| COMMAND | DESCRIPTION                                 | KEYBINDING |
+|---------+---------------------------------------------+------------|
+| erc-tls | /Launch ERC using more secure TLS connection/ | SPC e E    |
+
+#+begin_src emacs-lisp
+(map! :leader
+      (:prefix ("e". "evaluate/ERC/EWW")
+       :desc "Launch ERC with TLS connection" "E" #'erc-tls))
+
+(setq erc-server "irc.libera.chat"
+      erc-nick "distrotube"
+      erc-user-full-name "Derek Taylor"
+      erc-track-shorten-start 24
+      erc-autojoin-channels-alist '(("irc.libera.chat" "#unixtube" "#distrotube"))
+      erc-kill-buffer-on-part t
+      erc-fill-column 100
+      erc-fill-function 'erc-fill-static
+      erc-fill-static-center 20
+      ;; erc-auto-query 'bury
+      )
+
+#+end_src
 * EVALUATE ELISP EXPRESSIONS
 Changing some keybindings from their defaults to better fit with Doom Emacs, and to avoid conflicts with my window managers which sometimes use the control key in their keybindings.  By default, Doom Emacs does not use 'SPC e' for anything, so I choose to use the format 'SPC e' plus 'key' for these (I also use 'SPC e' for 'eww' keybindings).
 
@@ -484,7 +510,7 @@ Changing some keybindings from their defaults to better fit with Doom Emacs, and
 
 #+Begin_src emacs-lisp
 (map! :leader
-      (:prefix ("e". "evaluate/EWW")
+      (:prefix ("e". "evaluate/ERC/EWW")
        :desc "Evaluate elisp in buffer" "b" #'eval-buffer
        :desc "Evaluate defun" "d" #'eval-defun
        :desc "Evaluate elisp expression" "e" #'eval-expression
@@ -500,7 +526,7 @@ EWW is the Emacs Web Wowser, the builtin browser in Emacs.  Below I set urls to 
 (map! :leader
       :desc "Search web for text between BEG/END"
       "s w" #'eww-search-words
-      (:prefix ("e" . "evaluate/EWW")
+      (:prefix ("e" . "evaluate/ERC/EWW")
        :desc "Eww web browser" "w" #'eww
        :desc "Eww reload page" "R" #'eww-reload))
 #+END_SRC

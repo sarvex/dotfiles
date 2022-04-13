@@ -229,7 +229,23 @@ List of keybindings (SPC h b b)")
   :hook (after-init . global-emojify-mode))
 
 (map! :leader
-      (:prefix ("e". "evaluate/EWW")
+      (:prefix ("e". "evaluate/ERC/EWW")
+       :desc "Launch ERC with TLS connection" "E" #'erc-tls))
+
+(setq erc-server "irc.libera.chat"
+      erc-nick "distrotube"
+      erc-user-full-name "Derek Taylor"
+      erc-track-shorten-start 24
+      erc-autojoin-channels-alist '(("irc.libera.chat" "#unixtube" "#distrotube"))
+      erc-kill-buffer-on-part t
+      erc-fill-column 100
+      erc-fill-function 'erc-fill-static
+      erc-fill-static-center 20
+      ;; erc-auto-query 'bury
+      )
+
+(map! :leader
+      (:prefix ("e". "evaluate/ERC/EWW")
        :desc "Evaluate elisp in buffer" "b" #'eval-buffer
        :desc "Evaluate defun" "d" #'eval-defun
        :desc "Evaluate elisp expression" "e" #'eval-expression
@@ -240,7 +256,7 @@ List of keybindings (SPC h b b)")
 (map! :leader
       :desc "Search web for text between BEG/END"
       "s w" #'eww-search-words
-      (:prefix ("e" . "evaluate/EWW")
+      (:prefix ("e" . "evaluate/ERC/EWW")
        :desc "Eww web browser" "w" #'eww
        :desc "Eww reload page" "R" #'eww-reload))
 
