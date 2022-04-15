@@ -26,6 +26,7 @@
 - [[#elfeed][ELFEED]]
 - [[#emms][EMMS]]
 - [[#emojis][EMOJIS]]
+- [[#erc][ERC]]
 - [[#evaluate-elisp-expressions][EVALUATE ELISP EXPRESSIONS]]
 - [[#eww][EWW]]
 - [[#fonts][FONTS]]
@@ -470,6 +471,27 @@ Emojify is an Emacs extension to display emojis. It can display github style emo
 (use-package emojify
   :hook (after-init . global-emojify-mode))
 #+end_src
+
+
+* ERC
+
+#+begin_src emacs-lisp
+
+(setq erc-prompt (lambda () (concat "[" (buffer-name) "]"))
+      erc-server "irc.libera.chat"
+      ;; erc-autojoin-channels-alist '(("irc.libera.chat" "#emacs" "#linux"))
+      erc-nick "distrotube"
+      erc-user-full-name "Derek Taylor"
+      ;; By default, ERC selects the channel buffers when it reconnects. If you’d like it to connect to channels in the background, use this:
+      erc-auto-query 'bury
+      erc-fill-column 100
+      erc-fill-function 'erc-fill-static
+      erc-fill-static-center 20)
+
+#+end_src
+
+#+RESULTS:
+: 20
 
 * EVALUATE ELISP EXPRESSIONS
 Changing some keybindings from their defaults to better fit with Doom Emacs, and to avoid conflicts with my window managers which sometimes use the control key in their keybindings.  By default, Doom Emacs does not use 'SPC e' for anything, so I choose to use the format 'SPC e' plus 'key' for these (I also use 'SPC e' for 'eww' keybindings).
