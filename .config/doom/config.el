@@ -228,22 +228,12 @@ List of keybindings (SPC h b b)")
 (use-package emojify
   :hook (after-init . global-emojify-mode))
 
-(setq erc-prompt (lambda () (concat "[" (buffer-name) "]"))
-      erc-server "irc.libera.chat"
-      ;; erc-autojoin-channels-alist '(("irc.libera.chat" "#emacs" "#linux"))
-      erc-nick "distrotube"
-      erc-user-full-name "Derek Taylor"
-      ;; By default, ERC selects the channel buffers when it reconnects. If you’d like it to connect to channels in the background, use this:
-      erc-auto-query 'bury
-      erc-fill-column 100
-      erc-fill-function 'erc-fill-static
-      erc-fill-static-center 20)
-
 (map! :leader
       (:prefix ("e". "evaluate/ERC/EWW")
        :desc "Launch ERC with TLS connection" "E" #'erc-tls))
 
-(setq erc-server "irc.libera.chat"
+(setq erc-prompt (lambda () (concat "[" (buffer-name) "]"))
+      erc-server "irc.libera.chat"
       erc-nick "distrotube"
       erc-user-full-name "Derek Taylor"
       erc-track-shorten-start 24
