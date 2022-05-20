@@ -86,3 +86,4 @@
 (package! beacon)
 (package! clippy)
 (package! minimap)
+(package! olivetti)
