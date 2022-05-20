@@ -108,11 +108,15 @@ myNormColor   = colorBack   -- This variable is imported from Colors.THEME
 myFocusColor :: String      -- Border color of focused windows
 myFocusColor  = color15     -- This variable is imported from Colors.THEME
 
+mySoundPlayer :: String
+mySoundPlayer = "ffplay -nodisp -autoexit " -- The program that will play system sounds
+
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 myStartupHook :: X ()
 myStartupHook = do
+    spawnOnce (mySoundPlayer ++ startupSound)
     spawn "killall conky"   -- kill current conky on each restart
     spawn "killall trayer"  -- kill current trayer on each restart
 
@@ -120,7 +124,7 @@ myStartupHook = do
     spawnOnce "picom"
     spawnOnce "nm-applet"
     spawnOnce "volumeicon"
-    spawnOnce "/usr/bin/emacs --daemon" -- emacs daemon for the emacsclient
+    spawn "/usr/bin/emacs --daemon" -- emacs daemon for the emacsclient
 
     spawn ("sleep 2 && conky -c $HOME/.config/conky/xmonad/" ++ colorScheme ++ "-01.conkyrc")
     spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
@@ -355,20 +359,28 @@ myManageHook = composeAll
      , isFullscreen -->  doFullFloat
      ] <+> namedScratchpadManageHook myScratchPads
 
+soundDir = "/opt/dtos-sounds/" -- The directory that has the sound files
+
+startupSound      = soundDir ++ "startup-01.mp3"
+shutdownSound     = soundDir ++ "shutdown-01.mp3"
+dmenuSound        = soundDir ++ "menu-01.mp3"
+
 -- START_KEYS
 myKeys :: [(String, X ())]
 myKeys =
     -- KB_GROUP Xmonad
         [ ("M-C-r", spawn "xmonad --recompile")       -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")         -- Restarts xmonad
-        , ("M-S-q", io exitSuccess)                   -- Quits xmonad
+        , ("M-S-q", sequence_ [spawn (mySoundPlayer ++ shutdownSound)
+                              , io exitSuccess]) -- Quits xmonad
 
     -- KB_GROUP Get Help
         , ("M-S-/", spawn "~/.xmonad/xmonad_keys.sh") -- Get list of keybindings
         , ("M-/", spawn "dtos-help")                  -- DTOS help/tutorial videos
 
     -- KB_GROUP Run Prompt
-        , ("M-S-<Return>", spawn "dm-run") -- Dmenu
+        , ("M-S-<Return>", sequence_ [spawn (mySoundPlayer ++ dmenuSound)
+                                     , spawn "dm-run"]) -- Dmenu
 
     -- KB_GROUP Other Dmenu Prompts
     -- In Xmonad and many tiling window managers, M-p is the default keybinding to
