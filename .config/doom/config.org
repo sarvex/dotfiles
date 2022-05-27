@@ -276,7 +276,7 @@ List of keybindings (SPC h b b)")
 ** Dashboard in Emacsclient
 This setting ensures that emacsclient always opens on *dashboard* rather than *scratch*.
 #+begin_src emacs-lisp
-(setq doom-fallback-buffer "*dashboard*")
+(setq doom-fallback-buffer-name "*dashboard*")
 #+end_src
 
 * DIRED
