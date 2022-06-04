@@ -71,6 +71,7 @@
 (package! evil-tutor)
 (package! ivy-posframe)
 (package! mw-thesaurus)
+(package! org-auto-tangle)
 (package! org-board)
 (package! org-web-tools)
 (package! ox-gemini)

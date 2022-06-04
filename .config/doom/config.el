@@ -521,6 +521,12 @@ List of keybindings (SPC h b b)")
 (after! org-roam
   (setq org-roam-directory "~/nc/Roam"))
 
+(use-package! org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode)
+  :config
+  (setq org-auto-tangle-default t))
+
 (use-package! password-store)
 
 (map! :leader

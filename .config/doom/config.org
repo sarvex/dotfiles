@@ -47,6 +47,7 @@
   - [[#org-journal][Org-journal]]
   - [[#org-publish][Org-publish]]
   - [[#org-roam][Org-roam]]
+  - [[#org-babel-tangle][Org-babel-tangle]]
 - [[#password-store][PASSWORD STORE]]
 - [[#perspective][PERSPECTIVE]]
 - [[#rainbow-mode][RAINBOW MODE]]
@@ -938,6 +939,17 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
 #+begin_src emacs-lisp
 (after! org-roam
   (setq org-roam-directory "~/nc/Roam"))
+
+#+end_src
+
+** Org-babel-tangle
+
+#+begin_src emacs-lisp
+(use-package! org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode)
+  :config
+  (setq org-auto-tangle-default t))
 #+end_src
 
 * PASSWORD STORE
