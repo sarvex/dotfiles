@@ -47,7 +47,7 @@
   - [[#org-journal][Org-journal]]
   - [[#org-publish][Org-publish]]
   - [[#org-roam][Org-roam]]
-  - [[#org-babel-tangle][Org-babel-tangle]]
+  - [[#org-auto-tangle][Org-auto-tangle]]
 - [[#password-store][PASSWORD STORE]]
 - [[#perspective][PERSPECTIVE]]
 - [[#rainbow-mode][RAINBOW MODE]]
@@ -942,7 +942,7 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
 
 #+end_src
 
-** Org-babel-tangle
+** Org-auto-tangle
 
 #+begin_src emacs-lisp
 (use-package! org-auto-tangle
