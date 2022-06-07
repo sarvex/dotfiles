@@ -1,7 +1,8 @@
 #+TITLE: XMonad Config
-#+PROPERTY: header-args :tangle xmonad.hs
-#+STARTUP: showeverything
 #+AUTHOR: Derek Taylor
+#+PROPERTY: header-args :tangle xmonad.hs
+#+auto_tangle: t
+#+STARTUP: showeverything
 
 * Table Of Contents :toc:
 - [[#about-this-config][About This Config]]

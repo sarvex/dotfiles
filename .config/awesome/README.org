@@ -1,5 +1,8 @@
 #+TITLE: Aweomsome WM Config
+#+AUTHOR: Derek Taylor
 #+PROPERTY: header-args :tangle rc.lua
+#+auto_tangle: t
+#+STARTUP: showeverything
 
 * Table of Contents :toc:
 - [[#about-this-config][About This Config]]
