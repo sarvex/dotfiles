@@ -569,4 +569,4 @@ main = do
           -- order of things in xmobar
         , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
         }
-    } -- `additionalKeysP` myKeys
+    }
