@@ -136,6 +136,28 @@ myStartupHook = do
   -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
   setWMName "LG3D"
 
+myNavigation :: TwoD a (Maybe a)
+myNavigation = makeXEventhandler $ shadowWithKeymap navKeyMap navDefaultHandler
+ where navKeyMap = M.fromList [
+          ((0,xK_Escape), cancel)
+         ,((0,xK_Return), select)
+         ,((0,xK_slash) , substringSearch myNavigation)
+         ,((0,xK_Left)  , move (-1,0)  >> myNavigation)
+         ,((0,xK_h)     , move (-1,0)  >> myNavigation)
+         ,((0,xK_Right) , move (1,0)   >> myNavigation)
+         ,((0,xK_l)     , move (1,0)   >> myNavigation)
+         ,((0,xK_Down)  , move (0,1)   >> myNavigation)
+         ,((0,xK_j)     , move (0,1)   >> myNavigation)
+         ,((0,xK_Up)    , move (0,-1)  >> myNavigation)
+         ,((0,xK_k)     , move (0,-1)  >> myNavigation)
+         ,((0,xK_y)     , move (-1,-1) >> myNavigation)
+         ,((0,xK_i)     , move (1,-1)  >> myNavigation)
+         ,((0,xK_n)     , move (-1,1)  >> myNavigation)
+         ,((0,xK_m)     , move (1,-1)  >> myNavigation)
+         ,((0,xK_space) , setPos (0,0) >> myNavigation)
+         ]
+       navDefaultHandler = const myNavigation
+
 myColorizer :: Window -> Bool -> X (String, String)
 myColorizer = colorRangeFromClassName
                 (0x28,0x2c,0x34) -- lowest inactive bg
@@ -150,6 +172,7 @@ mygridConfig colorizer = (buildDefaultGSConfig myColorizer)
     { gs_cellheight   = 40
     , gs_cellwidth    = 200
     , gs_cellpadding  = 6
+    , gs_navigate    = myNavigation
     , gs_originFractX = 0.5
     , gs_originFractY = 0.5
     , gs_font         = myFont
@@ -166,58 +189,94 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
                    , gs_font         = myFont
                    }
 
-myTestGrid = [ ("MyAppGrid",   spawnSelected' myAppGrid)
-             , ("Accessories", spawnSelected' myAccessories)
-             , ("Education",   spawnSelected' myOffice)
-             , ("Games",       spawnSelected' myOffice)
-             , ("Internet",    spawnSelected' myOffice)
-             , ("Multimedia",  spawnSelected' myOffice)
-             , ("Office",      spawnSelected' myOffice)
-             , ("System",      spawnSelected' myOffice)
-             , ("Utilities",   spawnSelected' myOffice)
-             ]
+gsCategories =
+  [ ("Games",      spawnSelected' gsGames)
+  --, ("Education",   spawnSelected' gsEducation)
+  , ("Internet",   spawnSelected' gsInternet)
+  , ("Multimedia", spawnSelected' gsMultimedia)
+  , ("Office",     spawnSelected' gsOffice)
+  , ("Settings",   spawnSelected' gsSettings)
+  , ("System",     spawnSelected' gsSystem)
+  , ("Utilities",  spawnSelected' gsUtilities)
+  ]
 
-myAppGrid = [ ("Audacity", "audacity")
-            , ("Deadbeef", "deadbeef")
-            , ("Emacs", "emacsclient -c -a emacs")
-            , ("Firefox", "firefox")
-            , ("Geany", "geany")
-            , ("Geary", "geary")
-            , ("Gimp", "gimp")
-            , ("Kdenlive", "kdenlive")
-            , ("LibreOffice Impress", "loimpress")
-            , ("LibreOffice Writer", "lowriter")
-            , ("OBS", "obs")
-            , ("PCManFM", "pcmanfm")
-            ]
+gsAccessories =
+  [ ("0 A.D.", "0ad")
+  , ("Battle For Wesnoth", "wesnoth")
+  , ("OpenArena", "openarena")
+  , ("Sauerbraten", "sauerbraten")
+  , ("Steam", "steam")
+  , ("Unvanquished", "unvanquished")
+  , ("Xonotic", "xonotic-glx")
+  ]
 
-myAccessories = [ ("Audacity", "audacity")
-                , ("Deadbeef", "deadbeef")
-                , ("Emacs", "emacsclient -c -a emacs")
-                , ("Firefox", "firefox")
-                , ("Geany", "geany")
-                , ("Geary", "geary")
-                , ("Gimp", "gimp")
-                , ("Kdenlive", "kdenlive")
-                , ("LibreOffice Impress", "loimpress")
-                , ("LibreOffice Writer", "lowriter")
-                , ("OBS", "obs")
-                , ("PCManFM", "pcmanfm")
-                ]
+gsGames =
+  [ ("0 A.D.", "0ad")
+  , ("Battle For Wesnoth", "wesnoth")
+  , ("OpenArena", "openarena")
+  , ("Sauerbraten", "sauerbraten")
+  , ("Steam", "steam")
+  , ("Unvanquished", "unvanquished")
+  , ("Xonotic", "xonotic-glx")
+  ]
 
-myOffice = [ ("Audacity", "audacity")
-           , ("Deadbeef", "deadbeef")
-           , ("Emacs", "emacsclient -c -a emacs")
-           , ("Firefox", "firefox")
-           , ("Geany", "geany")
-           , ("Geary", "geary")
-           , ("Gimp", "gimp")
-           , ("Kdenlive", "kdenlive")
-           , ("LibreOffice Impress", "loimpress")
-           , ("LibreOffice Writer", "lowriter")
-           , ("OBS", "obs")
-           , ("PCManFM", "pcmanfm")
-           ]
+gsInternet =
+  [ ("Brave", "brave")
+  , ("Discord", "discord")
+  , ("Element", "element-desktop")
+  , ("Firefox", "firefox")
+  , ("LBRY App", "lbry")
+  , ("Mailspring", "mailspring")
+  , ("Nextcloud", "nextcloud")
+  , ("Qutebrowser", "qutebrowser")
+  , ("Transmission", "transmission-gtk")
+  , ("Zoom", "zoom")
+  ]
+
+gsMultimedia =
+  [ ("Audacity", "audacity")
+  , ("Blender", "blender")
+  , ("Deadbeef", "deadbeef")
+  , ("Kdenlive", "kdenlive")
+  , ("OBS Studio", "obs")
+  , ("VLC", "vlc")
+  ]
+
+gsOffice =
+  [ ("Document Viewer", "evince")
+  , ("LibreOffice", "libreoffice")
+  , ("LO Base", "lobase")
+  , ("LO Calc", "localc")
+  , ("LO Draw", "lodraw")
+  , ("LO Impress", "loimpress")
+  , ("LO Math", "lomath")
+  , ("LO Writer", "lowriter")
+  ]
+
+gsSettings =
+  [ ("ARandR", "arandr")
+  , ("ArchLinux Tweak Tool", "archlinux-tweak-tool")
+  , ("Customize Look and Feel", "lxappearance")
+  , ("Firewall Configuration", "sudo gufw")
+  ]
+
+gsSystem =
+  [ ("Alacritty", "alacritty")
+  , ("Bash", (myTerminal ++ " -e bash"))
+  , ("Htop", (myTerminal ++ " -e htop"))
+  , ("Fish", (myTerminal ++ " -e fish"))
+  , ("PCManFM", "pcmanfm")
+  , ("VirtualBox", "virtualbox")
+  , ("Virt-Manager", "virt-manager")
+  , ("Zsh", (myTerminal ++ " -e zsh"))
+  ]
+
+gsUtilities =
+  [ ("Emacs", "emacs")
+  , ("Emacsclient", "emacsclient -c -a 'emacs'")
+  , ("Nitrogen", "nitrogen")
+  , ("Vim", (myTerminal ++ " -e vim"))
+  ]
 
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
@@ -474,7 +533,7 @@ myKeys c = (subtitle "Custom Keys":) $ mkNamedKeymap c $
   , ("C-M1-l", addName "Increase screen spacing" $ incScreenSpacing 4)
 
   -- Grid Select (CTR-g followed by a key)
-  , ("C-g g", addName "Select favorite apps"     $ runSelectedAction def myTestGrid)
+  , ("C-g g", addName "Select favorite apps"     $ runSelectedAction def gsCategories)
   , ("C-g t", addName "Goto selected window"     $ goToSelected $ mygridConfig myColorizer)
   , ("C-g b", addName "Bring selected window"    $ bringSelected $ mygridConfig myColorizer)
 
