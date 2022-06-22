@@ -699,9 +699,9 @@ myKeys c = (subtitle "Custom Keys":) $ mkNamedKeymap c $
 
   -- Grid Select (CTR-g followed by a key)
   -- , ("C-g g", addName "Select favorite apps"     $ runSelectedAction' defaultGSConfig gsCategories)
-  , ("M-M1-c", addName "Select favorite apps" $ spawnSelected' gsCategories)
   , ("M-M1-<Return>", addName "Select favorite apps" $ spawnSelected'
        $ gsGames ++ gsEducation ++ gsInternet ++ gsMultimedia ++ gsOffice ++ gsSettings ++ gsSystem ++ gsUtilities)
+  , ("M-M1-c", addName "Select favorite apps" $ spawnSelected' gsCategories)
   , ("M-M1-t", addName "Goto selected window"        $ goToSelected $ mygridConfig myColorizer)
   , ("M-M1-b", addName "Bring selected window"       $ bringSelected $ mygridConfig myColorizer)
   , ("M-M1-1", addName "Menu of games"               $ spawnSelected' gsGames)
