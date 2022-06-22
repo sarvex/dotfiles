@@ -290,13 +290,6 @@ gsCategories =
   , ("Utilities",  "xdotool key super+alt+8")
   ]
 
-gsEducation =
-  [ ("GCompris", "gcompris-qt")
-  , ("Kstars", "kstars")
-  , ("Minuet", "minuet")
-  , ("Scratch", "scratch")
-  ]
-
 gsGames =
   [ ("0 A.D.", "0ad")
   , ("Battle For Wesnoth", "wesnoth")
@@ -305,6 +298,13 @@ gsGames =
   , ("Steam", "steam")
   , ("Unvanquished", "unvanquished")
   , ("Xonotic", "xonotic-glx")
+  ]
+
+gsEducation =
+  [ ("GCompris", "gcompris-qt")
+  , ("Kstars", "kstars")
+  , ("Minuet", "minuet")
+  , ("Scratch", "scratch")
   ]
 
 gsInternet =
@@ -635,7 +635,7 @@ myKeys c = (subtitle "Custom Keys":) $ mkNamedKeymap c $
   [ ("M-C-r", addName "Recompile XMonad"         $ spawn "xmonad --recompile")
   , ("M-S-r", addName "Restart XMonad"           $ spawn "xmonad --restart")
   , ("M-S-q", addName "Quit XMonad"              $ sequence_ [spawn (mySoundPlayer ++ shutdownSound), io exitSuccess])
-  , ("M-S-/", addName "List all keybindings"     $ spawn "~/.xmonad/xmonad_keys.sh")
+  --, ("M-S-/", addName "List all keybindings"     $ spawn "~/.xmonad/xmonad_keys.sh")
   , ("M-/", addName "DTOS Help"                  $ spawn "dtos-help")
 
   -- Run prompt (dmenu)
