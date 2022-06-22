@@ -218,16 +218,6 @@ gsCategories =
   , ("Utilities",  "xdotool key super+alt+8")
   ]
 
-gsAccessories =
-  [ ("0 A.D.", "0ad")
-  , ("Battle For Wesnoth", "wesnoth")
-  , ("OpenArena", "openarena")
-  , ("Sauerbraten", "sauerbraten")
-  , ("Steam", "steam")
-  , ("Unvanquished", "unvanquished")
-  , ("Xonotic", "xonotic-glx")
-  ]
-
 gsEducation =
   [ ("GCompris", "gcompris-qt")
   , ("Kstars", "kstars")
