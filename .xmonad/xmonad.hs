@@ -189,15 +189,33 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
                    , gs_font         = myFont
                    }
 
+runSelectedAction' :: GSConfig (X ()) -> [(String, X ())] -> X ()
+runSelectedAction' conf actions = do
+    selectedActionM <- gridselect conf actions
+    case selectedActionM of
+        Just selectedAction -> selectedAction
+        Nothing -> return ()
+
+-- gsCategories =
+--   [ ("Games",      spawnSelected' gsGames)
+--   --, ("Education",   spawnSelected' gsEducation)
+--   , ("Internet",   spawnSelected' gsInternet)
+--   , ("Multimedia", spawnSelected' gsMultimedia)
+--   , ("Office",     spawnSelected' gsOffice)
+--   , ("Settings",   spawnSelected' gsSettings)
+--   , ("System",     spawnSelected' gsSystem)
+--   , ("Utilities",  spawnSelected' gsUtilities)
+--   ]
+
 gsCategories =
-  [ ("Games",      spawnSelected' gsGames)
-  --, ("Education",   spawnSelected' gsEducation)
-  , ("Internet",   spawnSelected' gsInternet)
-  , ("Multimedia", spawnSelected' gsMultimedia)
-  , ("Office",     spawnSelected' gsOffice)
-  , ("Settings",   spawnSelected' gsSettings)
-  , ("System",     spawnSelected' gsSystem)
-  , ("Utilities",  spawnSelected' gsUtilities)
+  [ ("Games",      "xdotool key super+alt+1")
+  , ("Education",  "xdotool key super+alt+2")
+  , ("Internet",   "xdotool key super+alt+3")
+  , ("Multimedia", "xdotool key super+alt+4")
+  , ("Office",     "xdotool key super+alt+5")
+  , ("Settings",   "xdotool key super+alt+6")
+  , ("System",     "xdotool key super+alt+7")
+  , ("Utilities",  "xdotool key super+alt+8")
   ]
 
 gsAccessories =
@@ -208,6 +226,13 @@ gsAccessories =
   , ("Steam", "steam")
   , ("Unvanquished", "unvanquished")
   , ("Xonotic", "xonotic-glx")
+  ]
+
+gsEducation =
+  [ ("GCompris", "gcompris-qt")
+  , ("Kstars", "kstars")
+  , ("Minuet", "minuet")
+  , ("Scratch", "scratch")
   ]
 
 gsGames =
@@ -533,9 +558,20 @@ myKeys c = (subtitle "Custom Keys":) $ mkNamedKeymap c $
   , ("C-M1-l", addName "Increase screen spacing" $ incScreenSpacing 4)
 
   -- Grid Select (CTR-g followed by a key)
-  , ("C-g g", addName "Select favorite apps"     $ runSelectedAction def gsCategories)
-  , ("C-g t", addName "Goto selected window"     $ goToSelected $ mygridConfig myColorizer)
-  , ("C-g b", addName "Bring selected window"    $ bringSelected $ mygridConfig myColorizer)
+  -- , ("C-g g", addName "Select favorite apps"     $ runSelectedAction' defaultGSConfig gsCategories)
+  , ("M-M1-c", addName "Select favorite apps" $ spawnSelected' gsCategories)
+  , ("M-M1-<Return>", addName "Select favorite apps" $ spawnSelected'
+       $ gsGames ++ gsEducation ++ gsInternet ++ gsMultimedia ++ gsOffice ++ gsSettings ++ gsSystem ++ gsUtilities)
+  , ("M-M1-t", addName "Goto selected window"        $ goToSelected $ mygridConfig myColorizer)
+  , ("M-M1-b", addName "Bring selected window"       $ bringSelected $ mygridConfig myColorizer)
+  , ("M-M1-1", addName "Menu of games"               $ spawnSelected' gsGames)
+  , ("M-M1-2", addName "Menu of education apps"      $ spawnSelected' gsEducation)
+  , ("M-M1-3", addName "Menu of Internet apps"       $ spawnSelected' gsInternet)
+  , ("M-M1-4", addName "Menu of multimedia apps"     $ spawnSelected' gsMultimedia)
+  , ("M-M1-5", addName "Menu of office apps"         $ spawnSelected' gsOffice)
+  , ("M-M1-6", addName "Menu of settings apps"       $ spawnSelected' gsSettings)
+  , ("M-M1-7", addName "Menu of system apps"         $ spawnSelected' gsSystem)
+  , ("M-M1-8", addName "Menu of utilities apps"      $ spawnSelected' gsUtilities)
 
   -- Windows navigation
   , ("M-m", addName "Move focus to master window" $ windows W.focusMaster)
