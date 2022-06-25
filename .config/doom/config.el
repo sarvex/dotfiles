@@ -392,13 +392,17 @@ List of keybindings (SPC h b b)")
              "DONE(d)"           ; Task has been completed
              "CANCELLED(c)" )))) ; Task has been cancelled
 
-(custom-set-faces
-  '(org-level-1 ((t (:inherit outline-1 :height 1.4))))
-  '(org-level-2 ((t (:inherit outline-2 :height 1.3))))
-  '(org-level-3 ((t (:inherit outline-3 :height 1.2))))
-  '(org-level-4 ((t (:inherit outline-4 :height 1.1))))
-  '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
-)
+(dolist
+    (face
+     '((org-level-1 1.7 "#51afef" ultra-bold)
+       (org-level-2 1.6 "#c678dd" extra-bold)
+       (org-level-3 1.5 "#98be65" bold)
+       (org-level-4 1.4 "#da8548" semi-bold)
+       (org-level-5 1.3 "#5699af" normal)
+       (org-level-6 1.2 "#a9a1e1" normal)
+       (org-level-7 1.1 "#4bd5bd" normal)
+       (org-level-8 1.0 "#ff6c6b" normal)))
+  (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
 
 (use-package ox-man)
 (use-package ox-gemini)
