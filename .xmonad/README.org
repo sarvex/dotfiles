@@ -630,21 +630,24 @@ showKeybindings x = addName "Show Keybindings" $ io $ do
   return ()
 
 myKeys :: XConfig l0 -> [((KeyMask, KeySym), NamedAction)]
-myKeys c = (subtitle "Custom Keys":) $ mkNamedKeymap c $
+myKeys c =
+  --(subtitle "Custom Keys":) $ mkNamedKeymap c $
+  let subKeys str ks = subtitle str : mkNamedKeymap c ks in
   -- Xmonad
+  subKeys "Xmonad"
   [ ("M-C-r", addName "Recompile XMonad"         $ spawn "xmonad --recompile")
   , ("M-S-r", addName "Restart XMonad"           $ spawn "xmonad --restart")
   , ("M-S-q", addName "Quit XMonad"              $ sequence_ [spawn (mySoundPlayer ++ shutdownSound), io exitSuccess])
   --, ("M-S-/", addName "List all keybindings"     $ spawn "~/.xmonad/xmonad_keys.sh")
   , ("M-/", addName "DTOS Help"                  $ spawn "dtos-help")
-
   -- Run prompt (dmenu)
-  , ("M-S-<Return>", addName "Run prompt"        $ sequence_ [spawn (mySoundPlayer ++ dmenuSound), spawn "dm-run"])
+  , ("M-S-<Return>", addName "Run prompt"        $ sequence_ [spawn (mySoundPlayer ++ dmenuSound), spawn "dm-run"])]
 
   -- Dmenu scripts (dmscripts)
   -- In Xmonad and many tiling window managers, M-p is the default keybinding to
   -- launch dmenu_run, so I've decided to use M-p plus KEY for these dmenu scripts.
-  , ("M-p h", addName "List all dmscripts"       $ spawn "dm-hub")
+  ^++^ subKeys "Dmenu scripts"
+  [ ("M-p h", addName "List all dmscripts"       $ spawn "dm-hub")
   , ("M-p a", addName "Choose ambient sound"     $ spawn "dm-sounds")
   , ("M-p b", addName "Set background"           $ spawn "dm-setbg")
   , ("M-p c", addName "Choose color scheme"      $ spawn "dtos-colorscheme")
@@ -659,37 +662,43 @@ myKeys c = (subtitle "Custom Keys":) $ mkNamedKeymap c $
   , ("M-p q", addName "Logout Menu"              $ spawn "dm-logout")
   , ("M-p r", addName "Listen to online radio"   $ spawn "dm-radio")
   , ("M-p s", addName "Search various engines"   $ spawn "dm-websearch")
-  , ("M-p t", addName "Translate text"           $ spawn "dm-translate")
+  , ("M-p t", addName "Translate text"           $ spawn "dm-translate")]
 
   -- Useful programs to have a keybinding for launch
-  , ("M-<Return>", addName "Launch terminal"     $ spawn (myTerminal))
+  ^++^ subKeys "Favorite programs"
+  [ ("M-<Return>", addName "Launch terminal"     $ spawn (myTerminal))
   , ("M-b", addName "Launch web browser"         $ spawn (myBrowser))
-  , ("M-M1-h", addName "Launch htop"             $ spawn (myTerminal ++ " -e htop"))
+  , ("M-M1-h", addName "Launch htop"             $ spawn (myTerminal ++ " -e htop"))]
 
   -- Kill windows
-  , ("M-S-c", addName "Kill focused window"      $ kill1)
-  , ("M-S-a", addName "Kill all windows on WS"   $ killAll)
+  ^++^ subKeys "Kill windows"
+  [ ("M-S-c", addName "Kill focused window"      $ kill1)
+  , ("M-S-a", addName "Kill all windows on WS"   $ killAll)]
 
   -- Workspaces
-  , ("M-.", addName "Switch focus to next mon"   $ nextScreen)
+  ^++^ subKeys "Workspaces"
+  [ ("M-.", addName "Switch focus to next mon"   $ nextScreen)
   , ("M-,", addName "Switch focus to prev mon"   $ prevScreen)
   , ("M-S-<KP_Add>", addName "Move window to next WS"      $ shiftTo Next nonNSP >> moveTo Next nonNSP)
-  , ("M-S-<KP_Subtract>", addName "Move window to prev WS" $ shiftTo Prev nonNSP >> moveTo Prev nonNSP)
+  , ("M-S-<KP_Subtract>", addName "Move window to prev WS" $ shiftTo Prev nonNSP >> moveTo Prev nonNSP)]
 
   -- Floating windows
-  , ("M-f", addName "Toggle float layout"        $ sendMessage (T.Toggle "floats"))
+  ^++^ subKeys "Floating windows"
+  [ ("M-f", addName "Toggle float layout"        $ sendMessage (T.Toggle "floats"))
   , ("M-t", addName "Sink a floating window"     $ withFocused $ windows . W.sink)
-  , ("M-S-t", addName "Sink all floated windows" $ sinkAll)
+  , ("M-S-t", addName "Sink all floated windows" $ sinkAll)]
 
   -- Increase/decrease spacing (gaps)
-  , ("C-M1-j", addName "Decrease window spacing" $ decWindowSpacing 4)
+  ^++^ subKeys "Window spacing (gaps)"
+  [ ("C-M1-j", addName "Decrease window spacing" $ decWindowSpacing 4)
   , ("C-M1-k", addName "Increase window spacing" $ incWindowSpacing 4)
   , ("C-M1-h", addName "Decrease screen spacing" $ decScreenSpacing 4)
-  , ("C-M1-l", addName "Increase screen spacing" $ incScreenSpacing 4)
+  , ("C-M1-l", addName "Increase screen spacing" $ incScreenSpacing 4)]
 
   -- Grid Select (CTR-g followed by a key)
+  ^++^ subKeys "GridSelect"
   -- , ("C-g g", addName "Select favorite apps"     $ runSelectedAction' defaultGSConfig gsCategories)
-  , ("M-M1-<Return>", addName "Select favorite apps" $ spawnSelected'
+  [ ("M-M1-<Return>", addName "Select favorite apps" $ spawnSelected'
        $ gsGames ++ gsEducation ++ gsInternet ++ gsMultimedia ++ gsOffice ++ gsSettings ++ gsSystem ++ gsUtilities)
   , ("M-M1-c", addName "Select favorite apps" $ spawnSelected' gsCategories)
   , ("M-M1-t", addName "Goto selected window"        $ goToSelected $ mygridConfig myColorizer)
@@ -701,10 +710,11 @@ myKeys c = (subtitle "Custom Keys":) $ mkNamedKeymap c $
   , ("M-M1-5", addName "Menu of office apps"         $ spawnSelected' gsOffice)
   , ("M-M1-6", addName "Menu of settings apps"       $ spawnSelected' gsSettings)
   , ("M-M1-7", addName "Menu of system apps"         $ spawnSelected' gsSystem)
-  , ("M-M1-8", addName "Menu of utilities apps"      $ spawnSelected' gsUtilities)
+  , ("M-M1-8", addName "Menu of utilities apps"      $ spawnSelected' gsUtilities)]
 
   -- Windows navigation
-  , ("M-m", addName "Move focus to master window" $ windows W.focusMaster)
+  ^++^ subKeys "Window navigation"
+  [ ("M-m", addName "Move focus to master window" $ windows W.focusMaster)
   , ("M-j", addName "Move focus to next window"   $ windows W.focusDown)
   , ("M-k", addName "Move focus to prev window"   $ windows W.focusUp)
   , ("M-S-m", addName "Swap focused window with master window" $ windows W.swapMaster)
@@ -712,52 +722,59 @@ myKeys c = (subtitle "Custom Keys":) $ mkNamedKeymap c $
   , ("M-S-k", addName "Swap focused window with prev window"   $ windows W.swapUp)
   , ("M-<Backspace>", addName "Move focused window to master"  $ promote)
   , ("M-S-<Tab>", addName "Rotate all windows except master"   $ rotSlavesDown)
-  , ("M-C-<Tab>", addName "Rotate all windows current stack"   $ rotAllDown)
+  , ("M-C-<Tab>", addName "Rotate all windows current stack"   $ rotAllDown)]
 
-  -- Layouts
-  , ("M-<Tab>", addName "Switch to next layout"   $ sendMessage NextLayout)
-  , ("M-<Space>", addName "Toggle noborders/full" $ sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)
+  -- Switch layouts
+  ^++^ subKeys "Switch layouts"
+  [ ("M-<Tab>", addName "Switch to next layout"   $ sendMessage NextLayout)
+  , ("M-<Space>", addName "Toggle noborders/full" $ sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)]
 
   -- Increase/decrease windows in the master pane or the stack
-  , ("M-S-<Up>", addName "Increase clients in master pane"   $ sendMessage (IncMasterN 1))
+  ^++^ subKeys "Increase/decrease windows in master pane or the stack"
+  [ ("M-S-<Up>", addName "Increase clients in master pane"   $ sendMessage (IncMasterN 1))
   , ("M-S-<Down>", addName "Decrease clients in master pane" $ sendMessage (IncMasterN (-1)))
   , ("M-C-<Up>", addName "Increase # of windows"             $ increaseLimit)
-  , ("M-C-<Down>", addName "Decrease # of windows"           $ decreaseLimit)
+  , ("M-C-<Down>", addName "Decrease # of windows"           $ decreaseLimit)]
 
   -- Window resizing
-  , ("M-h", addName "Shrink window"               $ sendMessage Shrink)
+  ^++^ subKeys "Window resizing"
+  [ ("M-h", addName "Shrink window"               $ sendMessage Shrink)
   , ("M-l", addName "Expand window"               $ sendMessage Expand)
   , ("M-M1-j", addName "Shrink window vertically" $ sendMessage MirrorShrink)
-  , ("M-M1-k", addName "Expand window vertically" $ sendMessage MirrorExpand)
+  , ("M-M1-k", addName "Expand window vertically" $ sendMessage MirrorExpand)]
 
   -- Sublayouts
   -- This is used to push windows to tabbed sublayouts, or pull them out of it.
-  , ("M-C-h", addName "pullGroup L"           $ sendMessage $ pullGroup L)
+  ^++^ subKeys "Sublayouts"
+  [ ("M-C-h", addName "pullGroup L"           $ sendMessage $ pullGroup L)
   , ("M-C-l", addName "pullGroup R"           $ sendMessage $ pullGroup R)
   , ("M-C-k", addName "pullGroup U"           $ sendMessage $ pullGroup U)
   , ("M-C-j", addName "pullGroup D"           $ sendMessage $ pullGroup D)
   , ("M-C-m", addName "MergeAll"              $ withFocused (sendMessage . MergeAll))
   -- , ("M-C-u", addName "UnMerge"               $ withFocused (sendMessage . UnMerge))
   , ("M-C-/", addName "UnMergeAll"            $  withFocused (sendMessage . UnMergeAll))
-  , ("M-C-.", addName "Switch focus next tab" $  onGroup W.focusUp')    -- Switch focus to next tab
-  , ("M-C-,", addName "Switch focus prev tab" $  onGroup W.focusDown')  -- Switch focus to prev tab
+  , ("M-C-.", addName "Switch focus next tab" $  onGroup W.focusUp')
+  , ("M-C-,", addName "Switch focus prev tab" $  onGroup W.focusDown')]
 
   -- Scratchpads
   -- Toggle show/hide these programs. They run on a hidden workspace.
   -- When you toggle them to show, it brings them to current workspace.
   -- Toggle them to hide and it sends them back to hidden workspace (NSP).
-  , ("M-s t", addName "Toggle scratchpad terminal"   $ namedScratchpadAction myScratchPads "terminal")
+  ^++^ subKeys "Scratchpads"
+  [ ("M-s t", addName "Toggle scratchpad terminal"   $ namedScratchpadAction myScratchPads "terminal")
   , ("M-s m", addName "Toggle scratchpad mocp"       $ namedScratchpadAction myScratchPads "mocp")
-  , ("M-s c", addName "Toggle scratchpad calculator" $ namedScratchpadAction myScratchPads "calculator")
+  , ("M-s c", addName "Toggle scratchpad calculator" $ namedScratchpadAction myScratchPads "calculator")]
 
   -- Controls for mocp music player (SUPER-u followed by a key)
-  , ("M-u p", addName "mocp play"                $ spawn "mocp --play")
+  ^++^ subKeys "Mocp music player"
+  [ ("M-u p", addName "mocp play"                $ spawn "mocp --play")
   , ("M-u l", addName "mocp next"                $ spawn "mocp --next")
   , ("M-u h", addName "mocp prev"                $ spawn "mocp --previous")
-  , ("M-u <Space>", addName "mocp toggle pause"  $ spawn "mocp --toggle-pause")
+  , ("M-u <Space>", addName "mocp toggle pause"  $ spawn "mocp --toggle-pause")]
 
   -- Emacs (SUPER-e followed by a key)
-  , ("M-e e", addName "Emacsclient Dashboard"    $ spawn (myEmacs ++ ("--eval '(dashboard-refresh-buffer)'")))
+  ^++^ subKeys "Emacs"
+  [ ("M-e e", addName "Emacsclient Dashboard"    $ spawn (myEmacs ++ ("--eval '(dashboard-refresh-buffer)'")))
   , ("M-e b", addName "Emacsclient Ibuffer"      $ spawn (myEmacs ++ ("--eval '(ibuffer)'")))
   , ("M-e d", addName "Emacsclient Dired"        $ spawn (myEmacs ++ ("--eval '(dired nil)'")))
   , ("M-e i", addName "Emacsclient ERC (IRC)"    $ spawn (myEmacs ++ ("--eval '(erc)'")))
@@ -766,10 +783,11 @@ myKeys c = (subtitle "Custom Keys":) $ mkNamedKeymap c $
   , ("M-e t", addName "Emacsclient Mastodon"     $ spawn (myEmacs ++ ("--eval '(mastodon)'")))
   , ("M-e v", addName "Emacsclient Vterm"        $ spawn (myEmacs ++ ("--eval '(+vterm/here nil)'")))
   , ("M-e w", addName "Emacsclient EWW browser"  $ spawn (myEmacs ++ ("--eval '(doom/window-maximize-buffer(eww \"distro.tube\"))'")))
-  , ("M-e a", addName "Emacsclient EMMS (music)" $ spawn (myEmacs ++ ("--eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/\")'")))
+  , ("M-e a", addName "Emacsclient EMMS (music)" $ spawn (myEmacs ++ ("--eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/\")'")))]
 
   -- Multimedia Keys
-  , ("<XF86AudioPlay>", addName "mocp play"           $ spawn "mocp --play")
+  ^++^ subKeys "Multimedia keys"
+  [ ("<XF86AudioPlay>", addName "mocp play"           $ spawn "mocp --play")
   , ("<XF86AudioPrev>", addName "mocp next"           $ spawn "mocp --previous")
   , ("<XF86AudioNext>", addName "mocp prev"           $ spawn "mocp --next")
   , ("<XF86AudioMute>", addName "Toggle audio mute"   $ spawn "amixer set Master toggle")
@@ -799,7 +817,7 @@ main = do
   xmproc1 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc")
   xmproc2 <- spawnPipe ("xmobar -x 2 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc")
   -- the xmonad, ya know...what the WM is named after!
-  xmonad $ addDescrKeys ((mod4Mask, xK_F1), showKeybindings) myKeys $ ewmh def
+  xmonad $ addDescrKeys' ((mod4Mask, xK_F1), showKeybindings) myKeys $ ewmh def
     { manageHook         = myManageHook <+> manageDocks
     , handleEventHook    = docksEventHook
                            -- Uncomment this line to enable fullscreen support on things like YouTube/Netflix.
