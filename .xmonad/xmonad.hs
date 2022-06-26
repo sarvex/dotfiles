@@ -498,10 +498,33 @@ myKeys c =
   [ ("M-C-r", addName "Recompile XMonad"         $ spawn "xmonad --recompile")
   , ("M-S-r", addName "Restart XMonad"           $ spawn "xmonad --restart")
   , ("M-S-q", addName "Quit XMonad"              $ sequence_ [spawn (mySoundPlayer ++ shutdownSound), io exitSuccess])
+
   --, ("M-S-/", addName "List all keybindings"     $ spawn "~/.xmonad/xmonad_keys.sh")
   , ("M-/", addName "DTOS Help"                  $ spawn "dtos-help")
   -- Run prompt (dmenu)
   , ("M-S-<Return>", addName "Run prompt"        $ sequence_ [spawn (mySoundPlayer ++ dmenuSound), spawn "dm-run"])]
+
+  ^++^ subKeys "Switch to workspace"
+  [ ("M-1", addName "Switch to workspace 1"      $ (windows $ W.greedyView $ myWorkspaces !! 0))
+  , ("M-2", addName "Switch to workspace 2"      $ (windows $ W.greedyView $ myWorkspaces !! 1))
+  , ("M-3", addName "Switch to workspace 3"      $ (windows $ W.greedyView $ myWorkspaces !! 2))
+  , ("M-4", addName "Switch to workspace 4"      $ (windows $ W.greedyView $ myWorkspaces !! 3))
+  , ("M-5", addName "Switch to workspace 5"      $ (windows $ W.greedyView $ myWorkspaces !! 4))
+  , ("M-6", addName "Switch to workspace 6"      $ (windows $ W.greedyView $ myWorkspaces !! 5))
+  , ("M-7", addName "Switch to workspace 7"      $ (windows $ W.greedyView $ myWorkspaces !! 6))
+  , ("M-8", addName "Switch to workspace 8"      $ (windows $ W.greedyView $ myWorkspaces !! 7))
+  , ("M-9", addName "Switch to workspace 9"      $ (windows $ W.greedyView $ myWorkspaces !! 8))]
+
+  ^++^ subKeys "Send window to workspace"
+  [ ("M-S-1", addName "Send to workspace 1"      $ (windows $ W.shift $ myWorkspaces !! 0))
+  , ("M-S-2", addName "Send to workspace 2"      $ (windows $ W.shift $ myWorkspaces !! 1))
+  , ("M-S-3", addName "Send to workspace 3"      $ (windows $ W.shift $ myWorkspaces !! 2))
+  , ("M-S-4", addName "Send to workspace 4"      $ (windows $ W.shift $ myWorkspaces !! 3))
+  , ("M-S-5", addName "Send to workspace 5"      $ (windows $ W.shift $ myWorkspaces !! 4))
+  , ("M-S-6", addName "Send to workspace 6"      $ (windows $ W.shift $ myWorkspaces !! 5))
+  , ("M-S-7", addName "Send to workspace 7"      $ (windows $ W.shift $ myWorkspaces !! 6))
+  , ("M-S-8", addName "Send to workspace 8"      $ (windows $ W.shift $ myWorkspaces !! 7))
+  , ("M-S-9", addName "Send to workspace 9"      $ (windows $ W.shift $ myWorkspaces !! 8))]
 
   -- Dmenu scripts (dmscripts)
   -- In Xmonad and many tiling window managers, M-p is the default keybinding to
