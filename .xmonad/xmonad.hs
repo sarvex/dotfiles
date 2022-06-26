@@ -337,20 +337,20 @@ mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 -- limitWindows n sets maximum number of windows displayed for layout.
 -- mySpacing n sets the gap size around the windows.
 tall     = renamed [Replace "tall"]
+           $ limitWindows 5
            $ smartBorders
            $ windowNavigation
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ limitWindows 12
            $ mySpacing 8
            $ ResizableTall 1 (3/100) (1/2) []
 magnify  = renamed [Replace "magnify"]
+           $ limitWindows 5
            $ smartBorders
            $ windowNavigation
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
            $ magnifier
-           $ limitWindows 12
            $ mySpacing 8
            $ ResizableTall 1 (3/100) (1/2) []
 monocle  = renamed [Replace "monocle"]
@@ -358,20 +358,21 @@ monocle  = renamed [Replace "monocle"]
            $ windowNavigation
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ limitWindows 20 Full
+           $ Full
 floats   = renamed [Replace "floats"]
            $ smartBorders
-           $ limitWindows 20 simplestFloat
+           $ simplestFloat
 grid     = renamed [Replace "grid"]
+           $ limitWindows 9
            $ smartBorders
            $ windowNavigation
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ limitWindows 12
            $ mySpacing 8
            $ mkToggle (single MIRROR)
            $ Grid (16/10)
 spirals  = renamed [Replace "spirals"]
+           $ limitWindows 9
            $ smartBorders
            $ windowNavigation
            $ addTabs shrinkText myTabTheme
@@ -379,18 +380,18 @@ spirals  = renamed [Replace "spirals"]
            $ mySpacing' 8
            $ spiral (6/7)
 threeCol = renamed [Replace "threeCol"]
+           $ limitWindows 7
            $ smartBorders
            $ windowNavigation
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ limitWindows 7
            $ ThreeCol 1 (3/100) (1/2)
 threeRow = renamed [Replace "threeRow"]
+           $ limitWindows 7
            $ smartBorders
            $ windowNavigation
            $ addTabs shrinkText myTabTheme
            $ subLayout [] (smartBorders Simplest)
-           $ limitWindows 7
            -- Mirror takes a layout and rotates it by 90 degrees.
            -- So we are applying Mirror to the ThreeCol layout.
            $ Mirror
@@ -493,16 +494,14 @@ myKeys :: XConfig l0 -> [((KeyMask, KeySym), NamedAction)]
 myKeys c =
   --(subtitle "Custom Keys":) $ mkNamedKeymap c $
   let subKeys str ks = subtitle str : mkNamedKeymap c ks in
-  -- Xmonad
-  subKeys "Xmonad"
+  subKeys "Xmonad Essentials"
   [ ("M-C-r", addName "Recompile XMonad"         $ spawn "xmonad --recompile")
   , ("M-S-r", addName "Restart XMonad"           $ spawn "xmonad --restart")
   , ("M-S-q", addName "Quit XMonad"              $ sequence_ [spawn (mySoundPlayer ++ shutdownSound), io exitSuccess])
-
-  --, ("M-S-/", addName "List all keybindings"     $ spawn "~/.xmonad/xmonad_keys.sh")
-  , ("M-/", addName "DTOS Help"                  $ spawn "dtos-help")
-  -- Run prompt (dmenu)
-  , ("M-S-<Return>", addName "Run prompt"        $ sequence_ [spawn (mySoundPlayer ++ dmenuSound), spawn "dm-run"])]
+  , ("M-S-c", addName "Kill focused window"      $ kill1)
+  , ("M-S-a", addName "Kill all windows on WS"   $ killAll)
+  , ("M-S-<Return>", addName "Run prompt"        $ sequence_ [spawn (mySoundPlayer ++ dmenuSound), spawn "dm-run"])
+  , ("M-/", addName "DTOS Help"                  $ spawn "dtos-help")]
 
   ^++^ subKeys "Switch to workspace"
   [ ("M-1", addName "Switch to workspace 1"      $ (windows $ W.greedyView $ myWorkspaces !! 0))
@@ -526,6 +525,21 @@ myKeys c =
   , ("M-S-8", addName "Send to workspace 8"      $ (windows $ W.shift $ myWorkspaces !! 7))
   , ("M-S-9", addName "Send to workspace 9"      $ (windows $ W.shift $ myWorkspaces !! 8))]
 
+  ^++^ subKeys "Move window to WS and go there"
+  [ ("M-S-<Page_Up>", addName "Move window to next WS"   $ shiftTo Next nonNSP >> moveTo Next nonNSP)
+  , ("M-S-<Page_Down>", addName "Move window to prev WS" $ shiftTo Prev nonNSP >> moveTo Prev nonNSP)]
+
+  ^++^ subKeys "Window navigation"
+  [ ("M-j", addName "Move focus to next window"                $ windows W.focusDown)
+  , ("M-k", addName "Move focus to prev window"                $ windows W.focusUp)
+  , ("M-m", addName "Move focus to master window"              $ windows W.focusMaster)
+  , ("M-S-j", addName "Swap focused window with next window"   $ windows W.swapDown)
+  , ("M-S-k", addName "Swap focused window with prev window"   $ windows W.swapUp)
+  , ("M-S-m", addName "Swap focused window with master window" $ windows W.swapMaster)
+  , ("M-<Backspace>", addName "Move focused window to master"  $ promote)
+  , ("M-S-,", addName "Rotate all windows except master"       $ rotSlavesDown)
+  , ("M-S-.", addName "Rotate all windows current stack"       $ rotAllDown)]
+
   -- Dmenu scripts (dmscripts)
   -- In Xmonad and many tiling window managers, M-p is the default keybinding to
   -- launch dmenu_run, so I've decided to use M-p plus KEY for these dmenu scripts.
@@ -547,23 +561,26 @@ myKeys c =
   , ("M-p s", addName "Search various engines"   $ spawn "dm-websearch")
   , ("M-p t", addName "Translate text"           $ spawn "dm-translate")]
 
-  -- Useful programs to have a keybinding for launch
   ^++^ subKeys "Favorite programs"
   [ ("M-<Return>", addName "Launch terminal"     $ spawn (myTerminal))
   , ("M-b", addName "Launch web browser"         $ spawn (myBrowser))
   , ("M-M1-h", addName "Launch htop"             $ spawn (myTerminal ++ " -e htop"))]
 
-  -- Kill windows
-  ^++^ subKeys "Kill windows"
-  [ ("M-S-c", addName "Kill focused window"      $ kill1)
-  , ("M-S-a", addName "Kill all windows on WS"   $ killAll)]
+  ^++^ subKeys "Monitors"
+  [ ("M-.", addName "Switch focus to next monitor" $ nextScreen)
+  , ("M-,", addName "Switch focus to prev monitor" $ prevScreen)]
 
-  -- Workspaces
-  ^++^ subKeys "Workspaces"
-  [ ("M-.", addName "Switch focus to next mon"   $ nextScreen)
-  , ("M-,", addName "Switch focus to prev mon"   $ prevScreen)
-  , ("M-S-<KP_Add>", addName "Move window to next WS"      $ shiftTo Next nonNSP >> moveTo Next nonNSP)
-  , ("M-S-<KP_Subtract>", addName "Move window to prev WS" $ shiftTo Prev nonNSP >> moveTo Prev nonNSP)]
+  -- Switch layouts
+  ^++^ subKeys "Switch layouts"
+  [ ("M-<Tab>", addName "Switch to next layout"   $ sendMessage NextLayout)
+  , ("M-<Space>", addName "Toggle noborders/full" $ sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)]
+
+  -- Window resizing
+  ^++^ subKeys "Window resizing"
+  [ ("M-h", addName "Shrink window"               $ sendMessage Shrink)
+  , ("M-l", addName "Expand window"               $ sendMessage Expand)
+  , ("M-M1-j", addName "Shrink window vertically" $ sendMessage MirrorShrink)
+  , ("M-M1-k", addName "Expand window vertically" $ sendMessage MirrorExpand)]
 
   -- Floating windows
   ^++^ subKeys "Floating windows"
@@ -578,53 +595,12 @@ myKeys c =
   , ("C-M1-h", addName "Decrease screen spacing" $ decScreenSpacing 4)
   , ("C-M1-l", addName "Increase screen spacing" $ incScreenSpacing 4)]
 
-  -- Grid Select (CTR-g followed by a key)
-  ^++^ subKeys "GridSelect"
-  -- , ("C-g g", addName "Select favorite apps"     $ runSelectedAction' defaultGSConfig gsCategories)
-  [ ("M-M1-<Return>", addName "Select favorite apps" $ spawnSelected'
-       $ gsGames ++ gsEducation ++ gsInternet ++ gsMultimedia ++ gsOffice ++ gsSettings ++ gsSystem ++ gsUtilities)
-  , ("M-M1-c", addName "Select favorite apps" $ spawnSelected' gsCategories)
-  , ("M-M1-t", addName "Goto selected window"        $ goToSelected $ mygridConfig myColorizer)
-  , ("M-M1-b", addName "Bring selected window"       $ bringSelected $ mygridConfig myColorizer)
-  , ("M-M1-1", addName "Menu of games"               $ spawnSelected' gsGames)
-  , ("M-M1-2", addName "Menu of education apps"      $ spawnSelected' gsEducation)
-  , ("M-M1-3", addName "Menu of Internet apps"       $ spawnSelected' gsInternet)
-  , ("M-M1-4", addName "Menu of multimedia apps"     $ spawnSelected' gsMultimedia)
-  , ("M-M1-5", addName "Menu of office apps"         $ spawnSelected' gsOffice)
-  , ("M-M1-6", addName "Menu of settings apps"       $ spawnSelected' gsSettings)
-  , ("M-M1-7", addName "Menu of system apps"         $ spawnSelected' gsSystem)
-  , ("M-M1-8", addName "Menu of utilities apps"      $ spawnSelected' gsUtilities)]
-
-  -- Windows navigation
-  ^++^ subKeys "Window navigation"
-  [ ("M-m", addName "Move focus to master window" $ windows W.focusMaster)
-  , ("M-j", addName "Move focus to next window"   $ windows W.focusDown)
-  , ("M-k", addName "Move focus to prev window"   $ windows W.focusUp)
-  , ("M-S-m", addName "Swap focused window with master window" $ windows W.swapMaster)
-  , ("M-S-j", addName "Swap focused window with next window"   $ windows W.swapDown)
-  , ("M-S-k", addName "Swap focused window with prev window"   $ windows W.swapUp)
-  , ("M-<Backspace>", addName "Move focused window to master"  $ promote)
-  , ("M-S-<Tab>", addName "Rotate all windows except master"   $ rotSlavesDown)
-  , ("M-C-<Tab>", addName "Rotate all windows current stack"   $ rotAllDown)]
-
-  -- Switch layouts
-  ^++^ subKeys "Switch layouts"
-  [ ("M-<Tab>", addName "Switch to next layout"   $ sendMessage NextLayout)
-  , ("M-<Space>", addName "Toggle noborders/full" $ sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts)]
-
   -- Increase/decrease windows in the master pane or the stack
   ^++^ subKeys "Increase/decrease windows in master pane or the stack"
   [ ("M-S-<Up>", addName "Increase clients in master pane"   $ sendMessage (IncMasterN 1))
   , ("M-S-<Down>", addName "Decrease clients in master pane" $ sendMessage (IncMasterN (-1)))
-  , ("M-C-<Up>", addName "Increase # of windows"             $ increaseLimit)
-  , ("M-C-<Down>", addName "Decrease # of windows"           $ decreaseLimit)]
-
-  -- Window resizing
-  ^++^ subKeys "Window resizing"
-  [ ("M-h", addName "Shrink window"               $ sendMessage Shrink)
-  , ("M-l", addName "Expand window"               $ sendMessage Expand)
-  , ("M-M1-j", addName "Shrink window vertically" $ sendMessage MirrorShrink)
-  , ("M-M1-k", addName "Expand window vertically" $ sendMessage MirrorExpand)]
+  , ("M-=", addName "Increase # of windows"        $ increaseLimit)
+  , ("M--", addName "Decrease # of windows"      $ decreaseLimit)]
 
   -- Sublayouts
   -- This is used to push windows to tabbed sublayouts, or pull them out of it.
@@ -654,6 +630,23 @@ myKeys c =
   , ("M-u l", addName "mocp next"                $ spawn "mocp --next")
   , ("M-u h", addName "mocp prev"                $ spawn "mocp --previous")
   , ("M-u <Space>", addName "mocp toggle pause"  $ spawn "mocp --toggle-pause")]
+
+  -- Grid Select (CTR-g followed by a key)
+  ^++^ subKeys "GridSelect"
+  -- , ("C-g g", addName "Select favorite apps"     $ runSelectedAction' defaultGSConfig gsCategories)
+  [ ("M-M1-<Return>", addName "Select favorite apps" $ spawnSelected'
+       $ gsGames ++ gsEducation ++ gsInternet ++ gsMultimedia ++ gsOffice ++ gsSettings ++ gsSystem ++ gsUtilities)
+  , ("M-M1-c", addName "Select favorite apps" $ spawnSelected' gsCategories)
+  , ("M-M1-t", addName "Goto selected window"        $ goToSelected $ mygridConfig myColorizer)
+  , ("M-M1-b", addName "Bring selected window"       $ bringSelected $ mygridConfig myColorizer)
+  , ("M-M1-1", addName "Menu of games"               $ spawnSelected' gsGames)
+  , ("M-M1-2", addName "Menu of education apps"      $ spawnSelected' gsEducation)
+  , ("M-M1-3", addName "Menu of Internet apps"       $ spawnSelected' gsInternet)
+  , ("M-M1-4", addName "Menu of multimedia apps"     $ spawnSelected' gsMultimedia)
+  , ("M-M1-5", addName "Menu of office apps"         $ spawnSelected' gsOffice)
+  , ("M-M1-6", addName "Menu of settings apps"       $ spawnSelected' gsSettings)
+  , ("M-M1-7", addName "Menu of system apps"         $ spawnSelected' gsSystem)
+  , ("M-M1-8", addName "Menu of utilities apps"      $ spawnSelected' gsUtilities)]
 
   -- Emacs (SUPER-e followed by a key)
   ^++^ subKeys "Emacs"
