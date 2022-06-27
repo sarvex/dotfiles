@@ -483,6 +483,12 @@ startupSound  = soundDir ++ "startup-01.mp3"
 shutdownSound = soundDir ++ "shutdown-01.mp3"
 dmenuSound    = soundDir ++ "menu-01.mp3"
 
+subtitle' ::  String -> ((KeyMask, KeySym), NamedAction)
+subtitle' x = ((0,0), NamedAction $ map toUpper
+                      $ sep ++ "\n-- " ++ x ++ " --\n" ++ sep)
+  where
+    sep = replicate (6 + length x) '-'
+
 showKeybindings :: [((KeyMask, KeySym), NamedAction)] -> NamedAction
 showKeybindings x = addName "Show Keybindings" $ io $ do
   h <- spawnPipe $ "yad --text-info --fontname=\"SauceCodePro Nerd Font Mono 12\" --fore=#46d9ff back=#282c36 --center --geometry=1200x800 --title \"XMonad keybindings\""
@@ -490,12 +496,6 @@ showKeybindings x = addName "Show Keybindings" $ io $ do
   hPutStr h (unlines $ showKmSimple x) -- showKmSimple doesn't add ">>" to subtitles
   hClose h
   return ()
-
-subtitle' ::  String -> ((KeyMask, KeySym), NamedAction)
-subtitle' x = ((0,0), NamedAction $ map toUpper
-                      $ sep ++ "\n-- " ++ x ++ " --\n" ++ sep)
-  where
-    sep = replicate (6 + length x) '-'
 
 myKeys :: XConfig l0 -> [((KeyMask, KeySym), NamedAction)]
 myKeys c =

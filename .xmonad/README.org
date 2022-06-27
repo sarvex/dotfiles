@@ -17,6 +17,7 @@
 - [[#workspaces][Workspaces]]
 - [[#managehook][Managehook]]
 - [[#system-sounds][System Sounds]]
+- [[#namedactions][NamedActions]]
 - [[#keybindings][Keybindings]]
 - [[#main][Main]]
 
@@ -594,8 +595,28 @@ shutdownSound = soundDir ++ "shutdown-01.mp3"
 dmenuSound    = soundDir ++ "menu-01.mp3"
 #+end_src
 
+* NamedActions
+=NamedActions= is a wrapper for keybinding configuration that can list the available keybindings.  The following custom functions are used to add =NamedActions= to our keybindings in the format that I desired.  =subTitle'= allows me to format the subtitle (=subKeys=) so that I can prepend and/or append text to them.  =showKeybindings= is a function that pipes the output of our =NamedActions= into a GUI display program, such as 'yad' or 'zenity'.
+
+#+begin_src haskell
+subtitle' ::  String -> ((KeyMask, KeySym), NamedAction)
+subtitle' x = ((0,0), NamedAction $ map toUpper
+                      $ sep ++ "\n-- " ++ x ++ " --\n" ++ sep)
+  where
+    sep = replicate (6 + length x) '-'
+
+showKeybindings :: [((KeyMask, KeySym), NamedAction)] -> NamedAction
+showKeybindings x = addName "Show Keybindings" $ io $ do
+  h <- spawnPipe $ "yad --text-info --fontname=\"SauceCodePro Nerd Font Mono 12\" --fore=#46d9ff back=#282c36 --center --geometry=1200x800 --title \"XMonad keybindings\""
+  --hPutStr h (unlines $ showKm x) -- showKM adds ">>" before subtitles
+  hPutStr h (unlines $ showKmSimple x) -- showKmSimple doesn't add ">>" to subtitles
+  hClose h
+  return ()
+
+#+end_src
+
 * Keybindings
-I am using the Xmonad.Util.EZConfig module which allows keybindings to be written in simpler, emacs-like format.  The Super/Windows key is 'M' (the modkey).  The ALT key is 'M1'.  SHIFT is 'S' and CTR is 'C'.
+I am using the Xmonad.Util.EZConfig module which allows keybindings to be written in simpler, emacs-like format.  The Super/Windows key is 'M' (the modkey).  The ALT key is 'M1'.  SHIFT is 'S' and CTRL is 'C'.  Pay close attention to the way the keybindings list is formatted.  Each group of keybindings must have a =subKeys= heading, and each individual keybinding must use =addName= to add a description.  These headings and descriptions are needed for the keybindings list that can be launched with 'MOD-F1'.
 
 | A FEW KEYBINDINGS       | ASSOCIATED ACTION                                            |
 |-------------------------+--------------------------------------------------------------|
@@ -619,22 +640,9 @@ I am using the Xmonad.Util.EZConfig module which allows keybindings to be writte
 | MODKEY + comma          | switch focus to prev monitor                                 |
 | MODKEY + SPACE          | toggles fullscreen on/off (useful for watching videos)       |
 | MODKEY + t              | force floating window back into tiling                       |
+| MODKEY + F1             | show a list of all keybindings in our xmonad config          |
 
 #+BEGIN_SRC haskell
-showKeybindings :: [((KeyMask, KeySym), NamedAction)] -> NamedAction
-showKeybindings x = addName "Show Keybindings" $ io $ do
-  h <- spawnPipe $ "yad --text-info --fontname=\"SauceCodePro Nerd Font Mono 12\" --fore=#46d9ff back=#282c36 --center --geometry=1200x800 --title \"XMonad keybindings\""
-  --hPutStr h (unlines $ showKm x) -- showKM adds ">>" before subtitles
-  hPutStr h (unlines $ showKmSimple x) -- showKmSimple doesn't add ">>" to subtitles
-  hClose h
-  return ()
-
-subtitle' ::  String -> ((KeyMask, KeySym), NamedAction)
-subtitle' x = ((0,0), NamedAction $ map toUpper
-                      $ sep ++ "\n-- " ++ x ++ " --\n" ++ sep)
-  where
-    sep = replicate (6 + length x) '-'
-
 myKeys :: XConfig l0 -> [((KeyMask, KeySym), NamedAction)]
 myKeys c =
   --(subtitle "Custom Keys":) $ mkNamedKeymap c $
