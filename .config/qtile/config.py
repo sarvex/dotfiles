@@ -18,17 +18,21 @@ myBrowser = "qutebrowser" # My browser of choice
 keys = [
          ### The essentials
          Key([mod], "Return",
-             lazy.spawn(myTerm+" -e fish"),
+             lazy.spawn(myTerm),
              desc='Launches My Terminal'
              ),
          Key([mod, "shift"], "Return",
-             lazy.spawn("dmenu_run -p 'Run: '"),
+             lazy.spawn("dm-run"),
              desc='Run Launcher'
              ),
          Key([mod], "b",
              lazy.spawn(myBrowser),
              desc='Qutebrowser'
              ),
+         # Key([mod], "/",
+         #     lazy.spawn("dtos-help"),
+         #     desc='DTOS Help'
+         #     ),
          Key([mod], "Tab",
              lazy.next_layout(),
              desc='Toggle through layouts'
@@ -140,77 +144,105 @@ keys = [
              desc='Toggle between split and unsplit sides of stack'
              ),
          # Emacs programs launched using the key chord CTRL+e followed by 'key'
-         KeyChord(["control"],"e", [
+         KeyChord([mod],"e", [
              Key([], "e",
                  lazy.spawn("emacsclient -c -a 'emacs'"),
-                 desc='Launch Emacs'
+                 desc='Emacsclient Dashboard'
+                 ),
+             Key([], "a",
+                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/\")'"),
+                 desc='Emacsclient EMMS (music)'
                  ),
              Key([], "b",
                  lazy.spawn("emacsclient -c -a 'emacs' --eval '(ibuffer)'"),
-                 desc='Launch ibuffer inside Emacs'
+                 desc='Emacsclient Ibuffer'
                  ),
              Key([], "d",
                  lazy.spawn("emacsclient -c -a 'emacs' --eval '(dired nil)'"),
-                 desc='Launch dired inside Emacs'
+                 desc='Emacsclient Dired'
                  ),
              Key([], "i",
                  lazy.spawn("emacsclient -c -a 'emacs' --eval '(erc)'"),
-                 desc='Launch erc inside Emacs'
-                 ),
-             Key([], "m",
-                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(mu4e)'"),
-                 desc='Launch mu4e inside Emacs'
+                 desc='Emacsclient ERC (IRC)'
                  ),
              Key([], "n",
                  lazy.spawn("emacsclient -c -a 'emacs' --eval '(elfeed)'"),
-                 desc='Launch elfeed inside Emacs'
+                 desc='Emacsclient Elfeed (RSS)'
                  ),
              Key([], "s",
                  lazy.spawn("emacsclient -c -a 'emacs' --eval '(eshell)'"),
-                 desc='Launch the eshell inside Emacs'
+                 desc='Emacsclient Eshell'
                  ),
              Key([], "v",
                  lazy.spawn("emacsclient -c -a 'emacs' --eval '(+vterm/here nil)'"),
-                 desc='Launch vterm inside Emacs'
+                 desc='Emacsclient Vterm'
+                 ),
+             Key([], "w",
+                 lazy.spawn("emacsclient -c -a 'emacs' --eval '(doom/window-maximize-buffer(eww \"distro.tube\"))'"),
+                 desc='Emacsclient EWW Browser'
                  )
          ]),
          # Dmenu scripts launched using the key chord SUPER+p followed by 'key'
          KeyChord([mod], "p", [
+             Key([], "h",
+                 lazy.spawn("dm-hub"),
+                 desc='List all dmscripts'
+                 ),
+             Key([], "a",
+                 lazy.spawn("dm-sounds"),
+                 desc='Choose ambient sound'
+                 ),
+             Key([], "b",
+                 lazy.spawn("dm-setbg"),
+                 desc='Set background'
+                 ),
+             Key([], "c",
+                 lazy.spawn("dtos-colorscheme"),
+                 desc='Choose color scheme'
+                 ),
              Key([], "e",
-                 lazy.spawn("./dmscripts/dm-confedit"),
+                 lazy.spawn("dm-confedit"),
                  desc='Choose a config file to edit'
                  ),
              Key([], "i",
-                 lazy.spawn("./dmscripts/dm-maim"),
-                 desc='Take screenshots via dmenu'
+                 lazy.spawn("dm-maim"),
+                 desc='Take a screenshot'
                  ),
              Key([], "k",
-                 lazy.spawn("./dmscripts/dm-kill"),
-                 desc='Kill processes via dmenu'
-                 ),
-             Key([], "l",
-                 lazy.spawn("./dmscripts/dm-logout"),
-                 desc='A logout menu'
+                 lazy.spawn("dm-kill"),
+                 desc='Kill processes '
                  ),
              Key([], "m",
-                 lazy.spawn("./dmscripts/dm-man"),
-                 desc='Search manpages in dmenu'
+                 lazy.spawn("dm-man"),
+                 desc='View manpages'
+                 ),
+             Key([], "n",
+                 lazy.spawn("dm-note"),
+                 desc='Store and copy notes'
                  ),
              Key([], "o",
-                 lazy.spawn("./dmscripts/dm-bookman"),
-                 desc='Search your qutebrowser bookmarks and quickmarks'
-                 ),
-             Key([], "r",
-                 lazy.spawn("./dmscripts/dm-reddit"),
-                 desc='Search reddit via dmenu'
-                 ),
-             Key([], "s",
-                 lazy.spawn("./dmscripts/dm-websearch"),
-                 desc='Search various search engines via dmenu'
+                 lazy.spawn("dm-bookman"),
+                 desc='Browser bookmarks'
                  ),
              Key([], "p",
-                 lazy.spawn("passmenu"),
-                 desc='Retrieve passwords with dmenu'
+                 lazy.spawn("passmenu -p \"Pass: \""),
+                 desc='Logout menu'
+                 ),
+             Key([], "q",
+                 lazy.spawn("dm-logout"),
+                 desc='Logout menu'
+                 ),
+             Key([], "r",
+                 lazy.spawn("dm-radio"),
+                 desc='Listen to online radio'
+                 ),
+             Key([], "s",
+                 lazy.spawn("dm-websearch"),
+                 desc='Search various engines'
+                 ),
+             Key([], "t",
+                 lazy.spawn("dm-translate"),
+                 desc='Translate text'
                  )
          ])
 ]

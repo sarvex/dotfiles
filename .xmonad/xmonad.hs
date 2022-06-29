@@ -555,7 +555,6 @@ myKeys c =
   , ("M-p a", addName "Choose ambient sound"   $ spawn "dm-sounds")
   , ("M-p b", addName "Set background"         $ spawn "dm-setbg")
   , ("M-p c", addName "Choose color scheme"    $ spawn "dtos-colorscheme")
-  , ("M-p C", addName "Pick color from scheme" $ spawn "dm-colpick")
   , ("M-p e", addName "Edit config files"      $ spawn "dm-confedit")
   , ("M-p i", addName "Take a screenshot"      $ spawn "dm-maim")
   , ("M-p k", addName "Kill processes"         $ spawn "dm-kill")
@@ -657,15 +656,14 @@ myKeys c =
   -- Emacs (SUPER-e followed by a key)
   ^++^ subKeys "Emacs"
   [ ("M-e e", addName "Emacsclient Dashboard"    $ spawn (myEmacs ++ ("--eval '(dashboard-refresh-buffer)'")))
+  , ("M-e a", addName "Emacsclient EMMS (music)" $ spawn (myEmacs ++ ("--eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/\")'")))
   , ("M-e b", addName "Emacsclient Ibuffer"      $ spawn (myEmacs ++ ("--eval '(ibuffer)'")))
   , ("M-e d", addName "Emacsclient Dired"        $ spawn (myEmacs ++ ("--eval '(dired nil)'")))
   , ("M-e i", addName "Emacsclient ERC (IRC)"    $ spawn (myEmacs ++ ("--eval '(erc)'")))
   , ("M-e n", addName "Emacsclient Elfeed (RSS)" $ spawn (myEmacs ++ ("--eval '(elfeed)'")))
   , ("M-e s", addName "Emacsclient Eshell"       $ spawn (myEmacs ++ ("--eval '(eshell)'")))
-  , ("M-e t", addName "Emacsclient Mastodon"     $ spawn (myEmacs ++ ("--eval '(mastodon)'")))
   , ("M-e v", addName "Emacsclient Vterm"        $ spawn (myEmacs ++ ("--eval '(+vterm/here nil)'")))
-  , ("M-e w", addName "Emacsclient EWW browser"  $ spawn (myEmacs ++ ("--eval '(doom/window-maximize-buffer(eww \"distro.tube\"))'")))
-  , ("M-e a", addName "Emacsclient EMMS (music)" $ spawn (myEmacs ++ ("--eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/\")'")))]
+  , ("M-e w", addName "Emacsclient EWW Browser"  $ spawn (myEmacs ++ ("--eval '(doom/window-maximize-buffer(eww \"distro.tube\"))'")))]
 
   -- Multimedia Keys
   ^++^ subKeys "Multimedia keys"
