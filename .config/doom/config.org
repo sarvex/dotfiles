@@ -42,7 +42,7 @@
 - [[#neotree][NEOTREE]]
 - [[#open-specific-files][OPEN SPECIFIC FILES]]
 - [[#org-mode][ORG MODE]]
-  - [[#set-font-sizes-for-each-header-level-in-org][Set font sizes for each header level in Org]]
+  - [[#org-fonts][Org fonts]]
   - [[#org-export][Org-export]]
   - [[#org-journal][Org-journal]]
   - [[#org-publish][Org-publish]]
@@ -504,13 +504,13 @@ ERC is a built-in Emacs IRC client.
 * EVALUATE ELISP EXPRESSIONS
 Changing some keybindings from their defaults to better fit with Doom Emacs, and to avoid conflicts with my window managers which sometimes use the control key in their keybindings.  By default, Doom Emacs does not use 'SPC e' for anything, so I choose to use the format 'SPC e' plus 'key' for these (I also use 'SPC e' for 'eww' keybindings).
 
-| COMMAND         | DESCRIPTION                                    | KEYBINDING |
-|-----------------+------------------------------------------------+------------|
-| eval-buffer     | /Evaluate elisp in buffer/                       | SPC e b    |
-| eval-defun      | /Evaluate the defun containing or after point/   | SPC e d    |
-| eval-expression | /Evaluate an elisp expression/                   | SPC e e    |
-| eval-last-sexp  | /Evaluate elisp expression before point/         | SPC e l    |
-| eval-region     | /Evaluate elisp in region/                       | SPC e r    |
+| COMMAND         | DESCRIPTION                                  | KEYBINDING |
+|-----------------+----------------------------------------------+------------|
+| eval-buffer     | /Evaluate elisp in buffer/                     | SPC e b    |
+| eval-defun      | /Evaluate the defun containing or after point/ | SPC e d    |
+| eval-expression | /Evaluate an elisp expression/                 | SPC e e    |
+| eval-last-sexp  | /Evaluate elisp expression before point/       | SPC e l    |
+| eval-region     | /Evaluate elisp in region/                     | SPC e r    |
 
 #+Begin_src emacs-lisp
 (map! :leader
@@ -544,9 +544,9 @@ Settings related to fonts within Doom Emacs:
 + 'font-lock-keyword-face' -- for keywords with special significance like 'setq' in elisp.
 
 #+BEGIN_SRC emacs-lisp
-(setq doom-font (font-spec :family "Source Code Pro" :size 15)
+(setq doom-font (font-spec :family "JetBrains Mono" :size 15)
       doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15)
-      doom-big-font (font-spec :family "Source Code Pro" :size 24))
+      doom-big-font (font-spec :family "JetBrains Mono" :size 24))
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
@@ -758,7 +758,7 @@ I wrapped most of this block in (after! org).  Without this, my settings might b
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
         org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
-        org-superstar-item-bullet-alist '((?+ . ?➤) (?- . ?✦)) ; changes +/- symbols in item lists
+        org-superstar-itembullet-alist '((?+ . ?➤) (?- . ?✦)) ; changes +/- symbols in item lists
         org-log-done 'time
         org-hide-emphasis-markers t
         ;; ex. of org-link-abbrev-alist in action
@@ -782,11 +782,11 @@ I wrapped most of this block in (after! org).  Without this, my settings might b
              "CANCELLED(c)" )))) ; Task has been cancelled
 #+END_SRC
 
-** Set font sizes for each header level in Org
-You can set the Org heading levels to be different font sizes.  So I choose to have level 1 headings to be 140% in height, level 2 to be 130%, etc.  Other interesting things you could play with include adding :foreground color and/or :background color if you want to override the theme colors.
+** Org fonts
+I have created an interactive function for each color scheme (M-x org-colors-*).  These functions will set appropriate colors and font attributes for org-level fonts and the org-table font.
 #+begin_src emacs-lisp
 
-(defun org-headers-doom-one ()
+(defun org-colors-doom-one ()
   "Enable Doom One colors for Org headers."
   (interactive)
   (dolist
@@ -797,11 +797,12 @@ You can set the Org heading levels to be different font sizes.  So I choose to h
          (org-level-4 1.4 "#da8548" semi-bold)
          (org-level-5 1.3 "#5699af" normal)
          (org-level-6 1.2 "#a9a1e1" normal)
-         (org-level-7 1.1 "#4bd5bd" normal)
+         (org-level-7 1.1 "#46d9ff" normal)
          (org-level-8 1.0 "#ff6c6b" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-dracula ()
+(defun org-colors-dracula ()
   "Enable Dracula colors for Org headers."
   (interactive)
   (dolist
@@ -814,9 +815,10 @@ You can set the Org heading levels to be different font sizes.  So I choose to h
          (org-level-6 1.2 "#caa9fa" normal)
          (org-level-7 1.1 "#5af78e" normal)
          (org-level-8 1.0 "#ff92d0" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-gruvbox-dark ()
+(defun org-colors-gruvbox-dark ()
   "Enable Gruvbox Dark colors for Org headers."
   (interactive)
   (dolist
@@ -829,9 +831,10 @@ You can set the Org heading levels to be different font sizes.  So I choose to h
          (org-level-6 1.2 "#d3869b" normal)
          (org-level-7 1.1 "#d79921" normal)
          (org-level-8 1.0 "#8ec07c" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-monokai-pro ()
+(defun org-colors-monokai-pro ()
   "Enable Monokai Pro colors for Org headers."
   (interactive)
   (dolist
@@ -844,9 +847,10 @@ You can set the Org heading levels to be different font sizes.  So I choose to h
          (org-level-6 1.2 "#ffd866" normal)
          (org-level-7 1.1 "#78dce8" normal)
          (org-level-8 1.0 "#ab9df2" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-nord ()
+(defun org-colors-nord ()
   "Enable Nord colors for Org headers."
   (interactive)
   (dolist
@@ -859,9 +863,10 @@ You can set the Org heading levels to be different font sizes.  So I choose to h
          (org-level-6 1.2 "#88c0d0" normal)
          (org-level-7 1.1 "#81a1c1" normal)
          (org-level-8 1.0 "#b48ead" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-oceanic-next ()
+(defun org-colors-oceanic-next ()
   "Enable Oceanic Next colors for Org headers."
   (interactive)
   (dolist
@@ -874,9 +879,10 @@ You can set the Org heading levels to be different font sizes.  So I choose to h
          (org-level-6 1.2 "#ec5f67" normal)
          (org-level-7 1.1 "#6699cc" normal)
          (org-level-8 1.0 "#c594c5" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-palenight ()
+(defun org-colors-palenight ()
   "Enable Palenight colors for Org headers."
   (interactive)
   (dolist
@@ -889,9 +895,10 @@ You can set the Org heading levels to be different font sizes.  So I choose to h
          (org-level-6 1.2 "#e1acff" normal)
          (org-level-7 1.1 "#f07178" normal)
          (org-level-8 1.0 "#ddffa7" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-solarized-dark ()
+(defun org-colors-solarized-dark ()
   "Enable Solarized Dark colors for Org headers."
   (interactive)
   (dolist
@@ -904,9 +911,10 @@ You can set the Org heading levels to be different font sizes.  So I choose to h
          (org-level-6 1.2 "#6c71c4" normal)
          (org-level-7 1.1 "#2aa198" normal)
          (org-level-8 1.0 "#657b83" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-solarized-light ()
+(defun org-colors-solarized-light ()
   "Enable Solarized Light colors for Org headers."
   (interactive)
   (dolist
@@ -919,9 +927,10 @@ You can set the Org heading levels to be different font sizes.  So I choose to h
          (org-level-6 1.2 "#6c71c4" normal)
          (org-level-7 1.1 "#2aa198" normal)
          (org-level-8 1.0 "#657b83" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-tomorrow-night ()
+(defun org-colors-tomorrow-night ()
   "Enable Tomorrow Night colors for Org headers."
   (interactive)
   (dolist
@@ -934,7 +943,8 @@ You can set the Org heading levels to be different font sizes.  So I choose to h
          (org-level-6 1.2 "#70c0ba" normal)
          (org-level-7 1.1 "#b77ee0" normal)
          (org-level-8 1.0 "#9ec400" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
 #+end_src
 
@@ -1220,14 +1230,14 @@ Emacs provides a 'zap-to-char' command that kills from the current point to a ch
 | SPC z e                   | deletes all chars to the next occurrence of 'e'            |
 | SPC u 2 SPC z e           | deletes all chars to the second occurrence of 'e'          |
 | SPC u - SPC z e           | deletes all chars to the previous occurrence of 'e'        |
-| SPC u -2 SPC z e          | deletes all chars to the fourth previous occurrence of 'e' |
+| SPC u - 2 SPC z e         | deletes all chars to the second previous occurrence of 'e' |
 | SPC u 1 0 0 SPC u SPC z e | deletes all chars to the 100th occurrence of 'e'           |
 
-=TIP:= The universal argument (SPC u) can only take a single integer by default.  If you need to use a multi-digit number (like 100 in the last example in the table above), then you must terminate the universal argument with another 'SPC u' after typing the number.
+=TIP=: The universal argument (SPC u) can only take a single integer by default.  If you need to use a multi-digit number (like 100 in the last example in the table above), then you must terminate the universal argument with another 'SPC u' after typing the number.
 
 'zap-up-to-char' is an alternative command that does not zap the char specified.  It is binded to 'SPC Z'.  It can also be used in conjunction with the universal argument 'SPC u' in similar fashion to the the 'zap-to-char' examples above.
 
-=NOTE:= Vim (evil mode) has similar functionality builtin.  You can delete to the next occurrence of 'e' by using 'dte' in normal.  To delete to the next occurrence of 'e' including the 'e', then you would use 'dfe'.  And you can modify 'dt' and 'df' by prefixing them with numbers, so '2dte' would delete to the second occurrence of 'e'.
+=NOTE=:  Vim (evil mode) has similar functionality builtin.  You can delete to the next occurrence of 'e' by using 'dte' in normal.  To delete to the next occurrence of 'e' including the 'e', then you would use 'dfe'.  And you can modify 'dt' and 'df' by prefixing them with numbers, so '2dte' would delete to the second occurrence of 'e'.
 
 #+BEGIN_SRC emacs-lisp
 (map! :leader

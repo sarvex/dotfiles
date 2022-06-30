@@ -261,9 +261,9 @@ List of keybindings (SPC h b b)")
        :desc "Eww web browser" "w" #'eww
        :desc "Eww reload page" "R" #'eww-reload))
 
-(setq doom-font (font-spec :family "Source Code Pro" :size 15)
+(setq doom-font (font-spec :family "JetBrains Mono" :size 15)
       doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15)
-      doom-big-font (font-spec :family "Source Code Pro" :size 24))
+      doom-big-font (font-spec :family "JetBrains Mono" :size 24))
 (after! doom-themes
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t))
@@ -369,7 +369,7 @@ List of keybindings (SPC h b b)")
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
         org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
-        org-superstar-item-bullet-alist '((?+ . ?➤) (?- . ?✦)) ; changes +/- symbols in item lists
+        org-superstar-itembullet-alist '((?+ . ?➤) (?- . ?✦)) ; changes +/- symbols in item lists
         org-log-done 'time
         org-hide-emphasis-markers t
         ;; ex. of org-link-abbrev-alist in action
@@ -392,7 +392,7 @@ List of keybindings (SPC h b b)")
              "DONE(d)"           ; Task has been completed
              "CANCELLED(c)" )))) ; Task has been cancelled
 
-(defun org-headers-doom-one ()
+(defun org-colors-doom-one ()
   "Enable Doom One colors for Org headers."
   (interactive)
   (dolist
@@ -403,11 +403,12 @@ List of keybindings (SPC h b b)")
          (org-level-4 1.4 "#da8548" semi-bold)
          (org-level-5 1.3 "#5699af" normal)
          (org-level-6 1.2 "#a9a1e1" normal)
-         (org-level-7 1.1 "#4bd5bd" normal)
+         (org-level-7 1.1 "#46d9ff" normal)
          (org-level-8 1.0 "#ff6c6b" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-dracula ()
+(defun org-colors-dracula ()
   "Enable Dracula colors for Org headers."
   (interactive)
   (dolist
@@ -420,9 +421,10 @@ List of keybindings (SPC h b b)")
          (org-level-6 1.2 "#caa9fa" normal)
          (org-level-7 1.1 "#5af78e" normal)
          (org-level-8 1.0 "#ff92d0" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-gruvbox-dark ()
+(defun org-colors-gruvbox-dark ()
   "Enable Gruvbox Dark colors for Org headers."
   (interactive)
   (dolist
@@ -435,9 +437,10 @@ List of keybindings (SPC h b b)")
          (org-level-6 1.2 "#d3869b" normal)
          (org-level-7 1.1 "#d79921" normal)
          (org-level-8 1.0 "#8ec07c" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-monokai-pro ()
+(defun org-colors-monokai-pro ()
   "Enable Monokai Pro colors for Org headers."
   (interactive)
   (dolist
@@ -450,9 +453,10 @@ List of keybindings (SPC h b b)")
          (org-level-6 1.2 "#ffd866" normal)
          (org-level-7 1.1 "#78dce8" normal)
          (org-level-8 1.0 "#ab9df2" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-nord ()
+(defun org-colors-nord ()
   "Enable Nord colors for Org headers."
   (interactive)
   (dolist
@@ -465,9 +469,10 @@ List of keybindings (SPC h b b)")
          (org-level-6 1.2 "#88c0d0" normal)
          (org-level-7 1.1 "#81a1c1" normal)
          (org-level-8 1.0 "#b48ead" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-oceanic-next ()
+(defun org-colors-oceanic-next ()
   "Enable Oceanic Next colors for Org headers."
   (interactive)
   (dolist
@@ -480,9 +485,10 @@ List of keybindings (SPC h b b)")
          (org-level-6 1.2 "#ec5f67" normal)
          (org-level-7 1.1 "#6699cc" normal)
          (org-level-8 1.0 "#c594c5" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-palenight ()
+(defun org-colors-palenight ()
   "Enable Palenight colors for Org headers."
   (interactive)
   (dolist
@@ -495,9 +501,10 @@ List of keybindings (SPC h b b)")
          (org-level-6 1.2 "#e1acff" normal)
          (org-level-7 1.1 "#f07178" normal)
          (org-level-8 1.0 "#ddffa7" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-solarized-dark ()
+(defun org-colors-solarized-dark ()
   "Enable Solarized Dark colors for Org headers."
   (interactive)
   (dolist
@@ -510,9 +517,10 @@ List of keybindings (SPC h b b)")
          (org-level-6 1.2 "#6c71c4" normal)
          (org-level-7 1.1 "#2aa198" normal)
          (org-level-8 1.0 "#657b83" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-solarized-light ()
+(defun org-colors-solarized-light ()
   "Enable Solarized Light colors for Org headers."
   (interactive)
   (dolist
@@ -525,9 +533,10 @@ List of keybindings (SPC h b b)")
          (org-level-6 1.2 "#6c71c4" normal)
          (org-level-7 1.1 "#2aa198" normal)
          (org-level-8 1.0 "#657b83" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-headers-tomorrow-night ()
+(defun org-colors-tomorrow-night ()
   "Enable Tomorrow Night colors for Org headers."
   (interactive)
   (dolist
@@ -540,7 +549,8 @@ List of keybindings (SPC h b b)")
          (org-level-6 1.2 "#70c0ba" normal)
          (org-level-7 1.1 "#b77ee0" normal)
          (org-level-8 1.0 "#9ec400" normal)))
-    (set-face-attribute (nth 0 face) nil :font "Ubuntu" :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face))))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
 (use-package ox-man)
 (use-package ox-gemini)
