@@ -552,6 +552,9 @@ List of keybindings (SPC h b b)")
     (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
+;; Load our desired org-colors-* theme on startup
+(org-colors-doom-one)
+
 (use-package ox-man)
 (use-package ox-gemini)
 

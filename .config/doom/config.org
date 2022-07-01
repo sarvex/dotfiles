@@ -946,6 +946,9 @@ I have created an interactive function for each color scheme (M-x org-colors-*).
     (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
+;; Load our desired org-colors-* theme on startup
+(org-colors-doom-one)
+
 #+end_src
 
 ** Org-export
