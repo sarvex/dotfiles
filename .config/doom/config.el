@@ -324,9 +324,12 @@ List of keybindings (SPC h b b)")
 
 (custom-set-faces
  '(markdown-header-face ((t (:inherit font-lock-function-name-face :weight bold :family "variable-pitch"))))
- '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 1.8))))
- '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.4))))
- '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.2)))))
+ '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 1.7))))
+ '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.6))))
+ '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.5))))
+ '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.4))))
+ '(markdown-header-face-5 ((t (:inherit markdown-header-face :height 1.3))))
+ '(markdown-header-face-6 ((t (:inherit markdown-header-face :height 1.2)))))
 
 (setq minimap-window-location 'right)
 (map! :leader
@@ -392,7 +395,7 @@ List of keybindings (SPC h b b)")
              "DONE(d)"           ; Task has been completed
              "CANCELLED(c)" )))) ; Task has been cancelled
 
-(defun org-colors-doom-one ()
+(defun dt/org-colors-doom-one ()
   "Enable Doom One colors for Org headers."
   (interactive)
   (dolist
@@ -408,7 +411,7 @@ List of keybindings (SPC h b b)")
     (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-colors-dracula ()
+(defun dt/org-colors-dracula ()
   "Enable Dracula colors for Org headers."
   (interactive)
   (dolist
@@ -424,7 +427,7 @@ List of keybindings (SPC h b b)")
     (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-colors-gruvbox-dark ()
+(defun dt/org-colors-gruvbox-dark ()
   "Enable Gruvbox Dark colors for Org headers."
   (interactive)
   (dolist
@@ -440,7 +443,7 @@ List of keybindings (SPC h b b)")
     (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-colors-monokai-pro ()
+(defun dt/org-colors-monokai-pro ()
   "Enable Monokai Pro colors for Org headers."
   (interactive)
   (dolist
@@ -456,7 +459,7 @@ List of keybindings (SPC h b b)")
     (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-colors-nord ()
+(defun dt/org-colors-nord ()
   "Enable Nord colors for Org headers."
   (interactive)
   (dolist
@@ -472,7 +475,7 @@ List of keybindings (SPC h b b)")
     (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-colors-oceanic-next ()
+(defun dt/org-colors-oceanic-next ()
   "Enable Oceanic Next colors for Org headers."
   (interactive)
   (dolist
@@ -488,7 +491,7 @@ List of keybindings (SPC h b b)")
     (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-colors-palenight ()
+(defun dt/org-colors-palenight ()
   "Enable Palenight colors for Org headers."
   (interactive)
   (dolist
@@ -504,7 +507,7 @@ List of keybindings (SPC h b b)")
     (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-colors-solarized-dark ()
+(defun dt/org-colors-solarized-dark ()
   "Enable Solarized Dark colors for Org headers."
   (interactive)
   (dolist
@@ -520,7 +523,7 @@ List of keybindings (SPC h b b)")
     (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-colors-solarized-light ()
+(defun dt/org-colors-solarized-light ()
   "Enable Solarized Light colors for Org headers."
   (interactive)
   (dolist
@@ -536,7 +539,7 @@ List of keybindings (SPC h b b)")
     (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun org-colors-tomorrow-night ()
+(defun dt/org-colors-tomorrow-night ()
   "Enable Tomorrow Night colors for Org headers."
   (interactive)
   (dolist
@@ -552,8 +555,8 @@ List of keybindings (SPC h b b)")
     (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-;; Load our desired org-colors-* theme on startup
-(org-colors-doom-one)
+;; Load our desired dt/org-colors-* theme on startup
+(dt/org-colors-doom-one)
 
 (use-package ox-man)
 (use-package ox-gemini)
@@ -672,9 +675,6 @@ List of keybindings (SPC h b b)")
          :exclude ".*/org-html-themes/.*"
          :publishing-function org-publish-attachment)
       ))
-
-(after! org-roam
-  (setq org-roam-directory "~/nc/Roam"))
 
 (use-package! org-auto-tangle
   :defer t
