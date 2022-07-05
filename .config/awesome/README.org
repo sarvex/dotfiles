@@ -130,17 +130,15 @@ in the config. Setting values for things like font, terminal and editor
 means you only have to change the value here to make changes globally.
 
 #+BEGIN_SRC lua
-local modkey       = "Mod4"
-local altkey       = "Mod1"
-local ctrlkey      = "Control"
-
--- personal variables
-local terminal          = "alacritty"
-local browser           = "qutebrowser"
-local editor            = os.getenv("EDITOR") or "vim"
-local emacs             = "emacsclient -c -a 'emacs' "
-local mediaplayer       = "mpv"
-local soundplayer       = "ffplay -nodisp -autoexit " -- The program that will play system sounds
+local modkey      = "Mod4"
+local altkey      = "Mod1"
+local ctrlkey     = "Control"
+local terminal    = "alacritty"
+local browser     = "qutebrowser"
+local editor      = os.getenv("EDITOR") or "vim"
+local emacs       = "emacsclient -c -a 'emacs' "
+local mediaplayer = "mpv"
+local soundplayer = "ffplay -nodisp -autoexit " -- The program that will play system sounds
 #+END_SRC
 
 * Tags and Layouts
@@ -313,25 +311,21 @@ root.buttons(my_table.join(
 #+END_SRC
 
 * Keybindings
-| Keybinding                | Action                                                                   |
-|---------------------------+--------------------------------------------------------------------------|
-| MODKEY + RETURN          | opens terminal (alacritty is the terminal but can be easily changed)     |
-| MODKEY + SHIFT + RETURN  | opens run launcher (dmenu is the run launcher but can be easily changed) |
-| MODKEY + SHIFT + c       | closes window with focus                                                 |
-| MODKEY + SHIFT + r       | restarts awesome                                                         |
-| MODKEY + SHIFT + q       | quits awesome                                                            |
-| MODKEY + 1-9             | switch focus to workspace (1-9)                                          |
-| MODKEY + SHIFT + 1-9     | send focused window to workspace (1-9)                                   |
-| MODKEY + j               | switches focus between windows in the stack, going down                  |
-| MODKEY + k               | switches focus between windows in the stack, going up                    |
-| MODKEY + h               | switches focus between windows in the stack, going left                  |
-| MODKEY + l               | switches focus between windows in the stack, going right                 |
-| MODKEY + SHIFT + j       | rotates the windows in the stack, going down                             |
-| MODKEY + SHIFT + k       | rotates the windows in the stack, going up                               |
-| MODKEY + SHIFT + h       | rotates the windows in the stack, going left                             |
-| MODKEY + SHIFT + l       | rotates the windows in the stack, going right                            |
-| MODKEY + period          | switch focus to next monitor                                             |
-| MODKEY + comma           | switch focus to prev monitor                                             |
+| Keybinding              | Action                                                |
+|-------------------------+-------------------------------------------------------|
+| MODKEY + RETURN         | opens terminal (alacritty, but can be easily changed) |
+| MODKEY + SHIFT + RETURN | opens run launcher (dmenu, but can be easily changed) |
+| MODKEY + SHIFT + c      | closes window with focus                              |
+| MODKEY + SHIFT + r      | restarts awesome                                      |
+| MODKEY + SHIFT + q      | quits awesome                                         |
+| MODKEY + 1-9            | switch focus to workspace (1-9)                       |
+| MODKEY + SHIFT + 1-9    | send focused window to workspace (1-9)                |
+| MODKEY + j,k            | switches focus between windows in the stack,          |
+| MODKEY + SHIFT + j,k    | rotates the windows in the stack                      |
+| MODKEY + SHIFT + h,l    | Decrease/increase master width factor                 |
+| ALT + h,j,k,l           | switches focus between windows across all monitors    |
+| MODKEY + period         | switch focus to next monitor                          |
+| MODKEY + comma          | switch focus to prev monitor                          |
 
 
 #+BEGIN_SRC lua
@@ -394,7 +388,7 @@ globalkeys = my_table.join(
     awful.key({ modkey, altkey  }, "r", function () awful.util.spawn( "dm-radio" ) end,
         {description = "Listen to online radio" , group = "dmenu scripts" }),
     awful.key({ modkey, altkey  }, "s", function () awful.util.spawn( "dm-websearch" ) end,
-        {description = "Seaarch various engines" , group = "dmenu scripts" }),
+        {description = "Search various engines" , group = "dmenu scripts" }),
     awful.key({ modkey, altkey  }, "t", function () awful.util.spawn( "dm-translate" ) end,
         {description = "Translate text" , group = "dmenu scripts" }),
 
@@ -490,7 +484,7 @@ globalkeys = my_table.join(
     -- On the fly useless gaps change
     awful.key({ altkey, ctrlkey }, "j", function () lain.util.useless_gaps_resize(1) end,
         {description = "increment useless gaps", group = "tag"}),
-    awful.key({ altkey, ctrlkey }, "l", function () lain.util.useless_gaps_resize(-1) end,
+    awful.key({ altkey, ctrlkey }, "k", function () lain.util.useless_gaps_resize(-1) end,
         {description = "decrement useless gaps", group = "tag"}),
 
     -- Dynamic tagging
@@ -519,7 +513,7 @@ globalkeys = my_table.join(
         {description = "decrease the number of columns", group = "layout"}),
     awful.key({ modkey,         }, "Tab", function () awful.layout.inc( 1) end,
         {description = "select next", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "Tab", function () awful.layout.inc(-1) end,
+    awful.key({ modkey, "Shift" }, "Tab", function () awful.layout.inc(-1) end,
         {description = "select previous", group = "layout"}),
 
     awful.key({ modkey, ctrlkey }, "n",
@@ -586,15 +580,6 @@ globalkeys = my_table.join(
     -- Copy clipboard to primary (gtk to terminals)
     awful.key({ modkey }, "v", function () awful.spawn.with_shell("xsel -b | xsel") end,
         {description = "copy gtk to terminal", group = "hotkeys"}),
-
-
-    -- Default
-    --[[ Menubar
-
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "super"})
-    --]]
-
     awful.key({ altkey, "Shift" }, "x",
               function ()
                   awful.prompt.run {
@@ -920,7 +905,7 @@ awful.spawn.with_shell("lxsession")
 awful.spawn.with_shell("picom")
 awful.spawn.with_shell("nm-applet")
 awful.spawn.with_shell("volumeicon")
-awful.spawn.with_shell("sleep 2 && conky -c $HOME/.config/conky/xmonad/" .. "doom-one" .. "-01.conkyrc")
+awful.spawn.with_shell("sleep 2 && conky -c $HOME/.config/conky/awesome/" .. "doom-one" .. "-01.conkyrc")
 awful.spawn.with_shell("/usr/bin/emacs --daemon")
 #+END_SRC
 
