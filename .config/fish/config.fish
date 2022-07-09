@@ -340,6 +340,9 @@ alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/mas
 # Unlock LBRY tips
 alias tips="lbrynet txo spend --type=support --is_not_my_input --blocking"
 
+# Mocp must be launched with bash instead of Fish!
+alias mocp="bash -c mocp"
+
 ### DTOS ###
 # Copy/paste all content of /etc/dtos over to home folder. A backup of config is created. (Be careful running this!)
 alias dtoscopy='[ -d ~/.config ] || mkdir ~/.config && cp -Rf ~/.config ~/.config-backup-(date +%Y.%m.%d-%H.%M.%S) && cp -rf /etc/dtos/* ~'
