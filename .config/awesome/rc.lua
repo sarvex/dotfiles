@@ -241,6 +241,7 @@ globalkeys = my_table.join(
     awful.key({ modkey, "Shift" }, "Return", function () awful.util.spawn("dm-run") end,
       {description = "Run launcher", group = "hotkeys"}),
 
+    -- Dmscripts (Super + p followed by KEY)
     awful.key( {modkey}, "p", function()
       local grabber
       grabber =
@@ -271,6 +272,7 @@ globalkeys = my_table.join(
         {description = "followed by KEY", group = "Dmscripts"}
         ),
 
+    -- Emacs (Super + e followed by KEY)
     awful.key( {modkey}, "e", function()
       local grabber
       grabber =
