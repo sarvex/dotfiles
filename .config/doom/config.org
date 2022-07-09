@@ -1127,11 +1127,14 @@ Perspective provides multiple named workspaces (or "perspectives") in Emacs, sim
 #+end_src
 
 * RAINBOW MODE
-Rainbox mode displays the actual color for any hex value color.  It's such a nice feature that I wanted it turned on all the time, regardless of what mode I am in.  The following creates a global minor mode for rainbow-mode and enables it.
+Rainbox mode displays the actual color for any hex value color.  It's such a nice feature that I wanted it turned on all the time, regardless of what mode I am in.  The following creates a global minor mode for rainbow-mode and enables it (exception: org-agenda-mode since rainbow-mode destroys all highlighting in org-agenda).
 
 #+begin_src emacs-lisp
 (define-globalized-minor-mode global-rainbow-mode rainbow-mode
-  (lambda () (rainbow-mode 1)))
+  (lambda ()
+    (when (not (memq major-mode
+                (list 'org-agenda-mode)))
+     (rainbow-mode 1))))
 (global-rainbow-mode 1 )
 #+end_src
 
