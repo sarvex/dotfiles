@@ -64,17 +64,15 @@ local chosen_theme = themes[1]
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
 
-local modkey       = "Mod4"
-local altkey       = "Mod1"
-local ctrlkey      = "Control"
-
--- personal variables
-local terminal          = "alacritty"
-local browser           = "qutebrowser"
-local editor            = os.getenv("EDITOR") or "vim"
-local emacs             = "emacsclient -c -a 'emacs' "
-local mediaplayer       = "mpv"
-local soundplayer       = "ffplay -nodisp -autoexit " -- The program that will play system sounds
+local modkey      = "Mod4"
+local altkey      = "Mod1"
+local ctrlkey     = "Control"
+local terminal    = "alacritty"
+local browser     = "qutebrowser"
+local editor      = os.getenv("EDITOR") or "vim"
+local emacs       = "emacsclient -c -a 'emacs' "
+local mediaplayer = "mpv"
+local soundplayer = "ffplay -nodisp -autoexit " -- The program that will play system sounds
 
 -- awesome variables
 awful.util.terminal = terminal
@@ -271,7 +269,7 @@ globalkeys = my_table.join(
     awful.key({ modkey, altkey  }, "r", function () awful.util.spawn( "dm-radio" ) end,
         {description = "Listen to online radio" , group = "dmenu scripts" }),
     awful.key({ modkey, altkey  }, "s", function () awful.util.spawn( "dm-websearch" ) end,
-        {description = "Seaarch various engines" , group = "dmenu scripts" }),
+        {description = "Search various engines" , group = "dmenu scripts" }),
     awful.key({ modkey, altkey  }, "t", function () awful.util.spawn( "dm-translate" ) end,
         {description = "Translate text" , group = "dmenu scripts" }),
 
@@ -367,7 +365,7 @@ globalkeys = my_table.join(
     -- On the fly useless gaps change
     awful.key({ altkey, ctrlkey }, "j", function () lain.util.useless_gaps_resize(1) end,
         {description = "increment useless gaps", group = "tag"}),
-    awful.key({ altkey, ctrlkey }, "l", function () lain.util.useless_gaps_resize(-1) end,
+    awful.key({ altkey, ctrlkey }, "k", function () lain.util.useless_gaps_resize(-1) end,
         {description = "decrement useless gaps", group = "tag"}),
 
     -- Dynamic tagging
@@ -396,7 +394,7 @@ globalkeys = my_table.join(
         {description = "decrease the number of columns", group = "layout"}),
     awful.key({ modkey,         }, "Tab", function () awful.layout.inc( 1) end,
         {description = "select next", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "Tab", function () awful.layout.inc(-1) end,
+    awful.key({ modkey, "Shift" }, "Tab", function () awful.layout.inc(-1) end,
         {description = "select previous", group = "layout"}),
 
     awful.key({ modkey, ctrlkey }, "n",
@@ -463,15 +461,6 @@ globalkeys = my_table.join(
     -- Copy clipboard to primary (gtk to terminals)
     awful.key({ modkey }, "v", function () awful.spawn.with_shell("xsel -b | xsel") end,
         {description = "copy gtk to terminal", group = "hotkeys"}),
-
-
-    -- Default
-    --[[ Menubar
-
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "super"})
-    --]]
-
     awful.key({ altkey, "Shift" }, "x",
               function ()
                   awful.prompt.run {
