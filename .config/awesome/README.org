@@ -1,3 +1,49 @@
+#+TITLE: Aweomsome WM Config
+#+AUTHOR: Derek Taylor
+#+PROPERTY: header-args :tangle rc.lua
+#+auto_tangle: t
+#+STARTUP: showeverything
+
+* Table of Contents :toc:
+- [[#about-this-config][About This Config]]
+- [[#features-of-awesome][Features of Awesome]]
+- [[#libraries][Libraries]]
+- [[#error-handling][Error Handling]]
+- [[#auto-start-windowless-processes][Auto start windowless processes]]
+- [[#setting-our-theme][Setting our theme]]
+- [[#variable-definitions][Variable definitions]]
+- [[#tags-and-layouts][Tags and Layouts]]
+- [[#menu][Menu]]
+- [[#system-sounds][System Sounds]]
+- [[#screen-and-wallpaper][Screen and wallpaper]]
+- [[#mouse-bindings][Mouse bindings]]
+- [[#keybindings][Keybindings]]
+- [[#rules][Rules]]
+- [[#signals][Signals]]
+- [[#enable-sloppy-focus][Enable sloppy focus]]
+- [[#autostart][Autostart]]
+
+* About This Config
+#+CAPTION: Awesome Scrot
+#+ATTR_HTML: :alt Awesome Scrot :title Awesome Scrot :align left
+[[https://gitlab.com/dwt1/dotfiles/-/raw/master/.screenshots/dotfiles09-thumb.png]]
+
+This is the awesome window manager configuration of Derek Taylor (DistroTube)
+- My YouTube: http://www.youtube.com/c/DistroTube
+- My GitLab:  http://www.gitlab.com/dwt1/
+
+My awesome window manager configuration. Keep in mind, that my configs are purposely bloated with examples of what you can do with awesome. It is written more as a study guide rather than a config that you should download and use. Take what works for you; leave the rest!
+
+* Features of Awesome
+- Simple enough for beginner's but flexible enough for the power user.
+- Extremely customizable, maybe more so than any other window manager.
+- Configured in Lua.
+- A documented API to configure and define the behavior of your window manager.
+
+* Libraries
+These are Lua modules that we must import so that we can use their functions later in the config.
+
+#+BEGIN_SRC lua
 local awesome, client, mouse, screen, tag = awesome, client, mouse, screen, tag
 local ipairs, string, os, table, tostring, tonumber, type = ipairs, string, os, table, tostring, tonumber, type
 
@@ -23,7 +69,13 @@ local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
                       require("awful.hotkeys_popup.keys")
 local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
+#+END_SRC
 
+* Error Handling
+Check if awesome encountered an error during startup and fell back to
+another config (This code will only ever execute for the fallback config)
+
+#+BEGIN_SRC lua
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
                      title = "Oops, there were errors during startup!",
@@ -44,7 +96,10 @@ do
         in_error = false
     end)
 end
+#+END_SRC
 
+* Auto start windowless processes
+#+BEGIN_SRC lua
 local function run_once(cmd_arr)
     for _, cmd in ipairs(cmd_arr) do
         awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
@@ -52,7 +107,11 @@ local function run_once(cmd_arr)
 end
 
 run_once({ "unclutter -root" }) -- entries must be comma-separated
+#+END_SRC
 
+* Setting our theme
+We can have multiple themes available to us and set the one we want to use with chosen_theme.
+#+BEGIN_SRC lua
 local themes = {
     "powerarrow-blue", -- 1
     "powerarrow",      -- 2
@@ -63,7 +122,14 @@ local themes = {
 local chosen_theme = themes[1]
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
+#+END_SRC
 
+* Variable definitions
+It's nice to assign values to stuff that you will use more than once
+in the config. Setting values for things like font, terminal and editor
+means you only have to change the value here to make changes globally.
+
+#+BEGIN_SRC lua
 local modkey      = "Mod4"
 local altkey      = "Mod1"
 local ctrlkey     = "Control"
@@ -73,7 +139,12 @@ local editor      = os.getenv("EDITOR") or "vim"
 local emacs       = "emacsclient -c -a 'emacs' "
 local mediaplayer = "mpv"
 local soundplayer = "ffplay -nodisp -autoexit " -- The program that will play system sounds
+#+END_SRC
 
+* Tags and Layouts
+Tags are essentially our workspaces. There are a ton of layouts available in awesome. I have most of them commented out, but if you want to try them out, then simply uncomment them.
+
+#+BEGIN_SRC lua
 -- awesome variables
 awful.util.terminal = terminal
 --awful.util.tagnames = {  " ", " ", " ", " ", " ", " ", " ", " ", " ", " "  }
@@ -156,7 +227,12 @@ lain.layout.cascade.tile.nmaster       = 5
 lain.layout.cascade.tile.ncol          = 2
 
 beautiful.init(string.format(gears.filesystem.get_configuration_dir() .. "/themes/%s/theme.lua", chosen_theme))
+#+END_SRC
 
+* Menu
+Awesome has a menu system if you want to use it.
+
+#+BEGIN_SRC lua
 local myawesomemenu = {
     { "hotkeys", function() return false, hotkeys_popup.show_help end },
     { "manual", terminal .. " -e 'man awesome'" },
@@ -182,13 +258,31 @@ awful.util.mymainmenu = freedesktop.menu.build({
     }
 })
 --menubar.utils.terminal = terminal -- Set the Menubar terminal for applications that require it
+#+END_SRC
 
+* System Sounds
+Available sounds that are part of the default =dtos-sounds= package include:
++ menu-01.mp3
++ menu-02.mp3
++ menu-03.mp3
++ shutdown-01.mp3
++ shutdown-02.mp3
++ shutdown-03.mp3
++ startup-01.mp3
++ startup-02.mp3
++ startup-03.mp3
+
+#+begin_src lua
 local soundDir = "/opt/dtos-sounds/" -- The directory that has the sound files
 
 local startupSound  = soundDir .. "startup-01.mp3"
 local shutdownSound = soundDir .. "shutdown-01.mp3"
 local dmenuSound    = soundDir .. "menu-01.mp3"
+#+end_src
 
+* Screen and wallpaper
+You can set wallpaper with awesome. This is optional, of course. Otherwise, just set wallpaper with your preferred wallpaper utility (such as nitrogen or feh).
+#+BEGIN_SRC lua
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", function(s)
     -- Wallpaper
@@ -203,13 +297,38 @@ screen.connect_signal("property::geometry", function(s)
 end)
 -- Create a wibox for each screen and add it
 awful.screen.connect_for_each_screen(function(s) beautiful.at_screen_connect(s) end)
+#+END_SRC
 
+* Mouse bindings
+Defining what our mouse clicks do.
+
+#+BEGIN_SRC lua
 root.buttons(my_table.join(
     awful.button({ }, 3, function () awful.util.mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
+#+END_SRC
 
+* Keybindings
+| Keybinding              | Action                                                                   |
+|-------------------------+--------------------------------------------------------------------------|
+| MODKEY + RETURN         | opens terminal (alacritty is the terminal but can be easily changed)     |
+| MODKEY + SHIFT + RETURN | opens run launcher (dmenu is the run launcher but can be easily changed) |
+| MODKEY + SHIFT + c      | closes window with focus                                                 |
+| MODKEY + SHIFT + r      | restarts awesome                                                         |
+| MODKEY + SHIFT + q      | quits awesome                                                            |
+| MODKEY + 1-9            | switch focus to workspace (1-9)                                          |
+| MODKEY + SHIFT + 1-9    | send focused window to workspace (1-9)                                   |
+| MODKEY + j,k            | switches focus between windows in the stack,                             |
+| MODKEY + SHIFT + j,k    | rotates the windows in the stack                                         |
+| MODKEY + SHIFT + h,l    | Decrease/increase master width factor                                    |
+| ALT + h,j,k,l           | switches focus between windows across all monitors                       |
+| MODKEY + period         | switch focus to next monitor                                             |
+| MODKEY + comma          | switch focus to prev monitor                                             |
+
+
+#+BEGIN_SRC lua
 globalkeys = my_table.join(
 
     -- {{{ Personal keybindings
@@ -584,7 +703,10 @@ clientbuttons = gears.table.join(
 
 -- Set keys
 root.keys(globalkeys)
+#+END_SRC
 
+* Rules
+#+BEGIN_SRC lua
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
     -- All clients will match this rule.
@@ -689,7 +811,10 @@ awful.rules.rules = {
       }, properties = { floating = true }},
 
 }
+#+END_SRC
 
+* Signals
+#+BEGIN_SRC lua
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
@@ -750,7 +875,12 @@ client.connect_signal("request::titlebars", function(c)
         layout = wibox.layout.align.horizontal
     }
 end)
+#+END_SRC
 
+* Enable sloppy focus
+Enable sloppy focus, so that focus follows mouse.
+
+#+BEGIN_SRC lua
 client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = true})
 end)
@@ -768,7 +898,10 @@ end
 client.connect_signal("focus", border_adjust)
 client.connect_signal("property::maximized", border_adjust)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+#+END_SRC
 
+* Autostart
+#+BEGIN_SRC lua
 awful.spawn.with_shell(soundplayer .. startupSound)
 awful.spawn.with_shell("lxsession")
 awful.spawn.with_shell("picom")
@@ -776,8 +909,13 @@ awful.spawn.with_shell("nm-applet")
 awful.spawn.with_shell("volumeicon")
 awful.spawn.with_shell("sleep 2 && conky -c $HOME/.config/conky/xmonad/" .. "doom-one" .. "-01.conkyrc")
 awful.spawn.with_shell("/usr/bin/emacs --daemon")
+#+END_SRC
 
+Select only =ONE= of the following four ways to set the wallpaper.
+
+#+BEGIN_SRC lua
 awful.spawn.with_shell("xargs xwallpaper --stretch < ~/.cache/wall")
 --awful.spawn.with_shell("~/.fehbg") -- set last saved feh wallpaper
 --awful.spawn.with_shell("feh --randomize --bg-fill /usr/share/backgrounds/dtos-backgrounds/*") -- feh sets random wallpaper
 --awful.spawn.with_shell("nitrogen --restore") -- if you prefer nitrogen to feh/xwallpaper
+#+END_SRC
