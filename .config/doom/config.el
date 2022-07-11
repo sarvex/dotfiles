@@ -674,6 +674,15 @@ List of keybindings (SPC h b b)")
          :recursive t
          :exclude ".*/org-html-themes/.*"
          :publishing-function org-publish-attachment)
+         ("dtos.dev"
+         :base-directory "~/nc/gitlab-repos/dtos.dev/"
+         :base-extension "org"
+         :publishing-directory "~/nc/gitlab-repos/dtos.dev/html/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t)
+
       ))
 
 (use-package! org-auto-tangle
@@ -693,7 +702,10 @@ List of keybindings (SPC h b b)")
       :desc "Remove perspective by name" "-" #'persp-remove-by-name)
 
 (define-globalized-minor-mode global-rainbow-mode rainbow-mode
-  (lambda () (rainbow-mode 1)))
+  (lambda ()
+    (when (not (memq major-mode
+                (list 'org-agenda-mode)))
+     (rainbow-mode 1))))
 (global-rainbow-mode 1 )
 
 (map! :leader

@@ -1081,6 +1081,15 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
          :recursive t
          :exclude ".*/org-html-themes/.*"
          :publishing-function org-publish-attachment)
+         ("dtos.dev"
+         :base-directory "~/nc/gitlab-repos/dtos.dev/"
+         :base-extension "org"
+         :publishing-directory "~/nc/gitlab-repos/dtos.dev/html/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t)
+
       ))
 #+end_src
 
