@@ -776,7 +776,7 @@ awful.spawn.with_shell("lxsession")
 awful.spawn.with_shell("picom")
 awful.spawn.with_shell("nm-applet")
 awful.spawn.with_shell("volumeicon")
-awful.spawn.with_shell("sleep 2 && conky -c $HOME/.config/conky/xmonad/" .. "doom-one" .. "-01.conkyrc")
+awful.spawn.with_shell("sleep 2 && conky -c $HOME/.config/conky/awesome/" .. "doom-one" .. "-01.conkyrc")
 awful.spawn.with_shell("/usr/bin/emacs --daemon")
 
 awful.spawn.with_shell("xargs xwallpaper --stretch < ~/.cache/wall")
