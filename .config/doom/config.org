@@ -29,6 +29,7 @@
 - [[#erc][ERC]]
 - [[#evaluate-elisp-expressions][EVALUATE ELISP EXPRESSIONS]]
 - [[#eww][EWW]]
+- [[#exwm][EXWM]]
 - [[#fonts][FONTS]]
 - [[#insert-date][INSERT DATE]]
 - [[#ivy][IVY]]
@@ -533,6 +534,11 @@ EWW is the Emacs Web Wowser, the builtin browser in Emacs.  Below I set urls to 
        :desc "Eww web browser" "w" #'eww
        :desc "Eww reload page" "R" #'eww-reload))
 #+END_SRC
+
+* EXWM
+#+begin_src emacs-lisp
+(autoload 'exwm-enable "exwm-config.el")
+#+end_src
 
 * FONTS
 Settings related to fonts within Doom Emacs:

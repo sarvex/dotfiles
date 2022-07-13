@@ -54,9 +54,7 @@ end
 run_once({ "unclutter -root" }) -- entries must be comma-separated
 
 local themes = {
-    "powerarrow-blue", -- 1
-    "powerarrow",      -- 2
-    "multicolor",      -- 3
+    "powerarrow", -- 1
 }
 
 -- choose your theme here

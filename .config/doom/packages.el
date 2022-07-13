@@ -65,6 +65,7 @@
 (package! elfeed-goodies)
 (package! emojify)
 (package! evil-tutor)
+(package! exwm)
 (package! ivy-posframe)
 (package! mw-thesaurus)
 (package! org-auto-tangle)
