@@ -382,9 +382,9 @@ globalkeys = my_table.join(
     awful.key({ modkey, "Shift" }, "d", function () lain.util.delete_tag() end,
         {description = "delete tag", group = "tag"}),
 
-    awful.key({ modkey, "Shift" }, "l", function () awful.tag.incmwfact( 0.05) end,
+    awful.key({ modkey          }, "l", function () awful.tag.incmwfact( 0.05) end,
         {description = "increase master width factor", group = "layout"}),
-    awful.key({ modkey, "Shift" }, "h", function () awful.tag.incmwfact(-0.05) end,
+    awful.key({ modkey          }, "h", function () awful.tag.incmwfact(-0.05) end,
         {description = "decrease master width factor", group = "layout"}),
     awful.key({ modkey, "Shift" }, "Up", function () awful.tag.incnmaster( 1, nil, true) end,
         {description = "increase the number of master clients", group = "layout"}),
