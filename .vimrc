@@ -4,7 +4,7 @@
 " | |_| || |    http://www.gitlab.com/dwt1/
 " |____/ |_|
 "        
-" A customized init.vim for neovim (https://neovim.io/)     
+" A customized .vimrc for vim (https://www.vim.org/)     
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
