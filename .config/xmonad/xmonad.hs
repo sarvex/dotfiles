@@ -683,7 +683,7 @@ main = do
   xmproc1 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc")
   xmproc2 <- spawnPipe ("xmobar -x 2 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc")
   -- the xmonad, ya know...what the WM is named after!
-  xmonad $ addDescrKeys' ((mod4Mask, xK_F1), showKeybindings) myKeys $ ewmh $ ewmhFullscreen $ docks $ def -- Just remove $ ewmhFullscreen if YouTube fullscreen doesn't work
+  xmonad $ addDescrKeys' ((mod4Mask, xK_F1), showKeybindings) myKeys $ ewmh $ docks $ def
     { manageHook         = myManageHook <+> manageDocks
     --, handleEventHook    = docks
                            -- Uncomment this line to enable fullscreen support on things like YouTube/Netflix.

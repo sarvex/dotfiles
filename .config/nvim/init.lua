@@ -2,9 +2,10 @@
 -- Config was built using the following config:
 -- https://github.com/numToStr/dotfiles/tree/master/neovim/.config/nvim/
 
-local g = vim.g
-local o = vim.o
-local A = vim.api
+local g   = vim.g
+local o   = vim.o
+local opt = vim.opt
+local A   = vim.api
 
 -- cmd('syntax on')
 -- vim.api.nvim_command('filetype plugin indent on')
@@ -80,6 +81,8 @@ o.splitbelow = true
 -- o.foldlevelstart = 99
 -- o.foldnestmax = 3
 -- o.foldminlines = 1
+--
+opt.mouse = "a"
 
 -- Map <leader> to space
 g.mapleader = ' '
