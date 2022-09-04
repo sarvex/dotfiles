@@ -354,10 +354,15 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
   (kbd "R") 'dired-do-rename
   (kbd "T") 'dired-do-touch
   (kbd "Y") 'dired-copy-filenamecopy-filename-as-kill ; copies filename to kill ring.
+  (kbd "Z") 'dired-do-compress
   (kbd "+") 'dired-create-directory
   (kbd "-") 'dired-do-kill-lines
   (kbd "% l") 'dired-downcase
+  (kbd "% m") 'dired-mark-files-regexp
   (kbd "% u") 'dired-upcase
+  (kbd "* %") 'dired-mark-files-regexp
+  (kbd "* .") 'dired-mark-extension
+  (kbd "* /") 'dired-mark-directories
   (kbd "; d") 'epa-dired-do-decrypt
   (kbd "; e") 'epa-dired-do-encrypt)
 ;; Get file icons in dired
@@ -392,6 +397,13 @@ If peep-dired is enabled, you will get image previews as you go up/down with 'j'
 (setq delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files/")
 #+end_src
+
+=NOTE=: For convenience, you may want to create a symlink to 'local/share/Trash' in your home directory:
+#+begin_example
+cd ~/
+ln -s ~/.local/share/Trash .
+#+end_example
+
 
 * DOOM THEME
 Setting the theme to doom-one.  To try out new themes, I set a keybinding for counsel-load-theme with 'SPC h t'.
@@ -742,7 +754,7 @@ Keybindings to open files that I work with all the time using the find-file comm
 #+BEGIN_SRC emacs-lisp
 (map! :leader
       (:prefix ("=" . "open file")
-       :desc "Edit agenda file" "a" #'(lambda () (interactive) (find-file "~/Org/agenda.org"))
+       :desc "Edit agenda file" "a" #'(lambda () (interactive) (find-file "~/nc/Org/agenda.org"))
        :desc "Edit doom config.org" "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
        :desc "Edit doom init.el" "i" #'(lambda () (interactive) (find-file "~/.config/doom/init.el"))
        :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.config/doom/packages.el"))))

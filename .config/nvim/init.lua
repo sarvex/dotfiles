@@ -114,13 +114,113 @@ A.nvim_create_autocmd('TextYankPost', {
 
 -- KEYBINDINGS
 local function map(m, k, v)
-    vim.keymap.set(m, k, v, { silent = true })
+   vim.keymap.set(m, k, v, { silent = true })
 end
 
 -- Mimic shell movements
 map('i', '<C-E>', '<ESC>A')
 map('i', '<C-A>', '<ESC>I')
 
+map('n', '<leader>sl', '<CMD>SessionLoad<CR>')
+map('n', '<leader>fr', '<CMD>Telescope oldfiles<CR>')
+map('n', '<leader>ff', '<CMD>Telescope find_files<CR>')
+map('n', '<leader>fb', '<CMD>Telescope file_browser<CR>')
+map('n', '<leader>fw', '<CMD>Telescope live_grep<CR>')
+map('n', '<leader>ht', '<CMD>Telescope colorscheme<CR>')
+
+-- DASHBOARD
+local db = require('dashboard')
+local home = os.getenv('HOME')
+
+db.default_banner = {
+  '',
+  '',
+  ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
+  ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
+  ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
+  ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
+  ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
+  ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+  '',
+  ' [ TIP: To exit neovim, just poweroff your computer. ] ',
+  '',
+}
+-- linux
+--db.preview_command = 'ueberzug'
+--
+--db.preview_file_path = home .. '/.config/nvim/static/neovim.cat'
+db.preview_file_height = 11
+db.preview_file_width = 70
+db.custom_center = {
+    {icon = '  ',
+    desc = 'Recent sessions                         ',
+    shortcut = 'SPC s l',
+    action ='SessionLoad'},
+    {icon = '  ',
+    desc = 'Find recent files                       ',
+    action = 'Telescope oldfiles',
+    shortcut = 'SPC f r'},
+    {icon = '  ',
+    desc = 'Find files                              ',
+    action = 'Telescope find_files find_command=rg,--hidden,--files',
+    shortcut = 'SPC f f'},
+    {icon = '  ',
+    desc ='File browser                            ',
+    action =  'Telescope file_browser',
+    shortcut = 'SPC f b'},
+    {icon = '  ',
+    desc = 'Find word                               ',
+    action = 'Telescope live_grep',
+    shortcut = 'SPC f w'},
+    {icon = '  ',
+    desc = 'Load new theme                          ',
+    action = 'Telescope colorscheme',
+    shortcut = 'SPC h t'},
+  }
+db.custom_footer = { '', '🎉 If I\'m using Neovim, then my Emacs config must be broken!' }
+
+-- TELESCOPE FILE BROWSER
+---- You don't need to set any of these options.
+-- IMPORTANT!: this is only a showcase of how you can set default options!
+require("telescope").setup {
+  extensions = {
+    file_browser = {
+      theme = "ivy",
+      -- disables netrw and use telescope-file-browser in its place
+      hijack_netrw = true,
+      mappings = {
+        ["i"] = {
+          -- your custom insert mode mappings
+        },
+        ["n"] = {
+          -- your custom normal mode mappings
+        },
+      },
+    },
+  },
+}
+-- To get telescope-file-browser loaded and working with telescope,
+-- you need to call load_extension, somewhere after setup function:
+require("telescope").load_extension "file_browser"
+
+-- ORGMODE
+-- Load custom tree-sitter grammar for org filetype
+require('orgmode').setup_ts_grammar()
+
+-- Tree-sitter configuration
+require'nvim-treesitter.configs'.setup {
+  -- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = {'org'}, -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
+  },
+  ensure_installed = {'org'}, -- Or run :TSUpdate org
+}
+
+require('orgmode').setup({
+  org_agenda_files = {'~/nc/Org/agenda.org'},
+  org_default_notes_file = '~/nc/Org/notes.org',
+})
 
 -- PLUGINS
 -- Only required if you have packer configured as `opt`
@@ -128,6 +228,23 @@ map('i', '<C-A>', '<ESC>I')
 return require('packer').startup(function()
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
+
+  -- A nice start screen for nvim
+  use 'glepnir/dashboard-nvim'
+
+  -- Telescope and treesitter
+  use {
+    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
+  use { "nvim-telescope/telescope-file-browser.nvim" }
+  use {'nvim-treesitter/nvim-treesitter'}
+
+  -- Org mode in nvim???
+  use {'nvim-orgmode/orgmode', config = function()
+          require('orgmode').setup{}
+  end
+  }
 
   -- A better status line
   use {
