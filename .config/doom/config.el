@@ -362,7 +362,7 @@ List of keybindings (SPC h b b)")
 
 (map! :leader
       (:prefix ("=" . "open file")
-       :desc "Edit agenda file" "a" #'(lambda () (interactive) (find-file "~/Org/agenda.org"))
+       :desc "Edit agenda file" "a" #'(lambda () (interactive) (find-file "~/nc/Org/agenda.org"))
        :desc "Edit doom config.org" "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
        :desc "Edit doom init.el" "i" #'(lambda () (interactive) (find-file "~/.config/doom/init.el"))
        :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.config/doom/packages.el"))))
