@@ -152,7 +152,7 @@ List of keybindings (SPC h b b)")
   (kbd "T") 'dired-do-touch
   (kbd "Y") 'dired-copy-filenamecopy-filename-as-kill ; copies filename to kill ring.
   (kbd "+") 'dired-create-directory
-  (kbd "-") 'dired-up-directory
+  (kbd "-") 'dired-do-kill-lines
   (kbd "% l") 'dired-downcase
   (kbd "% u") 'dired-upcase
   (kbd "; d") 'epa-dired-do-decrypt
