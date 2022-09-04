@@ -151,10 +151,15 @@ List of keybindings (SPC h b b)")
   (kbd "R") 'dired-do-rename
   (kbd "T") 'dired-do-touch
   (kbd "Y") 'dired-copy-filenamecopy-filename-as-kill ; copies filename to kill ring.
+  (kbd "Z") 'dired-do-compress
   (kbd "+") 'dired-create-directory
-  (kbd "-") 'dired-up-directory
+  (kbd "-") 'dired-do-kill-lines
   (kbd "% l") 'dired-downcase
+  (kbd "% m") 'dired-mark-files-regexp
   (kbd "% u") 'dired-upcase
+  (kbd "* %") 'dired-mark-files-regexp
+  (kbd "* .") 'dired-mark-extension
+  (kbd "* /") 'dired-mark-directories
   (kbd "; d") 'epa-dired-do-decrypt
   (kbd "; e") 'epa-dired-do-encrypt)
 ;; Get file icons in dired
