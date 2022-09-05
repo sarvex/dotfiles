@@ -88,9 +88,11 @@ opt.mouse = "a"
 g.mapleader = ' '
 g.maplocalleader = ' '
 
-require('lualine').setup()
 
+-------------------------------------------------
 -- COLORSCHEMES
+-------------------------------------------------
+
 -- Uncomment just ONE of the following colorschemes!
 -- local ok, _ = pcall(vim.cmd, 'colorscheme base16-dracula')
 -- local ok, _ = pcall(vim.cmd, 'colorscheme base16-gruvbox-dark-medium')
@@ -111,7 +113,10 @@ A.nvim_create_autocmd('TextYankPost', {
     end,
 })
 
+-------------------------------------------------
 -- KEYBINDINGS
+-------------------------------------------------
+
 local function map(m, k, v)
    vim.keymap.set(m, k, v, { silent = true })
 end
@@ -130,7 +135,10 @@ map('n', '<leader>fb', '<CMD>Telescope file_browser<CR>')
 map('n', '<leader>fw', '<CMD>Telescope live_grep<CR>')
 map('n', '<leader>ht', '<CMD>Telescope colorscheme<CR>')
 
+-------------------------------------------------
 -- DASHBOARD
+-------------------------------------------------
+
 local db = require('dashboard')
 local home = os.getenv('HOME')
 
@@ -181,7 +189,10 @@ db.custom_center = {
   }
 db.custom_footer = { '', '🎉 If I\'m using Neovim, then my Emacs config must be broken!' }
 
+-------------------------------------------------
 -- PLUGINS
+-------------------------------------------------
+
 return require('packer').startup(function()
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
@@ -262,6 +273,7 @@ return require('packer').startup(function()
   use { 'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
+  require('lualine').setup()
 
   -- File management --
   use 'vifm/vifm.vim'

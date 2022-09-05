@@ -61,6 +61,7 @@
 (package! dashboard)
 (package! dired-open)
 (package! dired-subtree)
+(package! dirvish)
 (package! dmenu)
 (package! elfeed-goodies)
 (package! emojify)
