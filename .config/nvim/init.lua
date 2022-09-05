@@ -103,7 +103,6 @@ local ok, _ = pcall(vim.cmd, 'colorscheme base16-onedark')
 -- local ok, _ = pcall(vim.cmd, 'colorscheme base16-solarized-light')
 -- local ok, _ = pcall(vim.cmd, 'colorscheme base16-tomorrow-night')
 
-
 -- Highlight the region on yank
 A.nvim_create_autocmd('TextYankPost', {
     group = num_au,
@@ -182,12 +181,7 @@ db.custom_center = {
   }
 db.custom_footer = { '', '🎉 If I\'m using Neovim, then my Emacs config must be broken!' }
 
--- To get telescope-file-browser loaded and working with telescope,
--- you need to call load_extension, somewhere after setup function:
-
 -- PLUGINS
--- Only required if you have packer configured as `opt`
--- vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
@@ -195,13 +189,11 @@ return require('packer').startup(function()
   -- Dashboard is a nice start screen for nvim
   use 'glepnir/dashboard-nvim'
 
-  -- Telescope
+  -- Telescope and related plugins --
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
     requires = { {'nvim-lua/plenary.nvim'} }
   }
-
-  -- Telescope File Browser
   use { "nvim-telescope/telescope-file-browser.nvim",
         config = function()
         require("telescope").setup {
@@ -223,9 +215,11 @@ return require('packer').startup(function()
         }
         end
   }
+  -- To get telescope-file-browser loaded and working with telescope,
+  -- you need to call load_extension, somewhere after setup function:
   require("telescope").load_extension "file_browser"
 
-  -- Treesitter
+  -- Treesitter --
   use {'nvim-treesitter/nvim-treesitter',
        config = function()
           require'nvim-treesitter.configs'.setup {
@@ -240,7 +234,9 @@ return require('packer').startup(function()
        end
   }
 
-  -- Org mode in nvim???
+  -- Productivity --
+  use 'vimwiki/vimwiki'
+  use 'jreybert/vimagit'
   use {'nvim-orgmode/orgmode',
        config = function()
           require('orgmode').setup{
@@ -262,7 +258,7 @@ return require('packer').startup(function()
     end
   }
 
-  -- A better status line
+  -- A better status line --
   use { 'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
@@ -272,10 +268,6 @@ return require('packer').startup(function()
   use 'scrooloose/nerdtree'
   use 'tiagofumo/vim-nerdtree-syntax-highlight'
   use 'ryanoasis/vim-devicons'
-
-  -- Productivity --
-  use 'vimwiki/vimwiki'
-  use 'jreybert/vimagit'
 
   -- Tim Pope Plugins --
   use 'tpope/vim-surround'
@@ -291,11 +283,11 @@ return require('packer').startup(function()
   use 'junegunn/limelight.vim'
   use 'junegunn/vim-emoji'
 
-  -- Colorschemes
+  -- Colorschemes --
   use 'RRethy/nvim-base16'
   use 'kyazdani42/nvim-palenight.lua'
 
-  -- Other stuff
+  -- Other stuff --
   use 'frazrepo/vim-rainbow'
 end)
 
