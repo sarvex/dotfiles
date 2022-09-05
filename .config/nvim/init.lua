@@ -1,6 +1,8 @@
-
--- Config was built using the following config:
--- https://github.com/numToStr/dotfiles/tree/master/neovim/.config/nvim/
+-------------------------------------------------
+-- DT'S NEOVIM CONFIGURATION
+-- Neovim website: https://neovim.io/
+-- DT's dotfiles: https://gitlab.com/dwt1/dotfiles
+-------------------------------------------------
 
 local g   = vim.g
 local o   = vim.o
