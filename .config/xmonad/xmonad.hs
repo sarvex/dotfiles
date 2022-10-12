@@ -62,7 +62,7 @@ import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(T
 import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 
    -- Utilities
-import XMonad.Util.Hacks (windowedFullscreenFixEventHook, javaHack, trayerAboveXmobarEventHook, trayAbovePanelEventHook, trayerPaddingXmobarEventHook, trayPaddingXmobarEventHook, trayPaddingEventHook,)
+import XMonad.Util.Hacks (windowedFullscreenFixEventHook, javaHack, trayerAboveXmobarEventHook, trayAbovePanelEventHook, trayerPaddingXmobarEventHook, trayPaddingXmobarEventHook, trayPaddingEventHook)
 import XMonad.Util.Dmenu
 import XMonad.Util.EZConfig (additionalKeysP, mkNamedKeymap)
 import XMonad.Util.NamedActions
