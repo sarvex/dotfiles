@@ -62,9 +62,9 @@ import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(T
 import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 
    -- Utilities
-import XMonad.Util.Hacks (windowedFullscreenFixEventHook, javaHack, trayerAboveXmobarEventHook, trayAbovePanelEventHook, trayerPaddingXmobarEventHook, trayPaddingXmobarEventHook, trayPaddingEventHook)
 import XMonad.Util.Dmenu
 import XMonad.Util.EZConfig (additionalKeysP, mkNamedKeymap)
+import XMonad.Util.Hacks (windowedFullscreenFixEventHook, javaHack, trayerAboveXmobarEventHook, trayAbovePanelEventHook, trayerPaddingXmobarEventHook, trayPaddingXmobarEventHook, trayPaddingEventHook)
 import XMonad.Util.NamedActions
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
@@ -698,7 +698,7 @@ main = do
   -- the xmonad, ya know...what the WM is named after!
   xmonad $ addDescrKeys' ((mod4Mask, xK_F1), showKeybindings) myKeys $ ewmh $ docks $ def
     { manageHook         = myManageHook <+> manageDocks
-    , handleEventHook    = windowedFullscreenFixEventHook <> swallowEventHook (className =? "Alacritty"  <||> className =? "st-256color" <||> className =? "XTerm") (return True) <> trayerPaddingXmobarEventHook                                       
+    , handleEventHook    = windowedFullscreenFixEventHook <> swallowEventHook (className =? "Alacritty"  <||> className =? "st-256color" <||> className =? "XTerm") (return True) <> trayerPaddingXmobarEventHook
     , modMask            = myModMask
     , terminal           = myTerminal
     , startupHook        = myStartupHook
