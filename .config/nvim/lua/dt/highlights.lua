@@ -20,7 +20,7 @@ local ok, _ = pcall(vim.cmd, "colorscheme base16-onedark")
 -- local ok, _ = pcall(vim.cmd, 'colorscheme base16-tomorrow-night')
 
 -- Highlight the region on yank
-A.nvim_create_autocmd("TextYankPost", {
+vim.api.nvim_create_autocmd("TextYankPost", {
 	group = num_au,
 	callback = function()
 		vim.highlight.on_yank({ higroup = "Visual", timeout = 120 })
