@@ -12,8 +12,10 @@ leftwm-command "UnloadTheme"
 
 ps -alh | grep xmobar_control_script | awk '{print $3}' | xargs kill
 
-pkill compton
-pkill picom
-pkill xmobar
-pkill xmobar
+killall picom
+killall conky
+killall trayer
+killall xmobar
+killall nm-applet
+killall volumeicon
 

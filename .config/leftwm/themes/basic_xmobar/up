@@ -11,16 +11,16 @@ ln -s $SCRIPTPATH/down /tmp/leftwm-theme-down
 
 
 #boot compton or picom if it exists
-killall conky
-killall trayer
+# killall conky
+# killall trayer
 lxsession &
 picom &
 nm-applet &
 volumeicon &
 /usr/bin/emacs --daemon &
 
-sleep 2 && conky -c $HOME/.config/conky/xmonad/doom-one-01.conkyrc
-sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34 --height 22
+conky -c $HOME/.config/conky/xmonad/doom-one-01.conkyrc &
+trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34 --height 22 &
 
 #set the theme.ron config
 leftwm-command "LoadTheme $SCRIPTPATH/theme.ron"
@@ -28,7 +28,7 @@ leftwm-command "LoadTheme $SCRIPTPATH/theme.ron"
 
 # SET WALLPAPER
 # Uncomment only ONE of the following FOUR lines, depending on which wallpaper setter you use.
-xargs xwallpaper --stretch < ~/.cache/wall
+xargs xwallpaper --stretch < ~/.cache/wall &
 # ~/.fehbg &"  -- set last saved feh wallpaper
 # feh --randomize --bg-fill /usr/share/backgrounds/dtos-backgrounds/*"  -- feh set random wallpaper
 # nitrogen --restore &"   -- if you prefer nitrogen to feh
