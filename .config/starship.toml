@@ -1,7 +1,7 @@
 #format = """
 #[╭─user───❯](bold blue) $username
 #[┣─system─❯](bold yellow) $hostname
-#[┣─project❯](bold red) $directory$rust$git_branch$git_status$package$golang$terraform$docker_context$python$docker_context$nodejs
+#[┣─project❯](bold red) $directory$rust$git_branch$git_state$git_status$package$golang$terraform$docker_context$python$docker_context$nodejs
 #[╰─cmd────❯](bold green)
 #"""
 [username]
@@ -76,6 +76,17 @@ ahead = "⇡${count}"
 behind = "⇣${count}"
 untracked = "[${count}?](blue)" 
 staged = "[${count}+](green)" 
+
+[git_state]
+style =	"bold red"
+format = "[$state( $progress_current/$progress_total) ]($style)"
+rebase = "rebase"
+merge = "merge"	
+revert = "revert"	
+cherry_pick = "cherry"
+bisect = "bisect"	
+am = "am"	
+am_or_rebase = "am/rebase"
 
 [golang]
 symbol = " "
