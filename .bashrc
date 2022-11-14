@@ -87,6 +87,16 @@ shopt -s checkwinsize # checks term size when bash regains control
 #ignore upper and lowercase when TAB completion
 bind "set completion-ignore-case on"
 
+### COUNTDOWN   
+
+cdown () {
+    N=$1
+  while [[ $((--N)) >  0 ]]
+    do
+        echo "$N" |  figlet -c | lolcat &&  sleep 1
+    done
+}
+
 ### ARCHIVE EXTRACTION
 # usage: ex <file>
 ex ()

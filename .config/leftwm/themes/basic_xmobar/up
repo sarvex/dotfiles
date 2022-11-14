@@ -19,7 +19,7 @@ nm-applet &
 volumeicon &
 /usr/bin/emacs --daemon &
 
-conky -c $HOME/.config/conky/qtile/doom-one-01.conkyrc &
+conky -c $HOME/.config/conky/leftwm/doom-one-01.conkyrc &
 trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x282c34 --height 22 &
 
 #set the theme.ron config
