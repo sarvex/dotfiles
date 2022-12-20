@@ -8,7 +8,11 @@ from libqtile.config import Click, Drag, Group, KeyChord, Key, Match, Screen
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 from libqtile.lazy import lazy
+from libqtile.utils import guess_terminal
 from typing import List  # noqa: F401
+
+from qtile_extras import widget
+from qtile_extras.widget.decorations import BorderDecoration
 
 mod = "mod4"              # Sets mod key to SUPER/WINDOWS
 myTerm = "alacritty"      # My terminal of choice
@@ -410,110 +414,165 @@ def init_widgets_list():
                        foreground = colors[0],
                        background = colors[0]
                        ),
-              widget.TextBox(
-                       text = '',
-                       font = "Ubuntu Mono",
-                       background = colors[0],
-                       foreground = colors[3],
-                       padding = 0,
-                       fontsize = 37
-                       ),
              widget.Net(
-                       interface = "enp5s0",
+                       interface = "enp6s0",
                        format = 'Net: {down} ↓↑ {up}',
-                       foreground = colors[1],
-                       background = colors[3],
-                       padding = 5
+                       foreground = colors[3],
+                       background = colors[0],
+                       padding = 5,
+                       decorations=[
+                           BorderDecoration(
+                               colour = colors[3],
+                               border_width = [0, 0, 2, 0],
+                               padding_x = 5,
+                               padding_y = None,
+                           )
+                       ],
                        ),
-              widget.TextBox(
-                       text = '',
-                       font = "Ubuntu Mono",
-                       background = colors[3],
-                       foreground = colors[4],
-                       padding = 0,
-                       fontsize = 37
+              widget.Sep(
+                       linewidth = 0,
+                       padding = 6,
+                       foreground = colors[0],
+                       background = colors[0]
                        ),
               widget.ThermalSensor(
-                       foreground = colors[1],
-                       background = colors[4],
+                       foreground = colors[4],
+                       background = colors[0],
                        threshold = 90,
                        fmt = 'Temp: {}',
-                       padding = 5
+                       padding = 5,
+                       decorations=[
+                           BorderDecoration(
+                               colour = colors[4],
+                               border_width = [0, 0, 2, 0],
+                               padding_x = 5,
+                               padding_y = None,
+                           )
+                       ],
                        ),
-              widget.TextBox(
-                       text='',
-                       font = "Ubuntu Mono",
-                       background = colors[4],
-                       foreground = colors[5],
-                       padding = 0,
-                       fontsize = 37
+              widget.Sep(
+                       linewidth = 0,
+                       padding = 6,
+                       foreground = colors[0],
+                       background = colors[0]
                        ),
               widget.CheckUpdates(
                        update_interval = 1800,
                        distro = "Arch_checkupdates",
                        display_format = "Updates: {updates} ",
-                       foreground = colors[1],
-                       colour_have_updates = colors[1],
-                       colour_no_updates = colors[1],
+                       foreground = colors[5],
+                       colour_have_updates = colors[5],
+                       colour_no_updates = colors[5],
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},
                        padding = 5,
-                       background = colors[5]
+                       background = colors[0],
+                       decorations=[
+                           BorderDecoration(
+                               colour = colors[5],
+                               border_width = [0, 0, 2, 0],
+                               padding_x = 5,
+                               padding_y = None,
+                           )
+                       ],
                        ),
-              widget.TextBox(
-                       text = '',
-                       font = "Ubuntu Mono",
-                       background = colors[5],
-                       foreground = colors[6],
-                       padding = 0,
-                       fontsize = 37
+              widget.Sep(
+                       linewidth = 0,
+                       padding = 6,
+                       foreground = colors[0],
+                       background = colors[0]
                        ),
               widget.Memory(
-                       foreground = colors[1],
-                       background = colors[6],
+                       foreground = colors[9],
+                       background = colors[0],
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')},
                        fmt = 'Mem: {}',
-                       padding = 5
+                       padding = 5,
+                       decorations=[
+                           BorderDecoration(
+                               colour = colors[9],
+                               border_width = [0, 0, 2, 0],
+                               padding_x = 5,
+                               padding_y = None,
+                           )
+                       ],
                        ),
-              widget.TextBox(
-                       text = '',
-                       font = "Ubuntu Mono",
-                       background = colors[6],
-                       foreground = colors[7],
-                       padding = 0,
-                       fontsize = 37
+              widget.Sep(
+                       linewidth = 0,
+                       padding = 6,
+                       foreground = colors[0],
+                       background = colors[0]
                        ),
+
               widget.Volume(
-                       foreground = colors[1],
-                       background = colors[7],
+                       foreground = colors[7],
+                       background = colors[0],
                        fmt = 'Vol: {}',
-                       padding = 5
+                       padding = 5,
+                       decorations=[
+                           BorderDecoration(
+                               colour = colors[7],
+                               border_width = [0, 0, 2, 0],
+                               padding_x = 5,
+                               padding_y = None,
+                           )
+                       ],
                        ),
-              widget.TextBox(
-                       text = '',
-                       font = "Ubuntu Mono",
-                       background = colors[7],
-                       foreground = colors[8],
-                       padding = 0,
-                       fontsize = 37
+              widget.Sep(
+                       linewidth = 0,
+                       padding = 6,
+                       foreground = colors[0],
+                       background = colors[0]
                        ),
+
+
               widget.KeyboardLayout(
-                       foreground = colors[1],
-                       background = colors[8],
+                       foreground = colors[8],
+                       background = colors[0],
                        fmt = 'Keyboard: {}',
-                       padding = 5
+                       padding = 5,
+                       decorations=[
+                           BorderDecoration(
+                               colour = colors[8],
+                               border_width = [0, 0, 2, 0],
+                               padding_x = 5,
+                               padding_y = None,
+                           )
+                       ],
                        ),
-              widget.TextBox(
-                       text = '',
-                       font = "Ubuntu Mono",
-                       background = colors[8],
-                       foreground = colors[9],
-                       padding = 0,
-                       fontsize = 37
+              widget.Sep(
+                       linewidth = 0,
+                       padding = 6,
+                       foreground = colors[0],
+                       background = colors[0]
+                       ),
+              widget.AnalogueClock(
+                       background = colors[0],
+                       face_shape = "square",
+                       face_background = colors[6],
+                       face_border_colour = colors[6],
+                       face_border_width = 4,
+                       padding = 5
                        ),
               widget.Clock(
-                       foreground = colors[1],
-                       background = colors[9],
-                       format = "%A, %B %d - %H:%M "
+                       foreground = colors[6],
+                       background = colors[0],
+                       format = "%A, %B %d - %H:%M ",
+                       decorations=[
+                           BorderDecoration(
+                               colour = colors[6],
+                               border_width = [0, 0, 2, 0],
+                               padding_x = 5,
+                               padding_y = None,
+                           )
+                       ],
+
+                       ),
+
+              widget.Sep(
+                       linewidth = 0,
+                       padding = 6,
+                       foreground = colors[0],
+                       background = colors[0]
                        ),
               ]
     return widgets_list
