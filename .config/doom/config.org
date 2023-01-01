@@ -416,6 +416,9 @@ Setting the theme to doom-one.  To try out new themes, I set a keybinding for co
 #+END_SRC
 
 * EDNC (Notifications)
+The Emacs Desktop Notification Center (EDNC) is an Emacs package written in pure Lisp that implements a desktop notifications service according to the freedesktop.org specification. EDNC aspires to be a small, but flexible drop-in replacement of standalone daemons like dunst.
+
+=NOTE=: Ensure that no other notification daemon (such as dunst) is active to use EDNC.
 
 #+begin_src emacs-lisp
 (ednc-mode 1)
