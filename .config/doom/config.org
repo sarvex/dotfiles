@@ -23,6 +23,7 @@
   - [[#keybindings-within-dired-with-peep-dired-mode-enabled][Keybindings Within Dired With Peep-Dired-Mode Enabled]]
   - [[#making-deleted-files-go-to-trash-can][Making deleted files go to trash can]]
 - [[#doom-theme][DOOM THEME]]
+- [[#ednc-notifications][EDNC (Notifications)]]
 - [[#elfeed][ELFEED]]
 - [[#emms][EMMS]]
 - [[#emojis][EMOJIS]]
@@ -413,6 +414,29 @@ Setting the theme to doom-one.  To try out new themes, I set a keybinding for co
 (map! :leader
       :desc "Load new theme" "h t" #'counsel-load-theme)
 #+END_SRC
+
+* EDNC (Notifications)
+
+#+begin_src emacs-lisp
+(ednc-mode 1)
+
+(defun show-notification-in-buffer (old new)
+  (let ((name (format "Notification %d" (ednc-notification-id (or old new)))))
+    (with-current-buffer (get-buffer-create name)
+      (if new (let ((inhibit-read-only t))
+                (if old (erase-buffer) (ednc-view-mode))
+                (insert (ednc-format-notification new t))
+                (pop-to-buffer (current-buffer)))
+        (kill-buffer)))))
+
+(add-hook 'ednc-notification-presentation-functions
+          #'show-notification-in-buffer)
+
+(evil-define-key 'normal ednc-view-mode-map "d" 'ednc-dismiss-notification)
+(evil-define-key 'normal ednc-view-mode-map (kbd "RET") 'ednc-invoke-action)
+(evil-define-key 'normal ednc-view-mode-map (kbd "TAB") 'ednc-toggle-expanded-view)
+
+#+end_src
 
 * ELFEED
 An RSS newsfeed reader for Emacs.
