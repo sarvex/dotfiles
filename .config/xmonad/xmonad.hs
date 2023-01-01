@@ -128,6 +128,7 @@ myStartupHook = do
   spawnOnce "picom"
   spawnOnce "nm-applet"
   spawnOnce "volumeicon"
+  spawnOnce "notify-log ~/.log/notify.log"
   spawn "/usr/bin/emacs --daemon" -- emacs daemon for the emacsclient
 
   spawn ("sleep 2 && conky -c $HOME/.config/conky/xmonad/" ++ colorScheme ++ "-01.conkyrc")
