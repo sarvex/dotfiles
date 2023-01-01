@@ -198,9 +198,10 @@ List of keybindings (SPC h b b)")
 (add-hook 'ednc-notification-presentation-functions
           #'show-notification-in-buffer)
 
-(evil-define-key 'normal ednc-view-mode-map "d" 'ednc-dismiss-notification)
-(evil-define-key 'normal ednc-view-mode-map (kbd "RET") 'ednc-invoke-action)
-(evil-define-key 'normal ednc-view-mode-map (kbd "TAB") 'ednc-toggle-expanded-view)
+(evil-define-key 'normal ednc-view-mode-map
+  (kbd "d") 'ednc-dismiss-notification
+  (kbd "RET") 'ednc-invoke-action
+  (kbd "e") 'ednc-toggle-expanded-view)
 
 (use-package! elfeed-goodies)
 (elfeed-goodies/setup)
