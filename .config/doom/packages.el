@@ -64,7 +64,6 @@
 (package! dirvish)
 (package! dmenu)
 (package! ednc)
-(package! elfeed-goodies)
 (package! emojify)
 (package! evil-tutor)
 (package! exwm)
