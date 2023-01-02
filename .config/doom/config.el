@@ -203,6 +203,8 @@ List of keybindings (SPC h b b)")
   (kbd "RET") 'ednc-invoke-action
   (kbd "e") 'ednc-toggle-expanded-view)
 
+(setq elfeed-goodies/entry-pane-size 0.5)
+
 (evil-define-key 'normal elfeed-show-mode-map
   (kbd "J") 'elfeed-goodies/split-show-next
   (kbd "K") 'elfeed-goodies/split-show-prev)
@@ -226,8 +228,7 @@ List of keybindings (SPC h b b)")
                      ("https://www.networkworld.com/category/linux/index.rss" networkworld linux)
                      ("https://www.techrepublic.com/rssfeeds/topic/open-source/" techrepublic linux)
                      ("https://betanews.com/feed" betanews linux)
-                     ("http://lxer.com/module/newswire/headlines.rss" lxer linux)
-                     ("https://distrowatch.com/news/dwd.xml" distrowatch linux))))
+                     ("http://lxer.com/module/newswire/headlines.rss" lxer linux))))
 
 (emms-all)
 (emms-default-players)
