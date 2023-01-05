@@ -712,8 +712,7 @@ List of keybindings (SPC h b b)")
   (setq org-agenda-files '("~/nc/Org/agenda.org")))
 
 (setq
-   ;; org-fancy-priorities-list '("❗" "[B]" "▰")
-   ;; org-fancy-priorities-list '("⬆" "↕" "⬇")
+   ;; org-fancy-priorities-list '("❗" "[B]" "[C]")
    org-fancy-priorities-list '("🟥" "🟧" "🟨")
    org-priority-faces
    '((?A :foreground "#ff6c6b" :weight bold)
@@ -734,7 +733,7 @@ List of keybindings (SPC h b b)")
                  (org-agenda-overriding-header "Low-priority unfinished tasks:")))
           (tags "customtag"
                 ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "Tasks with customtag tag:")))
+                 (org-agenda-overriding-header "Tasks marked with customtag:")))
 
           (agenda "")
           (alltodo "")))))
