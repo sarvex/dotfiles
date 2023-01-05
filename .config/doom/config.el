@@ -391,7 +391,6 @@ List of keybindings (SPC h b b)")
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org
   (setq org-directory "~/nc/Org/"
-        org-agenda-files '("~/nc/Org/agenda.org")
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
         org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
@@ -581,6 +580,41 @@ List of keybindings (SPC h b b)")
 ;; Load our desired dt/org-colors-* theme on startup
 (dt/org-colors-doom-one)
 
+(after! org
+  (setq org-agenda-files '("~/nc/Org/agenda.org")
+        ;; org-fancy-priorities-list '("❗" "[B]" "▰")
+        ;; org-fancy-priorities-list '("⬆" "↕" "⬇")
+        org-fancy-priorities-list '("🟥" "🟧" "🟨")
+        org-priority-faces
+        '((?A :foreground "#ff6c6b" :weight bold)
+          (?B :foreground "#98be65" :weight bold)
+          (?C :foreground "#c678dd" :weight bold))
+        org-agenda-block-separator 8411
+        ))
+(setq org-agenda-custom-commands
+      '(("v" "A better agenda view"
+         ((tags "PRIORITY=\"A\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "High-priority unfinished tasks:")))
+          (tags "PRIORITY=\"B\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "Medium-priority unfinished tasks:")))
+          (tags "PRIORITY=\"C\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "Low-priority unfinished tasks:")))
+          (tags "customtag"
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "Tasks with customtag tag:")))
+
+          (agenda "")
+          (alltodo "")))))
+
+(use-package! org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode)
+  :config
+  (setq org-auto-tangle-default t))
+
 (use-package ox-man)
 (use-package ox-gemini)
 
@@ -707,40 +741,6 @@ List of keybindings (SPC h b b)")
          :auto-preamble t)
 
       ))
-
-(after! org
-  (setq
-   ;; org-fancy-priorities-list '("❗" "[B]" "▰")
-   ;; org-fancy-priorities-list '("⬆" "↕" "⬇")
-   org-fancy-priorities-list '("🟥" "🟧" "🟨")
-   org-priority-faces
-   '((?A :foreground "#ff6c6b" :weight bold)
-     (?B :foreground "#98be65" :weight bold)
-     (?C :foreground "#c678dd" :weight bold))
-   ))
-(setq org-agenda-custom-commands
-      '(("v" "A better agenda view"
-         ((tags "PRIORITY=\"A\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "High-priority unfinished tasks:")))
-          (tags "PRIORITY=\"B\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "Medium-priority unfinished tasks:")))
-          (tags "PRIORITY=\"C\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "Low-priority unfinished tasks:")))
-          (tags "customtag"
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "Tasks with customtag tag:")))
-
-          (agenda "")
-          (alltodo "")))))
-
-(use-package! org-auto-tangle
-  :defer t
-  :hook (org-mode . org-auto-tangle-mode)
-  :config
-  (setq org-auto-tangle-default t))
 
 (use-package! password-store)
 

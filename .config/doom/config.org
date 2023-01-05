@@ -45,11 +45,11 @@
 - [[#open-specific-files][OPEN SPECIFIC FILES]]
 - [[#org-mode][ORG MODE]]
   - [[#org-fonts][Org fonts]]
+  - [[#org-agenda][Org-agenda]]
+  - [[#org-auto-tangle][Org-auto-tangle]]
   - [[#org-export][Org-export]]
   - [[#org-journal][Org-journal]]
   - [[#org-publish][Org-publish]]
-  - [[#org-agenda][Org-agenda]]
-  - [[#org-auto-tangle][Org-auto-tangle]]
 - [[#password-store][PASSWORD STORE]]
 - [[#perspective][PERSPECTIVE]]
 - [[#rainbow-mode][RAINBOW MODE]]
@@ -800,7 +800,6 @@ I wrapped most of this block in (after! org).  Without this, my settings might b
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org
   (setq org-directory "~/nc/Org/"
-        org-agenda-files '("~/nc/Org/agenda.org")
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
         org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
@@ -997,6 +996,50 @@ I have created an interactive function for each color scheme (M-x dt/org-colors-
 
 #+end_src
 
+** Org-agenda
+#+begin_src emacs-lisp
+(after! org
+  (setq org-agenda-files '("~/nc/Org/agenda.org")
+        ;; org-fancy-priorities-list '("❗" "[B]" "▰")
+        ;; org-fancy-priorities-list '("⬆" "↕" "⬇")
+        org-fancy-priorities-list '("🟥" "🟧" "🟨")
+        org-priority-faces
+        '((?A :foreground "#ff6c6b" :weight bold)
+          (?B :foreground "#98be65" :weight bold)
+          (?C :foreground "#c678dd" :weight bold))
+        org-agenda-block-separator 8411
+        ))
+(setq org-agenda-custom-commands
+      '(("v" "A better agenda view"
+         ((tags "PRIORITY=\"A\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "High-priority unfinished tasks:")))
+          (tags "PRIORITY=\"B\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "Medium-priority unfinished tasks:")))
+          (tags "PRIORITY=\"C\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "Low-priority unfinished tasks:")))
+          (tags "customtag"
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "Tasks with customtag tag:")))
+
+          (agenda "")
+          (alltodo "")))))
+#+end_src
+
+** Org-auto-tangle
+=org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so that it automatically tangles when you save the document.
+
+#+begin_src emacs-lisp
+(use-package! org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode)
+  :config
+  (setq org-auto-tangle-default t))
+
+#+end_src
+
 ** Org-export
 We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting to gemtext (for the gemini protocol).
 
@@ -1135,49 +1178,6 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
          :auto-preamble t)
 
       ))
-#+end_src
-
-** Org-agenda
-#+begin_src emacs-lisp
-(after! org
-  (setq
-   ;; org-fancy-priorities-list '("❗" "[B]" "▰")
-   ;; org-fancy-priorities-list '("⬆" "↕" "⬇")
-   org-fancy-priorities-list '("🟥" "🟧" "🟨")
-   org-priority-faces
-   '((?A :foreground "#ff6c6b" :weight bold)
-     (?B :foreground "#98be65" :weight bold)
-     (?C :foreground "#c678dd" :weight bold))
-   ))
-(setq org-agenda-custom-commands
-      '(("v" "A better agenda view"
-         ((tags "PRIORITY=\"A\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "High-priority unfinished tasks:")))
-          (tags "PRIORITY=\"B\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "Medium-priority unfinished tasks:")))
-          (tags "PRIORITY=\"C\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "Low-priority unfinished tasks:")))
-          (tags "customtag"
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "Tasks with customtag tag:")))
-
-          (agenda "")
-          (alltodo "")))))
-#+end_src
-
-** Org-auto-tangle
-=org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so that it automatically tangles when you save the document.
-
-#+begin_src emacs-lisp
-(use-package! org-auto-tangle
-  :defer t
-  :hook (org-mode . org-auto-tangle-mode)
-  :config
-  (setq org-auto-tangle-default t))
-
 #+end_src
 
 * PASSWORD STORE
