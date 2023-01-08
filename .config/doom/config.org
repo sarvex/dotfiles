@@ -768,14 +768,14 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
 * OPEN SPECIFIC FILES
 Keybindings to open files that I work with all the time using the find-file command, which is the interactive file search that opens with 'C-x C-f' in GNU Emacs or 'SPC f f' in Doom Emacs.  These keybindings use find-file non-interactively since we specify exactly what file to open.  The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does not use 'SPC ='.
 
-| PATH TO FILE                   | DESCRIPTION           | KEYBINDING |
-|--------------------------------+-----------------------+------------|
-| ~/Org/agenda.org               | /Edit agenda file/      | SPC = a    |
-| ~/.config/doom/config.org      | /Edit doom config.org/  | SPC = c    |
-| ~/.config/doom/init.el         | /Edit doom init.el/     | SPC = i    |
-| ~/.config/doom/packages.el     | /Edit doom packages.el/ | SPC = p    |
-| ~/.config/doom/eshell/aliases  | /Edit eshell aliases/   | SPC = e a  |
-| ~/.config/doom/eshell/profile  | /Edit eshell profile/   | SPC = e p  |
+| PATH TO FILE                  | DESCRIPTION           | KEYBINDING |
+|-------------------------------+-----------------------+------------|
+| ~/nc/Org/agenda.org           | /Edit agenda file/      | SPC = a    |
+| ~/.config/doom/config.org     | /Edit doom config.org/  | SPC = c    |
+| ~/.config/doom/init.el        | /Edit doom init.el/     | SPC = i    |
+| ~/.config/doom/packages.el    | /Edit doom packages.el/ | SPC = p    |
+| ~/.config/doom/eshell/aliases | /Edit eshell aliases/   | SPC = e a  |
+| ~/.config/doom/eshell/profile | /Edit eshell profile/   | SPC = e p  |
 
 #+BEGIN_SRC emacs-lisp
 (map! :leader
