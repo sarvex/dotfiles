@@ -115,7 +115,7 @@ List of keybindings (SPC h b b)")
   (setq dashboard-startup-banner "~/.config/doom/doom-emacs-dash.png")  ;; use custom image as banner
   (setq dashboard-center-content nil) ;; set to 't' for centered content
   (setq dashboard-items '((recents . 5)
-                          (agenda . 5 )
+                          ;; (agenda . 5 ) ;; Agenda crashes Dashboard if using weird characters.
                           (bookmarks . 5)
                           (projects . 5)
                           (registers . 5)))
@@ -391,7 +391,6 @@ List of keybindings (SPC h b b)")
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org
   (setq org-directory "~/nc/Org/"
-        org-agenda-files '("~/nc/Org/agenda.org")
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
         org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
