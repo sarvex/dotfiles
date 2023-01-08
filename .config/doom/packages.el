@@ -58,7 +58,7 @@
 (package! flycheck-aspell)
 (package! calfw)
 (package! calfw-org)
-(package! dashboard)
+;;(package! dashboard)
 (package! dired-open)
 (package! dired-subtree)
 (package! dirvish)

@@ -1,19 +1,17 @@
 #+TITLE: DT'S Emacs Start Page
 #+STARTUP: inlineimages
 
-[[file:./doom-emacs-dash.png]]
+[[file:./emacs-start-page.png]]
 
 * IMPORTANT KEYBINDINGS
-
-| /KEYBINDING/ | /FUNCTION/          | /DESCRIPTION/            |
-|------------+-------------------+------------------------|
-| SPC .      | [[elisp:(ido-find-file)][find-file]]         | Find a file            |
-| SPC f r    | [[elisp:(counsel-recentf)][counsel-recentf]]   | Find a recent file     |
-| SPC d d    | [[elisp:(dired (getenv "HOME"))][dired]]             | Dired file manager     |
-| SPC e s    | [[elisp:(eshell)][eshell]]            | Launch the eshell      |
-| SPC h r r  | [[elisp:(doom/reload)][doom/reload]]       | Reload Doom Emacs      |
-| SPC h d h  | [[elisp:(doom/help)][doom/help]]         | Doom Emacs user manual |
-| SPC h b b  | [[elisp:(counsel-descbinds)][counsel-descbinds]] | Describe keybindings   |
+|-----------+-------------------+---------------------------|
+| M-x       | [[elisp:(counsel-M-x)][counsel-M-x]]       | Prompt for Emacs programs |
+| SPC .     | [[elisp:(counsel-find-file)][counsel-find-file]] | Find a file               |
+| SPC f r   | [[elisp:(counsel-recentf)][counsel-recentf]]   | Find a recent file        |
+| SPC d d   | [[elisp:(dired (getenv "HOME"))][dired]]             | Dired file manager        |
+| SPC e s   | [[elisp:(eshell)][eshell]]            | Launch the eshell         |
+| SPC h r r | [[elisp:(doom/reload)][doom/reload]]       | Reload Doom Emacs         |
+|-----------+-------------------+---------------------------|
 
 * BUFFERS & SPLITS
 |------------------------------+------------------------------+-----------------------------|
@@ -23,9 +21,13 @@
 | (SPC w c) [[elisp:(evil-window-delete)][evil-window-delete]] | (SPC w l) [[elisp:(evil-window-left 1)][evil-window-left]]   | (SPC w h) [[elisp:(evil-window-right 1)][evil-window-right]] |
 |------------------------------+------------------------------+-----------------------------|
 
-* DOOM EMACS CONFIG FILES
+* HELP INFORMATION
+|-----------------------------+-----------------------------+-------------------------------|
+| (SPC h d h) [[elisp:(doom/help)][doom/help]]       | (SPC h d f) [[elisp:(doom/help-faq)][doom/help-faq]]   | (SPC h i) [[elisp:(info)][info]]                |
+| (SPC h f) [[elisp:(counsel-describe-function)][describe-function]] | (SPC h v) [[elisp:(counsel-describe-variable)][describe-variable]] | (SPC h b b) [[elisp:(counsel-descbinds)][describe-bindings]] |
+|-----------------------------+-----------------------------+-------------------------------|
 
-| /NAME OF FILE/   | /DESCRIPTION/                                                |
+* DOOM EMACS CONFIG FILES
 |----------------+------------------------------------------------------------|
 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/config.org"))][config.org]]     | This is the main user configuration file for Doom Emacs.   |
 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/init.el"))][init.el]]        | Allows you to turn on/off the standard Doom modules.       |
@@ -33,5 +35,7 @@
 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/start.org"))][start.org]]      | View/edit your custom start page.                          |
 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/eshell/aliases"))][eshell/aliases]] | Aliases file for the eshell.                               |
 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/eshell/profile"))][eshell/profile]] | Profile for the eshell.                                    |
+|----------------+------------------------------------------------------------|
 
 =NOTE=: (SPC f p) [[elisp:(doom/find-file-in-private-config)][doom/find-file-in-private-config]] searches for files in HOME/.config/doom/.
+
