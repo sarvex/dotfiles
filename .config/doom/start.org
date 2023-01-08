@@ -5,7 +5,7 @@
 
 * IMPORTANT KEYBINDINGS
 
-| KEYBINDING | FUNCTION          | DESCRIPTION            |
+| /KEYBINDING/ | /FUNCTION/          | /DESCRIPTION/            |
 |------------+-------------------+------------------------|
 | SPC .      | [[elisp:(ido-find-file)][find-file]]         | Find a file            |
 | SPC f r    | [[elisp:(counsel-recentf)][counsel-recentf]]   | Find a recent file     |
@@ -25,7 +25,7 @@
 
 * DOOM EMACS CONFIG FILES
 
-| NAME OF FILE   | DESCRIPTION                                                |
+| /NAME OF FILE/   | /DESCRIPTION/                                                |
 |----------------+------------------------------------------------------------|
 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/config.org"))][config.org]]     | This is the main user configuration file for Doom Emacs.   |
 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/init.el"))][init.el]]        | Allows you to turn on/off the standard Doom modules.       |
@@ -34,4 +34,4 @@
 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/eshell/aliases"))][eshell/aliases]] | Aliases file for the eshell.                               |
 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/eshell/profile"))][eshell/profile]] | Profile for the eshell.                                    |
 
-=NOTE=: You can run [[elisp:(doom/find-file-in-private-config)][doom/find-file-in-private-config]] (SPC f p) to search for files located in HOME/.config/doom/.
+=NOTE=: (SPC f p) [[elisp:(doom/find-file-in-private-config)][doom/find-file-in-private-config]] searches for files in HOME/.config/doom/.
