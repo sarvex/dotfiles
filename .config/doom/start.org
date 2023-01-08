@@ -1,4 +1,3 @@
-#+TITLE: DT'S Emacs Start Page
 #+STARTUP: inlineimages
 
 [[file:./emacs-start-page.png]]
