@@ -14,6 +14,7 @@
 - [[#calendar][CALENDAR]]
 - [[#centaur-tabs][CENTAUR-TABS]]
 - [[#clippy][CLIPPY]]
+- [[#dashboard][DASHBOARD]]
   - [[#configuring-dashboard][Configuring Dashboard]]
   - [[#dashboard-in-emacsclient][Dashboard in Emacsclient]]
 - [[#dired][DIRED]]
@@ -245,6 +246,7 @@ Gives us a popup box with "Clippy, the paper clip". You can make him say various
 
 #+end_src
 
+* DASHBOARD
 Emacs Dashboard is an extensible startup screen showing you recent files, bookmarks, agenda items and an Emacs banner.
 
 ** Configuring Dashboard
@@ -264,7 +266,7 @@ List of keybindings (SPC h b b)")
   (setq dashboard-startup-banner "~/.config/doom/doom-emacs-dash.png")  ;; use custom image as banner
   (setq dashboard-center-content nil) ;; set to 't' for centered content
   (setq dashboard-items '((recents . 5)
-                          ;; (agenda . 5 ) ;; Agenda crashes Dashboard if using weird characters.
+                          ;; (agenda . 5 ) ;; Agenda crashes Dashboard if using custom org-agenda.
                           (bookmarks . 5)
                           (projects . 5)
                           (registers . 5)))
@@ -1140,6 +1142,7 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
   (setq org-agenda-files '("~/nc/Org/agenda.org")))
 
 (setq
+   ;; org-fancy-priorities-list '("[A]" "[B]" "[C]")
    ;; org-fancy-priorities-list '("❗" "[B]" "[C]")
    org-fancy-priorities-list '("🟥" "🟧" "🟨")
    org-priority-faces
@@ -1167,6 +1170,9 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
           (alltodo "")))))
 
 #+end_src
+
+#+RESULTS:
+| v | A better agenda view | ((tags PRIORITY="A" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done)) (org-agenda-overriding-header High-priority unfinished tasks:))) (tags PRIORITY="B" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done)) (org-agenda-overriding-header Medium-priority unfinished tasks:))) (tags PRIORITY="C" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done)) (org-agenda-overriding-header Low-priority unfinished tasks:))) (tags customtag ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done)) (org-agenda-overriding-header Tasks marked with customtag:))) (agenda ) (alltodo )) |
 
 ** Org-auto-tangle
 =org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so that it automatically tangles when you save the document.

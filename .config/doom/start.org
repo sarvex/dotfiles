@@ -4,10 +4,21 @@
 
 * IMPORTANT KEYBINDINGS
 
-| KEYBINDING | FUNCTION        | DESCRIPTION                   |
-|------------+-----------------+-------------------------------|
-| SPC .      | find-file       | Find a file to edit           |
-| SPC f r    | counsel-recentf | Find a file on 'recentf-list' |
-| SPC d d    | [[elisp:(dired (getenv "HOME"))][Dired HOME]]      | Open dired file manager       |
+| KEYBINDING | FUNCTION        | DESCRIPTION        |
+|------------+-----------------+--------------------|
+| SPC .      | [[elisp:(ido-find-file)][find-file]]       | Find a file        |
+| SPC f r    | [[elisp:(counsel-recentf)][counsel-recentf]] | Find a recent file |
+| SPC d d    | [[elisp:(dired (getenv "HOME"))][dired]]           | Dired file manager |
+| SPC b i    | [[elisp:(ibuffer)][ibuffer]]         | List all buffers   |
+| SPC e s    | [[elisp:(eshell)][eshell]]          | Launch the eshell  |
+| SPC h r r  | [[elisp:(doom/reload)][doom/reload]]     | Reload Doom Emacs  |
+|            |                 |                    |
+
+* DOOM EMACS CONFIG FILES
+
+| NAME OF FILE | DESCRIPTION |
++--------------+-------------|
+| [[elisp:(ido-find-file)][find-file]]    | Find a file |
+
 
 [[elisp:(find-function 'describe-function)]]

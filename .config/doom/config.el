@@ -115,7 +115,7 @@ List of keybindings (SPC h b b)")
   (setq dashboard-startup-banner "~/.config/doom/doom-emacs-dash.png")  ;; use custom image as banner
   (setq dashboard-center-content nil) ;; set to 't' for centered content
   (setq dashboard-items '((recents . 5)
-                          ;; (agenda . 5 ) ;; Agenda crashes Dashboard if using weird characters.
+                          ;; (agenda . 5 ) ;; Agenda crashes Dashboard if using custom org-agenda.
                           (bookmarks . 5)
                           (projects . 5)
                           (registers . 5)))
@@ -711,6 +711,7 @@ List of keybindings (SPC h b b)")
   (setq org-agenda-files '("~/nc/Org/agenda.org")))
 
 (setq
+   ;; org-fancy-priorities-list '("[A]" "[B]" "[C]")
    ;; org-fancy-priorities-list '("❗" "[B]" "[C]")
    org-fancy-priorities-list '("🟥" "🟧" "🟨")
    org-priority-faces
