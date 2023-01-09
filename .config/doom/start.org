@@ -2,7 +2,7 @@
 
 [[file:./emacs-start-page.png]]
 
-* IMPORTANT KEYBINDINGS
+⦿ *IMPORTANT KEYBINDINGS*
 |------------+---------------------+------------------------------------|
 | M-x        | [[elisp:(counsel-M-x)][counsel-M-x]]         | Prompt for Emacs programs          |
 | SPC .      | [[elisp:(counsel-find-file)][counsel-find-file]]   | Find a file                        |
@@ -15,7 +15,7 @@
 | SPC v t    | [[elisp:(+vterm/toggle nil)][+vterm/toggle]]       | Toggle the vterm terminal emulator |
 |------------+---------------------+------------------------------------|
 
-* BUFFERS & SPLITS
+⦿ *BUFFERS AND SPLITS*
 |------------------------------+------------------------------+-----------------------------|
 | (SPC b i) [[elisp:(ibuffer)][ibuffer]]            | (SPC b p) [[elisp:(previous-buffer)][previous-buffer]]    | (SPC b n) [[elisp:(next-buffer)][next-buffer]]       |
 | (SPC b k) [[elisp:(kill-buffer)][kill-buffer]]        | (SPC b s) [[elisp:(save-buffer)][save-buffer]]        | (SPC b u) /sudo-save-buffer/  |
@@ -23,13 +23,13 @@
 | (SPC w c) [[elisp:(evil-window-delete)][evil-window-delete]] | (SPC w l) [[elisp:(evil-window-left 1)][evil-window-left]]   | (SPC w h) [[elisp:(evil-window-right 1)][evil-window-right]] |
 |------------------------------+------------------------------+-----------------------------|
 
-* HELP INFORMATION
+⦿ *HELP INFORMATION*
 |-----------------------------+-----------------------------+-------------------------------|
 | (SPC h d h) [[elisp:(doom/help)][doom/help]]       | (SPC h d f) [[elisp:(doom/help-faq)][doom/help-faq]]   | (SPC h i) [[elisp:(info)][info]]                |
 | (SPC h f) [[elisp:(counsel-describe-function)][describe-function]] | (SPC h v) [[elisp:(counsel-describe-variable)][describe-variable]] | (SPC h b b) [[elisp:(counsel-descbinds)][describe-bindings]] |
 |-----------------------------+-----------------------------+-------------------------------|
 
-* DOOM EMACS CONFIG FILES
+⦿ *DOOM EMACS CONFIGS* (=NOTE=: 'SPC f p' [[elisp:(doom/find-file-in-private-config)][doom/find-file-in-private-config]])
 |----------------+------------------------------------------------------------|
 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/config.org"))][config.org]]     | This is the main user configuration file for Doom Emacs.   |
 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/init.el"))][init.el]]        | Allows you to turn on/off the standard Doom modules.       |
@@ -38,6 +38,3 @@
 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/eshell/aliases"))][eshell/aliases]] | Aliases file for the eshell.                               |
 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/eshell/profile"))][eshell/profile]] | Profile for the eshell.                                    |
 |----------------+------------------------------------------------------------|
-
-=NOTE=: (SPC f p) [[elisp:(doom/find-file-in-private-config)][doom/find-file-in-private-config]] searches for files in HOME/.config/doom/.
-
