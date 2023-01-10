@@ -149,8 +149,9 @@
        (org
         +dragndrop
         +journal             ; enable org journal
+        +roam2               ; create a personal wiki 
         +pretty              ; replace asterisks with pretty org bullets
-        +publish)             ; create static websites with org
+        +publish)            ; create static websites with org
        php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional

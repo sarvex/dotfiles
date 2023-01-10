@@ -366,6 +366,7 @@
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org
   (setq org-directory "~/nc/Org/"
+        org-roam-directory "~/nc/Org/roam/"
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
         org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
@@ -718,6 +719,14 @@
   :hook (org-mode . org-auto-tangle-mode)
   :config
   (setq org-auto-tangle-default t))
+
+(map! :leader
+      (:prefix ("n r" . "org-roam")
+       :desc "Capture node" "c" #'org-roam-capture
+       :desc "Find node" "f" #'org-roam-node-find
+       :desc "Show graph" "g" #'org-roam-graph
+       :desc "Insert node" "i" #'org-roam-node-insert
+       :desc "Toggle roam buffer" "r" #'org-roam-buffer-toggle))
 
 (use-package! password-store)
 
