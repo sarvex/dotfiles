@@ -801,11 +801,16 @@
   :keymap (let ((map (make-sparse-keymap)))
           ;;(define-key map (kbd "M-z") 'eshell)
             (evil-define-key 'normal start-mode-map
-              (kbd "1") 'dt/open-config-org
-              (kbd "2") 'dt/open-init-el
-              (kbd "3") 'dt/open-packages-el
-              (kbd "4") 'dt/open-eshell-aliases
-              (kbd "5") 'dt/open-eshell-profile)
+              (kbd "1") '(lambda () (interactive) (find-file "~/.config/doom/config.org"))
+              (kbd "2") '(lambda () (interactive) (find-file "~/.config/doom/init.el"))
+              (kbd "3") '(lambda () (interactive) (find-file "~/.config/doom/packages.el"))
+              (kbd "4") '(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
+              (kbd "5") '(lambda () (interactive) (find-file "~/.config/doom/eshell/profile")))
+              ;; (kbd "1") 'dt/open-config-org
+              ;; (kbd "2") 'dt/open-init-el
+              ;; (kbd "3") 'dt/open-packages-el
+              ;; (kbd "4") 'dt/open-eshell-aliases
+              ;; (kbd "5") 'dt/open-eshell-profile)
           map))
 
 (provide 'start-mode)
