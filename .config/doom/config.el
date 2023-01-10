@@ -775,39 +775,40 @@
 
 (setq initial-buffer-choice "~/.config/doom/start.org")
 
-(defun open-config-org()
+(defun dt/open-config-org ()
   (interactive)
   (find-file "~/.config/doom/config.org"))
 
-(defun open-init-el()
+(defun dt/open-init-el ()
   (interactive)
   (find-file "~/.config/doom/init.el"))
 
-(defun open-packages-el()
+(defun dt/open-packages-el ()
   (interactive)
   (find-file "~/.config/doom/packages.el"))
 
-(defun open-eshell-aliases()
+(defun dt/open-eshell-aliases ()
   (interactive)
   (find-file "~/.config/doom/eshell/aliases.el"))
 
-(defun open-eshell-profile()
+(defun dt/open-eshell-profile ()
   (interactive)
   (find-file "~/.config/doom/eshell/profile.el"))
 
 (define-minor-mode start-mode
   "Provide functions for custom start page."
-  :lighter " start")
-
-(evil-define-key 'normal start-mode-map
-  (kbd "1") 'open-config-org
-  (kbd "2") 'open-init-el
-  (kbd "3") 'open-packages-el
-  (kbd "4") 'open-eshell-aliases
-  (kbd "5") 'open-eshell-profile)
+  :lighter " start"
+  :keymap (let ((map (make-sparse-keymap)))
+          ;;(define-key map (kbd "M-z") 'eshell)
+            (evil-define-key 'normal start-mode-map
+              (kbd "1") 'dt/open-config-org
+              (kbd "2") 'dt/open-init-el
+              (kbd "3") 'dt/open-packages-el
+              (kbd "4") 'dt/open-eshell-aliases
+              (kbd "5") 'dt/open-eshell-profile)
+          map))
 
 (provide 'start-mode)
-;;(require start-mode)
 
 (map! :leader
       (:prefix ("w" . "window")
