@@ -41,12 +41,12 @@
 - [[#neotree][NEOTREE]]
 - [[#open-specific-files][OPEN SPECIFIC FILES]]
 - [[#org-mode][ORG MODE]]
+  - [[#org-agenda][Org-agenda]]
+  - [[#org-auto-tangle][Org-auto-tangle]]
   - [[#org-fonts][Org fonts]]
   - [[#org-export][Org-export]]
   - [[#org-journal][Org-journal]]
   - [[#org-publish][Org-publish]]
-  - [[#org-agenda][Org-agenda]]
-  - [[#org-auto-tangle][Org-auto-tangle]]
   - [[#org-roam][Org-roam]]
 - [[#password-store][PASSWORD STORE]]
 - [[#perspective][PERSPECTIVE]]
@@ -369,7 +369,6 @@ cd ~/
 ln -s ~/.local/share/Trash .
 #+end_example
 
-
 * DOOM THEME
 Setting the theme to doom-one.  To try out new themes, I set a keybinding for counsel-load-theme with 'SPC h t'.
 
@@ -403,7 +402,6 @@ The Emacs Desktop Notification Center (EDNC) is an Emacs package written in pure
   (kbd "d") 'ednc-dismiss-notification
   (kbd "RET") 'ednc-invoke-action
   (kbd "e") 'ednc-toggle-expanded-view)
-
 #+end_src
 
 * ELFEED
@@ -499,7 +497,6 @@ ERC is a built-in Emacs IRC client.
       erc-fill-static-center 20
       ;; erc-auto-query 'bury
       )
-
 #+end_src
 
 * EVALUATE ELISP EXPRESSIONS
@@ -591,6 +588,7 @@ Some custom functions to insert the date.  The function 'insert-todays-date' can
         :desc "Insert any date" "a" #'dt/insert-any-date
         :desc "Insert todays date" "t" #'dt/insert-todays-date))
 #+end_src
+
 * IVY
 Ivy is a generic completion mechanism for Emacs.
 
@@ -731,6 +729,8 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
 * OPEN SPECIFIC FILES
 Keybindings to open files that I work with all the time using the find-file command, which is the interactive file search that opens with 'C-x C-f' in GNU Emacs or 'SPC f f' in Doom Emacs.  These keybindings use find-file non-interactively since we specify exactly what file to open.  The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does not use 'SPC ='.
 
+=NOTE=: Doom Emacs already has a function 'doom/open-private-config' set to the keybinding 'SPC f p'.  This allows you to open any file in your HOME/.config/doom directory, so the following keybindings that I created are not really necessary, but I created this section as an example of how to to create bindings that open specific files on your system.
+
 | PATH TO FILE                  | DESCRIPTION                 | KEYBINDING |
 |-------------------------------+-----------------------------+------------|
 | ~/.config/doom/start.org      | /Edit start.org (start page)/ | SPC = =    |
@@ -765,7 +765,6 @@ I wrapped most of this block in (after! org).  Without this, my settings might b
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org
   (setq org-directory "~/nc/Org/"
-        org-roam-directory "~/nc/Org/roam/"
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
         org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
@@ -793,10 +792,65 @@ I wrapped most of this block in (after! org).  Without this, my settings might b
              "CANCELLED(c)" )))) ; Task has been cancelled
 #+END_SRC
 
+** Org-agenda
+#+begin_src emacs-lisp
+(after! org
+  (setq org-agenda-files '("~/nc/Org/agenda.org")))
+
+(setq
+   ;; org-fancy-priorities-list '("[A]" "[B]" "[C]")
+   ;; org-fancy-priorities-list '("❗" "[B]" "[C]")
+   org-fancy-priorities-list '("🟥" "🟧" "🟨")
+   org-priority-faces
+   '((?A :foreground "#ff6c6b" :weight bold)
+     (?B :foreground "#98be65" :weight bold)
+     (?C :foreground "#c678dd" :weight bold))
+   org-agenda-block-separator 8411)
+
+(setq org-agenda-custom-commands
+      '(("v" "A better agenda view"
+         ((tags "PRIORITY=\"A\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "High-priority unfinished tasks:")))
+          (tags "PRIORITY=\"B\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "Medium-priority unfinished tasks:")))
+          (tags "PRIORITY=\"C\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "Low-priority unfinished tasks:")))
+          (tags "customtag"
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "Tasks marked with customtag:")))
+
+          (agenda "")
+          (alltodo "")))))
+#+end_src
+
+** Org-auto-tangle
+=org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so that it automatically tangles when you save the document.  I have made adding this to your file even easier by creating a function 'dt/insert-auto-tangle-tag' and setting it to a keybinding 'SPC i a'.
+
+#+begin_src emacs-lisp
+(use-package! org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode)
+  :config
+  (setq org-auto-tangle-default t))
+
+(defun dt/insert-auto-tangle-tag ()
+  "Insert auto-tangle tag in a literate config."
+  (interactive)
+  (evil-org-open-below 1)
+  (insert "#+auto_tangle: t ")
+  (evil-force-normal-state))
+
+(map! :leader
+      :desc "Insert auto_tangle tag" "i a" #'dt/insert-auto-tangle-tag)
+#+end_src
+
 ** Org fonts
 I have created an interactive function for each color scheme (M-x dt/org-colors-*).  These functions will set appropriate colors and font attributes for org-level fonts and the org-table font.
-#+begin_src emacs-lisp
 
+#+begin_src emacs-lisp
 (defun dt/org-colors-doom-one ()
   "Enable Doom One colors for Org headers."
   (interactive)
@@ -959,7 +1013,6 @@ I have created an interactive function for each color scheme (M-x dt/org-colors-
 
 ;; Load our desired dt/org-colors-* theme on startup
 (dt/org-colors-doom-one)
-
 #+end_src
 
 ** Org-export
@@ -1102,56 +1155,14 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
       ))
 #+end_src
 
-** Org-agenda
+** Org-roam
+[[https://github.com/org-roam/org-roam][Org-roam]] is a plain-text knowledge management system.  Org-roam borrows principles from the =Zettelkasten= method, providing a solution for non-hierarchical note-taking.  It should also work as a plug-and-play solution for anyone already using Org-mode for their personal wiki.
+
 #+begin_src emacs-lisp
 (after! org
-  (setq org-agenda-files '("~/nc/Org/agenda.org")))
+  (setq org-roam-directory "~/nc/Org/roam/"
+        org-roam-graph-viewer "/usr/bin/brave"))
 
-(setq
-   ;; org-fancy-priorities-list '("[A]" "[B]" "[C]")
-   ;; org-fancy-priorities-list '("❗" "[B]" "[C]")
-   org-fancy-priorities-list '("🟥" "🟧" "🟨")
-   org-priority-faces
-   '((?A :foreground "#ff6c6b" :weight bold)
-     (?B :foreground "#98be65" :weight bold)
-     (?C :foreground "#c678dd" :weight bold))
-   org-agenda-block-separator 8411)
-
-(setq org-agenda-custom-commands
-      '(("v" "A better agenda view"
-         ((tags "PRIORITY=\"A\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "High-priority unfinished tasks:")))
-          (tags "PRIORITY=\"B\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "Medium-priority unfinished tasks:")))
-          (tags "PRIORITY=\"C\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "Low-priority unfinished tasks:")))
-          (tags "customtag"
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                 (org-agenda-overriding-header "Tasks marked with customtag:")))
-
-          (agenda "")
-          (alltodo "")))))
-
-#+end_src
-
-** Org-auto-tangle
-=org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so that it automatically tangles when you save the document.
-
-#+begin_src emacs-lisp
-(use-package! org-auto-tangle
-  :defer t
-  :hook (org-mode . org-auto-tangle-mode)
-  :config
-  (setq org-auto-tangle-default t))
-
-#+end_src
-
-** Org-roam
-
-#+begin_src emacs-lisp
 (map! :leader
       (:prefix ("n r" . "org-roam")
        :desc "Capture node" "c" #'org-roam-capture
@@ -1159,7 +1170,6 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
        :desc "Show graph" "g" #'org-roam-graph
        :desc "Insert node" "i" #'org-roam-node-insert
        :desc "Toggle roam buffer" "r" #'org-roam-buffer-toggle))
-
 #+end_src
 
 * PASSWORD STORE
