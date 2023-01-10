@@ -1,6 +1,6 @@
 #+STARTUP: inlineimages
 
-[[file:./emacs-start-page.png]]
+[[file:./images/emacs-start-page.png]]
 
 ⦿ *IMPORTANT KEYBINDINGS*
 |------------+---------------------+------------------------------------|
@@ -30,11 +30,14 @@
 |-----------------------------+-----------------------------+-------------------------------|
 
 ⦿ *DOOM EMACS CONFIGS* (=NOTE=: 'SPC f p' [[elisp:(doom/find-file-in-private-config)][doom/find-file-in-private-config]])
-|----------------+------------------------------------------------------------|
-| [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/config.org"))][config.org]]     | This is the main user configuration file for Doom Emacs.   |
-| [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/init.el"))][init.el]]        | Allows you to turn on/off the standard Doom modules.       |
-| [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/packages.el"))][packages.el]]    | Easily install extra packages by adding them to this file. |
-| [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/start.org"))][start.org]]      | View/edit your custom start page.                          |
-| [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/eshell/aliases"))][eshell/aliases]] | Aliases file for the eshell.                               |
-| [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/eshell/profile"))][eshell/profile]] | Profile for the eshell.                                    |
-|----------------+------------------------------------------------------------|
+|---+----------------+------------------------------------------------------------|
+| 1 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/config.org"))][config.org]]     | This is the main user configuration file for Doom Emacs.   |
+| 2 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/init.el"))][init.el]]        | Allows you to turn on/off the standard Doom modules.       |
+| 3 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/packages.el"))][packages.el]]    | Easily install extra packages by adding them to this file. |
+| 4 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/eshell/aliases"))][eshell/aliases]] | Aliases file for the eshell.                               |
+| 5 | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/eshell/profile"))][eshell/profile]] | Profile for the eshell.                                    |
+|---+----------------+------------------------------------------------------------|
+
+;; Local Variables:
+;; eval: (start-mode)
+;; End:

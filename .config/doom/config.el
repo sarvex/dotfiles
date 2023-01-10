@@ -352,6 +352,7 @@
 
 (map! :leader
       (:prefix ("=" . "open file")
+       :desc "Edit agenda file" "=" #'(lambda () (interactive) (find-file "~/.config/doom/start.org"))
        :desc "Edit agenda file" "a" #'(lambda () (interactive) (find-file "~/nc/Org/agenda.org"))
        :desc "Edit doom config.org" "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
        :desc "Edit doom init.el" "i" #'(lambda () (interactive) (find-file "~/.config/doom/init.el"))
@@ -773,6 +774,40 @@
       :desc "Clone indirect buffer other window" "b c" #'clone-indirect-buffer-other-window)
 
 (setq initial-buffer-choice "~/.config/doom/start.org")
+
+(defun open-config-org()
+  (interactive)
+  (find-file "~/.config/doom/config.org"))
+
+(defun open-init-el()
+  (interactive)
+  (find-file "~/.config/doom/init.el"))
+
+(defun open-packages-el()
+  (interactive)
+  (find-file "~/.config/doom/packages.el"))
+
+(defun open-eshell-aliases()
+  (interactive)
+  (find-file "~/.config/doom/eshell/aliases.el"))
+
+(defun open-eshell-profile()
+  (interactive)
+  (find-file "~/.config/doom/eshell/profile.el"))
+
+(define-minor-mode start-mode
+  "Provide functions for custom start page."
+  :lighter " start")
+
+(evil-define-key 'normal start-mode-map
+  (kbd "1") 'open-config-org
+  (kbd "2") 'open-init-el
+  (kbd "3") 'open-packages-el
+  (kbd "4") 'open-eshell-aliases
+  (kbd "5") 'open-eshell-profile)
+
+(provide 'start-mode)
+;;(require start-mode)
 
 (map! :leader
       (:prefix ("w" . "window")

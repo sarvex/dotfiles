@@ -730,18 +730,20 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
 * OPEN SPECIFIC FILES
 Keybindings to open files that I work with all the time using the find-file command, which is the interactive file search that opens with 'C-x C-f' in GNU Emacs or 'SPC f f' in Doom Emacs.  These keybindings use find-file non-interactively since we specify exactly what file to open.  The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does not use 'SPC ='.
 
-| PATH TO FILE                  | DESCRIPTION           | KEYBINDING |
-|-------------------------------+-----------------------+------------|
-| ~/nc/Org/agenda.org           | /Edit agenda file/      | SPC = a    |
-| ~/.config/doom/config.org     | /Edit doom config.org/  | SPC = c    |
-| ~/.config/doom/init.el        | /Edit doom init.el/     | SPC = i    |
-| ~/.config/doom/packages.el    | /Edit doom packages.el/ | SPC = p    |
-| ~/.config/doom/eshell/aliases | /Edit eshell aliases/   | SPC = e a  |
-| ~/.config/doom/eshell/profile | /Edit eshell profile/   | SPC = e p  |
+| PATH TO FILE                  | DESCRIPTION                 | KEYBINDING |
+|-------------------------------+-----------------------------+------------|
+| ~/.config/doom/start.org      | /Edit start.org (start page)/ | SPC = =    |
+| ~/nc/Org/agenda.org           | /Edit agenda file/            | SPC = a    |
+| ~/.config/doom/config.org     | /Edit doom config.org/        | SPC = c    |
+| ~/.config/doom/init.el        | /Edit doom init.el/           | SPC = i    |
+| ~/.config/doom/packages.el    | /Edit doom packages.el/       | SPC = p    |
+| ~/.config/doom/eshell/aliases | /Edit eshell aliases/         | SPC = e a  |
+| ~/.config/doom/eshell/profile | /Edit eshell profile/         | SPC = e p  |
 
 #+BEGIN_SRC emacs-lisp
 (map! :leader
       (:prefix ("=" . "open file")
+       :desc "Edit agenda file" "=" #'(lambda () (interactive) (find-file "~/.config/doom/start.org"))
        :desc "Edit agenda file" "a" #'(lambda () (interactive) (find-file "~/nc/Org/agenda.org"))
        :desc "Edit doom config.org" "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
        :desc "Edit doom init.el" "i" #'(lambda () (interactive) (find-file "~/.config/doom/init.el"))
@@ -1264,6 +1266,39 @@ Instead of using Doom's Dashboard or the Emacs Dashboard program, I have decided
 #+begin_src emacs-lisp
 (setq initial-buffer-choice "~/.config/doom/start.org")
 
+(defun open-config-org()
+  (interactive)
+  (find-file "~/.config/doom/config.org"))
+
+(defun open-init-el()
+  (interactive)
+  (find-file "~/.config/doom/init.el"))
+
+(defun open-packages-el()
+  (interactive)
+  (find-file "~/.config/doom/packages.el"))
+
+(defun open-eshell-aliases()
+  (interactive)
+  (find-file "~/.config/doom/eshell/aliases.el"))
+
+(defun open-eshell-profile()
+  (interactive)
+  (find-file "~/.config/doom/eshell/profile.el"))
+
+(define-minor-mode start-mode
+  "Provide functions for custom start page."
+  :lighter " start")
+
+(evil-define-key 'normal start-mode-map
+  (kbd "1") 'open-config-org
+  (kbd "2") 'open-init-el
+  (kbd "3") 'open-packages-el
+  (kbd "4") 'open-eshell-aliases
+  (kbd "5") 'open-eshell-profile)
+
+(provide 'start-mode)
+;;(require start-mode)
 #+end_src
 
 * WINNER MODE
