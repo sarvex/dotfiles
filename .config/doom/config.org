@@ -1249,8 +1249,6 @@ Emacs registers are compartments where you can save text, rectangles and positio
 
 * SHELLS
 Settings for the various shells and terminal emulators within Emacs.
-+ 'shell-file-name' -- sets the shell to be used in M-x shell, M-x term, M-x ansi-term and M-x vterm.
-+ 'eshell-aliases-file' -- sets an aliases file for the eshell.
 
 #+BEGIN_SRC emacs-lisp
 (setq shell-file-name "/bin/fish"
