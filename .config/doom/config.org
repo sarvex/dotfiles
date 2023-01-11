@@ -86,11 +86,11 @@ Regarding /buffers/, the text you are editing in Emacs resides in an object call
 
 | COMMAND         | DESCRIPTION          | KEYBINDING |
 |-----------------+----------------------+------------|
-| ibuffer         | Launch ibuffer       | SPC b i    |
-| kill-buffer     | Kill current buffer  | SPC b k    |
-| next-buffer     | Goto next buffer     | SPC b n    |
-| previous-buffer | Goto previous buffer | SPC b p    |
-| save-buffer     | Save current buffer  | SPC b s    |
+| ibuffer         | /Launch ibuffer/       | SPC b i    |
+| kill-buffer     | /Kill current buffer/  | SPC b k    |
+| next-buffer     | /Goto next buffer/     | SPC b n    |
+| previous-buffer | /Goto previous buffer/ | SPC b p    |
+| save-buffer     | /Save current buffer/  | SPC b s    |
 
 ** Global Auto Revert
 A buffer can get out of sync with respect to its visited file on disk if that file is changed by another program. To keep it up to date, you can enable Auto Revert mode by typing M-x auto-revert-mode, or you can set it to be turned on globally with 'global-auto-revert-mode'.  I have also turned on Global Auto Revert on non-file buffers, which is especially useful for 'dired' buffers.
@@ -103,17 +103,17 @@ A buffer can get out of sync with respect to its visited file on disk if that fi
 ** Keybindings within ibuffer mode
 | COMMAND                           | DESCRIPTION                            | KEYBINDING |
 |-----------------------------------+----------------------------------------+------------|
-| ibuffer-mark-forward              | Mark the buffer                        | m          |
-| ibuffer-unmark-forward            | Unmark the buffer                      | u          |
-| ibuffer-do-kill-on-deletion-marks | Kill the marked buffers                | x          |
-| ibuffer-filter-by-content         | Ibuffer filter by content              | f c        |
-| ibuffer-filter-by-directory       | Ibuffer filter by directory            | f d        |
-| ibuffer-filter-by-filename        | Ibuffer filter by filename (full path) | f f        |
-| ibuffer-filter-by-mode            | Ibuffer filter by mode                 | f m        |
-| ibuffer-filter-by-name            | Ibuffer filter by name                 | f n        |
-| ibuffer-filter-disable            | Disable ibuffer filter                 | f x        |
-| ibuffer-do-kill-lines             | Hide marked buffers                    | g h        |
-| ibuffer-update                    | Restore hidden buffers                 | g H        |
+| ibuffer-mark-forward              | /Mark the buffer/                        | m          |
+| ibuffer-unmark-forward            | /Unmark the buffer/                      | u          |
+| ibuffer-do-kill-on-deletion-marks | /Kill the marked buffers/                | x          |
+| ibuffer-filter-by-content         | /Ibuffer filter by content/              | f c        |
+| ibuffer-filter-by-directory       | /Ibuffer filter by directory/            | f d        |
+| ibuffer-filter-by-filename        | /Ibuffer filter by filename (full path)/ | f f        |
+| ibuffer-filter-by-mode            | /Ibuffer filter by mode/                 | f m        |
+| ibuffer-filter-by-name            | /Ibuffer filter by name/                 | f n        |
+| ibuffer-filter-disable            | /Disable ibuffer filter/                 | f x        |
+| ibuffer-do-kill-lines             | /Hide marked buffers/                    | g h        |
+| ibuffer-update                    | /Restore hidden buffers/                 | g H        |
 
 #+begin_src emacs-lisp
 (evil-define-key 'normal ibuffer-mode-map
@@ -258,40 +258,40 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
 ** Keybindings Within Dired
 *** Basic dired commands
 
-| COMMAND                 | DESCRIPTION                                 | KEYBINDING |
-|-------------------------+---------------------------------------------+------------|
-| dired-view-file         | /View file in dired/                          | SPC d v    |
-| dired-up-directory      | /Go up in directory tree/                     | h          |
-| dired-find-file         | /Go down in directory tree (or open if file)/ | l          |
-| dired-next-line         | Move down to next line                      | j          |
-| dired-previous-line     | Move up to previous line                    | k          |
-| dired-mark              | Mark file at point                          | m          |
-| dired-unmark            | Unmark file at point                        | u          |
-| dired-do-copy           | Copy current file or marked files           | C          |
-| dired-do-rename         | Rename current file or marked files         | R          |
-| dired-hide-details      | Toggle detailed listings on/off             | (          |
-| dired-git-info-mode     | Toggle git information on/off               | )          |
-| dired-create-directory  | Create new empty directory                  | +          |
-| dired-diff              | Compare file at point with another          | =          |
-| dired-subtree-toggle    | Toggle viewing subtree at point             | TAB        |
+| COMMAND                | DESCRIPTION                                 | KEYBINDING |
+|------------------------+---------------------------------------------+------------|
+| dired-view-file        | /View file in dired/                          | SPC d v    |
+| dired-up-directory     | /Go up in directory tree/                     | h          |
+| dired-find-file        | /Go down in directory tree (or open if file)/ | l          |
+| dired-next-line        | /Move down to next line/                      | j          |
+| dired-previous-line    | /Move up to previous line/                    | k          |
+| dired-mark             | /Mark file at point/                          | m          |
+| dired-unmark           | /Unmark file at point/                        | u          |
+| dired-do-copy          | /Copy current file or marked files/           | C          |
+| dired-do-rename        | /Rename current file or marked files/         | R          |
+| dired-hide-details     | /Toggle detailed listings on/off/             | (          |
+| dired-git-info-mode    | /Toggle git information on/off/               | )          |
+| dired-create-directory | /Create new empty directory/                  | +          |
+| dired-diff             | /Compare file at point with another/          | =          |
+| dired-subtree-toggle   | /Toggle viewing subtree at point/             | TAB        |
 
 *** Dired commands using regex
 
 | COMMAND                 | DESCRIPTION                | KEYBINDING |
 |-------------------------+----------------------------+------------|
-| dired-mark-files-regexp | Mark files using regex     | % m        |
-| dired-do-copy-regexp    | Copy files using regex     | % C        |
-| dired-do-rename-regexp  | Rename files using regex   | % R        |
-| dired-mark-files-regexp | Mark all files using regex | * %        |
+| dired-mark-files-regexp | /Mark files using regex/     | % m        |
+| dired-do-copy-regexp    | /Copy files using regex/     | % C        |
+| dired-do-rename-regexp  | /Rename files using regex/   | % R        |
+| dired-mark-files-regexp | /Mark all files using regex/ | * %        |
 
 *** File permissions and ownership
 
 | COMMAND         | DESCRIPTION                      | KEYBINDING |
 |-----------------+----------------------------------+------------|
-| dired-do-chgrp  | Change the group of marked files | g G        |
-| dired-do-chmod  | Change the mode of marked files  | M          |
-| dired-do-chown  | Change the owner of marked files | O          |
-| dired-do-rename | Rename file or all marked files  | R          |
+| dired-do-chgrp  | /Change the group of marked files/ | g G        |
+| dired-do-chmod  | /Change the mode of marked files/  | M          |
+| dired-do-chown  | /Change the owner of marked files/ | O          |
+| dired-do-rename | /Rename file or all marked files/  | R          |
 
 #+begin_src emacs-lisp
 (map! :leader
@@ -563,10 +563,10 @@ Some custom functions to insert the date.  The function 'insert-todays-date' can
 
 | COMMAND               | EXAMPLE OUTPUT            | KEYBINDING            |
 |-----------------------+---------------------------+-----------------------|
-| dt/insert-todays-date | Friday, November 19, 2021 | SPC i d t             |
-| dt/insert-todays-date | 11-19-2021                | SPC u SPC i d t       |
-| dt/insert-todays-date | 2021-11-19                | SPC u SPC u SPC i d t |
-| dt/insert-any-date    | Friday, November 19, 2021 | SPC i d a             |
+| dt/insert-todays-date | /Friday, November 19, 2021/ | SPC i d t             |
+| dt/insert-todays-date | /11-19-2021/                | SPC u SPC i d t       |
+| dt/insert-todays-date | /2021-11-19/                | SPC u SPC u SPC i d t |
+| dt/insert-any-date    | /Friday, November 19, 2021/ | SPC i d a             |
 
 #+begin_src emacs-lisp
 (defun dt/insert-todays-date (prefix)
@@ -1158,6 +1158,15 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
 ** Org-roam
 [[https://github.com/org-roam/org-roam][Org-roam]] is a plain-text knowledge management system.  Org-roam borrows principles from the =Zettelkasten= method, providing a solution for non-hierarchical note-taking.  It should also work as a plug-and-play solution for anyone already using Org-mode for their personal wiki.
 
+| COMMAND                | DESCRIPTION                        | KEYBINDING |
+|------------------------+------------------------------------+------------|
+| completion-at-point    | /Completion of node-insert at point/ | SPC n r c  |
+| org-roam-node-find     | /Find node or create a new one/      | SPC n r f  |
+| org-roam-graph         | /Show graph of all nodes/            | SPC n r g  |
+| org-roam-node-insert   | /Insert link to a node/              | SPC n r i  |
+| org-roam-capture       | /Capture to node/                    | SPC n r n  |
+| org-roam-buffer-toggle | /Toggle roam buffer/                 | SPC n r r  |
+
 #+begin_src emacs-lisp
 (after! org
   (setq org-roam-directory "~/nc/Org/roam/"
@@ -1165,11 +1174,12 @@ We need ox-man for "Org eXporting" to manpage format and ox-gemini for exporting
 
 (map! :leader
       (:prefix ("n r" . "org-roam")
-       :desc "Capture node" "c" #'org-roam-capture
-       :desc "Find node" "f" #'org-roam-node-find
-       :desc "Show graph" "g" #'org-roam-graph
-       :desc "Insert node" "i" #'org-roam-node-insert
-       :desc "Toggle roam buffer" "r" #'org-roam-buffer-toggle))
+       :desc "Completion at point" "c" #'completion-at-point
+       :desc "Find node"           "f" #'org-roam-node-find
+       :desc "Show graph"          "g" #'org-roam-graph
+       :desc "Insert node"         "i" #'org-roam-node-insert
+       :desc "Capture to node"     "n" #'org-roam-capture
+       :desc "Toggle roam buffer"  "r" #'org-roam-buffer-toggle))
 #+end_src
 
 * PASSWORD STORE
@@ -1184,22 +1194,22 @@ Perspective provides multiple named workspaces (or "perspectives") in Emacs, sim
 
 | COMMAND                    | DESCRIPTION                         | KEYBINDING |
 |----------------------------+-------------------------------------+------------|
-| persp-switch               | Switch to perspective NAME          | SPC DEL    |
-| persp-switch-to-buffer     | Switch to buffer in perspective     | SPC ,      |
-| persp-next                 | Switch to next perspective          | SPC ]      |
-| persp-prev                 | Switch to previous perspective      | SPC [      |
-| persp-add-buffer           | Add a buffer to current perspective | SPC +      |
-| persp-remove-by-name       | Remove perspective by name          | SPC -      |
-| +workspace/switch-to-{0-9} | Switch to workspace /n/               | SPC 0-9    |
+| persp-switch               | /Switch to perspective NAME/          | SPC DEL    |
+| persp-switch-to-buffer     | /Switch to buffer in perspective/     | SPC ,      |
+| persp-next                 | /Switch to next perspective/          | SPC ]      |
+| persp-prev                 | /Switch to previous perspective/      | SPC [      |
+| persp-add-buffer           | /Add a buffer to current perspective/ | SPC +      |
+| persp-remove-by-name       | /Remove perspective by name/          | SPC -      |
+| +workspace/switch-to-{0-9} | /Switch to workspace n/               | SPC 0-9    |
 
 #+begin_src emacs-lisp
 (map! :leader
-      :desc "Switch to perspective NAME" "DEL" #'persp-switch
-      :desc "Switch to buffer in perspective" "," #'persp-switch-to-buffer
-      :desc "Switch to next perspective" "]" #'persp-next
-      :desc "Switch to previous perspective" "[" #'persp-prev
+      :desc "Switch to perspective NAME"       "DEL" #'persp-switch
+      :desc "Switch to buffer in perspective"  "," #'persp-switch-to-buffer
+      :desc "Switch to next perspective"       "]" #'persp-next
+      :desc "Switch to previous perspective"   "[" #'persp-prev
       :desc "Add a buffer current perspective" "+" #'persp-add-buffer
-      :desc "Remove perspective by name" "-" #'persp-remove-by-name)
+      :desc "Remove perspective by name"       "-" #'persp-remove-by-name)
 #+end_src
 
 * RAINBOW MODE
@@ -1350,11 +1360,11 @@ Emacs provides a 'zap-to-char' command that kills from the current point to a ch
 
 | KEYBINDING                | WHAT IS DOES                                               |
 |---------------------------+------------------------------------------------------------|
-| SPC z e                   | deletes all chars to the next occurrence of 'e'            |
-| SPC u 2 SPC z e           | deletes all chars to the second occurrence of 'e'          |
-| SPC u - SPC z e           | deletes all chars to the previous occurrence of 'e'        |
-| SPC u - 2 SPC z e         | deletes all chars to the second previous occurrence of 'e' |
-| SPC u 1 0 0 SPC u SPC z e | deletes all chars to the 100th occurrence of 'e'           |
+| SPC z e                   | /deletes all chars to the next occurrence of 'e'/            |
+| SPC u 2 SPC z e           | /deletes all chars to the second occurrence of 'e'/          |
+| SPC u - SPC z e           | /deletes all chars to the previous occurrence of 'e'/        |
+| SPC u - 2 SPC z e         | /deletes all chars to the second previous occurrence of 'e'/ |
+| SPC u 1 0 0 SPC u SPC z e | /deletes all chars to the 100th occurrence of 'e'/           |
 
 =TIP=: The universal argument (SPC u) can only take a single integer by default.  If you need to use a multi-digit number (like 100 in the last example in the table above), then you must terminate the universal argument with another 'SPC u' after typing the number.
 

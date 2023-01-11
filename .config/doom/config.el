@@ -735,21 +735,22 @@
 
 (map! :leader
       (:prefix ("n r" . "org-roam")
-       :desc "Capture node" "c" #'org-roam-capture
-       :desc "Find node" "f" #'org-roam-node-find
-       :desc "Show graph" "g" #'org-roam-graph
-       :desc "Insert node" "i" #'org-roam-node-insert
-       :desc "Toggle roam buffer" "r" #'org-roam-buffer-toggle))
+       :desc "Completion at point" "c" #'completion-at-point
+       :desc "Find node"           "f" #'org-roam-node-find
+       :desc "Show graph"          "g" #'org-roam-graph
+       :desc "Insert node"         "i" #'org-roam-node-insert
+       :desc "Capture to node"     "n" #'org-roam-capture
+       :desc "Toggle roam buffer"  "r" #'org-roam-buffer-toggle))
 
 (use-package! password-store)
 
 (map! :leader
-      :desc "Switch to perspective NAME" "DEL" #'persp-switch
-      :desc "Switch to buffer in perspective" "," #'persp-switch-to-buffer
-      :desc "Switch to next perspective" "]" #'persp-next
-      :desc "Switch to previous perspective" "[" #'persp-prev
+      :desc "Switch to perspective NAME"       "DEL" #'persp-switch
+      :desc "Switch to buffer in perspective"  "," #'persp-switch-to-buffer
+      :desc "Switch to next perspective"       "]" #'persp-next
+      :desc "Switch to previous perspective"   "[" #'persp-prev
       :desc "Add a buffer current perspective" "+" #'persp-add-buffer
-      :desc "Remove perspective by name" "-" #'persp-remove-by-name)
+      :desc "Remove perspective by name"       "-" #'persp-remove-by-name)
 
 (define-globalized-minor-mode global-rainbow-mode rainbow-mode
   (lambda ()
