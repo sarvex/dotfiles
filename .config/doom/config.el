@@ -835,6 +835,7 @@
               ;; (kbd "5") 'dt/open-eshell-profile)
           map))
 
+(add-hook 'start-mode-hook 'read-only-mode) ;; make start.org read-only; use 'SPC t r' to toggle off read-only.
 (provide 'start-mode)
 
 (map! :leader

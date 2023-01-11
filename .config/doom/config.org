@@ -1288,7 +1288,7 @@ I set splits to default to opening on the right using 'prefer-horizontal-split'.
 #+END_SRC
 
 * START PAGE
-Instead of using Doom's Dashboard or the Emacs Dashboard program, I have decided to just set an custom start file as my "dashboard" since it allows me more customization options.
+Instead of using Doom's Dashboard or the Emacs Dashboard program, I have decided to just set an custom start file as my "dashboard" since it allows me more customization options.  I have added to the 'start-mode-hook' the argument 'read-only-mode'.  This is to prevent accidental editing of the start file, and to prevent clashes with the 'start-mode' specific keybindings.  You can toggle on/off read-only-mode with 'SPC t r'.
 
 #+begin_src emacs-lisp
 (setq initial-buffer-choice "~/.config/doom/start.org")
@@ -1331,6 +1331,7 @@ Instead of using Doom's Dashboard or the Emacs Dashboard program, I have decided
               ;; (kbd "5") 'dt/open-eshell-profile)
           map))
 
+(add-hook 'start-mode-hook 'read-only-mode) ;; make start.org read-only; use 'SPC t r' to toggle off read-only.
 (provide 'start-mode)
 #+end_src
 
