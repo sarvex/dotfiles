@@ -77,7 +77,7 @@ Bookmarks are somewhat like registers in that they record positions you can jump
 #+BEGIN_SRC emacs-lisp
 (map! :leader
       (:prefix ("b". "buffer")
-       :desc "List bookmarks" "L" #'list-bookmarks
+       :desc "List bookmarks"                          "L" #'list-bookmarks
        :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
 #+END_SRC
 
@@ -301,7 +301,7 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
       (:after dired
        (:map dired-mode-map
         :desc "Peep-dired image previews" "d p" #'peep-dired
-        :desc "Dired view file" "d v" #'dired-view-file)))
+        :desc "Dired view file"           "d v" #'dired-view-file)))
 
 (evil-define-key 'normal dired-mode-map
   (kbd "M-RET") 'dired-display-file
@@ -399,9 +399,9 @@ The Emacs Desktop Notification Center (EDNC) is an Emacs package written in pure
           #'show-notification-in-buffer)
 
 (evil-define-key 'normal ednc-view-mode-map
-  (kbd "d") 'ednc-dismiss-notification
+  (kbd "d")   'ednc-dismiss-notification
   (kbd "RET") 'ednc-invoke-action
-  (kbd "e") 'ednc-toggle-expanded-view)
+  (kbd "e")   'ednc-toggle-expanded-view)
 #+end_src
 
 * ELFEED
@@ -458,11 +458,11 @@ One of the media players available for Emacs is emms, which stands for Emacs Mul
       emms-source-file-directory-tree-function 'emms-source-file-directory-tree-find)
 (map! :leader
       (:prefix ("a" . "EMMS audio player")
-       :desc "Go to emms playlist" "a" #'emms-playlist-mode-go
-       :desc "Emms pause track" "x" #'emms-pause
-       :desc "Emms stop track" "s" #'emms-stop
+       :desc "Go to emms playlist"      "a" #'emms-playlist-mode-go
+       :desc "Emms pause track"         "x" #'emms-pause
+       :desc "Emms stop track"          "s" #'emms-stop
        :desc "Emms play previous track" "p" #'emms-previous
-       :desc "Emms play next track" "n" #'emms-next))
+       :desc "Emms play next track"     "n" #'emms-next))
 #+END_SRC
 
 * EMOJIS
@@ -513,11 +513,11 @@ Changing some keybindings from their defaults to better fit with Doom Emacs, and
 #+Begin_src emacs-lisp
 (map! :leader
       (:prefix ("e". "evaluate/ERC/EWW")
-       :desc "Evaluate elisp in buffer" "b" #'eval-buffer
-       :desc "Evaluate defun" "d" #'eval-defun
+       :desc "Evaluate elisp in buffer"  "b" #'eval-buffer
+       :desc "Evaluate defun"            "d" #'eval-defun
        :desc "Evaluate elisp expression" "e" #'eval-expression
        :desc "Evaluate last sexpression" "l" #'eval-last-sexp
-       :desc "Evaluate elisp in region" "r" #'eval-region))
+       :desc "Evaluate elisp in region"  "r" #'eval-region))
 #+END_SRC
 
 * EWW
@@ -585,7 +585,7 @@ Some custom functions to insert the date.  The function 'insert-todays-date' can
 
 (map! :leader
       (:prefix ("i d" . "Insert date")
-        :desc "Insert any date" "a" #'dt/insert-any-date
+        :desc "Insert any date"    "a" #'dt/insert-any-date
         :desc "Insert todays date" "t" #'dt/insert-todays-date))
 #+end_src
 
@@ -652,12 +652,12 @@ I set comment-line to 'SPC TAB TAB' which is a rather comfortable keybinding for
 #+BEGIN_SRC emacs-lisp
 (setq display-line-numbers-type t)
 (map! :leader
-      :desc "Comment or uncomment lines" "TAB TAB" #'comment-line
+      :desc "Comment or uncomment lines"      "TAB TAB" #'comment-line
       (:prefix ("t" . "toggle")
-       :desc "Toggle line numbers" "l" #'doom/toggle-line-numbers
+       :desc "Toggle line numbers"            "l" #'doom/toggle-line-numbers
        :desc "Toggle line highlight in frame" "h" #'hl-line-mode
        :desc "Toggle line highlight globally" "H" #'global-hl-line-mode
-       :desc "Toggle truncate lines" "t" #'toggle-truncate-lines))
+       :desc "Toggle truncate lines"          "t" #'toggle-truncate-lines))
 #+END_SRC
 
 * MARKDOWN
@@ -723,7 +723,7 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
   (setq doom-neotree-enable-variable-pitch t))
 (map! :leader
       :desc "Toggle neotree file viewer" "t n" #'neotree-toggle
-      :desc "Open directory in neotree" "d n" #'neotree-dir)
+      :desc "Open directory in neotree"  "d n" #'neotree-dir)
 #+END_SRC
 
 * OPEN SPECIFIC FILES
@@ -744,15 +744,15 @@ Keybindings to open files that I work with all the time using the find-file comm
 #+BEGIN_SRC emacs-lisp
 (map! :leader
       (:prefix ("=" . "open file")
-       :desc "Edit agenda file" "=" #'(lambda () (interactive) (find-file "~/.config/doom/start.org"))
-       :desc "Edit agenda file" "a" #'(lambda () (interactive) (find-file "~/nc/Org/agenda.org"))
-       :desc "Edit doom config.org" "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
-       :desc "Edit doom init.el" "i" #'(lambda () (interactive) (find-file "~/.config/doom/init.el"))
+       :desc "Edit agenda file"      "=" #'(lambda () (interactive) (find-file "~/.config/doom/start.org"))
+       :desc "Edit agenda file"      "a" #'(lambda () (interactive) (find-file "~/nc/Org/agenda.org"))
+       :desc "Edit doom config.org"  "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
+       :desc "Edit doom init.el"     "i" #'(lambda () (interactive) (find-file "~/.config/doom/init.el"))
        :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.config/doom/packages.el"))))
 (map! :leader
       (:prefix ("= e" . "open eshell files")
-       :desc "Edit eshell aliases" "a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
-       :desc "Edit eshell profile" "p" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/profile"))))
+       :desc "Edit eshell aliases"   "a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
+       :desc "Edit eshell profile"   "p" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/profile"))))
 #+END_SRC
 
 * ORG MODE
@@ -1250,6 +1250,13 @@ Emacs registers are compartments where you can save text, rectangles and positio
 * SHELLS
 Settings for the various shells and terminal emulators within Emacs.
 
+| COMMAND             | DESCRIPTION                | KEYBINDING |
+|---------------------+----------------------------+------------|
+| eshell              | /Launch the eshell/          | SPC e s    |
+| +eshell/toggle      | /Toggle eshell popup window/ | SPC e t    |
+| counsel-esh-history | /Browse the eshell history/  | SPC e h    |
+| +vterm/toggle       | /Toggle vterm popup window/  | SPC v t    |
+
 #+BEGIN_SRC emacs-lisp
 (setq shell-file-name "/bin/fish"
       vterm-max-scrollback 5000)
@@ -1262,10 +1269,10 @@ Settings for the various shells and terminal emulators within Emacs.
       eshell-destroy-buffer-when-process-dies t
       eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh"))
 (map! :leader
-      :desc "Eshell" "e s" #'eshell
-      :desc "Eshell popup toggle" "e t" #'+eshell/toggle
+      :desc "Eshell"                 "e s" #'eshell
+      :desc "Eshell popup toggle"    "e t" #'+eshell/toggle
       :desc "Counsel eshell history" "e h" #'counsel-esh-history
-      :desc "Vterm popup toggle" "v t" #'+vterm/toggle)
+      :desc "Vterm popup toggle"     "v t" #'+vterm/toggle)
 #+END_SRC
 
 * SPLITS
@@ -1334,7 +1341,7 @@ Winner mode has been included with GNU Emacs since version 20.  This is a global
 (map! :leader
       (:prefix ("w" . "window")
        :desc "Winner redo" "<right>" #'winner-redo
-       :desc "Winner undo" "<left>" #'winner-undo))
+       :desc "Winner undo" "<left>"  #'winner-undo))
 #+END_SRC
 
 * ZAP TO CHAR
@@ -1356,6 +1363,6 @@ Emacs provides a 'zap-to-char' command that kills from the current point to a ch
 
 #+BEGIN_SRC emacs-lisp
 (map! :leader
-      :desc "Zap to char" "z" #'zap-to-char
+      :desc "Zap to char"    "z" #'zap-to-char
       :desc "Zap up to char" "Z" #'zap-up-to-char)
 #+END_SRC

@@ -2,7 +2,7 @@
 
 (map! :leader
       (:prefix ("b". "buffer")
-       :desc "List bookmarks" "L" #'list-bookmarks
+       :desc "List bookmarks"                          "L" #'list-bookmarks
        :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
 
 (global-auto-revert-mode 1)
@@ -107,7 +107,7 @@
       (:after dired
        (:map dired-mode-map
         :desc "Peep-dired image previews" "d p" #'peep-dired
-        :desc "Dired view file" "d v" #'dired-view-file)))
+        :desc "Dired view file"           "d v" #'dired-view-file)))
 
 (evil-define-key 'normal dired-mode-map
   (kbd "M-RET") 'dired-display-file
@@ -173,9 +173,9 @@
           #'show-notification-in-buffer)
 
 (evil-define-key 'normal ednc-view-mode-map
-  (kbd "d") 'ednc-dismiss-notification
+  (kbd "d")   'ednc-dismiss-notification
   (kbd "RET") 'ednc-invoke-action
-  (kbd "e") 'ednc-toggle-expanded-view)
+  (kbd "e")   'ednc-toggle-expanded-view)
 
 (setq elfeed-goodies/entry-pane-size 0.5)
 
@@ -214,11 +214,11 @@
       emms-source-file-directory-tree-function 'emms-source-file-directory-tree-find)
 (map! :leader
       (:prefix ("a" . "EMMS audio player")
-       :desc "Go to emms playlist" "a" #'emms-playlist-mode-go
-       :desc "Emms pause track" "x" #'emms-pause
-       :desc "Emms stop track" "s" #'emms-stop
+       :desc "Go to emms playlist"      "a" #'emms-playlist-mode-go
+       :desc "Emms pause track"         "x" #'emms-pause
+       :desc "Emms stop track"          "s" #'emms-stop
        :desc "Emms play previous track" "p" #'emms-previous
-       :desc "Emms play next track" "n" #'emms-next))
+       :desc "Emms play next track"     "n" #'emms-next))
 
 (use-package emojify
   :hook (after-init . global-emojify-mode))
@@ -242,11 +242,11 @@
 
 (map! :leader
       (:prefix ("e". "evaluate/ERC/EWW")
-       :desc "Evaluate elisp in buffer" "b" #'eval-buffer
-       :desc "Evaluate defun" "d" #'eval-defun
+       :desc "Evaluate elisp in buffer"  "b" #'eval-buffer
+       :desc "Evaluate defun"            "d" #'eval-defun
        :desc "Evaluate elisp expression" "e" #'eval-expression
        :desc "Evaluate last sexpression" "l" #'eval-last-sexp
-       :desc "Evaluate elisp in region" "r" #'eval-region))
+       :desc "Evaluate elisp in region"  "r" #'eval-region))
 
 (setq browse-url-browser-function 'eww-browse-url)
 (map! :leader
@@ -284,7 +284,7 @@
 
 (map! :leader
       (:prefix ("i d" . "Insert date")
-        :desc "Insert any date" "a" #'dt/insert-any-date
+        :desc "Insert any date"    "a" #'dt/insert-any-date
         :desc "Insert todays date" "t" #'dt/insert-todays-date))
 
 (setq ivy-posframe-display-functions-alist
@@ -312,12 +312,12 @@
 
 (setq display-line-numbers-type t)
 (map! :leader
-      :desc "Comment or uncomment lines" "TAB TAB" #'comment-line
+      :desc "Comment or uncomment lines"      "TAB TAB" #'comment-line
       (:prefix ("t" . "toggle")
-       :desc "Toggle line numbers" "l" #'doom/toggle-line-numbers
+       :desc "Toggle line numbers"            "l" #'doom/toggle-line-numbers
        :desc "Toggle line highlight in frame" "h" #'hl-line-mode
        :desc "Toggle line highlight globally" "H" #'global-hl-line-mode
-       :desc "Toggle truncate lines" "t" #'toggle-truncate-lines))
+       :desc "Toggle truncate lines"          "t" #'toggle-truncate-lines))
 
 (custom-set-faces
  '(markdown-header-face ((t (:inherit font-lock-function-name-face :weight bold :family "variable-pitch"))))
@@ -348,19 +348,19 @@
   (setq doom-neotree-enable-variable-pitch t))
 (map! :leader
       :desc "Toggle neotree file viewer" "t n" #'neotree-toggle
-      :desc "Open directory in neotree" "d n" #'neotree-dir)
+      :desc "Open directory in neotree"  "d n" #'neotree-dir)
 
 (map! :leader
       (:prefix ("=" . "open file")
-       :desc "Edit agenda file" "=" #'(lambda () (interactive) (find-file "~/.config/doom/start.org"))
-       :desc "Edit agenda file" "a" #'(lambda () (interactive) (find-file "~/nc/Org/agenda.org"))
-       :desc "Edit doom config.org" "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
-       :desc "Edit doom init.el" "i" #'(lambda () (interactive) (find-file "~/.config/doom/init.el"))
+       :desc "Edit agenda file"      "=" #'(lambda () (interactive) (find-file "~/.config/doom/start.org"))
+       :desc "Edit agenda file"      "a" #'(lambda () (interactive) (find-file "~/nc/Org/agenda.org"))
+       :desc "Edit doom config.org"  "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
+       :desc "Edit doom init.el"     "i" #'(lambda () (interactive) (find-file "~/.config/doom/init.el"))
        :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.config/doom/packages.el"))))
 (map! :leader
       (:prefix ("= e" . "open eshell files")
-       :desc "Edit eshell aliases" "a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
-       :desc "Edit eshell profile" "p" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/profile"))))
+       :desc "Edit eshell aliases"   "a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
+       :desc "Edit eshell profile"   "p" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/profile"))))
 
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
@@ -783,10 +783,10 @@
       eshell-destroy-buffer-when-process-dies t
       eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh"))
 (map! :leader
-      :desc "Eshell" "e s" #'eshell
-      :desc "Eshell popup toggle" "e t" #'+eshell/toggle
+      :desc "Eshell"                 "e s" #'eshell
+      :desc "Eshell popup toggle"    "e t" #'+eshell/toggle
       :desc "Counsel eshell history" "e h" #'counsel-esh-history
-      :desc "Vterm popup toggle" "v t" #'+vterm/toggle)
+      :desc "Vterm popup toggle"     "v t" #'+vterm/toggle)
 
 (defun prefer-horizontal-split ()
   (set-variable 'split-height-threshold nil t)
@@ -840,8 +840,8 @@
 (map! :leader
       (:prefix ("w" . "window")
        :desc "Winner redo" "<right>" #'winner-redo
-       :desc "Winner undo" "<left>" #'winner-undo))
+       :desc "Winner undo" "<left>"  #'winner-undo))
 
 (map! :leader
-      :desc "Zap to char" "z" #'zap-to-char
+      :desc "Zap to char"    "z" #'zap-to-char
       :desc "Zap up to char" "Z" #'zap-up-to-char)
