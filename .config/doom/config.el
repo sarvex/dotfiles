@@ -798,26 +798,6 @@
 
 (setq initial-buffer-choice "~/.config/doom/start.org")
 
-(defun dt/open-config-org ()
-  (interactive)
-  (find-file "~/.config/doom/config.org"))
-
-(defun dt/open-init-el ()
-  (interactive)
-  (find-file "~/.config/doom/init.el"))
-
-(defun dt/open-packages-el ()
-  (interactive)
-  (find-file "~/.config/doom/packages.el"))
-
-(defun dt/open-eshell-aliases ()
-  (interactive)
-  (find-file "~/.config/doom/eshell/aliases.el"))
-
-(defun dt/open-eshell-profile ()
-  (interactive)
-  (find-file "~/.config/doom/eshell/profile.el"))
-
 (define-minor-mode start-mode
   "Provide functions for custom start page."
   :lighter " start"
@@ -829,11 +809,6 @@
               (kbd "3") '(lambda () (interactive) (find-file "~/.config/doom/packages.el"))
               (kbd "4") '(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
               (kbd "5") '(lambda () (interactive) (find-file "~/.config/doom/eshell/profile")))
-              ;; (kbd "1") 'dt/open-config-org
-              ;; (kbd "2") 'dt/open-init-el
-              ;; (kbd "3") 'dt/open-packages-el
-              ;; (kbd "4") 'dt/open-eshell-aliases
-              ;; (kbd "5") 'dt/open-eshell-profile)
           map))
 
 (add-hook 'start-mode-hook 'read-only-mode) ;; make start.org read-only; use 'SPC t r' to toggle off read-only.
