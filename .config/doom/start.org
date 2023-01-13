@@ -40,10 +40,6 @@
 
 =NOTE=: 'SPC f p' [[elisp:(doom/find-file-in-private-config)][doom/find-file-in-private-config]])
 
-#+begin_src emacs-lisp :results table
-(message (string-join recentf-list "\n"))
-#+end_src
-
 ;; Local Variables:
 ;; eval: (start-mode)
 ;; End:
