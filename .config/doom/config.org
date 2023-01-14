@@ -74,10 +74,21 @@ Doom Emacs uses 'SPC b' for keybindings related to bookmarks and buffers.
 ** Bookmarks
 Bookmarks are somewhat like registers in that they record positions you can jump to.  Unlike registers, they have long names, and they persist automatically from one Emacs session to the next. The prototypical use of bookmarks is to record where you were reading in various files.
 
+| COMMAND         | DESCRIPTION                            | KEYBINDING |
+|-----------------+----------------------------------------+------------|
+| list-bookmarks  | /List bookmarks/                         | SPC b L    |
+| bookmark-set    | /Set bookmark/                           | SPC b m    |
+| bookmark-delete | /Delete bookmark/                        | SPC b M    |
+| bookmark-save   | /Save current bookmark to bookmark file/ | SPC b w    |
+
 #+BEGIN_SRC emacs-lisp
+(setq bookmark-default-file "~/.config/doom/bookmarks")
+
 (map! :leader
       (:prefix ("b". "buffer")
        :desc "List bookmarks"                          "L" #'list-bookmarks
+       :desc "Set bookmark"                            "m" #'bookmark-set
+       :desc "Delete bookmark"                         "M" #'bookmark-set
        :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
 #+END_SRC
 

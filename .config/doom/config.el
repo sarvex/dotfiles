@@ -1,8 +1,12 @@
 (beacon-mode 1)
 
+(setq bookmark-default-file "~/.config/doom/bookmarks")
+
 (map! :leader
       (:prefix ("b". "buffer")
        :desc "List bookmarks"                          "L" #'list-bookmarks
+       :desc "Set bookmark"                            "m" #'bookmark-set
+       :desc "Delete bookmark"                         "M" #'bookmark-set
        :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
 
 (global-auto-revert-mode 1)
