@@ -19,20 +19,17 @@ Dotfiles are the customization files that are used to personalize your Linux or 
 
 * My Window Manager Configs
 
- | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/awesome][Awesome]] | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/bspwm][Bspwm]]    | [[https://gitlab.com/dwt1/dwm-distrotube][Dwm]] (*)     | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/herbstluftwm][Herbstluftwm]] |
- | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/i3][i3-gaps]] | [[https://gitlab.com/dwt1/dotfiles/-/blob/master/.jwmrc][JWM]]      | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/leftwm][LeftWM]]      | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/openbox][Openbox]]      |
- | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/qtile][Qtile]]   | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/spectrwm][Spectrwm]] | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/xmonad][XMonad]] (**) |              |
+ | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/awesome][Awesome]] | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/bspwm][Bspwm]]    | [[https://gitlab.com/dwt1/dwm-distrotube][Dwm]]    | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/herbstluftwm][Herbstluftwm]] |
+ | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/i3][i3-gaps]] | [[https://gitlab.com/dwt1/dotfiles/-/blob/master/.jwmrc][JWM]]      | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/leftwm][LeftWM]] | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/openbox][Openbox]]      |
+ | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/qtile][Qtile]]   | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/spectrwm][Spectrwm]] | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/xmonad][XMonad]] |              |
 
-(*) = /links to another repository of mine/
-(**) = you may also want my [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/tint2][tint2]] panel config and [[https://gitlab.com/dwt1/dt-dark-theme][dt-dark-theme]] GTK theme.
+=NOTE=: With Openbox, you may also want my [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/tint2][tint2]] panel config and [[https://gitlab.com/dwt1/dt-dark-theme][dt-dark-theme]] GTK theme.
 
 * Other Popular Configs Of Mine
 
-| [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/alacritty][Alacritty]] | [[https://gitlab.com/dwt1/dotfiles/-/blob/master/.bashrc][Bash]]    | [[https://gitlab.com/dwt1/dmenu-distrotube][Dmenu]] (*)      | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/doom][Doom Emacs]] | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/fish][Fish]]                    |
-| [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/nvim][Neovim]]    | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/polybar][Polybar]] | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/rofi][Rofi]]           | [[https://gitlab.com/dwt1/st-distrotube][St]] (*)     | [[https://gitlab.com/dwt1/shell-color-scripts][Shell Color Scripts]] (*) |
-| [[https://gitlab.com/dwt1/surf-distrotube][Surf]] (*)  | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/sxhkd][Sxhkd]]   | [[https://gitlab.com/dwt1/wallpapers][Wallpapers]] (*) | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/xmobar][Xmobar]]     | [[https://gitlab.com/dwt1/dotfiles/-/blob/master/.zshrc][Zsh]]                     |
-
-(*) = /links to another repository of mine/
+| [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/alacritty][Alacritty]] | [[https://gitlab.com/dwt1/dotfiles/-/blob/master/.bashrc][Bash]]    | [[https://gitlab.com/dwt1/dmenu-distrotube][Dmenu]]      | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/doom][Doom Emacs]] | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/fish][Fish]]                |
+| [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/nvim][Neovim]]    | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/polybar][Polybar]] | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/rofi][Rofi]]       | [[https://gitlab.com/dwt1/st-distrotube][St]]         | [[https://gitlab.com/dwt1/shell-color-scripts][Shell Color Scripts]] |
+| [[https://gitlab.com/dwt1/surf-distrotube][Surf]]      | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/sxhkd][Sxhkd]]   | [[https://gitlab.com/dwt1/wallpapers][Wallpapers]] | [[https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/xmobar][Xmobar]]     | [[https://gitlab.com/dwt1/dotfiles/-/blob/master/.zshrc][Zsh]]                 |
 
 * Who Am I?
 #+CAPTION: DT Logo
