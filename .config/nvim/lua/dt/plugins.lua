@@ -57,6 +57,7 @@ packer.startup(function(use)
 	use("kovetskiy/sxhkd-vim")
 	use("vim-python/python-syntax")
 	use("ap/vim-css-color")
+	use("nickeb96/fish.vim")
 
 	-- Junegunn Choi Plugins --
 	use("junegunn/goyo.vim")
