@@ -1,4 +1,4 @@
 tint2 &
-picom --experimental-backends &
+picom &
 nitrogen --restore &
 /usr/bin/emacs --daemon &
