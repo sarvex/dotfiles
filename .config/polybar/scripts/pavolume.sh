@@ -153,11 +153,11 @@ function output() {
         echo "ﱝ mute"
     else
         if [ $curVol -gt 70 ]; then
-            echo "墳 $curVol%"
+            echo "$curVol%"
         elif [ $curVol -gt 30 ]; then
-          echo "奔 $curVol%"
+          echo "$curVol%"
         else
-          echo "奄 $curVol%"
+          echo "$curVol%"
         fi
     fi
 } #}}}
