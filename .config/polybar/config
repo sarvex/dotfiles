@@ -500,7 +500,7 @@ font-2 = "Font Awesome 6 Free:style=Regular:pixelsize=8;1"
 font-3 = "Font Awesome 6 Free:style=Solid:pixelsize=8;1"
 font-4 = "Font Awesome 6 Brands:pixelsize=8;1"
 
-modules-left = ewmh
+modules-left = ewmh xwindow
 modules-center =
 modules-right = kernel networkspeed memory2 cpu2 pavolume arch-aur-updates date
 
@@ -1074,24 +1074,31 @@ label-monitor = %name%
 label-active = %name%
 label-active-foreground = ${colors.foreground}
 label-active-background = ${colors.background}
-label-active-underline= #6790eb
 label-active-padding = 1
+label-active-underline = ${colors.color5}
+label-active-margin = 2
 
 label-occupied = %name%
 label-occupied-background = ${colors.background}
 label-occupied-padding = 1
+label-occupied-underline = ${colors.color12}
+label-occupied-margin = 2
 
 label-urgent = %name%
 label-urgent-foreground = ${colors.foreground}
 label-urgent-background = ${colors.alert}
 label-urgent-underline = ${colors.alert}
 label-urgent-padding = 1
+label-urgent-margin = 2
 
 label-empty = %name%
 label-empty-foreground = ${colors.foreground}
 label-empty-padding = 1
+label-empty-margin = 2
+
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
+;;format-underline = ${colors.color14}
 
 
 ################################################################################
@@ -1710,11 +1717,12 @@ type = internal/xwindow
 label = %title%
 label-maxlen = 50
 
-format-prefix = "  "
-format-prefix-underline = #292d3e
-format-underline = #e1acff
-format-foreground = #e1acff
+format-prefix = "*  "
+format-suffix = "  *"
+format-foreground = ${colors.color10}
 format-background = ${colors.background}
+format-margin = 2
+format-padding = 0
 
 ###############################################################################
 # vim:ft=dosini

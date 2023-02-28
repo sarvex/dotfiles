@@ -532,7 +532,7 @@ I have made my workspaces in xmobar "clickable." Clickable workspaces means the 
 #+begin_src haskell
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 -- myWorkspaces = [" dev ", " www ", " sys ", " doc ", " vbox ", " chat ", " mus ", " vid ", " gfx "]
-myWorkspaces = [" 1 : dev ", " 2 : www ", " 3 : sys ", " 4 : doc ", " 5 : vbox ", " 6 : chat ", " 7 : mus ", " 8 : vid ", " 9 : gfx "]
+myWorkspaces = ["1: dev", "2: www", "3: sys", "4: doc", "5: vbox", "6: chat", "7: mus", "8: vid", "9: gfx"]
 #+END_SRC
 
 * Managehook

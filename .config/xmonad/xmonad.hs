@@ -1,4 +1,4 @@
-  -- Base
+-- Base
 import XMonad
 import System.Directory
 import System.IO (hClose, hPutStr, hPutStrLn)
@@ -125,21 +125,21 @@ myStartupHook = do
   spawn "killall conky"   -- kill current conky on each restart
   spawn "killall polybar"   -- kill current polybar on each restart
 
-  spawnOnce "lxsession"
-  spawnOnce "picom"
-  spawnOnce "nm-applet"
-  spawnOnce "volumeicon"
-  spawnOnce "notify-log $HOME/.log/notify.log"
-  spawn "/usr/bin/emacs --daemon" -- emacs daemon for the emacsclient
+spawnOnce "lxsession"
+spawnOnce "picom"
+spawnOnce "nm-applet"
+spawnOnce "volumeicon"
+spawnOnce "notify-log $HOME/.log/notify.log"
+spawn "/usr/bin/emacs --daemon" -- emacs daemon for the emacsclient
 
-  spawn ("sleep 2 && conky -c $HOME/.config/conky/xmonad/" ++ colorScheme ++ "-01.conkyrc")
-  spawn "sleep 2 && $HOME/.config/polybar/launch.sh"
+spawn ("sleep 2 && conky -c $HOME/.config/conky/xmonad/" ++ colorScheme ++ "-01.conkyrc")
+spawn "sleep 2 && $HOME/.config/polybar/launch.sh"
 
-  spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
-  -- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
-  -- spawnOnce "feh --randomize --bg-fill /usr/share/backgrounds/dtos-backgrounds/*"  -- feh set random wallpaper
-  -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
-  setWMName "LG3D"
+spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
+-- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
+-- spawnOnce "feh --randomize --bg-fill /usr/share/backgrounds/dtos-backgrounds/*"  -- feh set random wallpaper
+-- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
+setWMName "LG3D"
 
 myNavigation :: TwoD a (Maybe a)
 myNavigation = makeXEventhandler $ shadowWithKeymap navKeyMap navDefaultHandler
@@ -440,7 +440,7 @@ myLayoutHook = avoidStruts
 
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 -- myWorkspaces = [" dev ", " www ", " sys ", " doc ", " vbox ", " chat ", " mus ", " vid ", " gfx "]
-myWorkspaces = [" 1 : dev ", " 2 : www ", " 3 : sys ", " 4 : doc ", " 5 : vbox ", " 6 : chat ", " 7 : mus ", " 8 : vid ", " 9 : gfx "]
+myWorkspaces = ["1: dev", "2: www", "3: sys", "4: doc", "5: vbox", "6: chat", "7: mus", "8: vid", "9: gfx"]
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
