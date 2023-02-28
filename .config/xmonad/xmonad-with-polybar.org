@@ -44,7 +44,6 @@ These are Haskell modules that we must import so that we can use their functions
 #+BEGIN_SRC haskell
   -- Base
 import XMonad
-import Control.Monad (join)
 import System.Directory
 import System.IO (hClose, hPutStr, hPutStrLn)
 import System.Exit (exitSuccess)
@@ -63,8 +62,6 @@ import qualified XMonad.Actions.Search as S
 
     -- Data
 import Data.Char (isSpace, toUpper)
-import Data.Function (on)
-import Data.List (sortBy)
 import Data.Maybe (fromJust)
 import Data.Monoid
 import Data.Maybe (isJust)
@@ -117,11 +114,6 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.NamedWindows (getName)
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
-
-  -- Required For Polybar
-import qualified DBus as D
-import qualified DBus.Client as D
-import qualified Codec.Binary.UTF8.String as UTF8
 
    -- ColorScheme module (SET ONLY ONE!)
       -- Possible choice are:
