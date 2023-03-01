@@ -502,7 +502,7 @@ font-4 = "Font Awesome 6 Brands:pixelsize=8;1"
 
 modules-left = ewmh xwindow
 modules-center =
-modules-right = kernel networkspeed memory2 cpu2 pavolume arch-aur-updates date
+modules-right = kernel cpu2 memory2 filesystem uptime arch-aur-updates pavolume date
 
 tray-detached = false
 tray-offset-x = 0
@@ -816,10 +816,10 @@ exec = ~/.config/polybar/scripts/check-all-updates.sh
 interval = 1000
 label = Updates: %output%
 format-prefix = "🗘 "
-format-prefix-foreground = ${colors.color5}
-format-foreground = ${colors.color5}
+format-prefix-foreground = ${colors.color2}
+format-foreground = ${colors.color2}
 format-background = ${colors.background}
-format-underline = ${colors.color5}
+format-underline = ${colors.color2}
 format-margin = 2
 format-padding = 0
 
@@ -999,7 +999,7 @@ type = internal/cpu
 ; Default: 1
 interval = 1
 format-prefix = "💻 "
-format-prefix-foreground = ${colors.color14}
+format-prefix-foreground = ${colors.color4}
 
 ; Available tags:
 ;   <label> (default)
@@ -1007,9 +1007,9 @@ format-prefix-foreground = ${colors.color14}
 ;   <ramp-load>
 ;   <ramp-coreload>
 format = <label>
-format-foreground = ${colors.color14}
+format-foreground = ${colors.color4}
 format-background = ${colors.background}
-format-underline = ${colors.color14}
+format-underline = ${colors.color4}
 format-margin = 2
 format-padding = 0
 label-font = 1
@@ -1130,10 +1130,11 @@ spacing = 4
 ;   <bar-used>
 ;   <ramp-capacity>
 format-mounted = <label-mounted>
-format-mounted-foreground = ${colors.foreground}
+format-mounted-foreground = ${colors.color1}
 format-mounted-background = ${colors.background}
-format-mounted-underline = #fe0000
-
+format-mounted-underline = ${colors.color1}
+format-mounted-margin = 2
+format-mounted-padding = 0
 
 ; Available tokens:
 ;   %mountpoint%
@@ -1145,7 +1146,7 @@ format-mounted-underline = #fe0000
 ;   %free%
 ;   %used%
 ; Default: %mountpoint% %percentage_free%%
-label-mounted = %mountpoint% : %used% used of %total%
+label-mounted = hdd: %free% free
 
 ; Available tokens:
 ;   %mountpoint%
@@ -1163,10 +1164,10 @@ exec = uname -r
 tail = false
 interval = 1024
 format-prefix = " 🤖 "
-format-prefix-foreground = ${colors.color13}
-format-foreground = ${colors.color13}
+format-prefix-foreground = ${colors.color2}
+format-foreground = ${colors.color2}
 format-background = ${colors.background}
-format-underline = ${colors.color13}
+format-underline = ${colors.color2}
 format-margin = 2
 format-padding = 0
 
@@ -1380,15 +1381,15 @@ type = custom/script
 tail = true
 label = %output%
 format-prefix = " 🔊 "
-format-prefix-foreground = ${colors.color1}
+format-prefix-foreground = ${colors.color5}
 exec = ~/.config/polybar/scripts/pavolume.sh --listen
 click-right = exec pavucontrol
 click-left = ~/.config/polybar/scripts/pavolume.sh --togmute
 scroll-up = ~/.config/polybar/scripts/pavolume.sh --up
 scroll-down = ~/.config/polybar/scripts/pavolume.sh --down
-format-foreground = ${colors.color1}
+format-foreground = ${colors.color5}
 format-background = ${colors.background}
-format-underline = ${colors.color1}
+format-underline = ${colors.color5}
 format-margin = 2
 format-padding = 0
 
@@ -1515,12 +1516,13 @@ exec = uptime | awk -F, '{sub(".*up ",x,$1);print $1}'
 interval = 100
 label = Uptime : %output%
 
-format-foreground = ${colors.foreground}
+format-foreground = ${colors.color13}
 format-background = ${colors.background}
-format-prefix = " "
-format-prefix-foreground = #C15D3E
-format-underline = #C15D3E
-
+format-prefix = "💻 "
+format-prefix-foreground = ${colors.color13}
+format-underline = ${colors.color13}
+format-margin = 2
+format-padding = 0
 ################################################################################
 
 [module/volume]

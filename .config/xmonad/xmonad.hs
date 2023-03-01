@@ -1,4 +1,4 @@
--- Base
+  -- Base
 import XMonad
 import System.Directory
 import System.IO (hClose, hPutStr, hPutStrLn)
@@ -125,21 +125,21 @@ myStartupHook = do
   spawn "killall conky"   -- kill current conky on each restart
   spawn "killall polybar"   -- kill current polybar on each restart
 
-spawnOnce "lxsession"
-spawnOnce "picom"
-spawnOnce "nm-applet"
-spawnOnce "volumeicon"
-spawnOnce "notify-log $HOME/.log/notify.log"
-spawn "/usr/bin/emacs --daemon" -- emacs daemon for the emacsclient
+  spawnOnce "lxsession"
+  spawnOnce "picom"
+  spawnOnce "nm-applet"
+  spawnOnce "volumeicon"
+  spawnOnce "notify-log $HOME/.log/notify.log"
+  spawn "/usr/bin/emacs --daemon" -- emacs daemon for the emacsclient
 
-spawn ("sleep 2 && conky -c $HOME/.config/conky/xmonad/" ++ colorScheme ++ "-01.conkyrc")
-spawn "sleep 2 && $HOME/.config/polybar/launch.sh"
+  spawn ("sleep 2 && conky -c $HOME/.config/conky/xmonad/" ++ colorScheme ++ "-01.conkyrc")
+  spawn "sleep 2 && $HOME/.config/polybar/launch.sh"
 
-spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
--- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
--- spawnOnce "feh --randomize --bg-fill /usr/share/backgrounds/dtos-backgrounds/*"  -- feh set random wallpaper
--- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
-setWMName "LG3D"
+  spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
+  -- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
+  -- spawnOnce "feh --randomize --bg-fill /usr/share/backgrounds/dtos-backgrounds/*"  -- feh set random wallpaper
+  -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
+  setWMName "LG3D"
 
 myNavigation :: TwoD a (Maybe a)
 myNavigation = makeXEventhandler $ shadowWithKeymap navKeyMap navDefaultHandler
@@ -696,7 +696,4 @@ main = do
     , borderWidth        = myBorderWidth
     , normalBorderColor  = myNormColor
     , focusedBorderColor = myFocusColor
-    -- , logHook = dynamicLogWithPP $  filterOutWsPP [scratchpadWorkspaceTag] $ xmobarPP
-    --, logHook = dynamicLogWithPP (myLogHook dbus)
-    -- , logHook = eventLogHookForPolyBar
     }
