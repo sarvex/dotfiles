@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /usr/bin/env bash
 #  ____ _____ 
 # |  _ \_   _|  Derek Taylor (DistroTube)
 # | | | || |  	http://www.youtube.com/c/DistroTube
@@ -13,12 +13,14 @@
 sxhkd &
 picom &
 nitrogen --restore &
-./.config/bspwm/launch.sh &
+polybar-bspwm &
 
 #### MONITORS ####
-bspc monitor DisplayPort-0 -d 1 2 3 4 5 6 7 8 9
-bspc monitor DisplayPort-1 -d 1 2 3 4 5 6 7 8 9
-bspc monitor HDMI-A-0 -d 1 2 3 4 5 6 7 8 9
+monitors=$(xrandr | grep " connected " | cut -f 1 -d " ")
+for x in ${monitors[@]}
+do
+    bspc monitor $x -d 1 2 3 4 5 6 7 8 9
+done
 
 #### BSPWM configuration ####
 #bspc config border_radius                8
