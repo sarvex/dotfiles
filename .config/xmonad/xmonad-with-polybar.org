@@ -1,4 +1,4 @@
-#+TITLE: XMonad Config
+#+TITLE: XMonad-With-Polybar Config
 #+AUTHOR: Derek Taylor
 #+PROPERTY: header-args :tangle xmonad.hs
 #+auto_tangle: t
