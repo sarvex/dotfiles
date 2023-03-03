@@ -131,8 +131,14 @@ myStartupHook = do
   spawnOnce "notify-log $HOME/.log/notify.log"
   spawn "/usr/bin/emacs --daemon" -- emacs daemon for the emacsclient
 
+<<<<<<< HEAD
   spawn ("sleep 2 && conky -c $HOME/.config/conky/xmonad/" ++ colorScheme ++ "-01.conkyrc")
   spawn "polybar-xmonad"
+=======
+  spawn "polybar-xmonad"
+  spawnOnce "sleep 2 && xmonad --restart"
+  spawn ("sleep 3 && conky -c $HOME/.config/conky/xmonad/" ++ colorScheme ++ "-01.conkyrc")
+>>>>>>> 9d69b64ef8fc5b170a38aef63f94f6cad3fa989a
 
   spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
   -- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
