@@ -177,7 +177,9 @@ These are commands we want XMonad to execute on startup, such as running a compo
 myStartupHook :: X ()
 myStartupHook = do
   spawnOnce (mySoundPlayer ++ startupSound)
-  spawn "killall conky"   -- kill current conky on each restart
+  spawn "killall conky"                    -- kill current conky on each restart
+  spawn "killall xmobar" -- adding this in case of switching between xmobar and polybar.
+  spawn "killall trayer" -- adding this in case of switching between xmobar and polybar.
 #+END_SRC
 
 #+BEGIN_SRC haskell

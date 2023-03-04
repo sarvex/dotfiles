@@ -178,6 +178,7 @@ myStartupHook = do
   spawnOnce (mySoundPlayer ++ startupSound)
   spawn "killall conky"   -- kill current conky on each restart
   spawn "killall trayer"  -- kill current trayer on each restart
+  spawn "killall polybar" -- adding this in case of switching between xmobar and polybar.
 #+END_SRC
 
 #+BEGIN_SRC haskell
