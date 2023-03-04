@@ -163,7 +163,7 @@ super + p; {r}
 super + p; {s}
     dm-websearch
 super + p; {t}
-    dm-translate}
+    dm-translate
 
 # emacs (SUPER + e followed by another key)
 super + e; e

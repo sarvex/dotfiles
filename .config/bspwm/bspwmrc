@@ -28,13 +28,12 @@ xargs xwallpaper --stretch < ~/.cache/wall &
 # nitrogen --restore &
 
 #### MONITORS ####
-monitors=$(xrandr | grep " connected " | cut -f 1 -d " ")
-for x in "${monitors[@]}"
+for monitor in $(bspc query -M)
 do
     # set the workspaces on each monitor to 1-9
-    bspc monitor $x -d 1 2 3 4 5 6 7 8 9
+    bspc monitor $monitor -d 1 2 3 4 5 6 7 8 9
     #polybar hidden when fullscreen for vlc, youtube, mpv ...
-    xdo below -t $(xdo id -n root) $(xdo id -a polybar-main_"$x")
+    xdo below -t $(xdo id -n root) $(xdo id -a polybar-main_$monitor)
 done
 
 #polybar hidden when fullscreen for vlc, youtube, mpv ...
