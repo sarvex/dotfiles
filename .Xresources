@@ -107,6 +107,6 @@ Sxiv.font: Ubuntu:style=bold:size=11
 *.color14:      #46d9ff
 
 ! white
-*.color7:       #202328
+*.color7:       #abb2bf
 *.color15:      #dfdfdf
 
