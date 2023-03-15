@@ -66,7 +66,7 @@ super + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
 # focus the node for the given path jump
-super + {shift + p, shift + b, shift + comma, shift + period}
+super + {shift + p, shift + b, ctrl + f, ctrl + s}
 	bspc node -f @{parent,brother,first,second}
 
 # focus the next/previous node in the current desktop
@@ -79,7 +79,10 @@ super + {Left, Right}
 
 # focus the next/previous monitor
 super + {comma, period}
-    bspc monitor --focus {prev,next}
+    bspc monitor -f {prev,next}
+
+super + {shift + comma, shift + period}
+    bspc node -s {prev,next}
 
 # focus the last node/desktop
 super + {shift + Tab,Tab}
