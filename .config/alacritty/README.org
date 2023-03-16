@@ -5,6 +5,11 @@
 #+STARTUP: showeverything
 
 
+* Table of Contents :toc:
+- [[#about-alacritty][About Alacritty]]
+- [[#color-schemes][Color Schemes]]
+- [[#visual-bell][Visual Bell]]
+
 * About Alacritty
 Configuration for Alacritty, the GPU enhanced terminal emulator. Any items in the `env` entry below will be added as environment variables. Some entries may override variables set by alacritty itself.
 
@@ -227,9 +232,11 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-#######################################
-##      START OF COLOR SCHEMES       ##
-#######################################
+#+end_src
+
+* Color Schemes
+
+#+begin_src yaml
 schemes:
   ### Doom One ###
   DoomOne: &DoomOne
@@ -584,10 +591,10 @@ schemes:
 
 colors: *DoomOne
 
-#######################################
-##       END OF COLOR SCHEMES        ##
-#######################################
+#+end_src
 
+* Visual Bell
+#+begin_src yaml
 # Visual Bell
 #
 # Any time the BEL code is received, Alacritty "rings" the visual bell. Once
