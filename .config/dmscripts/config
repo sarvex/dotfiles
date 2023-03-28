@@ -7,16 +7,17 @@
 
 # Defined variables, modify anything in quotes to your prefered software
 
-# -p is needed as we use prompts, alternative programs have to handle prompts well.
-
+# IMPORTANT! Keep the '-p' flag at the end of the DMENU and RMENU variables.
+# Also, keep the '--prompt' flag at the end of the FMENU variable.
+# These are needed as we use prompts in the scripts.
 DMENU="dmenu -i -l 20 -p"
 FMENU="fzf --border=rounded --margin=5% --color=dark --height 100% --reverse --header=$(basename $0) --info=hidden --header-first --prompt"
-RMENU="rofi -dmenu"
+RMENU="rofi -dmenu -p"
 
 PDF_VIEWER="zathura"
 
-# DMBROWSER="brave"
-DMBROWSER="qutebrowser"
+DMBROWSER="brave"
+# DMBROWSER="qutebrowser"
 
 # DMTERM="st -e"
 DMTERM="alacritty -e"
@@ -61,8 +62,7 @@ bookman_show_source=1
 sounds_dir="${HOME}/.config/dmscripts/dmsounds"
 
 # dm-setbg
-# setbg_dir="${HOME}/Pictures/Wallpapers"
-setbg_dir="/usr/share/backgrounds/dtos-backgrounds"
+setbg_dir="${HOME}/Pictures/Wallpapers"
 # Set this to 1 if you want to use imv and wayland, 0 if you want to use sxiv
 # Note that sxiv is X11 only, you need to mark the image you want to use.
 use_imv=0 
@@ -188,12 +188,14 @@ youtube_channels[distrotube]="https://www.youtube.com/c/DistroTube/featured"
 # Syntax: radio_stations[name]="https://www.zeno.fm/radio/your-station"
 
 declare -A radio_stations
-radio_stations[50s Rewind]="https://zeno.fm/radio/50s-rewind/"
-radio_stations[60s Rewind]="https://zeno.fm/radio/60s-rewind/"
-radio_stations[70s Rewind]="https://zeno.fm/radio/70s-rewind/"
-radio_stations[80s Rewind]="https://zeno.fm/radio/80s-rewind/"
-radio_stations[90s Rock]="https://zeno.fm/radio/90s-rock/"
+radio_stations[Oldies Radio 50s-60s]="https://zeno.fm/radio/oldies-radio-50s-60s/"
+radio_stations[Oldies Radio 70s]="https://zeno.fm/radio/oldies-radio-70s/"
+radio_stations[Unlimited 80s]="https://zeno.fm/radio/unlimited80s/"
+radio_stations[80s Hits]="https://zeno.fm/radio/80shits/"
+radio_stations[90s Hits]="https://zeno.fm/radio/90s_HITS/"
+radio_stations[2000s Pop]="https://zeno.fm/radio/2000s-pop/"
 radio_stations[The 2000s]="https://zeno.fm/radio/the-2000s/"
+radio_stations[Hits 2010s]="https://zeno.fm/radio/helia-hits-2010/"
 radio_stations[Classical Radio]="https://zeno.fm/radio/classical-radio/"
 radio_stations[Classical Relaxation]="https://zeno.fm/radio/radio-christmas-non-stop-classical/"
 radio_stations[Classic Rock]="https://zeno.fm/radio/classic-rockdnb2sav8qs8uv/"
@@ -244,25 +246,55 @@ lingva_instance="https://lingva.ml"
 # lang_map[Automatic]=auto
 
 # dm-weather config
-declare -A weather_location
-# weather_location[New York]="New+York"
-# weather_opts="m" # Always use metric units (celsius)
-# weather_opts="u" # Always use US units (fahrenheit)
-# see: https://github.com/chubin/wttr.in
+
+# Example: set the default search parameters to Texas, Paris and Kyiv
+# weather_locations="Texas, United States
+# Paris, France
+# Kyiv, Ukraine"
+weather_locations=""
+
+# use the weather_opts variable to set additional flags:
+# weather_opts="flag1&flag2&flag3=somevalue"
+
+# for full details see: https://github.com/chubin/wttr.in
 
 # dm-currencies config
 
-# Chose how you want to display the currencies (default: "names")
-# currency_names="codes"
+# syntax: currency_name:pretty_name(s)
+# we use this site, ensure your currency is supported before adding it:
+# https://currencyconvert.online/$from/$to/$amount
+currency_list="aud:Australian dollar
+brl:Brazilian real
+cad:Canadian dollar
+chf:Swiss franc
+clp:Chilean peso
+cny:Chinese yuan
+czk:Czech koruna
+dkk:Danish krone
+eur:Euro
+gdb:Pound sterling
+khd:Hong Kong dollar
+huf:Hungarian forint
+idr:Indonesian rupiah
+ils:Israeli shekel
+inr:Indian rupee
+jpy:Japanese yen
+krw:South Korean won
+mxn:Mexican peso
+myr:Malaysian ringgit
+nok:Norwegian krone
+nzd:New Zealand dollar
+php:Philippine peso
+pkr:Pakistani rupee
+pln:Polish zloty
+rub:Russian ruble
+sek:Swedish krona
+sgd:Singapore dollar
+thb:Thai baht
+try:Turkish lira
+twd:New Taiwan dollar
+usd:United States Dollar
+zar:South African rand"
 
-# "auto" will get currencies dynamically, "manual" will only use the currencies you define (default: "auto")
-# defined currencies will still be included when set to auto
-# currency_method="manual"
-
-declare -A currencies
-# currencies[Dollar]="USD"
-# currencies[Pound]="GBP"
-# currencies[Monero]="XMR"
-# see: https://rate.sx/:currencies and https://rate.sx/:coins
-
-_revision=22
+# current revision (do not touch unless you know what you're doing)
+_revision=23
