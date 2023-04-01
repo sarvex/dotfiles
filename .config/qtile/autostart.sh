@@ -1,10 +1,14 @@
 #!/usr/bin/env bash 
 
+COLORSCHEME="DoomOne"
+
 festival --tts $HOME/.config/qtile/welcome_msg &
 lxsession &
 picom &
 /usr/bin/emacs --daemon &
-conky -c $HOME/.config/conky/qtile/doom-one-01.conkyrc
+killall conky &
+sleep 3 && conky -c "$HOME"/.config/conky/qtile/"$COLORSCHEME"-01.conkyrc
+killall volumeicon &
 volumeicon &
 nm-applet &
 
