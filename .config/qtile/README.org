@@ -140,8 +140,8 @@ keys = [
              desc='Restart Qtile'
              ),
          Key([mod, "shift"], "q",
-             lazy.shutdown(),
-             desc='Shutdown Qtile'
+             lazy.spawn("dm-logout"),
+             desc='Logout menu'
              ),
          Key(["control", "shift"], "e",
              lazy.spawn("emacsclient -c -a emacs"),
