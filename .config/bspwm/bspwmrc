@@ -18,7 +18,7 @@ picom &
 killall nm-applet && nm-applet &
 killall volumeicon && volumeicon &
 /usr/bin/emacs --daemon &
-killall conky && conky -c "$HOME"/.config/conky/xmonad/"$COLORSCHEME"-01.conkyrc
+killall conky && conky -c "$HOME"/.config/conky/bspwm/"$COLORSCHEME"-01.conkyrc
 polybar-bspwm &
 
 ### Select only ONE of the following four ways to set the wallpaper.
