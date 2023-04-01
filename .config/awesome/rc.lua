@@ -69,6 +69,7 @@ local terminal    = "alacritty"
 local browser     = "qutebrowser"
 local editor      = os.getenv("EDITOR") or "vim"
 local emacs       = "emacsclient -c -a 'emacs' "
+local colorscheme = "DoomOne"
 local mediaplayer = "mpv"
 local soundplayer = "ffplay -nodisp -autoexit " -- The program that will play system sounds
 
@@ -774,7 +775,8 @@ awful.spawn.with_shell("lxsession")
 awful.spawn.with_shell("picom")
 awful.spawn.with_shell("nm-applet")
 awful.spawn.with_shell("volumeicon")
-awful.spawn.with_shell("killall conky && conky -c $HOME/.config/conky/awesome/" .. "doom-one" .. "-01.conkyrc")
+awful.spawn.with_shell("killall conky")
+awful.spawn.with_shell("sleep 3 && conky -c $HOME/.config/conky/awesome/" .. colorscheme .. "-01.conkyrc")
 awful.spawn.with_shell("/usr/bin/emacs --daemon")
 
 awful.spawn.with_shell("xargs xwallpaper --stretch < ~/.cache/wall")
