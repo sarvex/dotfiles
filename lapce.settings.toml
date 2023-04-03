@@ -1,0 +1,10 @@
+
+[editor]
+font-family = "Cascadia Code PL"
+tab-width = 2
+format-on-save = true
+highlight-scope-lines = true
+enable-completion-lens = true
+
+[terminal]
+shell = "pwsh.exe"
