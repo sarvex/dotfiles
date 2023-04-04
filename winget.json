@@ -1,0 +1,290 @@
+{
+	"$schema" : "https://aka.ms/winget-packages.schema.2.0.json",
+	"CreationDate" : "2023-04-04T10:45:14.638-00:00",
+	"Sources" : 
+	[
+		{
+			"Packages" : 
+			[
+				{
+					"PackageIdentifier" : "Streamlabs.Streamlabs"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.XMLNotepad"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VisualStudio.2022.Enterprise"
+				},
+				{
+					"PackageIdentifier" : "KDE.Amarok"
+				},
+				{
+					"PackageIdentifier" : "Audacity.Audacity"
+				},
+				{
+					"PackageIdentifier" : "Avidemux.Avidemux"
+				},
+				{
+					"PackageIdentifier" : "Brave.Brave"
+				},
+				{
+					"PackageIdentifier" : "eloston.ungoogled-chromium"
+				},
+				{
+					"PackageIdentifier" : "Cocos.CocosDashboard"
+				},
+				{
+					"PackageIdentifier" : "Cocos.CocosDashboard"
+				},
+				{
+					"PackageIdentifier" : "Discord.Discord"
+				},
+				{
+					"PackageIdentifier" : "Docker.DockerDesktop"
+				},
+				{
+					"PackageIdentifier" : "fotor.fotor"
+				},
+				{
+					"PackageIdentifier" : "GIMP.GIMP"
+				},
+				{
+					"PackageIdentifier" : "Geany.Geany"
+				},
+				{
+					"PackageIdentifier" : "Git.Git"
+				},
+				{
+					"PackageIdentifier" : "JetBrains.FleetLauncher.Preview"
+				},
+				{
+					"PackageIdentifier" : "KDE.kdevelop"
+				},
+				{
+					"PackageIdentifier" : "kalilinux.kalilinux"
+				},
+				{
+					"PackageIdentifier" : "KDE.Kate"
+				},
+				{
+					"PackageIdentifier" : "KDE.Krita"
+				},
+				{
+					"PackageIdentifier" : "LLVM.LLVM"
+				},
+				{
+					"PackageIdentifier" : "LibreWolf.LibreWolf"
+				},
+				{
+					"PackageIdentifier" : "Maxthon.Maxthon"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.Edge"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.EdgeWebView2Runtime"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.WindowsTerminal"
+				},
+				{
+					"PackageIdentifier" : "Anaconda.Miniconda3"
+				},
+				{
+					"PackageIdentifier" : "Mozilla.Firefox"
+				},
+				{
+					"PackageIdentifier" : "Notepad++.Notepad++"
+				},
+				{
+					"PackageIdentifier" : "Rizonesoft.Notepad3"
+				},
+				{
+					"PackageIdentifier" : "OBSProject.OBSStudio"
+				},
+				{
+					"PackageIdentifier" : "JanDeDobbeleer.OhMyPosh"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.OneDrive"
+				},
+				{
+					"PackageIdentifier" : "Opera.OperaCrypto"
+				},
+				{
+					"PackageIdentifier" : "Opera.OperaGX"
+				},
+				{
+					"PackageIdentifier" : "Playnite.Playnite"
+				},
+				{
+					"PackageIdentifier" : "Valve.Steam"
+				},
+				{
+					"PackageIdentifier" : "Stride.Stride"
+				},
+				{
+					"PackageIdentifier" : "SublimeHQ.SublimeText.4"
+				},
+				{
+					"PackageIdentifier" : "Lenovo.SystemUpdate"
+				},
+				{
+					"PackageIdentifier" : "Unity.Unity.2020"
+				},
+				{
+					"PackageIdentifier" : "Unity.UnityHub"
+				},
+				{
+					"PackageIdentifier" : "Ubisoft.Connect"
+				},
+				{
+					"PackageIdentifier" : "VivaldiTechnologies.Vivaldi"
+				},
+				{
+					"PackageIdentifier" : "Waterfox.Waterfox"
+				},
+				{
+					"PackageIdentifier" : "JetBrains.WebStorm"
+				},
+				{
+					"PackageIdentifier" : "WhatsApp.WhatsApp"
+				},
+				{
+					"PackageIdentifier" : "GDevelop.GDevelop"
+				},
+				{
+					"PackageIdentifier" : "darktable.darktable"
+				},
+				{
+					"PackageIdentifier" : "ItchIo.Itch"
+				},
+				{
+					"PackageIdentifier" : "pnpm.pnpm"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VCRedist.2013.x64"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VCRedist.2010.x64"
+				},
+				{
+					"PackageIdentifier" : "Nushell.Nushell"
+				},
+				{
+					"PackageIdentifier" : "Lapce.Lapce"
+				},
+				{
+					"PackageIdentifier" : "MSYS2.MSYS2"
+				},
+				{
+					"PackageIdentifier" : "Amazon.Games"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.PowerToys"
+				},
+				{
+					"PackageIdentifier" : "Google.Chrome"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.CLRTypesSQLServer.2019"
+				},
+				{
+					"PackageIdentifier" : "OpenJS.NodeJS"
+				},
+				{
+					"PackageIdentifier" : "Amazon.AWSCLI"
+				},
+				{
+					"PackageIdentifier" : "SomePythonThings.WingetUIStore"
+				},
+				{
+					"PackageIdentifier" : "VSCodium.VSCodium"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.PowerShell"
+				},
+				{
+					"PackageIdentifier" : "Volta.Volta"
+				},
+				{
+					"PackageIdentifier" : "SlackTechnologies.Slack"
+				},
+				{
+					"PackageIdentifier" : "Inkscape.Inkscape"
+				},
+				{
+					"PackageIdentifier" : "BlenderFoundation.Blender"
+				},
+				{
+					"PackageIdentifier" : "TheDocumentFoundation.LibreOffice"
+				},
+				{
+					"PackageIdentifier" : "Mu.Mu"
+				},
+				{
+					"PackageIdentifier" : "EpicGames.EpicGamesLauncher"
+				},
+				{
+					"PackageIdentifier" : "Tiled.Tiled"
+				},
+				{
+					"PackageIdentifier" : "Alacritty.Alacritty"
+				},
+				{
+					"PackageIdentifier" : "WiresharkFoundation.Wireshark"
+				},
+				{
+					"PackageIdentifier" : "Neovim.Neovim"
+				},
+				{
+					"PackageIdentifier" : "Twitch.TwitchStudio"
+				},
+				{
+					"PackageIdentifier" : "FarManager.FarManager"
+				},
+				{
+					"PackageIdentifier" : "Scintilla.SciTE"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.WebDeploy"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VisualStudioCode"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VCRedist.2010.x86"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.OpenJDK.11"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.WindowsSDK"
+				}
+			],
+			"SourceDetails" : 
+			{
+				"Argument" : "https://cdn.winget.microsoft.com/cache",
+				"Identifier" : "Microsoft.Winget.Source_8wekyb3d8bbwe",
+				"Name" : "winget",
+				"Type" : "Microsoft.PreIndexed.Package"
+			}
+		},
+		{
+			"Packages" : 
+			[
+				{
+					"PackageIdentifier" : "9P5RWLM70SN9"
+				}
+			],
+			"SourceDetails" : 
+			{
+				"Argument" : "https://storeedgefd.dsx.mp.microsoft.com/v9.0",
+				"Identifier" : "StoreEdgeFD",
+				"Name" : "msstore",
+				"Type" : "Microsoft.Rest"
+			}
+		}
+	],
+	"WinGetVersion" : "1.4.10173"
+}
