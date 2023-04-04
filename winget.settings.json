@@ -1,36 +1,37 @@
 {
-    "$schema": "https://aka.ms/winget-settings.schema.json",
+  "$schema": "https://aka.ms/winget-settings.schema.json",
 
-    // For documentation on these settings, see: https://aka.ms/winget-settings
-    "source": {
-       "autoUpdateIntervalInMinutes": 5
+  // For documentation on these settings, see: https://aka.ms/winget-settings
+  "source": {
+    "autoUpdateIntervalInMinutes": 5
+  },
+  "visual": {
+    "progressBar": "rainbow"
+  },
+  "installBehavior": {
+    "portablePackageUserRoot": "C:/Apps",
+    "portablePackageMachineRoot": "C:/Tools",
+    "defaultInstallRoot": "C:/Tools",
+    "preferences": {
+      "scope": "machine"
     },
-    "visual": {
-        "progressBar": "rainbow"
+    "telemetry": {
+      "disable": true
     },
-    "installBehavior": {
-        "portablePackageUserRoot": "C:/Apps",
-        "portablePackageMachineRoot": "C:/Tools",
-        "defaultInstallRoot": "C:/Tools",
-        "preferences": {
-            "scope": "machine"
-        },
-        "telemetry": {
-            "disable": true
-        },
-    },
-    "network": {
-        "downloader": "do",
-        "doProgressTimeoutInSeconds": 60
-    },
-    "experimentalFeatures": {
-        "experimentalCmd": true,
-        "experimentalArg": false,
-        "directMSI": true,
-        "uninstallPreviousArgument": true,
-        "dependencies": true,
-        "pinning": true,
-        "configuration": true,
-        "windowsFeature": true
-    },
+    "uninstallBehavior": {
+      "purgePortablePackage": true
+    }
+  },
+  "network": {
+    "downloader": "do",
+    "doProgressTimeoutInSeconds": 60
+  },
+  "experimentalFeatures": {
+    "directMSI": true,
+    "uninstallPreviousArgument": true,
+    "dependencies": true,
+    "pinning": true,
+    "configuration": true,
+    "windowsFeature": true
+  }
 }
