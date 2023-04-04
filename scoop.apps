@@ -1,157 +1,157 @@
 {
-    "apps": [
-        {
-            "Source": "main",
-            "Info": "",
-            "Version": "22.01",
-            "Name": "7zip",
-            "Updated": "2023-04-02T19:39:41.233525+05:30"
-        },
-        {
-            "Source": "extras",
-            "Info": "",
-            "Version": "4.0.1",
-            "Name": "godot",
-            "Updated": "2023-04-02T19:46:45.216755+05:30"
-        },
-        {
-            "Source": "extras",
-            "Info": "",
-            "Version": "0.2.1",
-            "Name": "godot-manager",
-            "Updated": "2023-04-02T19:47:12.8791959+05:30"
-        },
-        {
-            "Source": "extras",
-            "Info": "",
-            "Version": "4.0.1",
-            "Name": "godot-mono",
-            "Updated": "2023-04-02T19:47:49.9785395+05:30"
-        },
-        {
-            "Source": "extras",
-            "Info": "",
-            "Version": "11.4",
-            "Name": "love",
-            "Updated": "2023-04-02T19:43:08.5099957+05:30"
-        },
-        {
-            "Source": "main",
-            "Info": "",
-            "Version": "5.4.2",
-            "Name": "lua",
-            "Updated": "2023-04-02T19:39:36.7641201+05:30"
-        },
-        {
-            "Source": "main",
-            "Info": "",
-            "Version": "2.1.0_beta3-4",
-            "Name": "luajit",
-            "Updated": "2023-04-02T19:39:48.814826+05:30"
-        },
-        {
-            "Source": "main",
-            "Info": "",
-            "Version": "3.9.2",
-            "Name": "luarocks",
-            "Updated": "2023-04-02T19:39:52.3314257+05:30"
-        },
-        {
-            "Source": "main",
-            "Info": "",
-            "Version": "0.570",
-            "Name": "luau",
-            "Updated": "2023-04-02T19:39:54.2228512+05:30"
-        },
-        {
-            "Source": "main",
-            "Info": "",
-            "Version": "5.4.4",
-            "Name": "srlua",
-            "Updated": "2023-04-02T19:39:57.3546842+05:30"
-        },
-        {
-            "Source": "main",
-            "Info": "",
-            "Version": "0.17.1",
-            "Name": "stylua",
-            "Updated": "2023-04-02T19:40:00.4758152+05:30"
-        },
-        {
-            "Source": "main",
-            "Info": "",
-            "Version": "1.8.16",
-            "Name": "z.lua",
-            "Updated": "2023-04-02T19:40:01.7265115+05:30"
-        },
-        {
-            "Source": "main",
-            "Info": "",
-            "Version": "1.5.4",
-            "Name": "zstd",
-            "Updated": "2023-04-02T19:39:44.399132+05:30"
-        }
-    ],
-    "buckets": [
-        {
-            "Name": "extras",
-            "Source": "https://github.com/ScoopInstaller/Extras",
-            "Updated": "2023-04-04T09:56:34+05:30",
-            "Manifests": 1788
-        },
-        {
-            "Name": "games",
-            "Source": "https://github.com/Calinou/scoop-games",
-            "Updated": "2023-04-04T09:56:55+05:30",
-            "Manifests": 268
-        },
-        {
-            "Name": "java",
-            "Source": "https://github.com/ScoopInstaller/Java",
-            "Updated": "2023-03-31T01:46:05+05:30",
-            "Manifests": 254
-        },
-        {
-            "Name": "main",
-            "Source": "https://github.com/ScoopInstaller/Main.git",
-            "Updated": "2023-04-04T09:56:04+05:30",
-            "Manifests": 1184
-        },
-        {
-            "Name": "nerd-fonts",
-            "Source": "https://github.com/matthewjberger/scoop-nerd-fonts",
-            "Updated": "2023-03-27T22:42:35+05:30",
-            "Manifests": 221
-        },
-        {
-            "Name": "nirsoft",
-            "Source": "https://github.com/kodybrown/scoop-nirsoft",
-            "Updated": "2022-06-21T21:30:55+05:30",
-            "Manifests": 271
-        },
-        {
-            "Name": "nonportable",
-            "Source": "https://github.com/ScoopInstaller/Nonportable",
-            "Updated": "2023-04-03T22:08:14+05:30",
-            "Manifests": 127
-        },
-        {
-            "Name": "php",
-            "Source": "https://github.com/ScoopInstaller/PHP",
-            "Updated": "2023-03-15T18:30:20+05:30",
-            "Manifests": 385
-        },
-        {
-            "Name": "sysinternals",
-            "Source": "https://github.com/niheaven/scoop-sysinternals",
-            "Updated": "2023-04-04T07:16:39+05:30",
-            "Manifests": 75
-        },
-        {
-            "Name": "versions",
-            "Source": "https://github.com/ScoopInstaller/Versions",
-            "Updated": "2023-04-04T10:02:31+05:30",
-            "Manifests": 418
-        }
-    ]
+  "buckets": [
+    {
+      "Name": "extras",
+      "Source": "https://github.com/ScoopInstaller/Extras",
+      "Updated": "2023-04-04T09:56:34+05:30",
+      "Manifests": 1788
+    },
+    {
+      "Name": "games",
+      "Source": "https://github.com/Calinou/scoop-games",
+      "Updated": "2023-04-04T09:56:55+05:30",
+      "Manifests": 268
+    },
+    {
+      "Name": "java",
+      "Source": "https://github.com/ScoopInstaller/Java",
+      "Updated": "2023-03-31T01:46:05+05:30",
+      "Manifests": 254
+    },
+    {
+      "Name": "main",
+      "Source": "https://github.com/ScoopInstaller/Main.git",
+      "Updated": "2023-04-04T09:56:04+05:30",
+      "Manifests": 1184
+    },
+    {
+      "Name": "nerd-fonts",
+      "Source": "https://github.com/matthewjberger/scoop-nerd-fonts",
+      "Updated": "2023-03-27T22:42:35+05:30",
+      "Manifests": 221
+    },
+    {
+      "Name": "nirsoft",
+      "Source": "https://github.com/kodybrown/scoop-nirsoft",
+      "Updated": "2022-06-21T21:30:55+05:30",
+      "Manifests": 271
+    },
+    {
+      "Name": "nonportable",
+      "Source": "https://github.com/ScoopInstaller/Nonportable",
+      "Updated": "2023-04-03T22:08:14+05:30",
+      "Manifests": 127
+    },
+    {
+      "Name": "php",
+      "Source": "https://github.com/ScoopInstaller/PHP",
+      "Updated": "2023-03-15T18:30:20+05:30",
+      "Manifests": 385
+    },
+    {
+      "Name": "sysinternals",
+      "Source": "https://github.com/niheaven/scoop-sysinternals",
+      "Updated": "2023-04-04T07:16:39+05:30",
+      "Manifests": 75
+    },
+    {
+      "Name": "versions",
+      "Source": "https://github.com/ScoopInstaller/Versions",
+      "Updated": "2023-04-04T10:02:31+05:30",
+      "Manifests": 418
+    }
+  ],
+  "apps": [
+    {
+      "Source": "main",
+      "Info": "",
+      "Version": "22.01",
+      "Name": "7zip",
+      "Updated": "2023-04-02T19:39:41.233525+05:30"
+    },
+    {
+      "Source": "extras",
+      "Info": "",
+      "Version": "4.0.1",
+      "Name": "godot",
+      "Updated": "2023-04-02T19:46:45.216755+05:30"
+    },
+    {
+      "Source": "extras",
+      "Info": "",
+      "Version": "0.2.1",
+      "Name": "godot-manager",
+      "Updated": "2023-04-02T19:47:12.8791959+05:30"
+    },
+    {
+      "Source": "extras",
+      "Info": "",
+      "Version": "4.0.1",
+      "Name": "godot-mono",
+      "Updated": "2023-04-02T19:47:49.9785395+05:30"
+    },
+    {
+      "Source": "extras",
+      "Info": "",
+      "Version": "11.4",
+      "Name": "love",
+      "Updated": "2023-04-02T19:43:08.5099957+05:30"
+    },
+    {
+      "Source": "main",
+      "Info": "",
+      "Version": "5.4.2",
+      "Name": "lua",
+      "Updated": "2023-04-02T19:39:36.7641201+05:30"
+    },
+    {
+      "Source": "main",
+      "Info": "",
+      "Version": "2.1.0_beta3-4",
+      "Name": "luajit",
+      "Updated": "2023-04-02T19:39:48.814826+05:30"
+    },
+    {
+      "Source": "main",
+      "Info": "",
+      "Version": "3.9.2",
+      "Name": "luarocks",
+      "Updated": "2023-04-02T19:39:52.3314257+05:30"
+    },
+    {
+      "Source": "main",
+      "Info": "",
+      "Version": "0.570",
+      "Name": "luau",
+      "Updated": "2023-04-02T19:39:54.2228512+05:30"
+    },
+    {
+      "Source": "main",
+      "Info": "",
+      "Version": "5.4.4",
+      "Name": "srlua",
+      "Updated": "2023-04-02T19:39:57.3546842+05:30"
+    },
+    {
+      "Source": "main",
+      "Info": "",
+      "Version": "0.17.1",
+      "Name": "stylua",
+      "Updated": "2023-04-02T19:40:00.4758152+05:30"
+    },
+    {
+      "Source": "main",
+      "Info": "",
+      "Version": "1.8.16",
+      "Name": "z.lua",
+      "Updated": "2023-04-02T19:40:01.7265115+05:30"
+    },
+    {
+      "Source": "main",
+      "Info": "",
+      "Version": "1.5.4",
+      "Name": "zstd",
+      "Updated": "2023-04-02T19:39:44.399132+05:30"
+    }
+  ]
 }
