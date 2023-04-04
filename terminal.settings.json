@@ -31,7 +31,7 @@
   "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
   "profiles": {
     "defaults": {
-      "cursorShape": "doubleUnderscore",
+      "colorScheme": "Campbell Powershell",
       "font": {
         "face": "Cascadia Code PL",
         "features": {
@@ -53,140 +53,128 @@
       },
       "opacity": 70,
       "startingDirectory": "%USERPROFILE%",
-      "useAcrylic": true
+      "useAcrylic": true,
+      "useAtlasEngine": true
     },
     "list": [
       {
         "colorScheme": "Adventure",
-        "commandline": "C:/Windows/system32/wsl.exe -d kali-linux",
+        "guid": "{a96ed3df-ae2e-529d-a014-9ecc4572d622}",
+        "hidden": false,
+        "icon": "ms-appdata:///roaming/almalinux.png",
+        "name": "Alma",
+        "source": "Windows.Terminal.Wsl"
+      },
+      {
+        "colorScheme": "Alien Blood",
         "guid": "{46ca431a-3a87-5fb3-83cd-11ececc031d2}",
         "hidden": false,
-        "icon": "https://s2.googleusercontent.com/s2/favicons?domain=kali.org",
+        "icon": "ms-appdata:///roaming/icons8-kali-linux-48.png",
         "name": "Kali",
         "source": "Windows.Terminal.Wsl"
       },
       {
-        "colorScheme": "Ever Blush",
-        "commandline": "C:/Tools/msys64/msys2_shell.cmd -defterm -no-start -clang64 -shell zsh",
-        "guid": "{71a78b2b-37f9-453d-a2dd-fe1e57c2a1e4}",
-        "hidden": false,
-        "icon": "C:/Tools/msys64/clang64.ico",
-        "name": "Clang",
-        "startingDirectory": "~"
-      },
-      {
-        "colorScheme": "Bubbles",
-        "commandline": "C:/Tools/msys64/msys2_shell.cmd -defterm -no-start -msys2 -shell zsh",
-        "guid": "{05cbd2d2-1350-466b-abf3-9b174944327f}",
-        "hidden": false,
-        "icon": "C:/Tools/msys64/msys2.ico",
-        "name": "MSYS",
-        "startingDirectory": "~"
-      },
-      {
-        "colorScheme": "Fish Tank",
-        "commandline": "C:/Tools/msys64/msys2_shell.cmd -defterm -no-start -mingw64 -shell zsh",
-        "guid": "{be161dba-981d-4560-aa78-e50924191e12}",
-        "hidden": false,
-        "icon": "C:/Tools/msys64/mingw64.ico",
-        "name": "MinGW",
-        "startingDirectory": "~"
-      },
-      {
-        "colorScheme": "Gruvbox Dark",
-        "commandline": "C:/Tools/msys64/msys2_shell.cmd -defterm -no-start -ucrt64 -shell zsh",
-        "guid": "{48a0aa8f-3e98-4926-ac6b-e401b0df0f3f}",
-        "hidden": false,
-        "icon": "C:/Tools/msys64/ucrt64.ico",
-        "name": "UCRT",
-        "startingDirectory": "~"
-      },
-      {
-        "colorScheme": "Brogrammer",
-        "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
-        "hidden": false,
-        "name": "Bash",
-        "source": "Git",
-        "startingDirectory": "~"
-      },
-      {
-        "colorScheme": "Birds of Paradise",
-        "commandline": "C:/Program Files/PowerShell/7/pwsh.exe",
-        "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
-        "hidden": false,
-        "name": "Azure",
-        "source": "Windows.Terminal.Azure"
-      },
-      {
         "colorScheme": "Argonaut",
-        "commandline": "C:/Program Files/PowerShell/7/pwsh.exe",
-        "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+        "commandline": "C:/Tools/Cygwin/bin/bash --login -i",
+        "guid": "{d3cdaca7-6cbe-4d7b-ad4f-52edd63147e4}",
         "hidden": false,
-        "name": "PowerShell",
-        "source": "Windows.Terminal.PowershellCore"
+        "icon": "ms-appdata:///roaming/cygwin.png",
+        "name": "Cygwin"
       },
       {
         "colorScheme": "Banana Blueberry",
-        "commandline": "C:/Program Files/PowerShell/7/pwsh.exe -NoExit -Command \"&{Import-Module 'C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/Tools/Microsoft.VisualStudio.DevShell.dll'; Enter-VsDevShell 52894e4b -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'}\"",
-        "guid": "{a6f9d6b0-7ed2-5239-adc2-c66d15597897}",
+        "commandline": "C:/Tools/Msys2/msys2_shell.cmd  -defterm -no-start -mingw64",
+        "guid": "{efd167bf-80e9-41d1-a80d-596fe41ab900}",
         "hidden": false,
-        "icon": "https://s2.googleusercontent.com/s2/favicons?domain_url=visualstudio.microsoft.com",
-        "name": "Developer",
-        "source": "Windows.Terminal.VisualStudio",
-        "startingDirectory": "%USERPROFILE%"
+        "icon": "C:/Tools/MSys2/mingw64.ico",
+        "name": "MSYS2"
       },
       {
-        "colorScheme": "Espresso Libre",
-        "commandline": "%SystemRoot%/System32/cmd.exe",
+        "colorScheme": "Belafonte Night",
+        "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
+        "hidden": false,
+        "name": "Git",
+        "source": "Git"
+      },
+      {
+        "colorScheme": "Birds of Paradise",
+        "guid": "{aab79973-318f-43b6-a9bc-b4096493753f}",
+        "hidden": false,
+        "name": "Nushell",
+        "source": "nu"
+      },
+      {
+        "colorScheme": "Blue Dolphin",
+        "commandline": "%SystemRoot%\\System32\\cmd.exe",
         "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
         "hidden": false,
         "name": "Command"
       },
       {
-        "colorScheme": "Crayon Pony Fish",
-        "commandline": "cmd.exe /k C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/Tools/VsDevCmd.bat\" -arch=x64 -host_arch=x64",
-        "guid": "{a0cc492c-cf72-5838-9f5e-0e3bd116ebac}",
-        "hidden": true,
-        "icon": "https://raw.githubusercontent.com/microsoft/terminal/main/res/terminal.ico",
-        "name": "DEVEL",
-        "source": "Windows.Terminal.VisualStudio",
-        "startingDirectory": "%USERPROFILE%"
+        "colorScheme": "Brogrammer",
+        "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+        "hidden": false,
+        "icon": "ms-appdata:///roaming/azure.png",
+        "name": "Azure",
+        "source": "Windows.Terminal.Azure"
       },
       {
-        "colorScheme": "Whimsy",
-        "commandline": "C:/Program Files/PowerShell/7/pwsh.exe -NoExit -Command \"& 'C:/ProgramData/anaconda3/shell/condabin/conda-hook.ps1' ; conda activate 'C:/ProgramData/anaconda3'\"",
-        "guid": "{c4c92296-69d6-4df2-8cb7-246e8f924c2f}",
+        "colorScheme": "Bubbles",
+        "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
         "hidden": false,
-        "icon": "C:/ProgramData/anaconda3/Menu/anaconda-navigator.ico",
-        "name": "Anaconda",
-        "startingDirectory": "~"
+        "icon": "ms-appdata:///roaming/powershell7.png",
+        "name": "PowerShell",
+        "source": "Windows.Terminal.PowershellCore"
       },
       {
-        "colorScheme": "Calamity",
-        "commandline": "cmd.exe /k C:/Tools/cmder/vendor/init.bat",
-        "guid": "{dc8a0a0c-9969-413c-9c8c-c721cb4bc636}",
+        "colorScheme": "C64",
+        "guid": "{668ad1f4-3d35-5f41-8cfe-57ca8b18c734}",
         "hidden": false,
-        "icon": "C:/Tools/Cmder/icons/cmder.ico",
-        "name": "CMDR",
-        "startingDirectory": "%USERPROFILE%"
+        "icon": "ms-appdata:///roaming/visual_studio.png",
+        "name": "Developer",
+        "source": "Windows.Terminal.VisualStudio"
       },
       {
         "colorScheme": "Calamity",
-        "commandline": "C:/Program Files/PowerShell/7/pwsh.exe -NoExit -Command \"C:/Tools/cmder/vendor/profile.ps1\"",
-        "guid": "{70f3e897-80f7-404b-8992-215d8428f130}",
+        "commandline": "pwsh.exe -ExecutionPolicy ByPass -NoExit -Command \"& 'C:/ProgramData/Miniconda3/shell/condabin/conda-hook.ps1' ; conda activate 'C:\\ProgramData\\Miniconda3' \"",
+        "guid": "{6307bccf-40e7-4292-aef0-5c22d2ea41c6}",
+        "hidden": false,
+        "icon": "ms-appdata:///roaming/anaconda.png",
+        "name": "Anaconda"
+      },
+      {
+        "colorScheme": "Challenger Deep",
+        "commandline": "C:/Tools/Cmder/vendor/init.bat",
+        "guid": "{6b4e8d95-54ae-49de-a303-b4149afbe354}",
         "hidden": false,
         "icon": "C:/Tools/Cmder/icons/cmder.ico",
-        "name": "Cmder",
-        "startingDirectory": "%USERPROFILE%"
+        "name": "Cmder"
       },
       {
         "colorScheme": "Cobalt Neon",
         "commandline": "C:/Program Files/Far Manager/Far.exe",
-        "guid": "{c6e7c649-9939-46e0-887f-a2a8a2632c6d}",
+        "guid": "{b762ec0b-b923-483b-87d8-47cd7178c190}",
         "hidden": false,
-        "icon": "https://s2.googleusercontent.com/s2/favicons?domain=farmanager.com",
-        "name": "Far",
-        "startingDirectory": "%USERPROFILE%"
+        "icon": "C:/Tools/Cmder/icons/cmder_purple.ico",
+        "name": "Far"
+      },
+      {
+        "colorScheme": "Cool Night",
+        "commandline": "ssh Production",
+        "guid": "{69da875b-51bf-4718-becb-c6cd4df2e32c}",
+        "hidden": false,
+        "icon": "ms-appdata:///roaming/router.png",
+        "name": "Production",
+        "startingDirectory": "~"
+      },
+      {
+        "colorScheme": "Crayon Pony Fish",
+        "commandline": "ssh Developer",
+        "guid": "{c4a1721c-d580-44d6-a3a9-b4d508635ebf}",
+        "hidden": false,
+        "icon": "ms-appdata:///roaming/server-96.png",
+        "name": "Developer",
+        "startingDirectory": "~"
       }
     ]
   },
@@ -1089,6 +1077,55 @@
       "yellow": "#FDD877"
     }
   ],
-  "themes": [],
+  "startOnUserLogin": true,
+  "themes": [
+    {
+      "name": "Seamless",
+      "tab": {
+        "background": "terminalBackground",
+        "unfocusedBackground": "#FFFFFF00",
+        "showCloseButton": "always"
+      },
+      "tabRow": {
+        "background": "terminalBackground",
+        "unfocusedBackground": "#2C2C2CFF"
+      },
+      "window": {
+        "applicationTheme": "dark"
+      }
+    },
+    {
+      "name": "Under Contruction",
+      "tab": {
+        "background": "#FFFF00FF",
+        "showCloseButton": "always",
+        "unfocusedBackground": "#88440088"
+      },
+      "tabRow": {
+        "background": "#FF8800FF",
+        "unfocusedBackground": "#202020FF"
+      },
+      "window": {
+        "applicationTheme": "light",
+        "useMica": true
+      }
+    },
+    {
+      "name": "chonk",
+      "tab": {
+        "background": "#00000000",
+        "unfocusedBackground": "#00000000",
+        "showCloseButton": "hover"
+      },
+      "tabRow": {
+        "background": "#00000000",
+        "unfocusedBackground": "#00000000"
+      },
+      "window": {
+        "applicationTheme": "dark",
+        "useMica": true
+      }
+    }
+  ],
   "useAcrylicInTabRow": true
 }
