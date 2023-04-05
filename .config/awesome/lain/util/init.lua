@@ -6,7 +6,7 @@
      Utilities section
 
      Licensed under GNU General Public License v2
-      * (c) 2013,      Luca CPZ
+      * (c) 2013,      Luke Bonham
       * (c) 2010-2012, Peter Hofmann
 
 --]]
@@ -76,7 +76,7 @@ function util.magnify_client(c, width_f, height_f)
     end
 end
 
--- https://github.com/lcpz/lain/issues/195
+-- https://github.com/copycat-killer/lain/issues/195
 function util.mc(c, width_f, height_f)
     c = c or util.magnified_client
     if not c then return end
@@ -158,10 +158,9 @@ end
 -- }}}
 
 -- On the fly useless gaps change
-function util.useless_gaps_resize(thatmuch, s, t)
-    local scr = s or awful.screen.focused()
-    local tag = t or scr.selected_tag
-    tag.gap = tag.gap + tonumber(thatmuch)
+function util.useless_gaps_resize(thatmuch)
+    local scr = awful.screen.focused()
+    scr.selected_tag.gap = scr.selected_tag.gap + tonumber(thatmuch)
     awful.layout.arrange(scr)
 end
 

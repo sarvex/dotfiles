@@ -1,14 +1,15 @@
+
 --[[
-
-     Awesome-Freedesktop
-     Freedesktop.org compliant desktop entries and menu
-
-     Desktop section
-
-     Licensed under GNU General Public License v2
-      * (c) 2016,      Luke Bonham
-      * (c) 2009-2015, Antonio Terceiro
-
+                                                        
+     Awesome-Freedesktop                                
+     Freedesktop.org compliant desktop entries and menu 
+                                                        
+     Desktop section                                    
+                                                        
+     Licensed under GNU General Public License v2       
+      * (c) 2016,      Luke Bonham                      
+      * (c) 2009-2015, Antonio Terceiro                 
+                                                        
 --]]
 
 local awful  = require("awful")
@@ -16,12 +17,12 @@ local theme  = require("beautiful")
 local utils  = require("menubar.utils")
 local wibox  = require("wibox")
 
-local capi   = capi
+local capi   = { screen = screen }
 local io     = io
 local ipairs = ipairs
 local mouse  = mouse
 local os     = os
-local string = string
+local string = { format = string.format }
 local table  = table
 
 -- Desktop icons
@@ -140,7 +141,7 @@ end
 function desktop.add_base_icons(args)
     for _,base in ipairs(args.baseicons) do
         desktop.add_single_icon(args, base.label, utils.lookup_icon(base.icon), function()
-            awful.spawn(string.format("%s '%s'", args.open_with, base.onclick))
+            awful.spawn(string.format("%s '%s'", args.open_width, base.onclick))
         end)
     end
 end

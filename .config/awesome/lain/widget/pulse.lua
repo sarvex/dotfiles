@@ -1,15 +1,17 @@
 --[[
 
      Licensed under GNU General Public License v2
-      * (c) 2016, Luca CPZ
+      * (c) 2016, Luke Bonham
 
 --]]
 
 local helpers = require("lain.helpers")
 local shell   = require("awful.util").shell
 local wibox   = require("wibox")
-local string  = string
-local type    = type
+local string  = { gmatch = string.gmatch,
+                  match  = string.match,
+                  format = string.format }
+local type = type
 
 -- PulseAudio volume
 -- lain.widget.pulse

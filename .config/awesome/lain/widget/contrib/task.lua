@@ -10,7 +10,7 @@ local markup  = require("lain.util").markup
 local awful   = require("awful")
 local naughty = require("naughty")
 local mouse   = mouse
-local string  = string
+local string  = { format = string.format, gsub = string.gsub }
 
 -- Taskwarrior notification
 -- lain.widget.contrib.task
@@ -23,7 +23,12 @@ function task.hide()
 end
 
 function task.show(scr)
-    task.notification_preset.screen = task.followtag and awful.screen.focused() or scr or 1
+
+    if task.followtag then
+        task.notification_preset.screen = awful.screen.focused()
+    elseif scr then
+        task.notification_preset.screen = scr
+    end
 
     helpers.async({ awful.util.shell, "-c", task.show_cmd }, function(f)
         local widget_focused = true
@@ -40,12 +45,12 @@ function task.show(scr)
 
         if widget_focused then
             task.hide()
-            task.notification = naughty.notify {
-                preset = task.notification_preset,
-                title  = "task next",
-                text   = markup.font(task.notification_preset.font,
-                         awful.util.escape(f:gsub("\n*$", "")))
-            }
+            task.notification = naughty.notify({
+                    preset = task.notification_preset,
+                    title  = "task next",
+                    text   = markup.font(task.notification_preset.font,
+                        awful.util.escape(f:gsub("\n*$", "")))
+                })
         end
     end)
 end

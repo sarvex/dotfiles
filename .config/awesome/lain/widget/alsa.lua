@@ -1,7 +1,7 @@
 --[[
 
      Licensed under GNU General Public License v2
-      * (c) 2013, Luca CPZ
+      * (c) 2013, Luke Bonham
       * (c) 2010, Adrian C. <anrxc@sysphere.org>
 
 --]]
@@ -9,7 +9,8 @@
 local helpers = require("lain.helpers")
 local shell   = require("awful.util").shell
 local wibox   = require("wibox")
-local string  = string
+local string  = { match  = string.match,
+                  format = string.format }
 
 -- ALSA volume
 -- lain.widget.alsa

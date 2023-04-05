@@ -1,10 +1,10 @@
 ## Usage
 
-[Read here.](https://github.com/lcpz/lain/wiki/Widgets#usage)
+[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
 
 ### Description
 
-Shows memory status in MiB, [like `top` and `free -h`](https://github.com/lcpz/lain/issues/271).
+Shows memory status (in MiB).
 
 ```lua
 local mymem = lain.widget.mem()
@@ -14,7 +14,7 @@ local mymem = lain.widget.mem()
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
-`timeout` | Refresh timeout (in seconds) | integer | 2
+`timeout` | Refresh timeout seconds | number | 2
 `settings` | User settings | function | empty function
 
 in `settings` you can use the following variables:

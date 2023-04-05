@@ -1,6 +1,6 @@
 ## Usage
 
-[Read here.](https://github.com/lcpz/lain/wiki/Widgets#usage)
+[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
 
 ### Description
 
@@ -24,9 +24,9 @@ Now playing songs are notified like this:
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
-`timeout` | Refresh timeout (in seconds) | integer | 1
+`timeout` | Refresh timeout seconds | number | 1
 `music_dir` | Music directory | string | "~/Music"
-`cover_size` | Album art notification size (both height and width) | integer | 100
+`cover_size` | Album art notification size | number | 100
 `cover_pattern` | Pattern for the album art file | string | `*\\.(jpg|jpeg|png|gif)`*
 `default_art` | Default art | string | ""
 `followtag` | Display the notification on currently focused screen | boolean | false
@@ -59,7 +59,7 @@ moc_notification_preset = {
 }
 ```
 
-With multiple screens, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followtag` to `true` it will be shown on the currently focused tag screen.
+In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followtag` to `true` it will be shown on the currently focused tag screen.
 
 ## Output table
 
@@ -81,22 +81,22 @@ You can control the widget with key bindings like these:
 -- MOC control
 awful.key({ altkey, "Control" }, "Up",
 	function ()
-		os.execute("mocp -G") -- toggle
+		awful.spawn.with_shell("mocp -G")
 		moc.update()
 	end),
 awful.key({ altkey, "Control" }, "Down",
 	function ()
-		os.execute("mocp -s") -- stop
+		awful.spawn.with_shell("mocp -s")
 		moc.update()
 	end),
 awful.key({ altkey, "Control" }, "Left",
 	function ()
-		os.execute("mocp -r") -- previous
+		awful.spawn.with_shell("mocp -r")
 		moc.update()
 	end),
 awful.key({ altkey, "Control" }, "Right",
 	function ()
-		os.execute("mocp -f") -- next
+		awful.spawn.with_shell("mocp -f")
 		moc.update()
 	end),
 ```

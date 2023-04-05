@@ -1,6 +1,6 @@
 ## Usage
 
-[Read here.](https://github.com/lcpz/lain/wiki/Widgets#usage)
+[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
 
 ### Description
 
@@ -14,26 +14,21 @@ local volume = lain.widget.pulsebar()
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
-`timeout` | Refresh timeout (in seconds) | integer | 5
+`timeout` | Refresh timeout seconds | number | 5
 `settings` | User settings | function | empty function
 `width` | Bar width | number | 63
 `height` | Bar height | number | 1
-`margins` | Bar margins | number | 1
-`paddings` | Bar paddings | number | 1
 `ticks` | Set bar ticks on | boolean | false
 `ticks_size` | Ticks size | number | 7
-`scallback` | [PulseAudio sink callback](https://github.com/lcpz/lain/wiki/pulseaudio/) | function | `nil`
-`sink` | Mixer sink | number | 0
-`colors` | Bar colors | table | see [Default colors](https://github.com/lcpz/lain/wiki/pulsebar#default-colors)
-`notification_preset` | Notification preset | table | See [default `notification_preset`](https://github.com/lcpz/lain/wiki/pulsebar#default-notification_preset)
+`colors` | Bar colors | table | see [Default colors](https://github.com/copycat-killer/lain/wiki/pulsebar#default-colors)
 `followtag` | Display the notification on currently focused screen | boolean | false
-`notification_preset` | Notification preset | table | See [default `notification_preset`](https://github.com/lcpz/lain/wiki/pulsebar#default-notification_preset)
+`notification_preset` | Notification preset | table | See [default `notification_preset`](https://github.com/copycat-killer/lain/wiki/pulsebar#default-notification_preset)
 `devicetype` | PulseAudio device type | string ("sink", "source") | "sink"
-`cmd` | PulseAudio command | string or function | see [here](https://github.com/lcpz/lain/blob/master/widget/pulsebar.lua#L48)
+`cmd` | PulseAudio command | string or function | see [here](https://github.com/copycat-killer/lain/blob/master/widget/pulsebar.lua#L48)
 
-Read [pulse](https://github.com/lcpz/lain/wiki/pulse) page for `cmd` settings.
+Read [pulse](https://github.com/copycat-killer/lain/wiki/pulse) page for `cmd` settings.
 
-`settings` can use [these variables](https://github.com/lcpz/lain/wiki/pulse#settings-variables).
+`settings` can use [these variables](https://github.com/copycat-killer/lain/wiki/pulse#settings-variables).
 
 With multiple screens, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followtag` to `true` it will be shown on the currently focused tag screen.
 
@@ -71,19 +66,19 @@ volume.bar:buttons(awful.util.table.join(
         awful.spawn("pavucontrol")
     end),
     awful.button({}, 2, function() -- middle click
-        os.execute(string.format("pactl set-sink-volume %d 100%%", volume.device))
+        awful.spawn(string.format("pactl set-sink-volume %d 100%%", volume.sink))
         volume.update()
     end),
     awful.button({}, 3, function() -- right click
-        os.execute(string.format("pactl set-sink-mute %d toggle", volume.device))
+        awful.spawn(string.format("pactl set-sink-mute %d toggle", volume.sink))
         volume.update()
     end),
     awful.button({}, 4, function() -- scroll up
-        os.execute(string.format("pactl set-sink-volume %d +1%%", volume.device))
+        awful.spawn(string.format("pactl set-sink-volume %d +1%%", volume.sink))
         volume.update()
     end),
     awful.button({}, 5, function() -- scroll down
-        os.execute(string.format("pactl set-sink-volume %d -1%%", volume.device))
+        awful.spawn(string.format("pactl set-sink-volume %d -1%%", volume.sink))
         volume.update()
     end)
 ))
@@ -91,4 +86,4 @@ volume.bar:buttons(awful.util.table.join(
 
 ## Keybindings
 
-Same as [here](https://github.com/lcpz/lain/wiki/pulse#keybindings). If you want notifications, use `volume.notify()` instead of `volume.update()`.
+Same as [here](https://github.com/copycat-killer/lain/wiki/pulse#keybindings). If you want notifications, use `volume.notify()` instead of `volume.update()`.

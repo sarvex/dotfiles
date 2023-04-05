@@ -1,6 +1,6 @@
 ## Usage
 
-[Read here.](https://github.com/lcpz/lain/wiki/Widgets#usage)
+[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
 
 ### Description
 
@@ -14,7 +14,7 @@ local volume = lain.widget.alsa()
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
-`timeout` | Refresh timeout (in seconds) | integer | 5
+`timeout` | Refresh timeout seconds | number | 5
 `cmd` | Alsa mixer command | string | "amixer"
 `channel` | Mixer channel | string | "Master"
 `togglechannel` | Toggle channel | string | `nil`
@@ -26,7 +26,7 @@ Variable | Meaning | Type | Default
 
 Variable | Meaning | Type | Values
 --- | --- | --- | ---
-`volume_now.level` | Volume level | integer | 0-100
+`volume_now.level` | Volume level | number | 0-100
 `volume_now.status` | Device status | string | "on", "off"
 
 ## Output table
@@ -82,19 +82,19 @@ volume.widget:buttons(awful.util.table.join(
         awful.spawn(string.format("%s -e alsamixer", terminal))
     end),
     awful.button({}, 2, function() -- middle click
-        os.execute(string.format("%s set %s 100%%", volume.cmd, volume.channel))
+        awful.spawn(string.format("%s set %s 100%%", volume.cmd, volume.channel))
         volume.update()
     end),
     awful.button({}, 3, function() -- right click
-        os.execute(string.format("%s set %s toggle", volume.cmd, volume.togglechannel or volume.channel))
+        awful.spawn(string.format("%s set %s toggle", volume.cmd, volume.togglechannel or volume.channel))
         volume.update()
     end),
     awful.button({}, 4, function() -- scroll up
-        os.execute(string.format("%s set %s 1%%+", volume.cmd, volume.channel))
+        awful.spawn(string.format("%s set %s 1%%+", volume.cmd, volume.channel))
         volume.update()
     end),
     awful.button({}, 5, function() -- scroll down
-        os.execute(string.format("%s set %s 1%%-", volume.cmd, volume.channel))
+        awful.spawn(string.format("%s set %s 1%%-", volume.cmd, volume.channel))
         volume.update()
     end)
 ))

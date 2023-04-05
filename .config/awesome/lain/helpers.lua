@@ -1,16 +1,15 @@
 --[[
 
      Licensed under GNU General Public License v2
-      * (c) 2013, Luca CPZ
+      * (c) 2013, Luke Bonham
 
 --]]
 
-local spawn      = require("awful.spawn")
+local easy_async = require("awful.spawn").easy_async
 local timer      = require("gears.timer")
 local debug      = require("debug")
 local io         = { lines = io.lines,
                      open  = io.open }
-local pairs      = pairs
 local rawget     = rawget
 local table      = { sort  = table.sort }
 
@@ -33,49 +32,53 @@ end
 
 -- {{{ File operations
 
--- check if the file exists and is readable
-function helpers.file_exists(path)
-    local file = io.open(path, "rb")
-    if file then file:close() end
-    return file ~= nil
+-- see if the file exists and is readable
+function helpers.file_exists(file)
+  local f = io.open(file)
+  if f then
+      local s = f:read()
+      f:close()
+      f = s
+  end
+  return f ~= nil
 end
 
--- get a table with all lines from a file
-function helpers.lines_from(path)
-    local lines = {}
-    for line in io.lines(path) do
-        lines[#lines + 1] = line
-    end
-    return lines
+-- get all lines from a file, returns an empty
+-- list/table if the file does not exist
+function helpers.lines_from(file)
+  if not helpers.file_exists(file) then return {} end
+  local lines = {}
+  for line in io.lines(file) do
+    lines[#lines + 1] = line
+  end
+  return lines
 end
 
--- get a table with all lines from a file matching regexp
-function helpers.lines_match(regexp, path)
-    local lines = {}
-    for line in io.lines(path) do
-        if string.match(line, regexp) then
-            lines[#lines + 1] = line
-        end
-    end
-    return lines
+-- match all lines from a file, returns an empty
+-- list/table if the file or match does not exist
+function helpers.lines_match(regexp, file)
+	local lines = {}
+	for index,line in pairs(helpers.lines_from(file)) do
+		if string.match(line, regexp) then
+			lines[index] = line
+		end
+	end
+	return lines
 end
 
--- get first line of a file
-function helpers.first_line(path)
-    local file, first = io.open(path, "rb"), nil
-    if file then
-        first = file:read("*l")
-        file:close()
-    end
-    return first
+-- get first line of a file, return nil if
+-- the file does not exist
+function helpers.first_line(file)
+    return helpers.lines_from(file)[1]
 end
 
--- get first non empty line from a file
-function helpers.first_nonempty_line(path)
-    for line in io.lines(path) do
-        if #line then return line end
-    end
-    return nil
+-- get first non empty line from a file,
+-- returns nil otherwise
+function helpers.first_nonempty_line(file)
+  for k,v in pairs(helpers.lines_from(file)) do
+    if #v then return v end
+  end
+  return nil
 end
 
 -- }}}
@@ -107,27 +110,10 @@ end
 -- @param callback function to execute on cmd output
 -- @return cmd PID
 function helpers.async(cmd, callback)
-    return spawn.easy_async(cmd,
+    return easy_async(cmd,
     function (stdout, stderr, reason, exit_code)
-        callback(stdout, exit_code)
+        callback(stdout)
     end)
-end
-
--- like above, but call spawn.easy_async with a shell
-function helpers.async_with_shell(cmd, callback)
-    return spawn.easy_async_with_shell(cmd,
-    function (stdout, stderr, reason, exit_code)
-        callback(stdout, exit_code)
-    end)
-end
-
--- run a command and execute a function on its output line by line
-function helpers.line_callback(cmd, callback)
-    return spawn.with_line_callback(cmd, {
-        stdout = function (line)
-            callback(line)
-        end,
-    })
 end
 
 -- }}}
@@ -174,28 +160,6 @@ function helpers.spairs(t)
             return keys[i], t[keys[i]]
         end
     end
-end
-
--- create the partition of singletons of a given set
--- example: the trivial partition set of {a, b, c}, is {{a}, {b}, {c}}
-function helpers.trivial_partition_set(set)
-    local ss = {}
-    for _,e in pairs(set) do
-        ss[#ss+1] = {e}
-    end
-    return ss
-end
-
--- creates the powerset of a given set
-function helpers.powerset(s)
-    if not s then return {} end
-    local t = {{}}
-    for i = 1, #s do
-        for j = 1, #t do
-            t[#t+1] = {s[i],unpack(t[j])}
-        end
-    end
-    return t
 end
 
 -- }}}

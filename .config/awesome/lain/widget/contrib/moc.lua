@@ -11,8 +11,9 @@ local focused      = require("awful.screen").focused
 local escape_f     = require("awful.util").escape
 local naughty      = require("naughty")
 local wibox        = require("wibox")
-local os           = os
-local string       = string
+local os           = { getenv = os.getenv }
+local string       = { format = string.format,
+                       gmatch = string.gmatch }
 
 -- MOC audio player
 -- lain.widget.contrib.moc

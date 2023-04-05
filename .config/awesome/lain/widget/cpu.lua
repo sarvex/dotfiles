@@ -1,15 +1,16 @@
 --[[
 
      Licensed under GNU General Public License v2
-      * (c) 2013,      Luca CPZ
+      * (c) 2013,      Luke Bonham
       * (c) 2010-2012, Peter Hofmann
 
 --]]
 
 local helpers  = require("lain.helpers")
 local wibox    = require("wibox")
-local math     = math
-local string   = string
+local math     = { ceil   = math.ceil }
+local string   = { format = string.format,
+                   gmatch = string.gmatch }
 local tostring = tostring
 
 -- CPU usage
