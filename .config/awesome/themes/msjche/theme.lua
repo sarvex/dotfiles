@@ -127,7 +127,7 @@ local mail = lain.widget.imap({
         count = ""
 
         if mailcount > 0 then
-            mail = "<span font='Tamzen 5'> </span>Mail "
+            mail = "<span font='Droid Sans 5'> </span>Mail "
             count = mailcount .. " "
         end
 
@@ -142,11 +142,11 @@ theme.mpd = lain.widget.mpd({
     settings = function()
         if mpd_now.state == "play" then
             title = mpd_now.title
-            artist  = " " .. mpd_now.artist  .. markup("#333333", " <span font='Tamzen 2'> </span>|<span font='Tamzen 5'> </span>")
+            artist  = " " .. mpd_now.artist  .. markup("#333333", " <span font='Droid Sans 2'> </span>|<span font='Droid Sans 5'> </span>")
             mpdicon:set_image(theme.play)
         elseif mpd_now.state == "pause" then
             title = "mpd "
-            artist  = "paused" .. markup("#333333", " |<span font='Tamzen 5'> </span>")
+            artist  = "paused" .. markup("#333333", " |<span font='Droid Sans 5'> </span>")
             mpdicon:set_image(theme.pause)
         else
             title  = ""
@@ -225,7 +225,7 @@ local batwidget = wibox.container.margin(batbg, 2, 7, 4, 4)
 --    partition = "/home",
 ----    partition = "/",
 --    options = "--exclude-type=tmpfs",
---    notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Tamzen 10.5" },
+--    notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Droid Sans 10.5" },
 --    settings  = function()
 --        if tonumber(fs_now.used) < 90 then
 --            fsbar:set_color(theme.fg_normal)
@@ -293,10 +293,10 @@ theme.weather = lain.widget.weather({
 })
 
 -- Separators
-local first     = wibox.widget.textbox(markup.font("Tamzen 3", " "))
+local first     = wibox.widget.textbox(markup.font("Droid Sans 3", " "))
 local spr       = wibox.widget.textbox(' ')
-local small_spr = wibox.widget.textbox(markup.font("Tamzen 4", " "))
-local bar_spr   = wibox.widget.textbox(markup.font("Tamzen 3", " ") .. markup.fontfg(theme.font, "#333333", "|") .. markup.font("Tamzen 5", " "))
+local small_spr = wibox.widget.textbox(markup.font("Droid Sans 4", " "))
+local bar_spr   = wibox.widget.textbox(markup.font("Droid Sans 3", " ") .. markup.fontfg(theme.font, "#333333", "|") .. markup.font("Droid Sans 5", " "))
 
 -- Eminent-like task filtering
 local orig_filter = awful.widget.taglist.filter.all
