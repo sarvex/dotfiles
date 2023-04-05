@@ -349,20 +349,11 @@ function theme.at_screen_connect(s)
     s.mywibox = awful.wibar({ position = "top", screen = s, height = 28, bg = theme.bg_normal, fg = theme.fg_normal })
 
     -- Add widgets to the wibox
-
-    -- Add widgets to the wibox
-    s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Top widgets
-            layout = wibox.layout.fixed.horizontal,
-			mylauncher,
-        },
-    }
-
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
+			mylauncher,
             small_spr,
             s.mylayoutbox,
             first,
