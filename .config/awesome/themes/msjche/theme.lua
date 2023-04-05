@@ -15,7 +15,7 @@ local gpmdp   = require("widgets.gpmdp")
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/msjche"
-theme.wallpaper                                 = theme.dir .. "/wall.png"
+-- theme.wallpaper                                 = theme.dir .. "/wall.png"
 theme.font                                      = "Droid Sans 14"
 theme.taglist_font 				= "Xirod 17"
 theme.fg_normal                                 = "#757575"
@@ -96,7 +96,7 @@ local red    = "#EB8F8F"
 local green  = "#8FEB8F"
 local white	 = theme.fg_normal
 
-local mytextclock = wibox.widget.textclock(markup(blue, " %a") .. markup(white, " %d ") .. markup(blue, "%b ") ..  markup(white, "%H:%M "))
+local mytextclock = wibox.widget.textclock(markup(blue, " %a") .. markup(white, " %d ") .. markup(blue, "%b ") ..  markup(white, "%I:%M "))
 mytextclock.font = theme.font
 
 --uptimewidget = wibox.widget.textbox()
@@ -114,8 +114,6 @@ lain.widget.calendar({
 -- Launcher
 local mylauncher = awful.widget.button({image = theme.awesome_icon})
 mylauncher:connect_signal("button::press", function() awful.util.mymainmenu:toggle() end)
--- local mylauncher2 = awful.widget.button({image = theme.awesome_icon})
--- mylauncher2:connect_signal("button::press", function() awful.util.mymainmenu:toggle() end)
 
 --[[ Mail IMAP check
 -- commented because it needs to be set before use
@@ -352,8 +350,8 @@ function theme.at_screen_connect(s)
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
+            mylauncher,
             layout = wibox.layout.fixed.horizontal,
-			mylauncher,
             small_spr,
             s.mylayoutbox,
             first,
@@ -387,8 +385,6 @@ function theme.at_screen_connect(s)
         },
     }
 
-	-- Create the vertical wibox
-    s.myverticalwibox = awful.wibar({ position = "left", screen = s, width = 120, bg = theme.bg_normal, fg = theme.fg_normal })
 
 end
 
