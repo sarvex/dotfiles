@@ -123,7 +123,7 @@ super + ctrl + shift + space
 # MOVE/RESIVE
 # shrink/expand
 ctrl + alt + h
-	bspc node -z {left -20 0} || bspc node -z {right -20 0} || 
+	bspc node -z {left -20 0} || bspc node -z {right -20 0}
 ctrl + alt + j
 	bspc node -z {bottom 0 20} || bspc node -z {top 0 20}
 ctrl + alt + k
