@@ -131,13 +131,13 @@ scrolling:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: Cascadia Code PL
+    family: LiterationMono NF
 
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
 
-  # Bold font facek
+  # Bold font face
   #bold:
     # Font family
     #
