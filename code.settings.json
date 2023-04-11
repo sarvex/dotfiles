@@ -1,25 +1,37 @@
 {
+  "FSharp.suggestGitignore": false,
   "arduino.useArduinoCli": true,
   "asa.enableFeedbackPrompt": false,
   "aws.telemetry": false,
+  "bazel.buildifierFixOnFormat": true,
+  "bazel.enableCodeLens": true,
   "code-runner.enableAppInsights": false,
+  "codeQL.telemetry.enableTelemetry": false,
   "color-highlight.matchRgbWithNoFunction": true,
   "color-highlight.matchWords": true,
   "dart.flutterSdkPath": "/Users/sarvex/Library/Android/flutter",
   "dart.lineLength": 120,
   "dart.maxLogLineLength": 10000,
+  "dart.normalizeFileCasing": true,
   "dart.openDevTools": "flutter",
   "dart.renameFilesWithClasses": "prompt",
   "dotnetAcquisitionExtension.enableTelemetry": false,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "editor.codeActionsOnSave": [
+    "source.convertImportFormat",
+    "source.fixAll",
+    "source.organizeImports",
+    "source.unusedImports"
+  ],
   "editor.cursorBlinking": "phase",
   "editor.cursorSmoothCaretAnimation": "on",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.experimental.pasteActions.enabled": true,
   "editor.foldingImportsByDefault": true,
   "editor.fontFamily": "'Cascadia Code PL', 'CascadiaCodePL', 'Cascadia Code', 'CascadiaCode', 'MesloLGMDZ Nerd Font', Menlo, Monaco, Consolas,  'Courier New', monospace",
   "editor.fontLigatures": "'calt', 'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06','ss07', 'ss08', 'ss09', 'ss10', 'zero', 'onum'",
-"editor.formatOnPaste": true,
-  
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
   "editor.guides.bracketPairs": true,
   "editor.guides.bracketPairsHorizontal": true,
   "editor.indentSize": "tabSize",
@@ -27,41 +39,32 @@
   "editor.parameterHints.cycle": true,
   "editor.rulers": [120],
   "editor.semanticHighlighting.enabled": true,
-  "editor.suggestSelection": "first",
+  "editor.semanticTokenColorCustomizations": {
+    "enabled": true,
+    "rules": {
+      "comment": {
+        "fontStyle": "italic",
+        "foreground": "#546E7A"
+      },
+      "function": "#00BCD4",
+      "keyword": "#7986CB",
+      "macro": "#7E57C2",
+      "namespace": "#00897B",
+      "number": "#90A4AE",
+      "operator": "#9575CD",
+      "punctuation": "#A1887F",
+      "string": {
+        "foreground": "#90A4AE",
+        "italic": true
+      },
+      "type": "#26A69A",
+      "type.modification": "#00897B",
+      "variable": "#42A5F5",
+      "variable.readonly.defaultLibrary": "#A89F9B"
+    }
+  },
   "editor.tabCompletion": "on",
   "editor.tabSize": 2,
-  "editor.wordWrapColumn": 120,
-  "files.autoSave": "onWindowChange",
-  "FSharp.suggestGitignore": false,
-  "git.autofetch": true,
-  "git.enableSmartCommit": true,
-  "gitlens.telemetry.enabled": false,
-  "go.toolsManagement.autoUpdate": true,
-  "julia.enableTelemetry": false,
-  "julia.symbolCacheDownload": true,
-  "liveServer.settings.donotShowInfoMsg": true,
-  "mdb.sendTelemetry": false,
-  "okteto.telemetry": false,
-  "partialDiff.enableTelemetry": false,
-  "python.condaPath": "C:\\Tools\\Anaconda3\\_conda.exe",
-  "python.formatting.provider": "black",
-  "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true,
-  "redhat.telemetry.enabled": false,
-  "rest-client.enableTelemetry": false,
-  "restructuredtext.experimental": true,
-  "security.workspace.trust.untrustedFiles": "open",
-  "solidity.telemetry": false,
-  "svelte.enable-ts-plugin": true,
-  "telemetry.telemetryLevel": "off",
-  "terminal.integrated.commandsToSkipShell": ["language-julia.interrupt"],
-  "terminal.integrated.cursorBlinking": true,
-  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-  "workbench.colorTheme": "Noctis Azureus",
-  "workbench.iconTheme": "ayu",
-  "yaml.format.printWidth": 120,
-  "zopeneditor.welcomePage.show": false,
-
   "editor.tokenColorCustomizations": {
     "textMateRules": [
       {
@@ -89,41 +92,130 @@
           "constant.numeric.json"
         ],
         "settings": {
-          "fontStyle": ""
+          "fontStyle": "bold"
         }
       }
     ]
   },
+  "editor.wordWrapColumn": 120,
+  "eslint.experimental.useFlatConfig": true,
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
+  "eslint.packageManager": "pnpm",
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "vue",
+    "markdown",
+    "svelte",
+    "astro"
+  ],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "vue",
+    "markdown",
+    "svelte",
+    "astro"
+  ],
+  "explorer.confirmDelete": false,
+  "files.associations": {
+    "*.ASM*": "hlasm",
+    "*.ASSEMBLE*": "hlasm",
+    "*.COB*": "cobol",
+    "*.COBCOPY*": "cobol",
+    "*.COBOL*": "cobol",
+    "*.COPY*": "cobol",
+    "*.COPYBOOK*": "cobol",
+    "*.EXEC*": "rexx",
+    "*.HLA*": "hlasm",
+    "*.HLASM*": "hlasm",
+    "*.INC*": "pl1",
+    "*.INCLUDE*": "pl1",
+    "*.JCL*": "jcl",
+    "*.MACLIB*": "hlasm",
+    "*.PL1*": "pl1",
+    "*.PLI*": "pl1",
+    "*.REXX*": "rexx",
+    "*.REXXINC*": "rexx",
+    "*.bms": "hlasm",
+    "*.copyasm": "hlasm",
+    "*.embeddedhtml": "html",
+    "*.macasm": "hlasm",
+    "*.rex": "rexx",
+    "*.rexx": "rexx",
+    "MLTable": "yaml"
+  },
+  "files.autoSave": "onWindowChange",
   "files.exclude": {
     "**/.classpath": true,
+    "**/.factorypath": true,
     "**/.project": true,
-    "**/.settings": true,
-    "**/.factorypath": true
+    "**/.settings": true
   },
-  "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+  "git.autofetch": true,
+  "git.enableSmartCommit": true,
+  "gitlens.codeLens.enabled": false,
+  "gitlens.telemetry.enabled": false,
+  "go.toolsManagement.autoUpdate": true,
+  "julia.enableTelemetry": false,
+  "julia.symbolCacheDownload": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "mdb.sendTelemetry": false,
+  "okteto.telemetry": false,
+  "omnisharp.enableRoslynAnalyzers": true,
+  "partialDiff.enableTelemetry": false,
+  "prettier.bracketSameLine": true,
+  "prettier.jsxSingleQuote": true,
+  "prettier.printWidth": 120,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "prettier.vueIndentScriptAndStyle": true,
+  "python.analysis.inlayHints.pytestParameters": true,
+  "python.condaPath": "C:/Tools/Miniconda3/_conda.exe",
+  "python.formatting.provider": "black",
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "rest-client.enableTelemetry": false,
+  "restructuredtext.experimental": true,
+  "security.workspace.trust.untrustedFiles": "open",
+  "solidity.telemetry": false,
+  "sortJSON.contextMenu": {
+    "sortJSON": false,
+    "sortJSONAlphaNum": false,
+    "sortJSONAlphaNumReverse": false,
+    "sortJSONKeyLength": false,
+    "sortJSONKeyLengthReverse": false,
+    "sortJSONReverse": false,
+    "sortJSONType": false,
+    "sortJSONTypeReverse": false,
+    "sortJSONValues": false,
+    "sortJSONValuesReverse": false
   },
-  "json.schemas": [
-    {
-      "fileMatch": [
-        "/zapp.json"
-      ],
-      "url": "file:///c%3A/Users/Yoga/.vscode/extensions/ibm.zopeneditor-3.1.0/resources/zapp-schema-1.0.0.json"
-    },
-    {
-      "fileMatch": [
-        "/zcodeformat.json"
-      ],
-      "url": "file:///c%3A/Users/Yoga/.vscode/extensions/ibm.zopeneditor-3.1.0/resources/zcodeformat-schema-0.0.1.json"
-    }
-  ],
-  "[scss]": {
-    "editor.defaultFormatter": "vscode.css-language-features"
-  },
-
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+  "stylelint.ignoreDisables": true,
+  "stylelint.packageManager": "pnpm",
+  "stylelint.snippet": ["css", "less", "postcss", "scss", "sass"],
+  "stylelint.validate": ["css", "less", "postcss", "scss", "sass"],
+  "svelte.enable-ts-plugin": true,
+  "svelte.plugin.svelte.format.config.printWidth": 120,
+  "svelte.plugin.svelte.format.config.singleQuote": true,
+  "svelte.plugin.svelte.format.config.svelteBracketNewLine": false,
+  "svelte.plugin.svelte.format.config.svelteStrictMode": true,
+  "telemetry.telemetryLevel": "off",
+  "terminal.integrated.fontFamily": "LiterationMono NF",
+  "window.autoDetectColorScheme": true,
+  "workbench.colorTheme": "Eva Dark Italic",
+  "workbench.iconTheme": "ayu",
+  "workbench.preferredDarkColorTheme": "Eva Dark Italic",
+  "workbench.preferredHighContrastColorTheme ": "Eva Light Italic",
+  "workbench.preferredHighContrastLightColorTheme ": "Eva Dark Bold",
+  "workbench.preferredLightColorTheme": "Eva Light Bold",
   "yaml.customTags": [
     "!And",
     "!And sequence",
@@ -153,67 +245,5 @@
     "!Split",
     "!Split sequence"
   ],
-  "zowe.ds.history": {
-    "persistence": true,
-    "favorites": [],
-    "history": [],
-    "sessions": [],
-    "fileHistory": [],
-    "searchHistory": []
-  },
-  "zowe.uss.history": {
-    "persistence": true,
-    "favorites": [],
-    "history": [],
-    "sessions": [],
-    "fileHistory": [],
-    "searchHistory": []
-  },
-  "zowe.jobs.history": {
-    "persistence": true,
-    "favorites": [],
-    "history": [],
-    "sessions": [],
-    "fileHistory": [],
-    "searchHistory": []
-  },
-  "yaml.schemas": {
-    "file:///c%3A/Users/Yoga/.vscode/extensions/ibm.zopeneditor-3.1.0/resources/zapp-schema-1.0.0.json": [
-      "zapp.yaml"
-    ],
-    "file:///c%3A/Users/Yoga/.vscode/extensions/ibm.zopeneditor-3.1.0/resources/zcodeformat-schema-0.0.1.json": [
-      "zcodeformat.yaml"
-    ]
-  },
-  "files.associations": {
-    "*.COBOL*": "cobol",
-    "*.COB*": "cobol",
-    "*.COBCOPY*": "cobol",
-    "*.COPYBOOK*": "cobol",
-    "*.COPY*": "cobol",
-    "*.PL1*": "pl1",
-    "*.PLI*": "pl1",
-    "*.INC*": "pl1",
-    "*.INCLUDE*": "pl1",
-    "*.JCL*": "jcl",
-    "*.ASM*": "hlasm",
-    "*.ASSEMBLE*": "hlasm",
-    "*.HLASM*": "hlasm",
-    "*.HLA*": "hlasm",
-    "*.MACLIB*": "hlasm",
-    "*.EXEC*": "rexx",
-    "*.REXX*": "rexx",
-    "*.REXXINC*": "rexx",
-    "*.copyasm": "hlasm",
-    "*.macasm": "hlasm",
-    "*.bms": "hlasm",
-    "*.rex": "rexx",
-    "*.rexx": "rexx",
-    "MLTable": "yaml",
-    "*.embeddedhtml": "html"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "explorer.confirmDelete": false
+  "yaml.format.printWidth": 120
 }
