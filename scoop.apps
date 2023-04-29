@@ -1,4 +1,5 @@
 {
+    // scoop export -c > scoop.apps
     "apps": [
         {
             "Info": "",
