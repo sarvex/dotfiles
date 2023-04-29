@@ -163,6 +163,15 @@ hotkeys:
     - Ctrl-Shift-E
   command-selector:
     - Ctrl-Shift-P
+  workspace-profile-1: []
+  workspace-profile-2: []
+  workspace-profile-3: []
+  workspace-profile-4: []
+  workspace-profile-5: []
+  search-in-browser: []
+  qc:
+    - Alt-Q
+  toggle-clippy: []
 terminal:
   searchOptions: {}
   colorScheme:
@@ -194,10 +203,9 @@ terminal:
   profile: local:default
   customColorSchemes: []
   showTabProfileIcon: true
-  frontend: xterm
-  autoOpen: true
   hideTabOptionsButton: true
   ligatures: true
+  fontSize: 15
 ssh:
   warnOnClose: true
 configSync:
@@ -213,7 +221,15 @@ hacks:
   enableFluentBackground: true
   disableVibrancyWhileDragging: true
 enableWelcomeTab: false
-pluginBlacklist: []
+pluginBlacklist:
+  - clippy
 profileDefaults:
   ssh:
     disableDynamicTitle: true
+workspaceManager: {}
+searchInBrowserPlugin: {}
+saveOutput: {}
+qc:
+  cmds: []
+docker: {}
+clippyPlugin: {}
