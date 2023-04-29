@@ -3,9 +3,6 @@
   "auto_complete_commit_on_tab": true,
   "auto_complete_cycle": true,
   "auto_complete_with_fields": true,
-  "auto_hide_menu": true,
-  "auto_hide_status_bar": true,
-  "auto_hide_tabs": true,
   "bold_folder_labels": true,
   "caret_style": "phase",
   "console_max_history_lines": 99999,
@@ -15,9 +12,8 @@
   "draw_unicode_white_space": "all",
   "draw_white_space": ["all_tabs", "selection"],
   "ensure_newline_at_eof_on_save": true,
-  "font_face": "Cascadia Code PL",
-  "font_face": "Cascadia Code PL",
-  "font_options": ["gdi", "liga", "clig", "calt", "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08", "ss09", "ss10"],
+  "font_face": "Hack Italic Nerd Font Complete Windows Compatible",
+  "font_options": ["aalt", "gdi", "liga", "clig", "calt", "falt", "halt", "jalt", "ltra", "nalt", "palt", "rvrn", "salt", "valt", "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08", "ss09", "ss10", "ss11", "ss12", "ss13", "ss14", "ss15", "ss16", "ss17", "ss18", "ss19", "ss20"],
   "hardware_acceleration": "opengl",
   "highlight_modified_tabs": true,
   "light_theme": "Adaptive.sublime-theme",
@@ -30,5 +26,5 @@
   "show_tab_close_buttons": false,
   "tab_size": 2,
   "translate_tabs_to_spaces": true,
-  "trim_trailing_white_space_on_save": "all",
+  "trim_trailing_white_space_on_save": "all"
 }
