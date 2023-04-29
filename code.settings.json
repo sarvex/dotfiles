@@ -1,14 +1,31 @@
 {
   "FSharp.suggestGitignore": false,
-  "arduino.useArduinoCli": true,
-  "asa.enableFeedbackPrompt": false,
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer"
+  },
   "aws.telemetry": false,
-  "bazel.buildifierFixOnFormat": true,
-  "bazel.enableCodeLens": true,
+  "cSpell.userWords": [
+    "Comptime",
+    "divriots",
+    "fontsource",
+    "gizlang",
+    "imagetools",
+    "jampack",
+    "metaprogramming",
+    "postbuild",
+    "qwik",
+    "Rendle",
+    "stackoverflow",
+    "subfont",
+    "tabler",
+    "tailwindcss",
+    "Webp"
+  ],
   "code-runner.enableAppInsights": false,
   "codeQL.telemetry.enableTelemetry": false,
-  "color-highlight.matchRgbWithNoFunction": true,
-  "color-highlight.matchWords": true,
   "dart.flutterSdkPath": "/Users/sarvex/Library/Android/flutter",
   "dart.lineLength": 120,
   "dart.maxLogLineLength": 10000,
@@ -17,52 +34,23 @@
   "dart.renameFilesWithClasses": "prompt",
   "dotnetAcquisitionExtension.enableTelemetry": false,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
-  "editor.codeActionsOnSave": [
-    "source.convertImportFormat",
-    "source.fixAll",
-    "source.organizeImports",
-    "source.unusedImports"
-  ],
   "editor.cursorBlinking": "phase",
   "editor.cursorSmoothCaretAnimation": "on",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "rome.rome",
   "editor.experimental.pasteActions.enabled": true,
   "editor.foldingImportsByDefault": true,
-  "editor.fontFamily": "'Cascadia Code PL', 'CascadiaCodePL', 'Cascadia Code', 'CascadiaCode', 'MesloLGMDZ Nerd Font', Menlo, Monaco, Consolas,  'Courier New', monospace",
-  "editor.fontLigatures": "'calt', 'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06','ss07', 'ss08', 'ss09', 'ss10', 'zero', 'onum'",
+  "editor.fontFamily": "'CaskaydiaCode NF', 'Cascadia Code PL', 'CascadiaCodePL', 'Cascadia Code', 'CascadiaCode', 'MesloLGMDZ Nerd Font', Menlo, Monaco, Consolas,  'Courier New', monospace",
+  "editor.fontLigatures": "'aalt', 'gdi', 'liga', 'clig', 'calt', 'falt', 'halt', 'jalt', 'ltra', 'nalt', 'palt', 'rvrn', 'salt', 'valt', 'dlig', 'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'ss07', 'ss08', 'ss09', 'ss10', 'ss11', 'ss12', 'ss13', 'ss14', 'ss15', 'ss16', 'ss17', 'ss18', 'ss19', 'ss20'",
   "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
   "editor.guides.bracketPairs": true,
   "editor.guides.bracketPairsHorizontal": true,
   "editor.indentSize": "tabSize",
   "editor.linkedEditing": true,
   "editor.parameterHints.cycle": true,
-  "editor.rulers": [120],
+  "editor.rulers": [
+    120
+  ],
   "editor.semanticHighlighting.enabled": true,
-  "editor.semanticTokenColorCustomizations": {
-    "enabled": true,
-    "rules": {
-      "comment": {
-        "fontStyle": "italic",
-        "foreground": "#546E7A"
-      },
-      "function": "#00BCD4",
-      "keyword": "#7986CB",
-      "macro": "#7E57C2",
-      "namespace": "#00897B",
-      "number": "#90A4AE",
-      "operator": "#9575CD",
-      "punctuation": "#A1887F",
-      "string": {
-        "foreground": "#90A4AE",
-        "italic": true
-      },
-      "type": "#26A69A",
-      "type.modification": "#00897B",
-      "variable": "#42A5F5",
-      "variable.readonly.defaultLibrary": "#A89F9B"
-    }
-  },
   "editor.tabCompletion": "on",
   "editor.tabSize": 2,
   "editor.tokenColorCustomizations": {
@@ -71,6 +59,8 @@
         "scope": [
           //following will be in italic (=FlottFlott)
           "comment",
+          "string",
+          "parameter",
           "entity.name.type.class", //class names
           "keyword", //import, export, return…
           "constant", //String, Number, Boolean…, this, super
@@ -125,6 +115,10 @@
     "astro"
   ],
   "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
   "files.associations": {
     "*.ASM*": "hlasm",
     "*.ASSEMBLE*": "hlasm",
@@ -156,21 +150,39 @@
   "files.exclude": {
     "**/.classpath": true,
     "**/.factorypath": true,
+    "**/.git": false,
+    "**/.hg": false,
     "**/.project": true,
-    "**/.settings": true
+    "**/.settings": true,
+    "**/.svn": false,
+    "**/CVS": false
   },
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
   "git.autofetch": true,
+  "git.branchRandomName.dictionary": [
+    "adjectives",
+    "animals",
+    "colors"
+  ],
+  "git.branchRandomName.enable": true,
+  "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "gitlens.codeLens.enabled": false,
+  "gitlens.statusBar.enabled": false,
   "gitlens.telemetry.enabled": false,
   "go.toolsManagement.autoUpdate": true,
   "julia.enableTelemetry": false,
   "julia.symbolCacheDownload": true,
-  "liveServer.settings.donotShowInfoMsg": true,
   "mdb.sendTelemetry": false,
   "okteto.telemetry": false,
   "omnisharp.enableRoslynAnalyzers": true,
   "partialDiff.enableTelemetry": false,
+  "peacock.affectActivityBar": false,
+  "peacock.affectStatusBar": false,
+  "peacock.affectTabActiveBorder": true,
+  "peacock.showColorInStatusBar": false,
+  "peacock.surpriseMeOnStartup": true,
   "prettier.bracketSameLine": true,
   "prettier.jsxSingleQuote": true,
   "prettier.printWidth": 120,
@@ -182,10 +194,25 @@
   "python.formatting.provider": "black",
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
-  "rest-client.enableTelemetry": false,
+  "remote.SSH.remotePlatform": {
+    "DeveloperArm": "linux"
+  },
   "restructuredtext.experimental": true,
+  "scm.diffDecorationsGutterPattern": {
+    "added": true
+  },
   "security.workspace.trust.untrustedFiles": "open",
+  "settingsSync.ignoredSettings": [
+    "configurationSync.store"
+  ],
   "solidity.telemetry": false,
+  "sonarlint.connectedMode.connections.sonarcloud": [
+    {
+      "connectionId": "sarvex",
+      "disableNotifications": true,
+      "organizationKey": "sarvex"
+    }
+  ],
   "sortJSON.contextMenu": {
     "sortJSON": false,
     "sortJSONAlphaNum": false,
@@ -198,24 +225,49 @@
     "sortJSONValues": false,
     "sortJSONValuesReverse": false
   },
-  "stylelint.ignoreDisables": true,
   "stylelint.packageManager": "pnpm",
-  "stylelint.snippet": ["css", "less", "postcss", "scss", "sass"],
-  "stylelint.validate": ["css", "less", "postcss", "scss", "sass"],
+  "stylelint.snippet": [
+    "css",
+    "less",
+    "postcss",
+    "scss",
+    "sass"
+  ],
+  "stylelint.validate": [
+    "css",
+    "less",
+    "postcss",
+    "scss",
+    "sass"
+  ],
   "svelte.enable-ts-plugin": true,
   "svelte.plugin.svelte.format.config.printWidth": 120,
   "svelte.plugin.svelte.format.config.singleQuote": true,
   "svelte.plugin.svelte.format.config.svelteBracketNewLine": false,
   "svelte.plugin.svelte.format.config.svelteStrictMode": true,
   "telemetry.telemetryLevel": "off",
+  "terminal.external.windowsExec": "pwsh.exe",
+  "terminal.integrated.allowMnemonics": true,
+  "terminal.integrated.commandsToSkipShell": [
+    "language-julia.interrupt"
+  ],
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.enableMultiLinePasteWarning": false,
   "terminal.integrated.fontFamily": "LiterationMono NF",
+  "terminal.integrated.minimumContrastRatio": 7,
+  "terminal.integrated.scrollback": 99999,
+  "terminal.integrated.shellIntegration.history": 999,
+  "terminal.integrated.shellIntegration.suggestEnabled": true,
+  "terminal.integrated.smoothScrolling": true,
+  "terminal.integrated.tabStopWidth": 2,
+  "terminal.integrated.tabs.showActions": "always",
+  "terminal.integrated.tabs.showActiveTerminal": "always",
   "window.autoDetectColorScheme": true,
-  "workbench.colorTheme": "Eva Dark Italic",
-  "workbench.iconTheme": "ayu",
-  "workbench.preferredDarkColorTheme": "Eva Dark Italic",
-  "workbench.preferredHighContrastColorTheme ": "Eva Light Italic",
-  "workbench.preferredHighContrastLightColorTheme ": "Eva Dark Bold",
-  "workbench.preferredLightColorTheme": "Eva Light Bold",
+  "workbench.colorTheme": "Tokyo Night Storm",
+  "workbench.iconTheme": "file-icons",
+  "workbench.preferredDarkColorTheme": "Tokyo Night",
+  "workbench.preferredLightColorTheme": "Tokyo Night Storm",
+  "workbench.productIconTheme": "flippidippi-product-icons",
   "yaml.customTags": [
     "!And",
     "!And sequence",
