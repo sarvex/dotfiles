@@ -1,8 +1,0 @@
-// Place your settings in this file to overwrite the default settings
-{
-    "editor.glyphMargin": false,
-    "editor.rulers": [120],
-    "editor.tabSize": 2,
-    "files.eol": "\n",
-    "files.trimTrailingWhitespace": true
-}
